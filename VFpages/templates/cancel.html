@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sales Policy - Vacation Feast</title>
+
+    <meta name="og:title" content="Sales Policy - Vacation Feast">
+    
+    <meta name="description" content="Vacation Feast's sales policy ensures seamless booking experiences for travelers with transparent terms and flexible payment options." />
+    
+    <meta name="og:description" content="Vacation Feast's sales policy ensures seamless booking experiences for travelers with transparent terms and flexible payment options.">
+    <meta name="keywords" content="sales policy" />
+
+   <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!--Custom CSS-->
+    <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
+    <!--Plugin CSS-->
+    <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
+</head>
+
+<body>
+<h1 style="display:none">Sales Policy - Vacation Feast</h1>
+     <!-- Preloader -->
+     <div id="preloader">
+        <div id="status"></div>
+    </div> 
+    <!-- Preloader Ends -->
+
+    <!-- header starts -->
+    {% include 'home/header.html' %}
+    <!-- header ends -->
+
+    <!-- Terms starts -->
+    <!-- <section class="pt-3 pb-3">
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </section> -->
+    <style>
+        .title {
+            font-size: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+    <div class="container">
+        <div class="row col-lg-10 mt-10 mb-10 mx-auto terms-and-conditions-section">
+          <div class="text-center">
+            <h1 class="title">Sales Policy</h1>
+          </div>
+  
+          <div class="bg-grey pt-1 px-5 pb-4 rounded">
+            <div class="content">
+              <p>To book a trip with Vacation Feast, whether for individual travelers or private groups, you need to have at least 2-4 people traveling together on the same trip. You can choose from one of our pre-planned trips listed on our website or opt for a custom-designed itinerary. Once you discuss your preferences with one of our travel specialists, they'll provide you with a basic itinerary and estimated cost for the customized tour.</p>
+              <p>To proceed with the booking, there's a non-refundable and non-transferable custom itinerary design fee, which covers the creation of up to 3 different itineraries. This fee will be deducted from your total invoice.</p>
+              <p>To secure your reservation, you'll need to pay a minimum of 50% of the trip cost along with a completed Trip Reservation eForm. Once your trip is confirmed, we'll send you comprehensive planning documents via email. Additional traveler forms, like medical questionnaires, are available online and must be completed before the final payment.</p>
+              <p>The remaining balance will be invoiced when the departure is confirmed. Usually, final payment is due 120 days before the trip, but for special trips or cruises, it might be due earlier. If you're booking less than 120 days in advance (or 150 days in certain cases), full payment is required at the time of booking.</p>
+              <p>You can pay deposits and balance payments using various methods, including agency check, wire transfer, or credit card (MasterCard, Visa, Discover, and American Express).</p>
+              <p>All terms and conditions outlined on our website apply, including promotional discounts for early sign-ups, groups, children, and alumni. Feel free to contact us through our Travel Request Form for a quote.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Terms Ends -->
+
+        <!-- footer starts -->
+        {% include 'home/footer.html' %}
+      <!-- footer ends -->
+    <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/home/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/home/particles.js' %}"></script>
+    <script src="{% static 'js/home/particlerun.js' %}"></script>
+    <script src="{% static 'js/home/plugin.js' %}"></script>
+    <script src="{% static 'js/home/main.js' %}"></script>
+    <script src="{% static 'js/home/custom-accordian.js' %}"></script>
+    <script src="{% static 'js/home/custom-nav.js' %}"></script>
+    
+</body>
+</html>

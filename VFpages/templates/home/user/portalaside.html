@@ -1,0 +1,169 @@
+{% load static %}
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'portalhome' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+   
+
+       <li class="nav-item" id="hotel-menu">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514"/>
+            <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
+            <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+          </svg></i><span>Hotel</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'upcominghotel' %}">
+              <i class="bi bi-circle"></i><span>Upcoming Stay</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'hotelcompleted' %}">
+              <i class="bi bi-circle"></i><span> completed Stay</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+       <li class="nav-item" id="flight-menu">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav1" data-bs-toggle="collapse" href="#">
+          <i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
+          </svg></i><span>Flight</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+         <ul id="tables-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'upcomingflight' %}">
+              <i class="bi bi-circle"></i><span>Upcoming Travel</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'flightcompleted' %}">
+              <i class="bi bi-circle"></i><span>Travel Completed</span>
+            </a>
+          </li>
+        </ul>
+       </li>  
+
+       <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url 'transfersuser' %}">
+          <i class="bi bi-person"></i><span>Transfer</span>
+        </a>
+        
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url 'ticketsuser' %}">
+          <i class="bi bi-ticket"></i><span>Tickets</span>
+          <!--<i class="bi bi-chevron-down ms-auto">data-bs-target="#icons-nav" data-bs-toggle="collapse"</i>-->
+        </a>
+        
+      </li>
+
+       <li class="nav-heading">Documents</li> 
+
+       <li class="nav-item">
+        <a class="nav-link collapsed"   href="{% url 'visauser' %}">
+          <i class="bi bi-person-badge"></i>
+          <span>Visa</span>
+        </a>
+      </li>
+
+       <li class="nav-item">
+        <a class="nav-link collapsed"   href="{% url 'passportuser' %}">
+          <i class="bi bi-credit-card-2-front"></i>
+          <span>Passport</span>
+        </a>
+      </li> 
+
+       <li class="nav-item">
+        <a class="nav-link collapsed"   href="{% url 'insuranceuser' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Insurance</span>
+        </a>
+      </li> 
+
+      
+    </ul>
+
+  </aside>
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get all list items
+      var navItems = document.querySelectorAll('.nav-item');
+  
+      // Add click event listener to each list item
+      navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          // Remove 'active' class from all list items
+          navItems.forEach(function(navItem) {
+            navItem.classList.remove('active');
+          });
+          
+          // Add 'active' class to the clicked list item
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+  
+
+<!-- 
+  <script>
+$(document).ready(function() {
+    // Automatically set active state based on URL
+    function setActiveBasedOnUrl() {
+        var currentUrl = window.location.pathname;
+
+        // Reset active states first
+        $('#sidebar-nav .nav-link').removeClass('active');
+        $('#sidebar-nav .nav-item').removeClass('active');
+        $('#sidebar-nav .nav-link').addClass('collapsed');
+        $('#sidebar-nav .nav-content').removeClass('show');
+
+        // Check if URL contains specific keywords
+        if (currentUrl.includes("upcominghotel") || currentUrl.includes("travelhotel")) {
+            $('#hotel-menu').addClass('active');
+            $('#hotel-menu > .nav-link').removeClass('collapsed');
+        } else if (currentUrl.includes("upcomingflight") || currentUrl.includes("travelflight")) {
+            $('#flight-menu').addClass('active');
+            $('#flight-menu > .nav-link').removeClass('collapsed');
+        }
+    }
+
+    setActiveBasedOnUrl(); // Call this function on page load
+
+    // Handle click on sidebar links
+    $('#sidebar-nav .nav-link').click(function(e) {
+        var $this = $(this);
+        var $subMenu = $this.next('.nav-content');
+        var $parentItem = $this.parent('.nav-item');
+
+        // Remove active from all items and collapse all submenus except for current one
+        $('#sidebar-nav .nav-item').not($parentItem).removeClass('active');
+        $('#sidebar-nav .nav-link').not($this).addClass('collapsed');
+        $('#sidebar-nav .nav-content').not($subMenu).removeClass('show').collapse('hide');
+
+        // Toggle active state on the clicked item
+        $parentItem.toggleClass('active');
+        $this.removeClass('collapsed');
+
+        // Toggle submenu visibility
+        if ($subMenu.length > 0) {
+            $subMenu.collapse('toggle');
+            e.preventDefault(); // Prevent default if it's a link to avoid navigating away
+        }
+    });
+});
+</script> -->

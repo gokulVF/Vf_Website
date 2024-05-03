@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Vaction Feast</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'css/signup/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'css/signup/style2.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Template Main CSS File -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <link href="{% static 'css/signup/style.css' %}" rel="stylesheet">
+  <style>
+    .checked {
+        color: orange;
+    }
+
+    .bg-blue {
+      background: #d5eefe;
+    }
+  </style>
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% include 'home/user/portalheader.html' %}
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+  {% include 'home/user/portalaside.html' %}
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle col-lg-10 mx-auto">
+      <h1>Transfers</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'portalhome' %}">Home</a></li>
+          <li class="breadcrumb-item">Transfers</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <input type="hidden" id="usename_" value="{{ user.first_name }} {{ user.last_name }}">
+    {% for booking in hotel_details %}
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+          <div class="card rounded">
+            <div class="card-body px-4 py-2">
+            <div class="row bg-blue p-3 rounded ">
+                <div class="col-lg-3">
+                    <p class="card-title pb-0 mb-2"><i class="fa fa-files-o me-2"></i>From</p>
+                    <p>{{ booking.datas.From }}</p>
+                 </div>
+                 <div class="col-lg-3">
+                  <p class="card-title pb-0 mb-2"><i class="fa fa-suitcase me-2"></i>To</p>
+                  <p>{{ booking.datas.TO }}</p>
+               </div>
+               <div class="col-lg-3">
+                <p class="card-title pb-0 mb-2"><i class='fas fa-plane-departure me-2'></i>Filed 1</p>
+                <p id="hotel_name_{{ booking.id }}">{{ booking.datas.data1 }}</p>
+            </div>
+               <div class="col-lg-3">
+                <p class="card-title pb-0 mb-2"><i class="fa fa-calendar me-2"></i>Filed 2</p>
+                <p>{{ booking.datas.data2 }}</p>
+               </div>
+                  <!-- <div class="col-lg-4">
+                      <p class="card-title pb-0 mb-2"><i class="fa fa-calendar me-2"></i>End Date</p>
+                      <p> {{ booking.returendate }}</p>
+                  </div> -->
+                  
+                  <!-- <div class="col-lg-4">
+                      <p class="card-title">Night(s)</p>
+                      <p> {{ booking.no_of_nights }} Nights</p>
+                  </div> -->
+                  
+            </div>
+                
+                <div class="text-end d-flex justify-content-center gap-4 py-3">
+                  <button class="btn" style="border: 1px solid black;" id="new-{{ booking.id }}"><i class="fab fa-whatsapp mx-2"></i>Send PDF Download Link</button>
+                  
+                  <script>
+                    $(document).ready(function() {
+                        // Add click event listener to the button
+                        $('#new-{{ booking.id }}').click(function() {
+                            var username = document.getElementById("usename_").value
+                            var hotelname = document.getElementById("hotel_name_{{ booking.id }}").innerText
+                            var bookingId = "{{ booking.datas.From }}"; // Get the booking ID from Django template
+                            var types = "transfer"
+                            var id = "{{ booking.id }}"
+                            var email = prompt("Please enter your Whatsapp Number:");
+                            var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+                            if (email != null && email !== "") {
+                                // Send data to server using AJAX
+                                $.ajax({
+                                    url: '/send_pdf_link/',
+                                    type: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': csrftoken // Include CSRF token in headers
+                                    },
+                                    data: {
+                                        'username':username,
+                                        'hotelname':hotelname,
+                                        'email': email,
+                                        'booking_id': bookingId,
+                                        'types':types,
+                                        'id':id
+                                    },
+                                    success: function(data) {
+                                        alert('PDF sent successfully.');
+                                    },
+                                    error: function(xhr, errmsg, err) {
+                                        console.log(xhr.status + ": " + xhr.responseText);
+                                        alert('Error sending PDF.');
+                                    }
+                                });
+                            }
+                        });
+                    
+                        // Function to get CSRF token from cookie
+                        // Function to get CSRF token from meta tag
+                        function getCSRFToken() {
+                            return $('input[name="csrfmiddlewaretoken"]').val();
+                        }
+                    });
+                    </script>  
+           
+                    <form action="{% url 'download_attachment' id=booking.id type='transfer' %}" method="get">
+                      <button class="btn" style="border: 1px solid black;"><i class="fa fa-download" ></i> Download PDF</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endfor %}
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Vacation Feast</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'js/signup/apexcharts.min.js' %}"></script>
+    <script src="{% static 'js/signup/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/signup/chart.umd.js' %}"></script>
+    <script src="{% static 'js/signup/echarts.min.js' %}"></script>
+    <script src="{% static 'js/signup/quill.min.js' %}"></script>
+    <script src="{% static 'js/signup/simple-datatables.js' %}"></script>
+    <script src="{% static 'js/signup/tinymce.min.js' %}"></script>
+    <script src="{% static 'js/signup/validate.js' %}"></script>
+    
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/signup/main.js' %}"></script>
+    
+ 
+
+</body>
+
+</html>
