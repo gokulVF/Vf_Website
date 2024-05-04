@@ -245,7 +245,7 @@
                     <!-- /.navbar-collapse -->   
                     <div class="register-login d-flex align-items-center">
                         <button style="background: None;" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" id="log-btn-switch" class="me-3 logreg_btn">
-                            <i class="icon-user"></i>  LOGIN/REGISTER
+                            <i class="icon-user user_mbl"></i>  LOGIN/REGISTER
                         </button>
                     </div> 
                     <div style="display:none;" id="logProfile">
@@ -323,7 +323,13 @@
                 bottom: 100px  !important;
             }
             
-              
+            
+        .slicknav_nav {
+            background: #029e9d !important;
+            top:70px !important;
+        }
+        
+            
             #preloader {
               position: fixed;
               top: 0;
@@ -475,7 +481,17 @@
                 height: auto !important;
                 }
             }
+
+            @media (max-width: 490px)  {
             
+            .logreg_btn{
+                font-size: 12px !important;
+            }  
+
+            .user_mbl {
+                display: none;
+            }
+        }
             
             @media screen and (min-width: 1100px) and (max-width: 1399px) { 
             .header_menu .navbar.navbar-default .nav.navbar-nav li a {

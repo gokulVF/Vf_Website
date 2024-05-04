@@ -1,11 +1,13 @@
 
+        .slicknav_nav { 
+            top:70px !important;
+        }
         
         .checked {
             color:orange;
         }
         
-       
-        
+
         .pmore-btn {
             background:#029e9d;
             color: #fff;
@@ -275,11 +277,15 @@
             }
             
             .v_ban {
-                z-index:0 !important;
-                width: 80% !important;
+                z-index: 0 !important;
+                width: 85% !important;
                 margin: 0 auto !important;
             }
             
+            .call-banner-inner  {
+                margin-left: 0px !important;
+            }
+
             .v_text1 {
                 font-size:14px !important;
             }
@@ -318,4 +324,14 @@
             .author-info {
                 display:flex !important;
             }
+
+            .r_package_div {
+                height:auto !important;
+            }
+
+            .r_det{ 
+                height: 220px !important;
+            }
+            
+            
         }

@@ -75,7 +75,7 @@
    
     <!-- BreadCrumb Starts -->  
     <section class="breadcrumb-main pb-20 pt-14 banner" >
-        <div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -113,8 +113,9 @@
                     <div class="d-flex des_main_div">
                         <div class="col-lg-3">
                             <div class="d-flex des_nav_div justify-content-start align-items-center">
+                                <h3 class="des_titles  mb-0 mbl-head" style="display:none;">Tourist Attractions</h3>
                                 <div class="nav flex-column nav-pills  me-3 " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <h3 class="des_titles  mb-0">Tourist Attractions</h3>
+                                    <h3 class="des_titles  mb-0 des-head">Tourist Attractions</h3>
                                 {% for attraction in attractions_list %}
                                   <button class="des_btn4 pt-1 pb-1 mt-2 text-start nav-link {% if forloop.first %}active{% endif %}" style="width:95%" id="v-pills-home-{{attraction.id}}" data-bs-toggle="pill" data-bs-target="#v-pills-{{attraction.id}}" type="button" role="tab" aria-controls="v-pills-{{attraction.id}}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{attraction.tour_spot_name}}</button>
                                   <!--<i class='fas fa-globe icon_btn2'></i>-->
@@ -131,23 +132,26 @@
                                 {% for attraction in attractions_list %}
                                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="v-pills-{{attraction.id}}" role="tabpanel" aria-labelledby="v-pills-home-{{attraction.id}}">
                                     <div class="d-flex align-items-center des_div">
-                                        <div style="width: 53%;">
+                                        <div style="width: 53%;" class="img_1">
                                             <img src="{% static 'destination/Attraction_image/' %}{{ attraction.includes_image }}" alt="" class="des_image">
                                         </div>
-                                        <div  style="width: 47%;">
+                                        <div  style="width: 47%;" class="des_1">
                                             <h3 class="px-3 des_titles">Description</h3>
                                             <li class="des_text des_p px-3">{{attraction.highlights_content  | safe}}</li>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center des_div mt-5">
-                                        <div  style="width: 47%;">
+                                        <div  style="width: 53%;display:none;" class="mbl-des img_1">
+                                            <img src="{% static 'destination/Attraction_image/' %}{{ attraction.highlights_image }}" alt="" class="des_image ">
+                                        </div>
+                                        <div  style="width: 47%;" class="des_1">
                                             <h3 class="px-3 des_titles">Hightlights</h3>
                                             <li class="des_text px-3" style="list-style:none !important">{{attraction.includes_content | safe}} </li>
                                             <!-- <li class="des_text px-3">Things To Do -  Explore themed gardens, walk among </li>
                                             <li class="des_text px-3">towering Supertrees, visit biodomes, and enjoy light shows. </li>
                                             <li class="des_text px-3">Perfect Fit For - Nature Admirers, Photography Enthusiasts.</li> -->
                                         </div>
-                                        <div  style="width: 53%;">
+                                        <div  style="width: 53%;" class="des-des" class="img_1">
                                             <img src="{% static 'destination/Attraction_image/' %}{{ attraction.highlights_image }}" alt="" class="des_image ">
                                         </div>
                                     
@@ -177,7 +181,7 @@
                     <input type="hidden" id="name_int" value="{{ destination_metatitle }}">
                     <div class="section-title text-center text-lg-start">
                         <!--<h4 class="mb-1 theme1">Top Pick</h4>-->
-                        <h1 class="mb-1" style="font-size: 46px;">Best <span class="theme name" style="font-size: 46px;"></span></h1>
+                        <h1 class="mb-1 tour_h" style="font-size: 46px;">Best <span class="theme name tour_h" style="font-size: 46px;"></span></h1>
                         <p>Breathtaking Destinations to Personalized Experiences, Discover Hassle-free Travel Solutions Tailored just for you.</p>
                     </div>
                 </div>
@@ -398,7 +402,7 @@
         
         .stay_price {
             background:#f1f1f1;
-            font-size:22px !important;
+            font-size:22px;
             border-radius:3px;
             border-left:1px solid;
             border-right:1px solid;
@@ -430,25 +434,27 @@
         }
         
         .nav-pills .des_btn4.active, .nav-pills .show>.nav-link {
-             margin:1em !important;
+             margin:1em ;
              border:none !important;
-             padding: 17px 26px 17px 15px !important;
+             padding: 17px 26px 17px 15px;
              text-align:left !important;
-             background:
-                 linear-gradient(-120deg, transparent 1em, #029e9d 1.05em , #029e9d 1.5em, transparent 1.45em, transparent 2em, #029e9d 2.05em) top no-repeat,
-                 linear-gradient(300deg, transparent 1em, #029e9d 1.05em , #029e9d 1.5em, transparent 1.45em, transparent 2em, #029e9d 2.05em) bottom no-repeat  !important;
+             background: #029e9d !important;
+             /*background:*/
+             /*    linear-gradient(-120deg, transparent 1em, #029e9d 1.05em , #029e9d 1.5em, transparent 1.45em, transparent 2em, #029e9d 2.05em) top no-repeat,*/
+             /*    linear-gradient(300deg, transparent 1em, #029e9d 1.05em , #029e9d 1.5em, transparent 1.45em, transparent 2em, #029e9d 2.05em) bottom no-repeat  !important;*/
              background-size: 100% 50% !important;
              /* color:white */
         }
             
         .des_btn4 {
-             margin:1em !important;
+             margin:1em ;
              border:none !important;
-             padding: 17px 26px 17px 15px !important;
+             padding: 17px 26px 17px 15px ;
              text-align:left !important;
-             background:
-             linear-gradient(-120deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1em, transparent 2em, #f1f1f1 0em) top no-repeat,
-                 linear-gradient(300deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1.0em, transparent 2em, #f1f1f1 2.05em) bottom no-repeat  !important;
+             background: #f1f1f1 !important;
+             /*background:*/
+             /*linear-gradient(-120deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1em, transparent 2em, #f1f1f1 0em) top no-repeat,*/
+             /*    linear-gradient(300deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1.0em, transparent 2em, #f1f1f1 2.05em) bottom no-repeat  !important;*/
              background-size: 100% 50% !important;
         }
             

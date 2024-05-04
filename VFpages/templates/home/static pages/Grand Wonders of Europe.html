@@ -27,6 +27,8 @@
     <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
+    <!--itinerary CSS-->
+    <link href="{% static 'css/home/itinerary.css' %}" rel="stylesheet" type="text/css">
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -72,505 +74,14 @@
         Launch demo modal
       </button>
     
-    <style>
-    
-        .simi-hotel {
-            font-size:15px;
-            color:#777;
-        }
-    
-        .item-slider1 .slick-prev:hover {
-            background: #029e9d  !important;
-            border:none !important;
-            color: #fff !important;
-        }
-        
-        .item-slider1 .slick-next:hover { 
-            background: #029e9d  !important;
-            border:none !important;
-            color: #fff !important;
-        }
-        
-        .item-slider1 .slick-prev:focus {
-            background: #029e9d  !important;
-            border:none !important;
-            color: #fff !important;
-        }
-        
-        .item-slider1 .slick-next:focus { 
-            background: #029e9d  !important;
-            border:none !important;
-            color: #fff !important;
-        }
-    
-    .faq-accrodion .active .day_wise {
-            color: #029e9d !important;
-            background: #fff !important;
-            border-radius: 50px !important;
-            padding: 4px 12px;
-            font-size: 14px;
-        }
-        
-        .day_wise {
-            background: #777 !important;
-            border-radius: 50px !important;
-            padding: 4px 12px;
-            font-size: 14px;
-        }
-        
-        .w-20{
-            width:20%;
-        }
-        
-        .stay_price {
-            background:#f1f1f1;
-            font-size:22px !important;
-            border-radius:3px;
-            border-left:1px solid;
-            border-right:1px solid;
-        }
-        
-        .fea_div {
-            /*border: 1px solid #029e9d;*/
-            background:#f1f1f1;
-            border-radius:3px;
-            width:50%;
-        }
-    
-        .item-slider1 .slick-prev, .item-slider1 .slick-next {
-            top: -124px;
-            background: #fff;
-            border-radius: 5px;
-            border: 1px solid #f1f1f1;
-            width: 50px;
-            height: 50px;
-            line-height: 1;
-        }
-        
-        .item-slider1 .slick-prev::before, .item-slider1 .slick-next::before {
-            color: #777;
-            font-size: 28px;
-            line-height: 1.5;
-        }
-                
-        .slick-prev {right: 76px; left: inherit;}
-    	.slick-next {right: 16px;}
-    	
-        .it_head {
-            font-size:34px;
-        }
-    
-        .slick-prev,.slick-next {
-            top:-60px !important;
-        }
-
-        .food_maindiv .food_div {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .w-60 {
-            width: 60%;
-        }
-
-        .not-included {
-            color: #777;
-        }
-        .included {
-            color: green;
-        }
-
-        .d-block {
-            font-size: 15px;
-        }
-
-        .day_title {
-            border-left: 6px solid #029e9d ;
-        }
-
-        .food_div {
-            border: 1px solid #029e9d;
-            border-radius: 6px;
-            padding: 2px 12px;
-        }
-
-        .tickets_div {
-            border: 1px solid #fdc703;
-            border-radius: 6px;
-            padding: 2px 12px;
-        }
-
-        .tt_div p {
-            background: #f1f1f1;
-            /* border-left: 4px solid #029e9d ; */
-            align-items: center;
-            border-radius: 4px;
-        }
-
-        .tt_div2 {
-            background: #f1f1f1;
-            border-left: 4px solid #fdc703 ;
-            align-items: center;
-            border-radius: 0px 4px 4px 0px;
-        }
-
-        .notes {
-            color: #fdc703;
-            border-bottom: 2px solid #fdc703 ;
-            padding: 6px;
-            width: 130px;
-            /* border-radius: 4px; */
-        }
-
-        .checked {
-            color: #ffbc00 !important;
-        }
-
-        .rating span {
-            color: #777;
-            display: inline;
-            font-size: 14px;
-        }
-        
-        .data {
-            color: #029e9d;
-            /* background:  #fff ; */
-            font-size: 14px !important;
-        }
-
-        .accordion-item {
-            border: none ;
-        }
-
-        .accordion-button::after {
-            color: #029e9d !important;
-        }
-
-        .accordion-button {
-            background: #f1f1f1;
-            color: #029e9d;
-            border-radius: 3px !important;
-            margin: 8px 4px;
-            font-family: "Poppins", sans-serif;
-            text-transform: uppercase;
-        }
-
-        .accordion-button:focus {
-            box-shadow: none !important;
-        }
-
-        .accrodion-grp .accrodion .accrodion-title {
-            border: 1px solid #f1f1f1;
-            background: #029e9d ;
-            padding: 20px;
-            cursor: pointer;
-            transition: all ease-in-out 0.5s;
-            border-radius: 10px;
-        }
-
-       .accrodion-grp .accrodion .accrodion-title h5:before {
-           color:#fff;
-       }
-
-        .accrodion-grp .accrodion.active .accrodion-title {
-            background: #777;
-            color:#fff;
-            border-color:#777 ;
-        }
-
-        .accordion-button:not(.collapsed) {
-            color: #f1f1f1;
-            background-color: #029e9d;
-            box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
-        }
-
-          .price-banner div h2{
-            color: #fff;
-        }
-        
-        /* .price-banner  {
-            border-left: 16px solid #029e9d;
-            
-        } */
-
-        .desc-box h5 {
-            color: #029e9d;
-            font-size: 22px !important;
-        }
-
-        .desc-box  {
-            border-left: 6px solid #029e9d;
-            border-radius: 0px 10px 10px 0px !important;
-        }
-
-        .review-box {
-            background: linear-gradient(180deg, #029e9d, #ffffff);
-            border-radius: 10px;"
-        }
-
-        .span_text {
-            font-size: 16px;
-            margin-left: 5px;
-            /* color: #17233e; */
-            padding: 0px 10px;
-            border-radius: 0px 10px 10px 0px;
-            /* border-left: 5px solid #029e9d; */
-        }
-        
-        /*.per_person {*/
-        /*    font-size: 18px;*/
-        /*    color: #fdc703;*/
-        /*    font-family:'Poppins';*/
-        /*    font-weight: 500;*/
-        /*}*/
-
-        .price_span {
-            background: #fdc703;
-            color: #fff;
-            font-family: 'Poppins';
-            border-radius: 50px;
-            padding: 0px 26px;
-        }
-        
-         .starts_from {
-            font-size: 16px;
-            background: linear-gradient(90deg, #ece5cb, #ffffff);
-            border-radius: 4px;
-            padding: 4px;
-        }
-        
-        .a_btn_head {
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        /* section {
-            padding: 0rem 0 2rem !important;
-            position: relative;
-        } */
-
-        .fas-icon {
-            color: #fdc703 ;
-            font-size: 19px;
-            width:20%;
-        }
-
-        .fas1-icon {
-            color: #fdc703;
-        }
-
-        .fas2_icon {
-            color: #029e9d !important;
-        }
-
-        .hi_key {
-            /* border-bottom: 2px solid #029e9d; */
-            /* font-weight: 700; */
-            color: #029e9d;
-            font-size: 19px;
-            /*margin-top: 17.4px;*/
-        }
-
-        .hi_value {
-            /* text-transform: uppercase; */
-            /*margin-top: 15.6px;*/
-            /* font-style: italic; */
-            font-size: 16px;
-            /*text-transform: capitalize;*/
-            font-family: sans-serif;
-            margin-top: 3px;
-        }
-
-        .table_ftures tr td {
-            /* color: #029e9d ; */
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .day_head {
-            color: #029e9d ;
-            font-weight: 700;
-        }
-
-        .ans_span {
-            font-weight: 400;
-            font-size: 13px;
-            padding-left: 8px;
-        }
-
-        .ans_trans {
-            color: #029e9d ;
-        }
-
-        .fa-check-double {
-            color: #029e9d ;
-        }
-
-        .int-icon {
-            color: #777;
-            font-weight: 700;
-        }
-
-        .trend-item1 .trend-image img {
-            height: 230px;
-        }
-
-        .accrodion-grp .accrodion .accrodion-content .inner {
-            padding: 15px !important;
-        }
-
-        .details_div {
-            position: sticky;
-            top: 40px;
-            height: 20px;
-        }
-
-        .includes_div li {
-            background-color: #fff;
-            box-shadow: 2px 2px 2px 0.8px #029e9d;
-            padding: 6px 8px;
-            /* border-radius: 10px; */
-            margin: 6px 3px;
-            width: 100%;
-            font-size: 17px;
-            font-weight: 600;
-            
-        }
-
-        .includes_div span {
-            font-size: 13px;
-            /* color:#029e9d ; */
-            font-weight: 500;
-        }
-
-        .included {
-            color: #029e9d;
-        }
-
-        .not-included {
-            color: #777;
-        }
-        
-        .content_itenary {
-            text-align: justify;
-        }
-
-        .banner{
-           background-image: url("{% static 'image/staticbannerimages/Grand Wonders OF Europe.png' %}");
-           /* background-image: url("{{ Lead_details.routeMap }}"); */
-           height: 500px;
-        }
-        
-        #section-shape-img  {
-            background-image: url("{% static 'image/images/shape8.png' %}");
-        }
-
-        .image_hotel {
-            height: 300px;
-        }
-
-        .error-msg {
-            color: red;
-            font-size: 12px;
-        }
-
-        .contact-main {
-            background-image: url("{% static 'image/images/testimonial.png' %}");
-        }
-
-        .contact-main {
-            background-repeat: no-repeat;
-            background-position: bottom left;
-            background-size: contain;
-            position: relative;
-        }
-
-        .form_div {
-            background: #f1f1f1;
-            padding: 6px 12px;
-            border-radius: 10px;
-        }
-
-        #nav-tabContent {
-            border: 1px solid #029e9d;
-            border-bottom-left-radius: 1rem;
-            border-bottom-right-radius: 1rem;
-            /* background: #f1f1f1; */
-            border-top: none !important;
-        }
-        .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-            color: #029e9d;
-            background-color: #fff;
-            border: 1px solid #029e9d !important;
-            border-color: #dee2e6 #dee2e6 #fff;
-            padding: 12px 22px;
-            border-bottom: none !important;
-            font-weight:900;
-            font-size: 19px !important;
-        }
-
-        .nav-tabs .nav-link {
-            margin-bottom: -1px;
-            background: 0 0;
-            color: #fff;
-            border: 2px solid #029e9d;
-            border-bottom: none !important;
-            border-top-left-radius: 1rem;
-            border-top-right-radius: 1rem;
-            font-family: 'Playfair Display';
-            font-size: 20px;
-            font-weight: bold;
-            background: #029e9d;
-        }
-
-        .nav-tabs {
-            border-bottom: none;
-            background: none !important;
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-         @media (max-width: 991px) {
-            .hi_key {
-                width:40%;
-            }
-            
-            .hi_value {
-                width:60%;
-            }
-            
-            .fas-icon {
-                width:auto;
-            }
-            
-            .hili_div{ 
-                margin-top:0px !important;
-                margin-bottom:10px !important;
-            }
-            
-            .Highlights {
-                margin-top:0px !important;
-            }
-            
-            .notes_div {
-                margin-top:4px !important;
-            }
-            
-            .tickets_row {
-                justify-content:center !important;
-            }
-            
-         }
-
-    </style>
-
+   
     <!-- header starts -->
     {% include 'home/header.html' %}
     <!-- header ends -->
 
     <!-- BreadCrumb Starts -->  
     <section class="breadcrumb-main pb-20 pt-14 banner section">
-        <div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!-- <div class="breadcrumb-content text-center">
@@ -843,7 +354,7 @@
                                                 .zcwf_lblLeft .zcwf_col_help {width: 40%;}
                                             }
                                             </style>
-                                            <div class='zcwf_title text-center'><h3 class="theme">Enquiry Form</h3></div>
+                                            <div class='zcwf_title text-center'><h3 class="theme">Plan Your Vacations with Our Assistance</h3></div>
                                             <div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Last_Name'>Name</label></div>
                                             <div class='zcwf_col_fld'><input type='text' id='Last_Name' name='Last Name' maxlength='80'  class="rounded"></input><div class='zcwf_col_help'></div></div></div>
                                             <div id="name-error-msg" class="error-msg text-start ps-3"></div>
@@ -1316,28 +827,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <!-- <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class="ans_span mt-0"  id="breakfast_{{activity.id}}"></span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class="ans_span"  id="lunch_{{activity.id}}"></span>
                                             </div>
                                             </div> -->
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1408,28 +919,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1494,28 +1005,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1579,28 +1090,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1664,28 +1175,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1749,28 +1260,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1834,28 +1345,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -1918,28 +1429,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2002,28 +1513,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2086,28 +1597,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2170,28 +1681,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2254,28 +1765,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2338,28 +1849,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2422,28 +1933,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
@@ -2508,28 +2019,28 @@
                                         <div class="justify-content-end text-end d-flex food_maindiv">
                                             <div class="align-items-center food_div me-2" id="breakfastVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M176 56c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24zm24 48h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zM56 176H72c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24zM0 283.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4zM224 200c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H248c-13.3 0-24-10.7-24-24zm-96 0c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H104c-13.3 0-24-10.7-24-24s10.7-24 24-24zm216 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H344c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24zm120 96c0-13.3 10.7-24 24-24h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H440c-13.3 0-24-10.7-24-24zm-24-96h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H392c-13.3 0-24-10.7-24-24s10.7-24 24-24zM296 32h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H296c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>   
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Breakfast</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Breakfast</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                                 </div>
                                             </div>
                                             <!-- <div class="align-items-center food_div me-2" id="lunchVal_{{activity.id}}">
                                                 <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-icon" style="width: 40px;"><path fill="#029e9d" d="M247.2 17c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9 64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9l-14.6-82.8c-3.9-22.1-14.6-42.3-30.7-57.9L388.9 57.5c-16.1-15.6-36.6-25.6-58.7-28.7L247.2 17zM208 144a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM144 336a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm224-64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                             </div>
                                             <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Lunch</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Lunch</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div>
                                             <div class="align-items-center food_div me-2" id="dinnerVal_{{activity.id}}">
                                             <div>
-                                                    <i class='fas fa-hamburger ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
+                                                    <i class='fas fa-hamburger fa-hamburger1 ps-2 pe-1 fas2_icon fas1-icon' style="font-size: 37px;"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="pe-3 mx-2 mb-0 mt-0">Dinner</p>
+                                                    <p class="pe-3 mx-2 mb-0 mt-0 p_food">Dinner</p>
                                                     <span class='included ans_span'><i class='fa fa-check pe-1'></i>Included</span>
                                             </div>
                                             </div> -->
@@ -2954,65 +2465,65 @@
                         <ul>
                            
                             <div class="d-flex">
-                            <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                            <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">Experience the essence of France with a city tour, Eiffel Tower ascent, Versailles Palace exploration, Disneyland® Paris adventure, romantic Seine River cruise, and Paris by Night tour.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Discover Brussels with an orientation tour and catch a glimpse of the iconic Mannekin Pis Statue.
                                 </li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Experience the vibrant beauty of Amsterdam with visits to Keukenhof or Madurodam and a scenic canal cruise.
                                 </li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Explore the heart of Germany's Black Forest, witness cuckoo clock craftsmanship in Titisee, and delve into automotive history at Stuttgart's Mercedes Benz Museum.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Discover Switzerland's breathtaking landscapes and cultural treasures, from the Rhine Falls to the Jungfraujoch, Mt. Titlis, and Lucerne's charm, topped with a Swiss Chocolate Adventure.
                                 </li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Explore Vaduz in Liechtenstein with a guided tour featuring a delightful mini train ride through the charming city.
                                 </li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Experience the cultural highlights of Innsbruck, including Maria Theresien Strasse and the Golden Roof, before immersing yourself in the brilliance of the Swarovski Crystal Museum and shop in Wattens.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Explore Italy's highlights from Venice's St. Mark's Square to a classic Gondola ride, Florence's guided tour, Pisa's Square of Miracles, and Rome's Trevi Fountain visit.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Experience the splendor of Vatican City with visits to the Vatican Museum showcasing Renaissance art, the awe-inspiring Sistine Chapel, and the magnificent St. Peter’s Basilica.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Enjoy diverse accommodations across Europe, including stays at Sheraton Skyline in London, B&B in Paris, Novotel in the Netherlands, Mercure in Germany, Radisson in Central Switzerland, Alpenkoning in Innsbruck, Four Points by Sheraton in Padova, B&B in Tuscany, and SHG in Rome.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Enjoy daily Continental Buffet Breakfast, 13 Indian Vegetarian Lunches, and 14 Indian Jain/Vegetarian/Non-Vegetarian Dinners (with chicken served on most days), accompanied by a daily 500ml Mineral Water Bottle. Additionally, packed lunch will be provided on the day of your visit to Disneyland Paris.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">
                                     Driver Tips: Tips to coach drivers for the duration of the tour is included
                                 </li>
@@ -3023,30 +2534,30 @@
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul>
                             <div class="d-flex">
-                            <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                            <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">The cost of the Airfare, Passport, POE charges, Visa charges, Overseas Travel Insurance, etc.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;"> Any expenses of personal nature such as Porterage, Laundry, and Alcohol, Food or Drink not
                                     in the regular menus provided by us, mini bar and telephone calls</li>
                                 </div>
                                 <div class="d-flex">
-                                    <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                    <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                     <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">Any extra meals not included in the itinerary. Meals are pre - set and a choice of menu is not
                                         available</li>
                                     </div>
                                     <div class="d-flex">
-                                        <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                        <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                         <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">  Cost of excursions, city sightseeing, entrance fees and local guides availed of by the
                                             passengers, other than that mentioned in ‘What your tour price includes’</li>
                                         </div>
                                         <div class="d-flex">
-                                            <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                            <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">GST, TCS and other taxes as applicable</li>
                                             </div>
                                             <div class="d-flex">
-                                                <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2" style="font-size:22px;color: #029e9d !important;"></i>
+                                                <i class="pe-2 fa fa-frown-o  pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
                                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">Anything which is not specified in the Itinerary</li>
                                                 </div>
                         </ul>
@@ -3054,25 +2565,25 @@
                     <div class="tab-pane fade" id="nav-refound_police" role="tabpanel" aria-labelledby="nav-refound_police-tab">
                         <ul>
                             <div class="d-flex">
-                            <i class="fas fa-handshake pe-2" style="color: #029e9d; font-size:22px"></i>
+                            <i class="fas fa-handshake point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">All refunds for Flight tickets are as per the airline policies.</li>
                              </div>
                              <div class="d-flex">
-                                <i class="fas fa-handshake pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-handshake point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     All refunds for Package amount to be made within 30 to 45 days working days from cancellation date.</li>
                             </div>
                                 <div class="d-flex">
-                                <i class="fas fa-handshake pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-handshake point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">Refunds to be made in respective accounts & No refund in cash.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="fas fa-handshake pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-handshake point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     For flights: Refund - 5 to 7 working days or as per the airline policy.</li>
                             </div>
                             <div class="d-flex">
-                                <i class="fas fa-handshake pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-handshake point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     For Package: Credit note will be given after deducting the cancellation charges as per policy, the credit note can be utilized for same destination in future.</li>
                             </div>
@@ -3081,31 +2592,31 @@
                     <div class="tab-pane fade" id="nav-cancle_police" role="tabpanel" aria-labelledby="nav-cancle_police-tab">
                         <ul>
                             <div class="d-flex">
-                            <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                            <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                 Flight tickets are refundable as per the airline terms.</li>
                                </div>
                                <div class="d-flex">
-                                <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     No full refunds on cancellation of air / bus / train tickets once issued.</li>
                                 </div>
                                 <div class="d-flex">
-                                <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">If cancellation made 30 days prior to departure 5% on the package cost shall be deducted.
                                 </li>
                                 </div>
                                 <div class="d-flex">
-                                <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">If package cancellation is made 15 to 30 days prior to departure date, 50% of the package cost shall be deducted.</li>
                                 </div>
                                 <div class="d-flex">
-                                <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     If package cancellation is made 07 to 15 days prior to departure, 75% of the package cost shall be deducted.</li>
                                 </div>
                                 <div class="d-flex">
-                                <i class="fas fa-bullhorn pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-bullhorn point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     In case passenger is no show or 6 days prior to departure, 100% of the tour cost shall be deducted.</li>
                                 </div>
@@ -3114,16 +2625,16 @@
                     <div class="tab-pane fade" id="nav-payment_police" role="tabpanel" aria-labelledby="nav-payment_police-tab">
                         <ul>
                              <div class="d-flex">
-                                 <i class="fas fa-money-check pe-2" style="color: #029e9d; font-size:22px"></i>
+                                 <i class="fas fa-money-check point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                             <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                 For airfare 100% advance payment to be made before booking.</li>
                                   </div>
                                   <div class="d-flex">
-                                <i class="fas fa-money-check pe-2" style="color: #029e9d; font-size:22px"></i>
+                                <i class="fas fa-money-check point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">For packages 50% advance payment to be made while confirming the booking.</li>
                                      </div>
                                     <div class="d-flex">
-                                    <i class="fas fa-money-check pe-2" style="color: #029e9d; font-size:22px"></i>
+                                    <i class="fas fa-money-check point_icons pe-2" style="color: #029e9d; font-size:22px"></i>
                                 <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">
                                     Final payment 30 days before the departure.</li>
                                         </div>
@@ -3227,315 +2738,6 @@
       <!-- script start -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- script end -->
-<style>
-   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
-
-  body:before {
-      content: '';
-      /*position: absolute;*/
-      width: 100vw;
-      height: 100vh;
-      
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      -webkit-background-size: cover;
-      background-size: cover;
-      -webkit-filter: blur(10px);
-      -moz-filter: blur(10px);
-      filter: blur(10px);
-  } */
-  
-  .otp-fields input {
-      height: 45px !important;
-      width: 42px  !important;
-      border-radius: 6px;
-      outline: none;
-      font-size: 1.125rem;
-      text-align: center;
-      border: 1px solid #ddd;
-  }
-  
-  .otp-inp3 {
-      padding: 4px 10px !important;
-      border: 1px solid rgba(0, 78, 174, 1);
-  }
-  
-  .otp-fields input:focus {
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .otp-fields input::-webkit-inner-spin-button,
-  .otp-fields input::-webkit-outer-spin-button {
-      display: none;
-  }
-
-  .resend {
-      font-size: 12px;
-  }
-
-  #otp_containerlf{
-      display: none;
-  }
-  
-  .image_h4 {
-      font-size: 36px;
-      font-weight: 700;
-      color:rgba(255, 255, 255, 1) ;
-  }
-
-  .features_div {
-      margin-top: 80px;
-  }
-
-  .features {
-      font-size: 16px;
-      color:rgba(255, 255, 255, 1);
-      font-weight: 500;
-      /* background: rgba(255, 255, 255, 0.28); */
-      padding: 27px 20px;
-      background: rgba(255, 254, 254, 0.13);
-      backdrop-filter: blur(5px);
-      border-radius: 18px;
-  }
-
-  #sign_head_div {
-      margin: 2px;
-  }
-
-  .input_div{
-      flex-direction: column;
-      display: flex;
-      margin: 2px;
-  }
-
-  .input_signin {
-      background: rgba(237, 237, 237, 0.75);
-      border-radius: 50px !important;
-      padding: 13px 18px;
-      font-size: 14px !important;
-      height: auto !important;
-      font-weight: 600;
-      color:rgba(23, 52, 73, 0.61);
-      border: none;
-      width: 100%;
-      margin: 2px;
-      border: 1px solid rgba(0, 78, 174, 1) !important ;
-  }
-
-  .input::placeholder {
-      font-weight: 400;
-      color:black !important;
-      font-size: 15px;
-  }
-  
-  input:focus::placeholder {
-    color: rgba(0, 78, 174, 1) !important; /* Color after typing */
-    font-size:13px !important;
-  }
-                  
-  #checkbox_div {
-     margin: 2px 10px;
-     /* display: none; */
-  }
-
-  .check_text {
-      color: rgba(23, 52, 73, 1);
-      font-size: 14px;
-      font-weight: 400;
-      padding-left: 10px;
-  }
-
-  .check_text span {
-      color: rgba(0, 78, 174, 1);
-      font-weight: 500;
-      cursor: pointer;
-  }
-  
-  .sign_btn {
-      padding: 12px 20px;
-      background: linear-gradient(240deg, rgba(0, 78, 174, 1), rgba(75, 153, 249, 1));
-      border-radius: 50px;
-      color:rgba(255, 255, 255, 1);
-      text-align: center;
-      font-weight: 600;
-      font-size: 15px;
-      width: 100%;
-      height: 50px;
-      border: none;
-  }
-
- #verifyBtns {
-      padding: 10px 12px;
-      color:rgba(255, 255, 255, 1);
-      background: #029e9d;
-      width: 100%;
-      /* height: 50px; */
-      border: none;
-      font-weight: 600;
-      font-size: 15px;
-      border-radius: 50px;
- }
-
- /* #timer{
-      border: 1px solid black;
-      border-radius: 10px;
-      font-weight: 600;
-      box-shadow: 5px 5px 5px 0.5 gray;
-      padding: 4px;
- } */
-  
-
-  .sign_btn:hover {
-      background: linear-gradient(240deg, rgba(75, 153, 249, 1), rgba(0, 78, 174, 1));
-  }
-
-  #concern_text {
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin: 2px;
-  }
-
-
-  .lg_btn {
-      color: #029e9d;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-  }
-
-  .lg_btn:hover {
-      opacity: 60%;
-  }
-  
-  .head_modal{
-      color:#029e9d;
-      font-weight:700;
-      font-size:30px;
-  }
-
-  .btn-close {
-      font-size: 12px;
-      /* background: #029e9d; */
-      color: #777 !important;
-      border: 2px solid rgba(0, 78, 174, 1);
-      border-radius: 50%;
-      padding: 12px;
-      font-weight: 700;
-  }
-  
-  .btn-close1 {
-         padding: 6px 14px;
-  }
-  
-  .modal{
-      overflow-y:scroll;
-      background:#000000ad !important ;
-  }
-
-  .modal-open .modal .modal-dialog {
-      max-width: 520px;
-      top: 5%;
-  }
-  
-  #image_container {
-      background-size: contain;
-      background-position: center center;
-      background-repeat: no-repeat;
-      /* background-attachment: fixed;
-      -webkit-background-size: cover; */
-      border-radius: 20px;
-      padding: 10px 15px;
-      margin: 15px 5px; 
-  }
-
-  .modal-header {
-      border-bottom: none !important;
-  }
-
-  .modal-content {
-      border-radius: 12px !important;
-  }
-
-  #main_container {
-      background: rgba(255, 255, 255, 1);
-      border-radius: 20px;
-  }
-
-  .fp_text {
-      color:rgba(0, 78, 174, 1) !important;
-  }
-  
-  .fp_text:hover {
-      color:rgba(0, 78, 174, 1) !important;
-      opacity:0.6 !important;
-  }
-
-  .input_login {
-      font-size: 14px !important;
-      border-radius: 50px !important;
-      padding: 13px 18px !important;
-      color: rgba(43, 43, 43, 0.5) !important;
-      width: 100% !important;
-      border: 1px solid rgba(0, 78, 174, 1) !important;
-      
-  }
-
-  #concern_text p {
-      color: rgba(0, 0, 0, 0.71);
-      font-size: 15px;
-      font-weight: 600;
-
-  }
-
-  .btn_div {
-      margin: 2px;
-  }
-
-
-  .otp-fields {
-      flex-direction: row;
-      column-gap: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-
-
-  /* #otp_container_forget{
-      display: none;
-  }
-   */
-
-
-  .sign_utext {
-      font-size: 15px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.7);
-  }
-
- #timerlf {
-  border: 1px solid black;
-  border-radius: 10px;
-  font-weight: 600;
-  box-shadow: 5px 5px 5px 0.5 gray;
-  padding: 2px 8px;
- }
- 
-@media only screen and (max-width: 768px) {
-  #main_container {
-      flex-direction: column;
-  }
-}
-
-@media (max-width: 811px) {
-  .error {
-       padding: 0 0 !important; 
-  }
-}                   
-</style>
 <!-- Success Page -->
 <div class="modal fade" id="success_tic2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter1Title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -3547,8 +2749,9 @@
         </div>
         <div class="page-body">
             <div class="head">  
-                <h4 class="head_modal">Form Submitted</h4>
-            </div>
+                    <h4 class="head_modal">Form successfully submitted!</h4>
+                    <h4 class="head_submodal">Expect a call from our travel experts shortly to help plan your perfect trip.</h4>
+                </div>
             <h2 style="text-align:center;font-size:58px">
                 <div class="checkmark-circle">
                     <div class="background"></div>
@@ -3559,158 +2762,25 @@
       </div>
     </div>
 </div>
-    <style>
-        .lab_blue {
-            color:rgba(0, 78, 174, 1) !important;
-        }
-        
-        #success_tic2 .page-body{
-          max-width:300px;
-          background-color:#FFFFFF;
-          margin:10px auto;
-        }
-         #success_tic2 .page-body .head{
-          text-align:center;
-        }
-        /* #success_tic2 .tic{
-          font-size:186px;
-        } */
-        #success_tic2 .close{
-              /* opacity: 1; */
-            position: absolute;
-            right: 0px;
-            font-size: 30px;
-            padding: 3px 15px;
-          margin-bottom: 10px;
-        }
-        #success_tic2 .checkmark-circle {
-          width: 150px;
-          height: 150px;
-          position: relative;
-          display: inline-block;
-          vertical-align: top;
-        }
-        .checkmark-circle .background {
-          width: 150px;
-          height: 150px;
-          border-radius: 50%;
-          background: #1ab394;
-          position: absolute;
-        }
-        #success_tic2 .checkmark-circle .checkmark {
-          border-radius: 5px;
-        }
-        #success_tic2 .checkmark-circle .checkmark.draw:after {
-          -webkit-animation-delay: 300ms;
-          -moz-animation-delay: 300ms;
-          animation-delay: 300ms;
-          -webkit-animation-duration: 1s;
-          -moz-animation-duration: 1s;
-          animation-duration: 1s;
-          -webkit-animation-timing-function: ease;
-          -moz-animation-timing-function: ease;
-          animation-timing-function: ease;
-          -webkit-animation-name: checkmark;
-          -moz-animation-name: checkmark;
-          animation-name: checkmark;
-          -webkit-transform: scaleX(-1) rotate(135deg);
-          -moz-transform: scaleX(-1) rotate(135deg);
-          -ms-transform: scaleX(-1) rotate(135deg);
-          -o-transform: scaleX(-1) rotate(135deg);
-          transform: scaleX(-1) rotate(135deg);
-          -webkit-animation-fill-mode: forwards;
-          -moz-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-        }
-        #success_tic2 .checkmark-circle .checkmark:after {
-          opacity: 1;
-          height: 75px;
-          width: 37.5px;
-          -webkit-transform-origin: left top;
-          -moz-transform-origin: left top;
-          -ms-transform-origin: left top;
-          -o-transform-origin: left top;
-          transform-origin: left top;
-          border-right: 15px solid #fff;
-          border-top: 15px solid #fff;
-          border-radius: 2.5px !important;
-          content: '';
-          left: 35px;
-          top: 80px;
-          position: absolute;
-        }
-        
-        @-webkit-keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-        @-moz-keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-        @keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-    </style>
 <!-- End Success Page -->
 
-   
+   <!--CSS  -->
+   <style>
+     .banner{
+           background-image: url("{% static 'image/staticbannerimages/Grand Wonders OF Europe.png' %}");
+           /* background-image: url("{{ Lead_details.routeMap }}"); */
+           height: 500px;
+        }
+        
+        #section-shape-img  {
+            background-image: url("{% static 'image/images/shape8.png' %}");
+        }
 
+        .contact-main {
+            background-image: url("{% static 'image/images/testimonial.png' %}");
+        }
+   </style>
+<!--CSS  -->
     <!-- *Scripts* -->
     <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'js/home/bootstrap.min.js' %}"></script>

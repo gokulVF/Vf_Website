@@ -73,6 +73,14 @@
 
    <!--Css-->
     <style>
+        .rev_para {
+            height: 400px;
+            overflow-y: hidden;
+        }
+
+        .review_text {
+            height: 500px;
+        }
         #breadcrumb-main-img  {
             background-image: url("{% static description.Desktopimage_url %}");
             height: 500px;
@@ -539,7 +547,7 @@
                         <img src="{% static description.review_image_url %}" alt="">
                     </div>
                 </div>
-                <div class="col-lg-7 ">
+                <div class="col-lg-7 review_text">
                     <div class="row review-slider">
                         {% for review in user_reviews %}
                             <div class="col-sm-4 item">
@@ -559,7 +567,7 @@
                                     </div>
                                     <div class="details">
                                         <!-- <p class="m-0"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p> -->
-                                        <p class="m-0"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p>
+                                        <p class="m-0 rev_para"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p>
                                         <a href="{{review.reviewlink}}" onclick="toggleReadMore(this)" id="myBtn" target="_blank">Read more...</a>
                                     </div>
                                 </div>

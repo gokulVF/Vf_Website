@@ -3874,7 +3874,7 @@ Change the following styles to modify the appearance of the menu.
     padding: 10px 15px;
     margin: 0;
     text-decoration: none;
-    color: #B6B3C4!important;
+    color: #fff!important;
     display: block;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     -o-transition: all 0.3s ease;
@@ -3916,7 +3916,7 @@ Change the following styles to modify the appearance of the menu.
 
 .slicknav_nav ul li {
     padding-left: 0;
-    background: #1F1D26;
+    background: #029e9d;
 }
 .slicknav_nav ul li li {
     padding-left: 0;
@@ -3928,14 +3928,14 @@ Change the following styles to modify the appearance of the menu.
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    background: #443E56;
+    background: #029e9d;
     color: #FFF
 }
 .slicknav_nav a:hover {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    background: #443E56;
+    background: #029e9d;
 }
 .slicknav_nav .slicknav_txtnode {
     margin-left: 15px;
@@ -3955,7 +3955,7 @@ Change the following styles to modify the appearance of the menu.
 /* plus-minus or arrow sign */
 
 .slicknav_nav .slicknav_arrow:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: #029e9d;
 }
 .slicknav_menu .slicknav_icon {
     display: none;
