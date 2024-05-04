@@ -77,7 +77,7 @@ def about_us_new(request):
         # Redirect to login page if session data is not found
         return redirect('login')
 
-    # Check if the user has the appropriate role to access this page
+    # Check if the user has theus appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
     if role != 'admin' and role != 'superadmin':
@@ -85,7 +85,8 @@ def about_us_new(request):
         return redirect('dashboard')
     about_page = PagesTable.objects.filter(pagesname='about_us').first()
     about_us_details = about_page.description.get('aboutus_details', {})
-    update_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    update_time = datetime.now().strftime('%Y-%m-%d')
+    username = request.session.get('username')
     if request.method == 'POST':
         about_us_details['subtitle'] = request.POST.get('Sub_Title')
         about_us_details['content_para_1'] = request.POST.get('content_para-1')
@@ -98,6 +99,9 @@ def about_us_new(request):
         about_us_details['happy_customers'] = request.POST.get('Happy_Customers')
         about_us_details['servicable_countries'] = request.POST.get('Servicable_Countries')
         about_page.updated_by =update_time
+        # about_page.created_by =update_time
+        # about_page.created_name =username
+        about_page.updated_name =username
 
         if 'image-file' in request.FILES:
             old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['image_file_path'])
@@ -112,6 +116,47 @@ def about_us_new(request):
                     destination.write(chunk)
             about_us_details['image_file_url'] = os.path.join('/image/about_us_image', img_path)
             about_us_details['image_file_path'] = img_path
+        if 'Desktopimage-file' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['Desktopimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            new_image = request.FILES['Desktopimage-file']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            about_us_details['Desktopimage_url'] = os.path.join('/image/about_us_image', img_path)
+            about_us_details['Desktopimage_path'] = img_path
+        if 'Tabimage-file' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['Tabimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            new_image = request.FILES['Tabimage-file']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            about_us_details['Tabimage_url'] = os.path.join('/image/about_us_image', img_path)
+            about_us_details['Tabimage_path'] = img_path
+
+        if 'Mobileimage-file' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['Mobileimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            new_image = request.FILES['Mobileimage-file']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            about_us_details['Mobileimage_url'] = os.path.join('/image/about_us_image', img_path)
+            about_us_details['Mobileimage_path'] = img_path
+
 
             
 
@@ -1157,12 +1202,12 @@ def contact_us_admin(request):
     datedata = contact_us_page.description
     created_by = contact_us_page.created_by
     updated_by = contact_us_page.updated_by
-    time = datedata['updated_time']
-    timestamp_format = '%Y-%m-%dT%H:%M:%S.%f%z'
-    timestamp_dt = datetime.strptime(time, timestamp_format)
-    normal_format = timestamp_dt.strftime('%Y-%m-%d %H:%M:%S')
+    # time = datedata['updated_time']
+    # timestamp_format = '%Y-%m-%dT%H:%M:%S.%f%z'
+    # timestamp_dt = datetime.strptime(time, timestamp_format)
+    # normal_format = timestamp_dt.strftime('%Y-%m-%d')
     
-    return render(request, "admin/contact_us.html", {'datedata': datedata, 'normal_format': normal_format,"userdetails":userdetails,"created_by":created_by,"updated_by":updated_by})
+    return render(request, "admin/contact_us.html", {'datedata': datedata,"userdetails":userdetails,"created_by":created_by,"updated_by":updated_by})
     
     
 
@@ -1178,46 +1223,64 @@ def submit_form_contact(request):
     if role != 'admin' and role != 'superadmin':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
-    
+    username = request.session.get('username')
+    role = request.session.get('role')
+    contact_us = PagesTable.objects.filter(pagesname='contact us').first()
+    contact_us_details = contact_us.description
+    update_time = datetime.now().strftime('%Y-%m-%d')
     if request.method == 'POST':
-        username = request.session.get('username')
-        role = request.session.get('role')
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        keyword = request.POST.get('keyword')
+        contact_us_details['meta_title'] = request.POST.get('title')
+        contact_us_details['meta_description'] = request.POST.get('description')
+        contact_us_details['meta_keyword'] = request.POST.get('keyword')
+       
+        contact_us.created_by = update_time
+        contact_us.updated_by = update_time
+        contact_us.created_name = username
+        contact_us.updated_name = username
 
-        page = PagesTable.objects.get(pagesname='contact us')
+        if 'Desktopimage' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home/', contact_us_details['Desktopimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
 
-        # Update the description field with JSON data including updated time and person's name
-        page_description = {
-            'updated_time': timezone.now().isoformat(),  # Store updated time in ISO 8601 format
-            'updated_person_name': username,
-            'created_time':timezone.now().isoformat(), 
-            'created_person_name':username,
-            'meta_title': title,
-            'meta_description':description,
-            'meta_keyword':keyword
-        }
+            new_image = request.FILES['Desktopimage']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            contact_us_details['Desktopimage_url'] = os.path.join('/image/home', img_path)
+            contact_us_details['Desktopimage_path'] = img_path
+        if 'Tabimage' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home/', contact_us_details['Tabimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
 
-        # Save the changes to the database
+            new_image = request.FILES['Tabimage']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            contact_us_details['Tabimage_url'] = os.path.join('/image/home', img_path)
+            contact_us_details['Tabimage_path'] = img_path
 
-        # Check if the about page already exists in the database
-        contact_us = PagesTable.objects.filter(pagesname='contact us').first()
-        contact_us_header = contact_us.created_by
-        current_date_str = timezone.now().strftime("%d-%m-%Y")
-        created_by = contact_us_header
-        updated_by = f"{username} {current_date_str}"
+        if 'Mobileimage' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home/', contact_us_details['Mobileimage_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
 
-        if contact_us:
-            # If it exists, update the description
-            contact_us.created_by = created_by
-            contact_us.updated_by = updated_by
-            contact_us.description = page_description
-            contact_us.save()
-        else:
-            # If it doesn't exist, create a new entry
-            PagesTable.objects.create(pagesname='contact us', description=description)
-        
+            new_image = request.FILES['Mobileimage']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            contact_us_details['Mobileimage_url'] = os.path.join('/image/home', img_path)
+            contact_us_details['Mobileimage_path'] = img_path
+
+        contact_us.save()
+    
         return redirect('contact_us_admin')  # Redirect to a success page
 
     return render(request, "admin/about_us_update.html")
@@ -1916,11 +1979,11 @@ def submit_form_blogus(request):
 
         page = PagesTable.objects.get(pagesname='blog_us')
         
-        current_date_str = timezone.now().strftime("%d-%m-%Y")
+        current_date_str = datetime.now().strftime('%Y-%m-%d')
 
         # Update the description field with JSON data including updated time and person's name
-        created_by = page.created_by
-        updated_by = f"{username} {current_date_str}"
+        # created_by = page.created_by
+        # updated_by = current_date_str
         page_description = {
             'updated_time': timezone.now().isoformat(),  # Store updated time in ISO 8601 format
             'updated_person_name': username,
@@ -1938,8 +2001,10 @@ def submit_form_blogus(request):
         if blog_us:
             # If it exists, update the description
             blog_us.description = page_description
-            blog_us.created_by = created_by
-            blog_us.updated_by = updated_by
+            blog_us.created_by = current_date_str
+            blog_us.updated_by = current_date_str
+            blog_us.created_name = username
+            blog_us.updated_name = username
             blog_us.save()
         else:
             # If it doesn't exist, create a new entry
@@ -2755,7 +2820,7 @@ def Homepage_topdestination_Edit(request):
     topdestination_all = PagesTable.objects.filter(pagesname='international_top_destination').first()
     topdestination = topdestination_all.description
     if request.method == 'POST':
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        current_time = datetime.now().strftime('%Y-%m-%d')
         topdestination['destination_1Continent'] = request.POST.get('destination_1Continent')
         topdestination['destination_2Continent'] = request.POST.get('destination_2Continent')
         topdestination['destination_3Continent'] = request.POST.get('destination_3Continent')
@@ -2908,7 +2973,7 @@ def Homepage_domestic_topdestination_Edit(request):
     topdestination_all = PagesTable.objects.filter(pagesname='domestic_top_destination').first()
     topdestination = topdestination_all.description
     if request.method == 'POST':
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        current_time = datetime.now().strftime('%Y-%m-%d')
         topdestination['destination_1Continent'] = request.POST.get('destination_1Continent')
         topdestination['destination_2Continent'] = request.POST.get('destination_2Continent')
         topdestination['destination_3Continent'] = request.POST.get('destination_3Continent')
@@ -3185,6 +3250,22 @@ def add_categories_cities(request):
             with open(image_path, 'wb') as destination:
                 for chunk in new_image.chunks():
                     destination.write(chunk)
+        if 'TabImages' in request.FILES:
+            new_image = request.FILES['TabImages']
+            img_path2 = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages', img_path2)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+        if 'MobileImages' in request.FILES:
+            new_image = request.FILES['MobileImages']
+            img_path3 = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages', img_path3)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+        
+        
         
         all_json = {
             "MetaTitle":MetaTitle,
@@ -3192,6 +3273,8 @@ def add_categories_cities(request):
             "Metakeyword":Metakeyword,
             "canonical":canonical,
             "img_path":img_path,
+            "tab_path" :img_path2,
+            "Mobile_path" :img_path3,
         }
 
 
@@ -3241,8 +3324,35 @@ def edit_categories_cities(request,team_id):
             with open(image_path, 'wb') as destination:
                 for chunk in new_image.chunks():
                     destination.write(chunk)
-           
             Ccity.all_description['img_path'] = img_path
+        if 'up-TabImages' in request.FILES:
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages/', Ccity.all_description['tab_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            new_image = request.FILES['up-TabImages']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+            Ccity.all_description['tab_path'] = img_path
+        if 'up-MobileImages' in request.FILES:
+            
+            old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages/', Ccity.all_description['Mobile_path'])
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            new_image = request.FILES['up-MobileImages']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+
+            Ccity.all_description['Mobile_path'] = img_path
+           
+            
         Ccity.save()
         return redirect('categories_cities')
     return redirect('categories_cities')
@@ -3894,11 +4004,12 @@ def home_page2_Edit(request):
         return redirect('dashboard')
     
     userdetails = adminheader(request)
+    username =request.session.get('username')
  
     homepage_detrails = PagesTable.objects.filter(pagesname='home_page_2').first()
     topdestination = homepage_detrails.description
     if request.method == 'POST':
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        current_time = datetime.now().strftime('%Y-%m-%d')
         topdestination['banner_title'] = request.POST.get('banner_title')
         topdestination['big_v_title'] = request.POST.get('big_v_title')
         topdestination['big_v_heading'] = request.POST.get('big_v_heading')
@@ -3908,7 +4019,9 @@ def home_page2_Edit(request):
         topdestination['big_v_destination'] = request.POST.get('big_v_destination')
         topdestination['small_v_destination'] = request.POST.get('small_v_destination')
         
-        homepage_detrails.updated_by = current_time 
+        homepage_detrails.updated_by = current_time
+       
+        homepage_detrails.updated_name = username  
 
       
         if 'banner_image' in request.FILES:
@@ -3924,6 +4037,32 @@ def home_page2_Edit(request):
                     destination.write(chunk)
            
             topdestination['banner_image'] = img_path1
+        if 'tab_image' in request.FILES:
+            old_image_path1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details/', topdestination['tab_image'])
+            if os.path.exists(old_image_path1):
+                os.remove(old_image_path1)
+
+            new_image = request.FILES['tab_image']
+            img_path1 = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details', img_path1)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+           
+            topdestination['tab_image'] = img_path1
+        if 'Mobile_image' in request.FILES:
+            old_image_path1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details/', topdestination['Mobile_image'])
+            if os.path.exists(old_image_path1):
+                os.remove(old_image_path1)
+
+            new_image = request.FILES['Mobile_image']
+            img_path1 = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details', img_path1)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+           
+            topdestination['Mobile_image'] = img_path1
 
         if 'review_banner_image' in request.FILES:
             old_image_path4 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details/', topdestination['review_banner_image'])

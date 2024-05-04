@@ -125,10 +125,145 @@
     background: #029e9d !important;
 }
 
+ @media screen and (min-width: 1200px) and (max-width: 1399px) { 
+     .service-nav .nav-link {
+        margin: 2px;
+        font-size: 13px;
+    }
+    
+    .des_btn4 {
+        font-size: 12px !important;
+        width: 90%;
+    }
+    
+    .des_div .des_text {
+        font-size: 13px !important;
+    }
+ }
+ 
+  @media screen and (min-width: 991px) and (max-width: 1199px) { 
+       .service-nav .nav-link {
+        margin: 2px;
+        font-size: 12px;
+    }
+    
+    .des_btn4 {
+        font-size: 12px !important;
+        width: 90%;
+    }
+    
+    .des_div .des_text {
+        font-size: 13px !important;
+    }
+    
+    .trending .trend-item .trend-meta {
+        top: -18px;
+        right: 10px;
+        padding: 6px 8px !important;
+        font-size: 15px;
+    }
+    
+    .starts_from {
+        font-size: 13px !important;
+      }
+      
+      .stay_price {
+         font-size:19px !important; 
+      }
+}
+
+  /*@media screen and (min-width: 768px) and (max-width: 991px) { */
+  /*    .service-nav .nav-link {*/
+  /*      margin: 2px;*/
+  /*      font-size: 11px;*/
+  /*  }*/
+    
+  /*   .des_div .des_text {*/
+  /*      font-size: 11px !important;*/
+  /*  }*/
+    
+  /*}*/
+  
 @media (max-width: 991px) {
     .package-list-div {
         flex-direction: column;
         width: 100%;
+    }
+    
+    .des-des {
+        display:none !important;
+    }
+    
+    .mbl-des {
+        display:block !important;
+    }
+    
+    .des_div{
+        display:flex;
+        flex-direction:column !important;
+    }
+    
+    .img_1{
+        width:100% !important;
+    }
+    
+    .des_1 {
+        width:100% !important;
+    }
+    
+    .des_main_div {
+        flex-direction:column !important;
+    }
+    
+    #v-pills-tab {
+        display:flex;
+        flex-direction:row !important;
+        margin:0px !important;
+    }
+    
+    .des_nav_div {
+        justify-content:center !important;
+    }
+    
+    .des_titles {
+        font-size:20px !important;
+        margin-top:5px !important;
+    }
+    
+    .des_btn4 {
+        margin: .3em !important;
+        padding: 4px 6px !important;
+        width: auto !important;
+        font-size: 12px;
+    }
+    
+    .mbl-head {
+        display:block !important;
+    }
+    
+    .des-head {
+        display:none;
+    }
+    
+     .des_div .des_text {
+        font-size: 11px !important;
+    }
+    
+      .service-nav .nav-link {
+        margin: 2px;
+        font-size: 11px;
+    }
+    
+    .package {
+        padding-bottom:0px !important;
+    }
+    
+    .tour_h {
+        font-size:28px !important;
+    }
+    
+    .section-shape {
+        display:none !important;
     }
 }
 

@@ -43,6 +43,12 @@
     
       gtag('config', 'G-DBNBM9PB85');
     </script>
+
+    <!-- LEAD FORM -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -59,6 +65,12 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+     <!--Success Popup-->
+     <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#success_tic2" id="Sucessmessages2">
+        Launch demo modal
+     </button>
+     <!--Success Popup-->
+
     <!-- Preloader -->
     <div id="preloader">
         <div id="status"></div>
@@ -71,8 +83,8 @@
     
  
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14">
-        <div class="section-shape section-shape1 top-inherit bottom-0" ></div>
+    <section class="breadcrumb-main pb-20 pt-14" style="background-attachment:local !important;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" ></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -89,11 +101,6 @@
         <div class="dot-overlay"></div>
     </section>
     <!-- BreadCrumb Ends --> 
-    <section class="contact-main">
-        <div style="height:10px; width: 100%;">
-            <img src="{% static 'image/home/Contact us resize .jpg' %}" alt="image">
-        </div>
-    </section>
     
     <h1 style="display:none">Contact Us</h1>
 
@@ -153,119 +160,644 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div id="contactform-error-msg"></div>
-                                        <div class="form-group mb-2">
-                                            <input type="text" name="name" class="form-control" id="fullname" placeholder="Name">
-                                            <div id="name-error-msg" class="error-msg"></div>
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                                            <div id="email-error-msg" class="error-msg"></div>
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <input type="text" name="phone" class="form-control" id="phonenumber" placeholder="Phone">
-                                            <div id="phone-error-msg" class="error-msg"></div>
-                                        </div>
-                                        <div class="textarea mb-2">
-                                            <textarea name="destination" id="destination" placeholder="Enter a message"></textarea>
-                                            <div id="destination-error-msg" class="error-msg"></div>
-                                        </div>
-                                        <div class="comment-btn text-center">
-                                            <input type="button" class="nir-btn" id="submit2" value="Send Message">
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById("submit2").addEventListener("click", function() {
-                                            // Perform form validation
-                                            var name = document.getElementById("fullname").value;
-                                            var email = document.getElementById("email").value;
-                                            var phone = document.getElementById("phonenumber").value;
-                                            var destination = document.getElementById("destination").value;
-                                    
-                                            var nameRegex = /^[a-zA-Z\s]+$/;
-                                            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                                            var phoneRegex = /^[0-9]{10}$/;
-                                    
-                                            var isValid = true;
-                                    
-                                            if (!nameRegex.test(name)) {
-                                                document.getElementById("name-error-msg").innerHTML = "Please enter a valid name.";
-                                                isValid = false;
-                                            } else {
-                                                document.getElementById("name-error-msg").innerHTML = "";
+                                        <!-- Form Starts -->
+                                     <!-- Note :
+                                        - You can modify the font style and form style to suit your website. 
+                                        - Code lines with comments Do not remove this code are required for the form to work properly, make sure that you do not remove these lines of code. 
+                                        - The Mandatory check script can modified as to suit your business needs. 
+                                        - It is important that you test the modified form before going live.-->
+                                        <div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm bg-grey rounded'>
+                                        
+                                            <form id='webform' action='https://crm.zoho.com/crm/WebToLeadForm' name=WebToLeads3397113000057768001 method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory3397113000057768001()' accept-charset='UTF-8'>
+                                            <input type='text' style='display:none;' name='xnQsjsdp' value='1987d8f2e56ac4f57d64d80d77f6f44334199e4dd6510af74f018f537ef268a0'></input> 
+                                            <input type='hidden' name='zc_gad' id='zc_gad' value=''></input>
+                                            <input type='text' style='display:none;' name='xmIwtLD' value='e33fff330b924d6fbd37a2bdcf7dea957fffd2fdf4bd2aa9083ae363b65436b87d4c3edae9c7c540d3aec32ea907cd61'></input> 
+                                            <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
+                                            <input type='text' style='display:none;' name='returnURL' value='https&#x3a;&#x2f;&#x2f;vacationfeast.com&#x2f;contact-us' > </input>
+                                                <!-- Do not remove this code. -->
+                                                <input type='text' style='display:none;' id='ldeskuid' name='ldeskuid'></input>
+                                                <input type='text' style='display:none;' id='LDTuvid' name='LDTuvid'></input>
+                                                <!-- Do not remove this code. -->
+    
+                                                <!-- <div id="gif" style="display: block;width: 100%;align-items: center;justify-content: center;text-align: center;"><img src="{% static 'image/signup/Successtick.gif' %}"  alt="Success GIF" style="
+                                                    background: none !important;
+                                                    width: 250px;
+                                                "></div> -->
+                                                
+    
+                                            <!-- <script>
+                                                    function openPopup() {
+                                                      // Get the value of the returnURL from the input field
+                                                      var returnURL = document.getElementById("returnURL").value;
+                                                      
+                                                      // Open a popup window with the returnURL
+                                                      window.open(returnURL, "Popup", "width=600,height=400");
+                                                    }
+                                                    </script> -->
+                                            <style>
+                                            /* html,body{
+                                                margin: 0px;
+                                            } */
+    
+                                            .crmWebToEntityForm {
+                                                padding: 4px 10px;
                                             }
-                                    
-                                            if (!emailRegex.test(email)) {
-                                                document.getElementById("email-error-msg").innerHTML = "Please enter a valid email address.";
-                                                isValid = false;
-                                            } else {
-                                                document.getElementById("email-error-msg").innerHTML = "";
+    
+                                            .f_label {
+                                                font-size: 15px !important;
+                                                margin-bottom: 5px !important;
                                             }
-                                    
-                                            if (!phoneRegex.test(phone)) {
-                                                document.getElementById("phone-error-msg").innerHTML = "Please enter a valid 10-digit phone number.";
-                                                isValid = false;
-                                            } else {
-                                                document.getElementById("phone-error-msg").innerHTML = "";
+                                            #crmWebToEntityForm.zcwf_lblLeft {
+                                                width:100%;
+                                                /* padding: 25px; */
+                                                margin: 0 auto;
+                                                box-sizing: border-box;
                                             }
-                                    
-                                            if (destination.trim() === "") { // Check if destination is empty after trimming whitespace
-                                                document.getElementById("destination-error-msg").innerHTML = "Please enter a message.";
-                                                isValid = false;
-                                            } else {
-                                                document.getElementById("destination-error-msg").innerHTML = "";
+                                            #crmWebToEntityForm.zcwf_lblLeft * {
+                                                box-sizing: border-box;
                                             }
-                                    
-                                            if (isValid) {
-                                                // Send data to the backend using Fetch API
-                                                if (email != null && email !== "") {
-                                                    // Send data to server using AJAX
+                                            #crmWebToEntityForm{text-align: left;}
+                                            #crmWebToEntityForm * {
+                                                direction: ltr;
+                                            }
+                                            .zcwf_lblLeft .zcwf_title {
+                                                word-wrap: break-word;
+                                                /* padding: 0px 6px 10px; */
+                                                font-weight:bold }.zcwf_lblLeft.cpT_primaryBtn:hover{
+                                                background: linear-gradient(#02acff 0,#006be4 100%) no-repeat padding-box !important;
+                                                box-shadow: 0 -2px 0 0 #0159b9 inset !important;
+                                                border: 0 !important;
+                                                color: #fff !important;
+                                                outline: 0 !important;
+                                            }.zcwf_lblLeft .zcwf_col_fld input[type=text], input[type=password], .zcwf_lblLeft .zcwf_col_fld textarea {
+                                                width: 100%;
+                                                /* border: 1px solid #c0c6cc !important; */
+                                                resize: vertical;
+                                                border-radius: 2px;
+                                                float: left;
+                                            }
+                                            .zcwf_lblLeft .zcwf_col_lab {
+                                                width: 100%;
+                                                word-break: break-word;
+                                                padding: 0px 6px 0px;
+                                                margin-right: 10px;
+                                                margin-top: 5px;
+                                                float: left;
+                                                min-height: 1px;
+                                            }
+                                            .zcwf_lblLeft .zcwf_col_fld {
+                                                float: left;
+                                                width: 100%;
+                                                padding: 0px 6px 0px;
+                                                position: relative;
+                                                margin-top: 5px;
+                                            }
+                                            .zcwf_lblLeft .zcwf_privacy{padding: 6px;}
+                                            .zcwf_lblLeft .wfrm_fld_dpNn{display: none;}
+                                            .dIB{display: inline-block;}
+                                            .zcwf_lblLeft .zcwf_col_fld_slt {
+                                                width: 100%;
+                                                border: 1px solid #ccc;
+                                                background: #fff;
+                                                border-radius: 4px;
+                                                font-size: 14px;
+                                                float: left;
+                                                resize: vertical;
+                                                padding: 2px 5px;
+                                            }
+                                            .zcwf_lblLeft .zcwf_row:after, .zcwf_lblLeft .zcwf_col_fld:after {
+                                                content: '';
+                                                display: table;
+                                                clear: both;
+                                            }
+                                            .zcwf_lblLeft .zcwf_col_help {
+                                                float: left;
+                                                margin-left: 7px;
+                                                font-size: 14px;
+                                                max-width: 100%;
+                                                word-break: break-word;
+                                            }
+                                            .zcwf_lblLeft .zcwf_help_icon {
+                                                cursor: pointer;
+                                                width: 16px;
+                                                height: 16px;
+                                                display: inline-block;
+                                                background: #fff;
+                                                border: 1px solid #c0c6cc;
+                                                color: #c1c1c1;
+                                                text-align: center;
+                                                font-size: 11px;
+                                                line-height: 16px;
+                                                font-weight: bold;
+                                                border-radius: 50%;
+                                            }
+                                            .zcwf_lblLeft .zcwf_row {margin: 6px 0px;}
+                                            .zcwf_lblLeft .formsubmit {
+                                                margin-right: 5px;
+                                                cursor: pointer;
+                                                color: var(--baseColor);
+                                                font-size: 14px;
+                                            }
+                                            .zcwf_lblLeft .zcwf_privacy_txt {
+                                                width: 100%;
+                                                color: rgb(0, 0, 0);
+                                                font-size: 14px;
+                                                font-family: Georgia;
+                                                display: inline-block;
+                                                vertical-align: top;
+                                                color: var(--baseColor);
+                                                padding-top: 2px;
+                                                margin-left: 6px;
+                                            }
+                                            .zcwf_lblLeft .zcwf_button {
+                                                font-size: 14px;
+                                                color: var(--baseColor);
+                                                border: 1px solid #c0c6cc;
+                                                padding: 3px 9px;
+                                                border-radius: 4px;
+                                                cursor: pointer;
+                                                max-width: 120px;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                white-space: nowrap;
+                                            }
+                                            .zcwf_lblLeft .zcwf_tooltip_over{
+                                                position: relative;
+                                            }
+                                            .zcwf_lblLeft .zcwf_tooltip_ctn{
+                                                position: absolute;
+                                                background: #dedede;
+                                                padding: 3px 6px;
+                                                top: 3px;
+                                                border-radius: 4px;word-break: break-word;
+                                                min-width: 100px;
+                                                max-width: 150px;
+                                                color: var(--baseColor);
+                                                z-index: 100;
+                                            }
+                                            .zcwf_lblLeft .zcwf_ckbox{
+                                                float: left;
+                                            }
+                                            .zcwf_lblLeft .zcwf_file{
+                                                width: 100%;
+                                                box-sizing: border-box;
+                                                float: left;
+                                            }
+                                            .clearB:after{
+                                                content:'';
+                                                display: block;
+                                                clear: both;
+                                            }
+                                            @media all and (max-width: 600px) {
+                                                .zcwf_lblLeft .zcwf_col_lab, .zcwf_lblLeft .zcwf_col_fld {
+                                                    width: auto;
+                                                    float: none !important;
+                                                }
+                                                .zcwf_lblLeft .zcwf_col_help {width: 40%;}
+                                            }
+                                            </style>
+                                            <div class='zcwf_title text-center mt-2'><h3 class="theme">Enquiry Form</h3></div>
+                                            <div class='zcwf_row mb-2'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Last_Name'>Name</label></div>
+                                            <div class='zcwf_col_fld'><input type='text' id='Last_Name' name='Last Name' maxlength='80'  class="rounded"></input><div class='zcwf_col_help'></div></div>
+                                            <div id="name-error-msg" class="error-msg text-start ps-3"></div></div>
+                                            <div class='zcwf_row mb-2'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Mobile'>Whatsapp Number</label></div>
+                                            <div class='zcwf_col_fld'><input type='text' id='Mobile' name='Mobile' maxlength='30'  class="rounded"></input><div class='zcwf_col_help'></div></div>
+                                            <div id="phone-error-msg" class="error-msg text-start ps-3"></div></div>
+                                            <div class='zcwf_row wfrm_fld_dpNn'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Lead_Source'>Lead Source</label></div>
+                                            <div class='zcwf_col_fld'><select class='zcwf_col_fld_slt' id='Lead_Source' name='Lead Source'  >
+                                                        <option value='-None-'>-None-</option>
+                                                        <option value='BNI'>BNI</option>
+                                                        <option value='Campaign'>Campaign</option>
+                                                        <option value='Existing'>Existing</option>
+                                                        <option value='Facebook'>Facebook</option>
+                                                        <option value='Flyer&#x2f;Promotion'>Flyer&#x2f;Promotion</option>
+                                                    <option  value='Google&#x20;Ads&#x20;Auto'>Google Ads Auto</option>
+                                                        <option value='Google&#x20;AdWords'>Google AdWords</option>
+                                                        <option value='Instagram'>Instagram</option>
+                                                        <option value='Matrimony'>Matrimony</option>
+                                                        <option value='Meta&#x20;Ads&#x20;Auto'>Meta Ads Auto</option>
+                                                        <option value='Others'>Others</option>
+                                                        <option value='Past&#x20;Client&#x2f;Referral'>Past Client&#x2f;Referral</option>
+                                                        <option value='PBC'>PBC</option>
+                                                        <option value='Sulekha&#x20;Leads'>Sulekha Leads</option>
+                                                        <option value='Travel&#x20;Triangle'>Travel Triangle</option>
+                                                        <option value='Trip&#x20;Crafter'>Trip Crafter</option>
+                                                        <option value='Tripoto'>Tripoto</option>
+                                                        <option value='Twitter'>Twitter</option>
+                                                        <option value='Walkin'>Walkin</option>
+                                                        <option selected value='Website'>Website</option>
+                                                        <option  value='Whatsapp'>Whatsapp</option>
+                                                    </select><div class='zcwf_col_help'></div></div></div>
+                                                    <div class='zcwf_row mb-2'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='LEADCF23'>Destination</label></div>
+                                                    <div class='zcwf_col_fld'><textarea id='LEADCF23' name='LEADCF23' class="rounded" style="height: 50px !important;"></textarea><div class='zcwf_col_help'></div></div><div id="destination-error-msg" class="error-msg text-start ps-3"></div></div><div class='zcwf_row'><div class='zcwf_col_lab'></div>
+                                                    <div><p style="color: black;"  id="otpmessages"></p></div>
+                                                                    <div class="row justify-content-center" id="otp_containerlf">
+                                                                        <div class="mt-2">
+                                                                            <div class="card border">
+                                                                            <div class="card-body bg-grey p-2 text-center">
+                                                                                <!-- <h4>Verify</h4>
+                                                                                <p>Your code was sent to you via email</p> -->
+                                                                                <div class="otp-fields mb-2">
+                                                                                    <input id="digitlf1" class="otp-inp3 text-center p-1" type="number" />
+                                                                                    <input id="digitlf2" class="otp-inp3 text-center p-1" type="number" disabled />
+                                                                                    <input id="digitlf3" class="otp-inp3 text-center p-1" type="number" disabled />
+                                                                                    <input id="digitlf4" class="otp-inp3 text-center p-1" type="number" disabled />
+                                                                                </div>
+                                                                                <span class="error bg-grey" id="Otp_error1"></span>
+                                                                                <!--<p class="resend text-muted mb-2">Didn't receive code? <a href="">Request again</a></p>-->
+                                                                                <div class="mt-0 mb-0">Time left : <span id="timerlf"></span></div>
+                                                                                <div> <button id="verifyBtns" class="verify_btns mb-0 mt-2"> Submit</button> </div>
+                                                                                {% if error_message %}
+                                                                                <script>
+                                                                                    alert("{{ error_message }}")
+                                                                                </script>    
+                                                                                {% endif %}
+                                                                                                                        
+                                                                                <script>
+                                                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                                                        document.getElementById('verifyBtns').addEventListener('click', function () {
+                                                                                            var digit1 = document.getElementById('digitlf1').value;
+                                                                                            var digit2 = document.getElementById('digitlf2').value;
+                                                                                            var digit3 = document.getElementById('digitlf3').value;
+                                                                                            var digit4 = document.getElementById('digitlf4').value;
+                                                    
+                                                                                            // Concatenate the digits into a single string
+                                                                                            var otp = digit1 + digit2 + digit3 + digit4;
+                                                    
+                                                                                            // Get CSRF token
+                                                                                            var csrftoken = getCookie('csrftoken');
+                                                                                
+                                                                                            // Send the OTP to the backend using AJAX
+                                                                                            $.ajax({
+                                                                                                type: 'POST',
+                                                                                                url: '/verify-otp/',  // URL to the backend view
+                                                                                                headers: {
+                                                                                                    'X-CSRFToken': csrftoken
+                                                                                                },
+                                                                                                data: {
+                                                                                                    'otp': otp,
+                                                                                                    // You can include other data if needed
+                                                                                                },
+                                                                                                success: function(response) {
+                                                                                                    // Handle success response
+                                                                                                    console.log(response);
+                                                                                                    
+                                                                                                    if (response.success === true) {
+                                                                                                        console.log("submitted")
+                                                                                                        var clickbtn = document.getElementById('formsubmit');
+                                                                                                        $("#Sucessmessages2").click();
+                                                                                                        
+                                                                                                        setTimeout(function() {
+                                                                                                            // Submit the form associated with the element stored in the variable 'clickbtn'
+                                                                                                            clickbtn.form.submit();
+                                                                                                        }, 2000);
+                                                                                                        
+                                                                                                        } else {
+                                                                                                        console.log(response.message)
+                                                                                                        var otperror = document.getElementById('Otp_error1');
+                                                                                                        
+                                                                                                        otperror.innerText = response.message;
+                                                                                                    }
+                                                                                                },
+                                                                                                error: function(xhr, errmsg, err) {
+                                                                                                    // Handle error
+                                                                                                    console.log(xhr.status + ": " + xhr.responseText);
+                                                                                                }
+                                                                                            });
+                                                                                        });
+                                                                                    });
+                                                                                </script>
+                                                                              
+                                                                            </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-center justify-content-center">
+                                                                        <button type="button" class="btn mt-1 bg-theme white mx-auto rounded-pill px-5" id="otp-button">Send OTP</button>
+                                                                    </div>
+                                                    <div class='zcwf_col_fld'><button type='submit' id='formsubmit' class='formsubmit zcwf_button d-none' value='Submit' title='Submit'></button><input type='reset' class='zcwf_button d-none' name='reset' value='Reset' title='Reset'></div></div>
+                                                    <script>
+    
+    
+                                                    function checkMandatory3397113000057768001() {
+                                                        var mndFileds = new Array('Last Name','Mobile','LEADCF23');
+                                                        var fldLangVal = new Array('Name','Mobile','Destination');
+                                                        for(i=0;i<mndFileds.length;i++) {
+                                                        var fieldObj=document.forms['WebToLeads3397113000057768001'][mndFileds[i]];
+                                                        if(fieldObj) {
+                                                            if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
+                                                            if(fieldObj.type =='file')
+                                                                { 
+                                                                alert('Please select a file to upload.'); 
+                                                                fieldObj.focus(); 
+                                                                return false;
+                                                                } 
+                                                            alert(fldLangVal[i] +' cannot be empty.'); 
+                                                                    fieldObj.focus();
+                                                                    return false;
+                                                            }  else if(fieldObj.nodeName=='SELECT') {
+                                                                    if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
+                                                                alert(fldLangVal[i] +' cannot be none.'); 
+                                                                fieldObj.focus();
+                                                                return false;
+                                                            }
+                                                            } else if(fieldObj.type =='checkbox'){
+                                                                if(fieldObj.checked == false){
+                                                                alert('Please accept  '+fldLangVal[i]);
+                                                                fieldObj.focus();
+                                                                return false;
+                                                            } 
+                                                            } 
+                                                            try {
+                                                                if(fieldObj.name == 'Last Name') {
+                                                                name = fieldObj.value;
+                                                                }
+                                                            } catch (e) {}
+                                                            }
+                                                        }
+                                                        trackVisitor();document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true);
+                                                    }
+                                                
+                                                function tooltipShow3397113000057768001(el){
+                                                    var tooltip = el.nextElementSibling;
+                                                    var tooltipDisplay = tooltip.style.display;
+                                                    if(tooltipDisplay == 'none'){
+                                                        var allTooltip = document.getElementsByClassName('zcwf_tooltip_over');
+                                                        for(i=0; i<allTooltip.length; i++){
+                                                            allTooltip[i].style.display='none';
+                                                        }
+                                                        tooltip.style.display = 'block';
+                                                    }else{
+                                                        tooltip.style.display='none';
+                                                    }
+                                                }
+                                                </script>
+                                            <script>
+                                            document.getElementById("otp-button").addEventListener("click", function() {
+                                                // Perform form validation
+                                                var name = document.getElementById("Last_Name").value;
+                                                
+                                                var phone = document.getElementById("Mobile").value;
+                                                var destination = document.getElementById("LEADCF23").value;
+    
+                                                var nameRegex = /^[a-zA-Z\s]+$/;
+                                                
+                                                var phoneRegex = /^[0-9]{10}$/;
+    
+                                                var isValid = true;
+    
+                                                if (!nameRegex.test(name)) {
+                                                    document.getElementById("name-error-msg").innerHTML = "Please enter a valid name.";
+                                                    isValid = false;
+                                                } else {
+                                                    document.getElementById("name-error-msg").innerHTML = "";
+                                                }
+    
+                                                
+    
+                                                if (!phoneRegex.test(phone)) {
+                                                    document.getElementById("phone-error-msg").innerHTML = "Please enter a valid 10-digit whatsapp number.";
+                                                    isValid = false;
+                                                } else {
+                                                    document.getElementById("phone-error-msg").innerHTML = "";
+                                                }
+    
+                                                if (destination.trim() === "") { // Check if destination is empty after trimming whitespace
+                                                    document.getElementById("destination-error-msg").innerHTML = "Please enter a message.";
+                                                    isValid = false;
+                                                } else {
+                                                    document.getElementById("destination-error-msg").innerHTML = "";
+                                                }
+    
+                                                if (isValid) {
+                                                    sendOTP1()
+                                                }
+                                            });
+    
+                                            
+                                            </script>
+                                                    
+                                                
+    
+                                            <script type='text/javascript' id='VisitorTracking'>
+                                            var $zoho= $zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:'siqc0edcffb77668b1137dcf714251632ccaa852938239b05df27926085165fd7fe0a6a0f8a09f9d75474af0bfd2e0e2166', values:{},ready:function(){}};
+                                            var d=document;s=d.createElement('script');s.type='text/javascript';s.id='zsiqscript';s.defer=true;s.src='https://salesiq.zoho.com/widget';t=d.getElementsByTagName('script')[0];t.parentNode.insertBefore(s,t);
+                                            function trackVisitor(){try{if($zoho){
+                                            var LDTuvidObj = document.forms['WebToLeads3397113000057768001']['LDTuvid'];
+                                            if(LDTuvidObj){LDTuvidObj.value = $zoho.salesiq.visitor.uniqueid();}
+                                            var firstnameObj = document.forms['WebToLeads3397113000057768001']['First Name'];
+                                            if(firstnameObj){name = firstnameObj.value +' '+name;}$zoho.salesiq.visitor.name(name);
+                                            var emailObj = document.forms['WebToLeads3397113000057768001']['Email'];
+                                            if(emailObj){email = emailObj.value;$zoho.salesiq.visitor.email(email);
+                                            }}} catch(e){}}
+                                            </script>
+                                                <!-- Do not remove this --- Analytics Tracking code starts --><script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=553616f3ab68af4589383196f38ec75ebb31c086276d644e7249c5657f5d197d37b5c77cb87cf03f0bb79bcbde36465cgid1c95ff888e93be923f9d3e73b1fecfe36415557f452a9219a86ae1ba5cc1b43agidc993dbf93b2cbf2298aeb893d6ddfadf855062c77eaab33b30a3cb7614769fc8gid4db0c9a387eaa753aa8a73456f6547cb2d209c6185e7262927171c7bdf60e454&tw=6fd9e1e88bb47dfccb6ab1729a48e4175225c22e25ed30ddbb83440452f9388d'></script><!-- Do not remove this --- Analytics Tracking code ends. -->
+                                                </form>
+                                                <script>
+                                                function sendOTP1() {
+                                                    // Send AJAX request to server to send OTP to the provided phone number
+                                                    var phone_number = document.getElementById("Mobile").value;
+                                                    // var email = document.getElementById("Email").value;
+                                                    var user_name = document.getElementById("Last_Name").value;
+                                                    var otpDiv = document.getElementById("otp_containerlf");
+                                                    var signBtn1 = document.getElementById("otp-button");
+                                                    
+                                                    // Get CSRF token from the cookie
+                                                    var csrftoken = getCookie('csrftoken');
+                                            
+                                                    // Example AJAX request with CSRF token included
                                                     $.ajax({
-                                                        url: '/insert_customer_details/',
+                                                        url: '/send_otp/',
                                                         type: 'POST',
-                                                        headers: {
-                                                            'X-CSRFToken': getCSRFToken() // Include CSRF token in headers
-                                                        },
                                                         data: {
-                                                            name: name,
-                                                            email: email,
-                                                            phone: phone,
-                                                            destination: destination
+                                                            'phone_number': phone_number,
+                                                            // 'email':email,
+                                                            'user_name':user_name,
+                                                            'csrfmiddlewaretoken': csrftoken  // Include the CSRF token in the data
                                                         },
                                                         success: function(response) {
-                                                            // Handle success response
-                                                            console.log(response);
                                                             if (response.success === true) {
-                                                                document.getElementById('Password').innerHTML = " ";
-                                                                document.getElementById('Password').innerHTML = "<p>Password Changed</p>";
-                                                                document.getElementById('gif').style.display = 'block';
-                                                                // If the response is success, submit the form
+                                                                // If the response is success, submit the for
+                                                                otpDiv.style.display = "block";
+                                                                signBtn1.style.display = "none";
+                                                                document.getElementById("verifyBtns").style.display="block";
+                                                                var expirationTimelf = new Date();
+                                                                expirationTimelf.setSeconds(expirationTimelf.getSeconds() + 180); // Assuming expiration time is 180 seconds
+                                                                localStorage.setItem('expirationTime', expirationTimelf.getTime());
+    
+                                                                timerlf();
                                                             } else {
-                                                                console.log("success")
-                                                                $("#passwordErrors").text(response.error_message);
+                                                                var errorButton = document.getElementById('errorButtons');
+                                                                errorButton.click();
+                                                                otpDiv.style.display = "none";
+                                                                signBtn1.style.display = "block"
                                                             }
-                                                        },
-                                                        error: function(xhr, status, error) {
-                                                            // Handle error
-                                                            console.error(xhr.responseText);
                                                         }
                                                     });
                                                 }
-                                            }
-                                        });
-                                    
-                                        // Function to get CSRF token from meta tag
-                                        function getCSRFToken() {
-                                            var cookies = document.cookie.split("; ");
-                                            for (var i = 0; i < cookies.length; i++) {
-                                                var cookie = cookies[i].split("=");
-                                                if (cookie[0] === "csrftoken") {
-                                                    return cookie[1];
+    
+    
+                                                // Function to get CSRF token from the cookie
+                                                function getCookie(name) {
+                                                    var cookieValue = null;
+                                                    if (document.cookie && document.cookie !== '') {
+                                                        var cookies = document.cookie.split(';');
+                                                        for (var i = 0; i < cookies.length; i++) {
+                                                            var cookie = cookies[i].trim();
+                                                            // Check if the cookie name matches the requested name
+                                                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                                // Extract and decode the CSRF token
+                                                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    return cookieValue;
                                                 }
-                                            }
-                                            return "";
-                                        }
-                                    </script>
+                                                
+                                                var otpDiv = document.getElementById("otp_containerlf");
+                                                var signBtn1 = document.getElementById("otp-button");
+                                                var veriBtn = document.getElementById("verifyBtns")
+    
+                                                function timerlf() {
+                                                    var expirationTimelf = localStorage.getItem('expirationTime');
+    
+                                                    if (!expirationTimelf) return;
+    
+                                                    function updateTimerlf() {
+                                                        var currentTime = new Date().getTime();
+                                                        var remainingTime = Math.max(0, Math.floor((expirationTimelf - currentTime) / 1000));
+    
+                                                        var m = Math.floor(remainingTime / 60);
+                                                        var s = remainingTime % 60;
+    
+                                                        m = m < 10 ? '0' + m : m;
+                                                        s = s < 10 ? '0' + s : s;
+                                                        document.getElementById('timerlf').innerHTML = m + ':' + s;
+    
+                                                        if (remainingTime > 0) {
+                                                            setTimeout(updateTimerlf, 1000);
+                                                        } else {
+                                                            // Handle timeout
+                                                            otpDiv.style.display = "none";
+                                                            signBtn1.style.display = "block";
+                                                            veriBtn.style.display="none";
+                                                            signBtn1.innerHTML = "Resend OTP";
+                                                        }
+                                                    }
+    
+                                                    updateTimerlf();
+                                                }
+    
+                                                // Call timers() on page load to resume timer if expirationTime is stored
+                                                // timer();
+                                            </script>  
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function() {
+                                                    const inputs = document.querySelectorAll(".otp-fields > .otp-inp3");
+                                                    const button = document.querySelector(".verify_btns");
+    
+                                                    // Focus on the first input field when the page loads
+                                                    window.addEventListener("load", () => inputs[0].focus());
+    
+                                                    // Disable the button by default
+                                                    // button.disabled = true;
+    
+                                                    // Handle paste event
+                                                    inputs[0].addEventListener("paste", function(event) {
+                                                        event.preventDefault();
+                                                        const pastedValue = (event.clipboardData || window.clipboardData).getData("text");
+                                                        const otpLength = inputs.length;
+    
+                                                        for (let i = 0; i < otpLength; i++) {
+                                                            if (i < pastedValue.length) {
+                                                                inputs[i].value = pastedValue[i];
+                                                                inputs[i].removeAttribute("disabled");
+                                                                inputs[i].focus();
+                                                            } else {
+                                                                inputs[i].value = ""; // Clear any remaining inputs
+                                                                inputs[i].focus();
+                                                            }
+                                                        }
+                                                    });
+    
+                                                    // Handle keyup event for each input
+                                                    inputs.forEach((input, index1) => {
+                                                        input.addEventListener("keyup", (e) => {
+                                                            const currentInput = input;
+                                                            const nextInput = input.nextElementSibling;
+                                                            const prevInput = input.previousElementSibling;
+    
+                                                            // Clear input if more than one character is entered
+                                                            if (currentInput.value.length > 1) {
+                                                                currentInput.value = "";
+                                                                return;
+                                                            }
+    
+                                                            // Enable next input field and focus on it
+                                                            if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+                                                                nextInput.removeAttribute("disabled");
+                                                                nextInput.focus();
+                                                            }
+    
+                                                            // Handle backspace key
+                                                            if (e.key === "Backspace") {
+                                                                inputs.forEach((input, index2) => {
+                                                                    if (index1 <= index2 && prevInput) {
+                                                                        input.setAttribute("disabled", true);
+                                                                        input.value = "";
+                                                                        prevInput.focus();
+                                                                    }
+                                                                });
+                                                            }
+    
+                                                            // Enable/disable the button based on inputs
+                                                            // button.disabled = true;
+                                                            // button.classList.remove("active");
+    
+                                                            // const inputsNo = inputs.length;
+                                                            // if (!inputs[inputsNo - 1].disabled && inputs[inputsNo - 1].value !== "") {
+                                                            //     button.disabled = false;
+                                                            //     button.classList.add("active");
+                                                            // }
+                                                        });
+                                                    });
+                                                });
+                                            </script>
+                                              <script>
+                                                let timerOn = true;
+                                                var otpDiv = document.getElementById("otp_containerlf");
+                                                var signBtn1 = document.getElementById("otp-button");
+                                                var verifyBtn = document.getElementById("verifyBtns");
+                                                function timer(remaining) {
+                                                var m = Math.floor(remaining / 60);
+                                                var s = remaining % 60;
+                                                
+                                                m = m < 10 ? '0' + m : m;
+                                                s = s < 10 ? '0' + s : s;
+                                                document.getElementById('timerlf').innerHTML = m + ':' + s;
+                                                remaining -= 1;
+                                                
+                                                if(remaining >= 0 && timerOn) {
+                                                    setTimeout(function() {
+                                                        timer(remaining);
+                                                    }, 1000);
+                                                    return;
+                                                }
+                                        
+                                                if(!timerOn) {
+                                                    // Do validate stuff here
+                                                    return;
+                                                }
+                                                
+                                                // Do timeout stuff here
+                                                alert('Timeout for otp');
+                                                otpDiv.style.display = "none";
+                                                signBtn1.style.display = "block"
+                                                }
+                                                </script>
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -292,11 +824,495 @@
         background-image: url("{% static 'image/home/shape8.png' %}");
     }
     .breadcrumb-main {
-        background-image: url("{% static 'image/home/Contact us resize .jpg' %}");
+        background-image: url("{% static meta.Desktopimage_url %}");
         height: 500px;
+        
+        
     }
   </style>
    <!--Css-->
+
+     <!-- script start -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <!-- script end -->
+ 
+     <!-- Success Page -->
+     <div class="modal fade" id="success_tic2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter1Title" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+           <!-- Modal content-->
+           <div class="modal-content">
+             <div class="text-end px-3 pt-2">
+                 <!--<a class="btn-close btn-close1 mt-0" href="#" data-bs-dismiss="modal" aria-label="Close"></a>-->
+             </div>
+             <div class="page-body">
+                 <div class="head">  
+                     <h4 class="head_modal">Form Submitted</h4>
+                 </div>
+                 <h2 style="text-align:center;font-size:58px">
+                     <div class="checkmark-circle">
+                         <div class="background"></div>
+                         <div class="checkmark draw"></div>
+                     </div>
+                  </h2>
+             </div>
+           </div>
+         </div>
+     </div>
+     <!-- End Success Page -->
+     
+     <!--Success Page Css-->
+         <style>
+             .lab_blue {
+                 color:rgba(0, 78, 174, 1) !important;
+             }
+             
+             #success_tic2 .page-body{
+               max-width:300px;
+               background-color:#FFFFFF;
+               margin:10px auto;
+             }
+              #success_tic2 .page-body .head{
+               text-align:center;
+             }
+             /* #success_tic2 .tic{
+               font-size:186px;
+             } */
+             #success_tic2 .close{
+                   /* opacity: 1; */
+                 position: absolute;
+                 right: 0px;
+                 font-size: 30px;
+                 padding: 3px 15px;
+               margin-bottom: 10px;
+             }
+             #success_tic2 .checkmark-circle {
+               width: 150px;
+               height: 150px;
+               position: relative;
+               display: inline-block;
+               vertical-align: top;
+             }
+             .checkmark-circle .background {
+               width: 150px;
+               height: 150px;
+               border-radius: 50%;
+               background: #1ab394;
+               position: absolute;
+             }
+             #success_tic2 .checkmark-circle .checkmark {
+               border-radius: 5px;
+             }
+             #success_tic2 .checkmark-circle .checkmark.draw:after {
+               -webkit-animation-delay: 300ms;
+               -moz-animation-delay: 300ms;
+               animation-delay: 300ms;
+               -webkit-animation-duration: 1s;
+               -moz-animation-duration: 1s;
+               animation-duration: 1s;
+               -webkit-animation-timing-function: ease;
+               -moz-animation-timing-function: ease;
+               animation-timing-function: ease;
+               -webkit-animation-name: checkmark;
+               -moz-animation-name: checkmark;
+               animation-name: checkmark;
+               -webkit-transform: scaleX(-1) rotate(135deg);
+               -moz-transform: scaleX(-1) rotate(135deg);
+               -ms-transform: scaleX(-1) rotate(135deg);
+               -o-transform: scaleX(-1) rotate(135deg);
+               transform: scaleX(-1) rotate(135deg);
+               -webkit-animation-fill-mode: forwards;
+               -moz-animation-fill-mode: forwards;
+               animation-fill-mode: forwards;
+             }
+             #success_tic2 .checkmark-circle .checkmark:after {
+               opacity: 1;
+               height: 75px;
+               width: 37.5px;
+               -webkit-transform-origin: left top;
+               -moz-transform-origin: left top;
+               -ms-transform-origin: left top;
+               -o-transform-origin: left top;
+               transform-origin: left top;
+               border-right: 15px solid #fff;
+               border-top: 15px solid #fff;
+               border-radius: 2.5px !important;
+               content: '';
+               left: 35px;
+               top: 80px;
+               position: absolute;
+             }
+             
+             @-webkit-keyframes checkmark {
+               0% {
+                 height: 0;
+                 width: 0;
+                 opacity: 1;
+               }
+               20% {
+                 height: 0;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               40% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               100% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+             }
+             @-moz-keyframes checkmark {
+               0% {
+                 height: 0;
+                 width: 0;
+                 opacity: 1;
+               }
+               20% {
+                 height: 0;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               40% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               100% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+             }
+             @keyframes checkmark {
+               0% {
+                 height: 0;
+                 width: 0;
+                 opacity: 1;
+               }
+               20% {
+                 height: 0;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               40% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+               100% {
+                 height: 75px;
+                 width: 37.5px;
+                 opacity: 1;
+               }
+             }
+         </style>
+     <!--Success Page Css-->
+ 
+     <!--Css-->
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+     
+       body:before {
+           content: '';
+           /*position: absolute;*/
+           width: 100vw;
+           height: 100vh;
+           
+           background-position: center center;
+           background-repeat: no-repeat;
+           background-attachment: fixed;
+           -webkit-background-size: cover;
+           background-size: cover;
+           -webkit-filter: blur(10px);
+           -moz-filter: blur(10px);
+           filter: blur(10px);
+       } */
+       
+       .otp-fields input {
+           height: 45px !important;
+           width: 42px  !important;
+           border-radius: 6px;
+           outline: none;
+           font-size: 1.125rem;
+           text-align: center;
+           border: 1px solid #ddd;
+       }
+       
+       .otp-inp3 {
+           padding: 4px 10px !important;
+           border: 1px solid rgba(0, 78, 174, 1);
+       }
+       
+       .otp-fields input:focus {
+           box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+       }
+     
+       .otp-fields input::-webkit-inner-spin-button,
+       .otp-fields input::-webkit-outer-spin-button {
+           display: none;
+       }
+     
+       .resend {
+           font-size: 12px;
+       }
+     
+       #otp_containerlf{
+           display: none;
+       }
+       
+       .image_h4 {
+           font-size: 36px;
+           font-weight: 700;
+           color:rgba(255, 255, 255, 1) ;
+       }
+     
+       .features_div {
+           margin-top: 80px;
+       }
+     
+       .features {
+           font-size: 16px;
+           color:rgba(255, 255, 255, 1);
+           font-weight: 500;
+           /* background: rgba(255, 255, 255, 0.28); */
+           padding: 27px 20px;
+           background: rgba(255, 254, 254, 0.13);
+           backdrop-filter: blur(5px);
+           border-radius: 18px;
+       }
+     
+       #sign_head_div {
+           margin: 2px;
+       }
+     
+       .input_div{
+           flex-direction: column;
+           display: flex;
+           margin: 2px;
+       }
+     
+       .input_signin {
+           background: rgba(237, 237, 237, 0.75);
+           border-radius: 50px !important;
+           padding: 13px 18px;
+           font-size: 14px !important;
+           height: auto !important;
+           font-weight: 600;
+           color:rgba(23, 52, 73, 0.61);
+           border: none;
+           width: 100%;
+           margin: 2px;
+           border: 1px solid rgba(0, 78, 174, 1) !important ;
+       }
+     
+       .input::placeholder {
+           font-weight: 400;
+           color:black !important;
+           font-size: 15px;
+       }
+       
+       input:focus::placeholder {
+         color: rgba(0, 78, 174, 1) !important; /* Color after typing */
+         font-size:13px !important;
+       }
+                       
+       #checkbox_div {
+          margin: 2px 10px;
+          /* display: none; */
+       }
+     
+       .check_text {
+           color: rgba(23, 52, 73, 1);
+           font-size: 14px;
+           font-weight: 400;
+           padding-left: 10px;
+       }
+     
+       .check_text span {
+           color: rgba(0, 78, 174, 1);
+           font-weight: 500;
+           cursor: pointer;
+       }
+       
+       .sign_btn {
+           padding: 12px 20px;
+           background: linear-gradient(240deg, rgba(0, 78, 174, 1), rgba(75, 153, 249, 1));
+           border-radius: 50px;
+           color:rgba(255, 255, 255, 1);
+           text-align: center;
+           font-weight: 600;
+           font-size: 15px;
+           width: 100%;
+           height: 50px;
+           border: none;
+       }
+     
+      #verifyBtns {
+           padding: 10px 12px;
+           color:rgba(255, 255, 255, 1);
+           background: #029e9d;
+           width: 100%;
+           /* height: 50px; */
+           border: none;
+           font-weight: 600;
+           font-size: 15px;
+           border-radius: 50px;
+      }
+       
+       .sign_btn:hover {
+           background: linear-gradient(240deg, rgba(75, 153, 249, 1), rgba(0, 78, 174, 1));
+       }
+     
+       #concern_text {
+           align-items: center;
+           justify-content: center;
+           text-align: center;
+           margin: 2px;
+       }
+     
+     
+       .lg_btn {
+           color: #029e9d;
+           font-size: 15px;
+           font-weight: 600;
+           cursor: pointer;
+           text-decoration: underline;
+       }
+     
+       .lg_btn:hover {
+           opacity: 60%;
+       }
+       
+       .head_modal{
+           color:#029e9d;
+           font-weight:700;
+           font-size:30px;
+       }
+     
+       .btn-close {
+           font-size: 12px;
+           /* background: #029e9d; */
+           color: #777 !important;
+           border: 2px solid rgba(0, 78, 174, 1);
+           border-radius: 50%;
+           padding: 12px;
+           font-weight: 700;
+       }
+       
+       .btn-close1 {
+              padding: 6px 14px;
+       }
+       
+       .modal{
+           overflow-y:scroll;
+           background:#000000ad !important ;
+       }
+     
+       .modal-open .modal .modal-dialog {
+           max-width: 520px;
+           top: 5%;
+       }
+       
+       #image_container {
+           background-size: contain;
+           background-position: center center;
+           background-repeat: no-repeat;
+           /* background-attachment: fixed;
+           -webkit-background-size: cover; */
+           border-radius: 20px;
+           padding: 10px 15px;
+           margin: 15px 5px; 
+       }
+     
+       .modal-header {
+           border-bottom: none !important;
+       }
+     
+       .modal-content {
+           border-radius: 12px !important;
+       }
+     
+       #main_container {
+           background: rgba(255, 255, 255, 1);
+           border-radius: 20px;
+       }
+     
+       .fp_text {
+           color:rgba(0, 78, 174, 1) !important;
+       }
+       
+       .fp_text:hover {
+           color:rgba(0, 78, 174, 1) !important;
+           opacity:0.6 !important;
+       }
+     
+       .input_login {
+           font-size: 14px !important;
+           border-radius: 50px !important;
+           padding: 13px 18px !important;
+           color: rgba(43, 43, 43, 0.5) !important;
+           width: 100% !important;
+           border: 1px solid rgba(0, 78, 174, 1) !important;
+           
+       }
+     
+       #concern_text p {
+           color: rgba(0, 0, 0, 0.71);
+           font-size: 15px;
+           font-weight: 600;
+     
+       }
+     
+       .btn_div {
+           margin: 2px;
+       }
+     
+     
+       .otp-fields {
+           flex-direction: row;
+           column-gap: 20px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+       }
+     
+     
+       .error-msg {
+            color: red;
+            font-size: 12px;
+        }
+     
+     
+       .sign_utext {
+           font-size: 15px;
+           font-weight: 500;
+           color: rgba(0, 0, 0, 0.7);
+       }
+     
+      #timerlf {
+       border: 1px solid black;
+       border-radius: 10px;
+       font-weight: 600;
+       box-shadow: 5px 5px 5px 0.5 gray;
+       padding: 2px 8px;
+      }
+      
+     @media only screen and (max-width: 768px) {
+       #main_container {
+           flex-direction: column;
+       }
+     }
+     
+     @media (max-width: 811px) {
+       .error {
+            padding: 0 0 !important; 
+       }
+     }                   
+     </style>
+     <!--Css-->
 
     <!-- *Scripts* -->
     <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>

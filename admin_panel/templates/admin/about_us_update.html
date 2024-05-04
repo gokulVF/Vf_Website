@@ -177,24 +177,24 @@
               <label for="subtitle" class="form-label">Page Title</label>
               <input type="text" class="form-control" id="subtitle" required name="Sub_Title" autocomplete="off" value="{{aboutus_admin.subtitle}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg-6">
               <label for="title" class="form-label">About Us Content 1</label>
                <textarea class="form-control" style="resize: none;" required id="title" name="content_para-1" autocomplete="off">{{ aboutus_admin.content_para_1 }}</textarea>
             </div>
             
-            <div class="mb-3">
+            <div class="mb-3 col-lg-6">
               <label for="description" class="form-label">About Us Content 2</label>
               <textarea class="form-control" id="title" required style="resize: none;" name="content_para-2" autocomplete="off">{{ aboutus_admin.content_para_2 }}</textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg-4">
               <label for="title" class="form-label">Meta Title</label>
                <textarea class="form-control" style="resize: none;" required id="title" name="meta_title" autocomplete="off">{{ aboutus_admin.meta_title }}</textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg-4">
               <label for="title" class="form-label">Meta Description</label>
                <textarea class="form-control" style="resize: none;" required id="title" name="meta_description" autocomplete="off">{{ aboutus_admin.meta_description }}</textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg-4">
               <label for="title" class="form-label">Meta Keyword</label>
                <textarea class="form-control" style="resize: none;" required id="title" name="meta_keyword" autocomplete="off">{{ aboutus_admin.meta_keyword }}</textarea>
             </div>
@@ -215,22 +215,41 @@
               <label for="description" class="form-label">Servicable Countries</label>
               <input type="number" class="form-control" required id="password" name="Servicable_Countries" autocomplete="off" value="{{aboutus_admin.servicable_countries}}">
             </div>
-            <div class="mb-3 col-lg-6">
+            <hr>
+            <label for="upload" class="form-label fw-bold">AboutUs Banner Images</label>
+            <hr>
+            <div class="mb-3 col-lg-4">
               <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">About Us Images</label>
-              <input class="form-control"  type="file" name="image-file" id="upload" >
+              <label for="upload" class="form-label">Desktop View Image</label>
+              <input class="form-control"  type="file" name="Desktopimage-file" id="upload" >
             </div>
-            <div class="mb-3  col-lg-6">
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Tab View Image</label>
+              <input class="form-control"  type="file" name="Tabimage-file" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Mobile View Image</label>
+              <input class="form-control"  type="file" name="Mobileimage-file" id="upload" >
+            </div>
+            <hr>
+            <div class="mb-3 mt-3 col-lg-6">
               <!-- <img src="{{ aboutus_admin.review_image_url }}" alt=""> -->
               <label for="upload" class="form-label">Review cover Images</label>
               <input class="form-control"  type="file" name="image-file-2" id="upload" >
+            </div>
+            <div class="mb-3 mt-3 col-lg-6">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Aobut cover Image</label>
+              <input class="form-control"  type="file" name="image-file" id="upload" >
             </div>
             <!-- <div class="mb-3">
               <label for="title" class="form-label">Slider Button</label>
               <input type="text" class="form-control" id="title" placeholder="">
             </div> -->
             <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Change About Us</button>
+              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
             </div>
           </form>
         </div>

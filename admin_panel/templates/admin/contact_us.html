@@ -149,7 +149,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="forms-sample" id="myForm" action="{% url 'submit_form_contact' %}" method="POST">
+            <form class="forms-sample row" id="myForm" action="{% url 'submit_form_contact' %}" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
             <div class="mb-3">
               <label for="subtitle" class="form-label">Title</label>
@@ -164,6 +164,24 @@
               <label for="description" class="form-label">Keywords</label>
               <textarea type="text" class="form-control" id="keyword" name="keyword" value="" autocomplete="off" placeholder="">{{ datedata.meta_keyword}}</textarea>
             </div>
+            <label for="upload" class="form-label fw-bold">Contactus Banner Images</label>
+            <hr>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Desktop View Image</label>
+              <input class="form-control"  type="file" name="Desktopimage" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Tab View Image</label>
+              <input class="form-control"  type="file" name="Tabimage" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ aboutus_admin.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Mobile View Image</label>
+              <input class="form-control"  type="file" name="Mobileimage" id="upload" >
+            </div>
+            <hr>
             <div class="text-center">
               <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
             </div>

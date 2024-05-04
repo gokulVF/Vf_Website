@@ -1,5 +1,3 @@
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +28,20 @@
             right:78px;
             bottom: 15px;
         }
+        
+        @media (max-width: 768px) {
+            #preloader #status {
+                width:70% !important;
+            }
+        }
+        
+         @media screen and (min-width: 1100px) and (max-width: 1399px) { 
+            .logo_img {
+               width:170px !important;
+            }
+          
+        }
+        
     </style>
     <!--Sales IQ-->
 </head>
@@ -97,7 +109,7 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <a class="navbar-brand" href="{% url 'home_page' %}">
-                            <img src="{% static 'image/home/VF magnet logo.png' %}" alt="image" style="width: 260px;height:auto;">
+                            <img src="{% static 'image/home/VF magnet logo.png' %}" class="logo_img" alt="image" style="width: 260px;height:auto;">
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -231,7 +243,7 @@
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->   
-                    <div class="register-login d-flex align-items-center ps-5">
+                    <div class="register-login d-flex align-items-center">
                         <button style="background: None;" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" id="log-btn-switch" class="me-3 logreg_btn">
                             <i class="icon-user"></i>  LOGIN/REGISTER
                         </button>
@@ -331,7 +343,7 @@
               width: 30%;
               height: 300px;
               margin: 0 auto;
-              background: url("{% static 'image/images/loader.gif' %}" );
+              background: url("{% static 'image/images/loader-flight.gif' %}" );
               background-size: cover;
               background-position: center;
               opacity: 1;
@@ -465,13 +477,14 @@
             }
             
             
-            @media screen and (min-width: 1200px) and (max-width: 1399px) { 
+            @media screen and (min-width: 1100px) and (max-width: 1399px) { 
             .header_menu .navbar.navbar-default .nav.navbar-nav li a {
-                font-size:14px !important;
+                font-size:13px !important;
             }
             
             .register-login button {
-                font-size:14px !important;
+                font-size: 13px !important;
+                padding: 0px !important;
             }
         }
     </style>

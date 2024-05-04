@@ -4,8 +4,10 @@ from django.db import models
 class PagesTable(models.Model):
     pagesname = models.CharField(max_length=255)
     description = models.JSONField()
-    created_by = models.CharField(max_length=200, blank=True, null=True)
-    updated_by = models.CharField(max_length=200, blank=True, null=True)
+    created_name = models.CharField(max_length=100, blank=True, null=True)
+    updated_name = models.CharField(max_length=100, blank=True, null=True)
+    created_by = models.DateField(blank=True, null=True)
+    updated_by = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False

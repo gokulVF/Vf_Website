@@ -289,26 +289,39 @@
             
           <div class="row">
               
-            <div class="mb-3 col-lg-12">
-              <label for="title" class="form-label">Banner Title</label>
-              <input type="text" class="form-control"  id="banner_title" name="banner_title" autocomplete="off" value="{{home1_details.description.banner_title}}">
-            </div>
-            <div class="mb-3 col-lg-6">
+            
+            <div class="mb-3 col-lg-4">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">Banner Images (size:1920x250)</label>
+              <label for="upload" class="form-label">Desktop Banner Images (size:1920x250)</label>
               <input class="form-control"  type="file" name="banner_image" id="upload" >
             </div>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Tab Banner Images</label>
+              <input class="form-control"  type="file" name="tab_image" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-4">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Mobile Banner Images</label>
+              <input class="form-control"  type="file" name="Mobile_image" id="upload" >
+            </div>
+            <!-- <div class="mb-3 col-lg-6">
+              <label for="title" class="form-label">Banner Title</label>
+              <input type="text" class="form-control"  id="banner_title" name="banner_title" autocomplete="off" value="{{home1_details.description.banner_title}}">
+            </div> -->
             <div class="mb-3 col-lg-6">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
               <label for="upload" class="form-label">client review Banner Images (size:1800x1200)</label>
-              <input class="form-control"  type="file" name="review_banner_image" id="upload" >
+              <input class="form-control"  type="file" name="review_image" id="upload" >
             </div>
         </div>
         </div>
-        <p style="font-weight: 600;font-size: 18px;" class="mb-3">Big Video Details</p>
+        
         <div>
-         <div class="row">
-           <div class="mb-3 col-lg-6">
+          <hr>
+        <div class="d-flex">
+          
+           <!-- <div class="mb-3 col-lg-6">
                     <input type="hidden" class="select-city1" id="new2-{{home1_details.description.big_v_destination}}" value="{{home1_details.description.big_v_destination}}">
                     <label for="title" class="form-label">Select destination</label>
                     <select class="form-select Show-city1"  name="big_v_destination" id="mySelect2">
@@ -333,19 +346,23 @@
           <div class="mb-3 col-lg-6">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control"  id="big_v_title" name="big_v_title" autocomplete="off" value="{{home1_details.description.big_v_title}}">
-          </div>
+          </div> -->
+          <div class="mb-3 pt-2 pe-2"><p style="font-weight: 600;font-size: 18px;" class="mb-3">Big Video Details  Video (size:1280x720)</p></div>
           <div class="mb-3 col-lg-6">
             <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-            <label for="upload" class="form-label">Video (size:1280x720)</label>
+            <!-- <label for="upload" class="form-label"></label> -->
             <input class="form-control"  type="file" name="big_video" id="upload" >
           </div>
+        
       </div>
+      
         </div>
+        <hr>
       <p style="font-weight: 600;font-size: 18px;" class="mb-3">Small Video Content</p>
         <div>
             
         <div class="row">
-             <div class="mb-3 col-lg-6">
+             <!-- <div class="mb-3 col-lg-6">
                     <input type="hidden" class="select-city2" id="new2-{{home1_details.description.small_v_destination}}" value="{{home1_details.description.small_v_destination}}">
                     <label for="title" class="form-label">Select destination</label>
                     <select class="form-select Show-city2"  name="small_v_destination" id="mySelect1">
@@ -362,25 +379,27 @@
                             {% endfor %}
                           </optgroup>
                      </select>
-            </div>
-            <div class="mb-3 col-lg-6">
+            </div> -->
+            <div class="mb-3 col-lg-4">
             <label for="title" class="form-label">heading</label>
             <input type="text" class="form-control"  id="small_v_heading" name="small_v_heading" autocomplete="off" value="{{home1_details.description.small_v_heading}}">
             </div>
-            <div class="mb-3 col-lg-6">
+            <div class="mb-3 col-lg-4">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control"  id="small_v_title" name="small_v_title" autocomplete="off" value="{{home1_details.description.small_v_title}}">
             </div>
+            
           
-            <div class="mb-3 col-lg-6">
+            <div class="mb-3 col-lg-4">
             <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
             <label for="upload" class="form-label">Video (size:700x650)</label>
             <input class="form-control"  type="file" name="small_video" id="upload" >
             </div>
             <div class="mb-3 col-lg-12">
-                <label for="title" class="form-label">Content</label>
-                <textarea class="form-control" id="small_v_para" name="small_v_para" autocomplete="off">{{home1_details.description.small_v_para}}</textarea>
-            </div>
+              <label for="title" class="form-label">Content</label>
+              <textarea class="form-control" id="small_v_para" name="small_v_para" autocomplete="off">{{home1_details.description.small_v_para}}</textarea>
+          </div>
+            
             
         </div>
         </div>

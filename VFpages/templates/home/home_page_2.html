@@ -27,6 +27,7 @@
     <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <!--Custom CSS-->
     <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/home/stylemedia.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
 
@@ -59,147 +60,13 @@
             font-family: "Font Awesome 5 Brands;"
         }
         
-        .checked {
-            color:orange;
-        }
-        
          #new-testimonial {
             background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.review_banner_image }}");
         }
         
-        .pmore-btn {
-            background:#029e9d;
-            color: #fff;
-            border-radius: 8px;
-        }
-
-        .banner .banner-main {
-             height: auto !important;
-            position: relative;
-        }
-        
-        
-        .buclist_price {
-            color: #fff !important;
-            background: #029e9d;
-            padding: 3px 4px;
-            border-radius: 6px;font-size:18px;
-        
-        }
         .new_pic {
             background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.banner_image }}");
             background-size:cover;
-    
-        }
-        
-        .item-slider .slick-prev, .item-slider .slick-next {
-            top: -98px !important;
-            
-        }
-        
-        .nav-tabs > li.nav-item button {
-            border: 1px solid #029e9d !important;
-        }
-        
-        .theme_new {
-               background-color: rgb(9 9 9 / 49%);
-                color: #fdc703 !important;
-                padding: 4px 12px;
-                border-radius: 50px;
-        }
-        
-        .r_package_div {
-                    height: 265px !important;
-        }
-            
-          
-        @media screen and (min-width: 1200px) and (max-width: 1399px) { 
-            .cat_divs {
-                padding: 10px !important;
-            }
-            
-            .video_div {
-                height: auto !important;
-            }
-            
-            .vid_sec {
-                padding:40px !important;
-            }
-            
-            .start_from {
-                font-size:14px !important;
-            }
-            
-            .stay_price {
-                font-size:18px !important;
-            }
-            
-            .stay_person {
-                  font-size:12px !important;
-            }
-            
-            .b_place1 {
-                font-size:14px !important;
-            }
-            
-            .b_place2 {
-                font-size:17px !important;
-                margin-bottom:0px !important;
-            }
-            
-            .pac_price {
-                font-size:20px !important;
-            }
-            
-            .r_des {
-                font-size:14px !important;
-            }
-            
-            .r_days {
-                font-size:14px !important;
-            }
-            
-            .r_place2 {
-                font-size:22px !important;
-            }
-            
-            .art_side_div {
-                margin-bottom: 17px !important;
-            }
-            
-            .r_package_div {
-                height: 245px !important;
-            }
-            
-            .nod_tour, .nod_cal {
-                font-size:12px !important;
-            }
-       }
-       
-       
-        @media screen and (min-width: 1200px) and (max-width: 1399px) { 
-            .why-us-tab {
-                height:500px;
-            }
-          
-        }
-         @media screen and (min-width: 992px) and (max-width: 1199px) { 
-            .why-us-tab {
-                height:600px;
-            }
-       
-        }
-        
-         @media screen and (min-width: 768px) and (max-width: 991px) { 
-            .why-us-tab {
-                height:400px;
-            }
-        }
-        
-         @media screen and (min-width:576px ) and (max-width: 768px) { 
-            .why-us-tab {
-                height:500px;
-            }
         }
     </style>
     <!--Css-->
@@ -230,7 +97,7 @@
                    
                     <div class="mb-0" style="margin-top:300px;">
                         <div class="category-main-inner">
-                            <div class="row side-slider">
+                            <div class="row side-slider mx-2">
                                      {% for views in all_categories %}
                                         {% if views.categoriesname != "Not selected" %}
                                 <div class="col-lg-3 col-md-6 mt-4 mb-0 cat_div">
@@ -268,15 +135,15 @@
                         <a href="{% url 'international-tour-packages' international_page_top.description.destination_1Continent %}" >
                         <div class="trend-image position-relative rounded">
                             <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_1image }}" alt="image">
-                            <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                <div class="trend-content-title text-end">
-                                    <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_1Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_1Name}}</a></h5>
-                                    <h3 class="mb-0 white">{{international_page_top.description.destination_1Cities}}</h3>
-                                </div>
-                                  <div class="pt-4 ps-4 position-absolute z-index1">
-                                    <span class="white bg-theme p-1 px-2 rounded fw-bold"> {{international_page_top.description.destination_1Price}}</span>
-                                 </div>
-                            </div>
+                            <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                            <!--    <div class="trend-content-title text-end">-->
+                            <!--        <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_1Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_1Name}}</a></h5>-->
+                            <!--        <h3 class="mb-0 white">{{international_page_top.description.destination_1Cities}}</h3>-->
+                            <!--    </div>-->
+                            <!--      <div class="pt-4 ps-4 position-absolute z-index1">-->
+                            <!--        <span class="white bg-theme p-1 px-2 rounded fw-bold"> {{international_page_top.description.destination_1Price}}</span>-->
+                            <!--     </div>-->
+                            <!--</div>-->
                             <!-- <div class="color-overlay"></div> -->
                         </div>
                         </a>
@@ -289,24 +156,24 @@
                                 <a href="{% url 'international-tour-packages' international_page_top.description.destination_2Continent %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_2image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_2Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_2Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{international_page_top.description.destination_2Cities}}</h3>
-                                        </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_2Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_2Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{international_page_top.description.destination_2Cities}}</h3>-->
+                                    <!--    </div>-->
                                         <!-- <div class="rating-main d-flex align-items-center">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            </div>
-                                        </div> -->
-                                        <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold"> {{international_page_top.description.destination_2price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--        <div class="rating">-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--        </div>-->
+                                    <!--    </div> -->
+                                    <!--    <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold"> {{international_page_top.description.destination_2price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
@@ -318,24 +185,24 @@
                                 <a href="{% url 'international-tour-packages' international_page_top.description.destination_3Continent %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_3image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_3Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_3Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{international_page_top.description.destination_3Cities}}</h3>
-                                        </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_3Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_3Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{international_page_top.description.destination_3Cities}}</h3>-->
+                                    <!--    </div>-->
                                         <!-- <div class="rating-main d-flex align-items-center">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            </div>
-                                        </div> -->
-                                         <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_3price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--        <div class="rating">-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--        </div>-->
+                                    <!--    </div> -->
+                                    <!--     <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_3price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                    
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
@@ -347,24 +214,24 @@
                                 <a href="{% url 'international-tour-packages' international_page_top.description.destination_4Continent %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_4image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_4Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_4Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{international_page_top.description.destination_4Cities}}</h3>
-                                        </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_4Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_4Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{international_page_top.description.destination_4Cities}}</h3>-->
+                                    <!--    </div>-->
                                         <!-- <div class="rating-main d-flex align-items-center">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            </div>
-                                        </div> -->
-                                         <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_4price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--        <div class="rating">-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--        </div>-->
+                                    <!--    </div> -->
+                                    <!--     <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_4price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                    
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
@@ -376,24 +243,24 @@
                                 <a href="{% url 'international-tour-packages' international_page_top.description.destination_5Continent %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_5image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_5Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_5Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{international_page_top.description.destination_5Cities}}</h3>
-                                        </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'international-tour-packages' international_page_top.description.destination_5Continent %}" class="theme1 theme_new">{{international_page_top.description.destination_5Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{international_page_top.description.destination_5Cities}}</h3>-->
+                                    <!--    </div>-->
                                         <!-- <div class="rating-main d-flex align-items-center">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            </div>
-                                        </div> -->
-                                        <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_5price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--        <div class="rating">-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--            <span class="fa fa-star checked"></span>-->
+                                    <!--        </div>-->
+                                    <!--    </div> -->
+                                    <!--    <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{international_page_top.description.destination_5price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
@@ -530,24 +397,12 @@
         <div class="banner-main video_div">
             <div class="banner-image">
                 <div class="video-banner text-center">
-                    <video autoplay muted loop id="vid" class="rounded w-75">
+                    <video autoplay muted loop id="vid" class="rounded w-75 v_mbl">
                         <source src="{% static 'image/home_2/main_details/' %}{{ home_page_2.description.big_video }}" type="video/mp4">
                     </video>
                 </div>
                 <!--<div class="dot-overlay"></div>-->
             </div>
-            <!--<div class="banner-content">-->
-            <!--    <div class="entry-meta mb-0">-->
-            <!--        <h5 class="mb-1 white">{{home_page_2.description.big_v_heading}}</h5>-->
-            <!--    </div>-->
-            <!--    <h2><span class="theme1"> {{home_page_2.description.big_v_title}}</span></h2>-->
-            <!--    {% if big.category == "0" %}-->
-                
-            <!--    <a href="{% url 'international-tour-packages' big.destination_slug %}" class="nir-btn">Read More</a>-->
-            <!--    {% else %}-->
-               
-            <!--    <a href="{% url 'domestic-packages' big.destination_slug %}" class="nir-btn">Read More</a>-->
-            <!--    {% endif %}-->
             <!--</div>-->
             
         </div>
@@ -605,7 +460,7 @@
                                         // Set the modified HTML back to the element
                                         placeElement.innerHTML = replacedText;
                                     </script>
-                                    <p class="pb-1 mb-0" style="font-size:14px;">{{ packages.description.descriptions }}</p>
+                                    <p class="pb-1 mb-0 pac_sname" style="font-size:14px;">{{ packages.description.descriptions }}</p>
                                 </div>
                                 <div class="entry-meta">
                                         <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end">
@@ -662,7 +517,7 @@
                 {% for category, packages in categories.items %}
                     {% if category != "Not-selected" %}
                         <li class="nav-item" role="presentation">
-                            <button style="text-transform: capitalize;"  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" class="nav-link {% if forloop.first %}active{% endif %} px-2 py-1 rounded-pill" data-bs-target="#{{ category }}" data-bs-toggle="tab" id="{{ category }}-tab" role="tab" type="button">{{ category }}</button>
+                            <button style="text-transform: capitalize;"  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" class="nav-link {% if forloop.first %}active{% endif %} px-2 py-1 rounded-pill tab_buck" data-bs-target="#{{ category }}" data-bs-toggle="tab" id="{{ category }}-tab" role="tab" type="button">{{ category }}</button>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -708,8 +563,8 @@
                                                 </script>
                                                 <div class="trend-meta mb-1">
                                                     <div class="entry-author">
-                                                         <i class="icon-calendar"  style="font-size:14px;"></i>
-                                                        <span style="font-size: 13px;">{{ package.description.Noofdays }}</span>
+                                                         <i class="icon-calendar cal_days"  style="font-size:14px;"></i>
+                                                        <span style="font-size: 13px;" class="days_text">{{ package.description.Noofdays }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -717,7 +572,7 @@
                                                 <div class="entry-author align-items-center">
                                                     <span class="theme1 fw-bold mb-0 bstart_from" style="font-size: 14px;">Starts from</span>
                                                     <p class="theme fw-bold mb-0 bg-theme buclist_price text-center" style="font-size:18px">{{ package.description.price }}</p>
-                                                    <p class="mt-0 mb-0" style="font-size:13px">{{ package.description.person }}</p>
+                                                    <p class="mt-0 mb-0 pp_text" style="font-size:13px">{{ package.description.person }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -740,7 +595,7 @@
     <!-- Bucket-list ends -->
 
     <!--Why us starts-->
-    <section class="trending bg-grey pb-3 pt-3">
+    <section class="trending bg-grey why_us_div pb-3 pt-3">
         <div class="container">
             
             <div class="section-title mb-6 w-50 mx-auto text-center">
@@ -816,23 +671,14 @@
         <div class="container">
             <div class="call-banner1 rounded">
                 <div class="row d-flex align-items-center">
-                    <div class="col-lg-4 col-md-4 p-0" style="z-index: 3;">
+                    <div class="col-lg-4 col-md-4 p-0 v_ban" style="z-index: 3;">
                         <div class="call-banner-inner bg-theme px-4 py-5 my-5 rounded ms-4">
-                            <h5 style="font-size:24px;" class="mb-1 white">{{home_page_2.description.small_v_heading}}</h5>
-                            <h3><span class="theme1" style="font-size:40px;">{{home_page_2.description.small_v_title}}</span></h3>
-                                <p class="white mb-3">{{home_page_2.description.small_v_para}}</p>
-                            
-                            <!--<a href="#" class="nir-btn-black">Read More</a>-->
-                                <!--{% if small.category == "0" %}-->
-                                
-                                <!--<a href="{% url 'international-tour-packages' small.destination_slug %}" class="nir-btn-black">Read More</a>-->
-                                <!--{% else %}-->
-                                
-                                <!--<a href="{% url 'domestic-packages' small.destination_slug %}" class="nir-btn-black">Read More</a>-->
-                                <!--{% endif %}-->
+                            <h5 style="font-size:24px;" class="mb-1 white v_text1">{{home_page_2.description.small_v_heading}}</h5>
+                            <h3><span class="theme1 head_v" style="font-size:40px;">{{home_page_2.description.small_v_title}}</span></h3>
+                                <p class="white mb-3 v_para">{{home_page_2.description.small_v_para}}</p>
                         </div>
                     </div>  
-                    <div class="col-lg-8 col-md-8 p-0">
+                    <div class="col-lg-8 col-md-8 p-0 v_div">
                         <div class="video-button text-center position-relative z-index2">
                             <!-- <div class="call-button text-center">
                                 <button type="button" class="play-btn js-video-button" data-video-id="152879427" data-channel="vimeo">
@@ -840,7 +686,7 @@
                                 </button>
                             </div> -->
                             <div class="video-figure" style="width: 100%;margin-left: -100px;">
-                                <video autoplay muted loop id="vid" class="rounded" style="width: 110% !important;">
+                                <video autoplay muted loop id="vid" class="rounded sm_vid" style="width: 110%;">
                                     <source src="{% static 'image/home_2/main_details/' %}{{ home_page_2.description.small_video }}" type="video/mp4">
                                 </video>
                                 
@@ -874,9 +720,9 @@
                                 <div class="testimonial-item1">
                                     <div class="details d-flex">
                                         <i class="fa fa-quote-left fs-1 mb-0"></i>
-                                        <div class="author-content ms-4">
-                                            <p class="mb-0 white fs-6 fw-normal" style="height: 100px;overflow-y: hidden;">{{ review.Client_content }}</p>
-                                            <a href="{{review.reviewlink}}" class="theme"  id="myBtn" target="_blank">Read more...</a>
+                                        <div class="author-content ms-4 mt-2">
+                                            <p class="mb-0 white fs-6 fw-normal rev-text" style="height: 100px;overflow-y: hidden;">{{ review.Client_content }}</p>
+                                            <a href="{{review.reviewlink}}" class="theme rev-utext"  id="myBtn" target="_blank">Read more...</a>
                                             <div class="author-info d-flex align-items-center">
                                                 <img src="{% static 'image/client_image/' %}{{ review.image_path }}" alt="">
                                                 <div class="author-title ms-3">

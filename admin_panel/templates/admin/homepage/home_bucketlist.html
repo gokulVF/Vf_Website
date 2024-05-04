@@ -213,9 +213,17 @@
                     {% endfor %}
                   </select>
                  </div>
-                 <div class="mb-3">
-                  <label for="upload" class="form-label">Categories Images</label>
+                 <div class="mb-3 col-lg-4 ">
+                  <label for="upload" class="form-label">Desktop Banner Images</label>
                   <input class="form-control" required type="file" name="CategoriesImages" id="upload" >
+                </div>
+                <div class="mb-3 col-lg-4">
+                  <label for="upload" class="form-label">Tab Banner Images</label>
+                  <input class="form-control" required type="file" name="TabImages" id="upload" >
+                </div>
+                <div class="mb-3 col-lg-4">
+                  <label for="upload" class="form-label">Mobile Banner Images</label>
+                  <input class="form-control" required type="file" name="MobileImages" id="upload" >
                 </div>
                   <div class="mb-3">
                     <label for="TeamName" class="form-label">Destination Name</label>
@@ -280,19 +288,19 @@
                 </script>
             </div>  
                 
-            <div class="mb-3">
+            <div class="mb-3 col-lg-4">
               <label for="TeamName" class="form-label">Meta Title</label>
               <input type="text" class="form-control" id="MetaTitle" name="MetaTitle"  autocomplete="off">
            </div>
-           <div class="mb-3">
+           <div class="mb-3 col-lg-4">
                 <label for="TeamName" class="form-label">Meta description</label>
                 <input type="text" class="form-control" id="Metadescription" name="Metadescription"  autocomplete="off">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg-4">
               <label for="TeamName" class="form-label">Meta keyword</label>
               <input type="text" class="form-control" id="Metakeyword" name="Metakeyword" autocomplete="off">
            </div>
-           <div class="mb-3">
+           <div class="mb-3 col-lg-6">
               <label for="TeamName" class="form-label">canonical tag</label>
               <input type="text" class="form-control" id="canonical" name="canonical" autocomplete="off">
            </div>
@@ -371,9 +379,17 @@
                     {% endfor %}
                   </select>
                </div>
-              <div class="mb-3">
+              <div class="mb-3 col-lg-4">
                 <label for="upload" class="form-label">Categories Images</label>
                 <input class="form-control" type="file" name="up-CategoriesImages" id="upload" >
+              </div>
+              <div class="mb-3 col-lg-4">
+                <label for="upload" class="form-label">Tab Banner Images</label>
+                <input class="form-control"  type="file" name="up-TabImages" id="upload" >
+              </div>
+              <div class="mb-3 col-lg-4">
+                <label for="upload" class="form-label">Mobile Banner Images</label>
+                <input class="form-control"  type="file" name="up-MobileImages" id="upload" >
               </div>
             <div class="mb-3">
               <select class="form-select show-4" id="DestinationName{{ team.id }}" name="up-DestinationName"  multiple>
@@ -453,19 +469,19 @@
               });
           </script>
 
-              <div class="mb-3">
+              <div class="mb-3 col-lg-4">
                 <label for="TeamName" class="form-label">Meta Title</label>
                 <input type="text" class="form-control" id="MetaTitle" name="up-MetaTitle" value="{{team.metatitle}}"  autocomplete="off">
              </div>
-             <div class="mb-3">
+             <div class="mb-3 col-lg-4">
               <label for="TeamName" class="form-label">Meta description</label>
               <input type="text" class="form-control" id="Metadescription" name="up-Metadescription" value="{{team.metadescription}}" autocomplete="off">
            </div>
-           <div class="mb-3">
+           <div class="mb-3 col-lg-4">
             <label for="TeamName" class="form-label">Meta keywork</label>
             <input type="text" class="form-control" id="Metakeywork" name="up-Metakeywork" value="{{team.metakeyword}}" autocomplete="off">
          </div>
-         <div class="mb-3">
+         <div class="mb-3 col-lg-6">
             <label for="TeamName" class="form-label">canonical tag</label>
             <input type="text" class="form-control" id="canonical" name="canonical" value="{{team.canonical}}" autocomplete="off">
          </div>
