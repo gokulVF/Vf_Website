@@ -222,8 +222,10 @@
     }
     
     .des_nav_div {
-        justify-content:center !important;
+        justify-content: center !important;
+        flex-direction: column;
     }
+
     
     .des_titles {
         font-size:20px !important;
@@ -231,10 +233,10 @@
     }
     
     .des_btn4 {
-        margin: .3em !important;
-        padding: 4px 6px !important;
+        margin: 0 .3em !important;
+        padding: 1px 4px !important;
         width: auto !important;
-        font-size: 12px;
+        font-size: 10px;
     }
     
     .mbl-head {
@@ -270,10 +272,6 @@
 @media (max-width: 768px) {
     .des_div {
         flex-direction: column;
-    }
-
-    .des_nav_div div {
-       flex-direction: row;
     }
 
     .package-list-div {

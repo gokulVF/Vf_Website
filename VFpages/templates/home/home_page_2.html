@@ -97,14 +97,14 @@
                    
                     <div class="mb-0" style="margin-top:300px;">
                         <div class="category-main-inner">
-                            <div class="row side-slider mx-2">
+                            <div class="row  mx-auto justify-content-center">
                                      {% for views in all_categories %}
                                         {% if views.categoriesname != "Not selected" %}
                                 <div class="col-lg-3 col-md-6 mt-4 mb-0 cat_div">
                                     <div class="category-item box-shadow py-1 text-center bg-white rounded overflow-hidden cat_divs">
                                         <div class="trending-topic-content">
                                             <img src="{% static 'image/homepageslider_image/' %}{{views.categoriesimage}}" class="mb-1 d-inline-block" alt="">
-                                            <h4 class="mb-0"><a href="{% url 'travel-category'  views.categeory_slug  %}">{{views.categoriesname}}</a></h4>
+                                            <h4 class="mb-0 cat_name"><a href="{% url 'travel-category'  views.categeory_slug  %}">{{views.categoriesname}}</a></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -1027,6 +1027,34 @@
     <script src="{% static 'js/home/main.js' %}"></script>
     <script src="{% static 'js/home/custom-swiper.js' %}"></script>
     <script src="{% static 'js/home/custom-nav.js' %}"></script>
+
+    <div id="div1">
+        <p>This is the content of div1.</p>
+    </div>
+
+    <!-- Button to trigger the creation of a new div -->
+    <button id="createButton">Create New Div</button>
+
+    <!-- Script for creating new divs -->
+    <script>
+        document.getElementById("createButton").addEventListener("click", function() {
+            // Create a new div element
+            var newDiv = document.createElement("div");
+
+            // Optionally, you can copy some styles or attributes from the original div
+            var originalDiv = document.getElementById("div1");
+            newDiv.style.cssText = originalDiv.style.cssText; // Copy styles if necessary
+
+            // Set content for the new div (can be dynamic or copied)
+            newDiv.innerHTML = '<p>This is a new div.</p>'; // Setting new content
+
+            // Assign an ID (optional, ensure uniqueness)
+            newDiv.id = "newDiv" + (document.querySelectorAll('[id^="newDiv"]').length + 1);
+
+            // Append the new div to the body or another specific container
+            document.body.appendChild(newDiv);
+        });
+    </script>
 
 </body>
 </html>

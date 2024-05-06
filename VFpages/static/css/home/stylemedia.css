@@ -19,6 +19,15 @@
             position: relative;
         }
         
+        .cat_name {
+            font-size: 16px !important;
+        }
+
+        .cat_div {
+            display: block;
+            width: 160px !important;
+        }
+
         
         .buclist_price {
             color: #fff !important;
@@ -333,5 +342,30 @@
                 height: 220px !important;
             }
             
-            
+            .side-slider {
+                display: none !important;
+            }
+
+           
+        }
+
+        @media (max-width: 1025px) { 
+            .cat_div {
+                display: block;
+                width: 116px !important;
+            }
+
+            .category-item img {
+                width: 40px !important;
+            }
+
+            .cat_name {
+                font-size: 13px !important;
+            }
+        }
+
+        @media (max-width: 720px) { 
+            .cat_div {
+                display: none;
+            }
         }
