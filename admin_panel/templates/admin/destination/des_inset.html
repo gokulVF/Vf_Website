@@ -48,7 +48,7 @@
             <form class="forms-sample col-lg-10 mb-4 row mx-auto justify-content-center p-1 rounded" action="{% url 'des_insertfn' %}" method="POST" enctype="multipart/form-data" style="background: #f1f1f1;">
                 {% csrf_token %}
                     
-                    <div class="mb-4 mt-3 input-div col-lg-4" >
+                    <div class="mb-4 mt-3 input-div col-lg-3" >
                         <label for="description" class="form-label">International/Domestic?</label>
                         <select class="form-select form-width" name="int-domes" id="">
                             <option value="">Select any one</option>
@@ -56,7 +56,7 @@
                             <option value="0">International</option>
                             </select>
                     </div>
-                    <div class="mb-4 mt-3 input-div col-lg-4">
+                    <div class="mb-4 mt-3 input-div col-lg-3">
                         <label for="description" class="form-label">Category</label>
                         <select class="form-select form-width" name="Category" id="">
                             <option value="">Select any one</option>
@@ -77,18 +77,15 @@
                             
                         </select>
                     </div>
-                    <div class="mb-4 mt-3 input-div col-lg-4">
+                    <div class="mb-4 mt-3 input-div col-lg-3">
                         <label for="subtitle" class="form-label">Name</label>
                         <input type="text" class="form-control form-width" required id="subtitle" name="Name" autocomplete="off">
                     </div>
-                  <div class="mb-4 input-div col-lg-6" >
+                  <div class="mb-4 mt-3 input-div col-lg-3" >
                     <label for="description" class="form-label">Name Slug</label>
                     <input type="text" class="form-control form-width" required  id="password" name="NameSlug" autocomplete="off" >
                 </div>
-                    <div class="mb-4  input-div col-lg-6">
-                        <label for="upload" class="form-label">Banner Images</label>
-                        <input class="form-control  form-width" required type="file" name="Baner_Images" id="upload" >
-                    </div>
+                    
                     <div class="mb-4 input-div col-lg-6">
                         <label for="description" class="form-label">Title</label>
                         <input type="text" class="form-control form-width" required id="password" name="Title" autocomplete="off" >
@@ -97,15 +94,27 @@
                         <label for="subtitle" class="form-label">Title Slug</label>
                         <input type="text" class="form-control form-width" id="subtitle" name="TitleSlug" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4  input-div col-lg-4">
+                        <label for="upload" class="form-label">Desktop Banner Images</label>
+                        <input class="form-control  form-width" required type="file" name="Baner_Images" id="upload" >
+                    </div>
+                    <div class="mb-4  input-div col-lg-4">
+                        <label for="upload" class="form-label">Tab Banner Images</label>
+                        <input class="form-control  form-width" required type="file" name="Tab_Images" id="upload" >
+                    </div>
+                    <div class="mb-4  input-div col-lg-4">
+                        <label for="upload" class="form-label">Mobile Banner Images</label>
+                        <input class="form-control  form-width" required type="file" name="Mobile_Images" id="upload" >
+                    </div>
+                    <div class="mb-4 input-div col-lg-4">
                         <label for="subtitle" class="form-label">Meta Title</label>
                         <input type="text" class="form-control form-width" id="MetaTitle" name="MetaTitle" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-4">
                         <label for="subtitle" class="form-label">Meta Description</label>
                         <input type="text" class="form-control form-width" id="Metadescription" name="Metadescription" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-4">
                         <label for="subtitle" class="form-label">Meta keyword</label>
                         <input type="text" class="form-control form-width" id="Metakeyword" name="Metakeyword" autocomplete="off">
                     </div>

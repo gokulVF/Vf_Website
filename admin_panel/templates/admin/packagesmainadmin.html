@@ -71,8 +71,16 @@
                               <input class="form-control" type="file" id="uploadGrid">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Cover Images(size:1800x1200)</label>
+                                <label for="uploadCover" class="form-label">Desktop Banner Images(size:1800x1200)</label>
                                 <input class="form-control" type="file" id="uploadCover">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Tab Banner Images</label>
+                                <input class="form-control" type="file" id="TabCover">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Mobile Banner Images</label>
+                                <input class="form-control" type="file" id="MobileCover">
                               </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="Noofdays" class="form-label">No of Days</label>
@@ -203,15 +211,15 @@
                                 <label for="metaTitle" class="form-label">Meta title</label>
                                 <textarea class="form-control" name="tinymce" id="metaTitle" rows="1"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
                                 <textarea class="form-control" name="tinymce" id="metaDescription" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaKeywords" class="form-label">Meta Keywords</label>
                                 <textarea class="form-control" name="tinymce" id="metaKeywords" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaKeywords" class="form-label">Canonical tag</label>
                                 <textarea class="form-control" name="canonical" id="canonical" rows="2"></textarea>
                             </div>
@@ -332,6 +340,8 @@
                         
                                     // Get file objects
                                     var coverImageFile = document.getElementById('uploadCover').files[0];
+                                    var TabCover = document.getElementById('TabCover').files[0];
+                                    var MobileCover = document.getElementById('MobileCover').files[0];
                                     var gridImageFile = document.getElementById('uploadGrid').files[0];
                                     // var richtextarea = tinymce.get("myTextarea").getContent();
                                     // Get other input values
@@ -367,6 +377,8 @@
                                     // Create FormData object to send to backend
                                     var formData = new FormData();
                                     formData.append('Cover_Image', coverImageFile);
+                                    formData.append('TabCover', TabCover);
+                                    formData.append('MobileCover', MobileCover);
                                     formData.append('Grid_Image', gridImageFile);
                                     formData.append('Noofdays', Noofdays);
                                     // formData.append('rating', rating);

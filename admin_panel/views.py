@@ -604,6 +604,7 @@ def des_insertfn(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
+    username = request.session.get('username')
     if role != 'admin' and role != 'superadmin':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
@@ -633,7 +634,20 @@ def des_insertfn(request):
                 for chunk in Images.chunks():
                     destination.write(chunk)
             # imageurl = os.path.join('/static/image/destination_image', Images.name)
-
+        if 'Tab_Images' in request.FILES:
+            Images = request.FILES['Tab_Images']
+            img_path2 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', img_path2)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
+        if 'Mobile_Images' in request.FILES:
+            Images = request.FILES['Mobile_Images']
+            img_path3 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', img_path3)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
        
         new_destination = Destination(
             category=Category,
@@ -647,10 +661,10 @@ def des_insertfn(request):
             metadestination=destination_Metadescription,
             metakeyword=destination_Metakeyword,
             canonical=canonical,
-            # destination_duration=destination_duration,
-            # destination_season=destination_season,
-            # destination_live_guide=destination_live_guide,
-            # destination_max_group=destination_max_group,
+            Tab_image=img_path2,
+            mobile_image=img_path3,
+            updated_name=username,
+            created_name=username,
             # destination_cost=destination_cost,
             # destination_duration=destination_duration,
             # destination_season=destination_season,
@@ -674,6 +688,7 @@ def destination_edit(request,team_id):
     if role != 'admin' and role != 'superadmin':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    username = request.session.get('username')
     destination = Destination.objects.get(id=team_id)
     if request.method == 'POST':
        
@@ -696,6 +711,40 @@ def destination_edit(request,team_id):
                     destination_file.write(chunk)
             # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
             destination.destination_image = up_img
+        if 'up-Tab_Images' in request.FILES:
+            if destination.Tab_image :
+                old_image = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/',destination.Tab_image.split("/")[-1])
+                print(" old image name",old_image)
+
+                if os.path.exists(old_image):
+                    os.remove(old_image)
+
+            new_image = request.FILES['up-Tab_Images']
+            up_img = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', up_img)
+            print('new image',image_path)
+            with open(image_path, 'wb') as destination_file:
+                for chunk in new_image.chunks():
+                    destination_file.write(chunk)
+            # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
+            destination.Tab_image = up_img
+        if 'up-Mobile_Images' in request.FILES:
+            if destination.mobile_image :
+                old_image = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/',destination.mobile_image.split("/")[-1])
+                print(" old image name",old_image)
+
+                if os.path.exists(old_image):
+                    os.remove(old_image)
+
+            new_image = request.FILES['up-Mobile_Images']
+            up_img = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', up_img)
+            print('new image',image_path)
+            with open(image_path, 'wb') as destination_file:
+                for chunk in new_image.chunks():
+                    destination_file.write(chunk)
+            # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
+            destination.mobile_image = up_img
 
         # Update the destination object with new values
         destination.category = request.POST.get('up-in-dom')
@@ -715,6 +764,7 @@ def destination_edit(request,team_id):
         # destination.destination_live_guide = request.POST.get('up-LiveGuide')
         # destination.destination_max_group = request.POST.get('up-MaxGroup')
         destination.updated_at = update_time
+        destination.updated_name = username
         # destination.show_text = request.POST.get('up-on-of')
 
         destination.save()
@@ -739,6 +789,14 @@ def destination_delete(request,team_id):
     
     if destinations.destination_image:
         image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.destination_image.split("/")[-1])
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if destinations.Tab_image:
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.Tab_image.split("/")[-1])
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if destinations.mobile_image:
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.mobile_image.split("/")[-1])
         if os.path.exists(image_path):
             os.remove(image_path)
     destinations.delete()
@@ -1309,20 +1367,20 @@ def blog_us_admin(request):
     userdetails = adminheader(request)
     search_query = request.GET.get('search_query')
     countpopular = request.GET.get('count')
-    blog_entries = BlogUs.objects.all().order_by('-id')
+    blog_entries = Blog.objects.all().order_by('-id')
     tags = Tags.objects.all()
 
 
     blog_us_page = PagesTable.objects.filter(pagesname='blog_us').first()
-    count_false_popular = BlogUs.objects.filter(popular=False).count()
+    count_false_popular = Blog.objects.filter(popular=False).count()
     datedata = blog_us_page.description
     created_by = blog_us_page.created_by
     updated_by = blog_us_page.updated_by
-    all_blog_us_instances = BlogUs.objects.all()
+    all_blog_us_instances = Blog.objects.all()
 
     # Iterate over each instance and access its hidden attribute
-    hidden = BlogUs.hidden
-    popular = BlogUs.popular
+    hidden = Blog.hidden
+    popular = Blog.popular
 
     # Now hidden_values contains the values of the hidden field for all instances
     print(hidden)
@@ -1335,8 +1393,8 @@ def blog_us_admin(request):
     paginator = Paginator(blog_entries, 5)  # Show 5 blog entries per page
     
     if countpopular:
-        blog_entries = BlogUs.objects.filter(popular=False)
-        count_false_popular = BlogUs.objects.filter(popular=False).count()
+        blog_entries = Blog.objects.filter(popular=False)
+        count_false_popular = Blog.objects.filter(popular=False).count()
         paginator = Paginator(blog_entries, count_false_popular)
 
     page = request.GET.get('page')
@@ -1369,7 +1427,7 @@ def addblogs(request):
         blog_entry_id = request.POST.get('id','')
         try:
             # Get the BlogUs instance with the provided ID
-            blog_entry = BlogUs.objects.get(id=blog_entry_id)
+            blog_entry = Blog.objects.get(id=blog_entry_id)
             description = blog_entry.description
             existing_url = blog_entry.url
             existing_created_by = blog_entry.created_by
@@ -1379,19 +1437,22 @@ def addblogs(request):
                 # Retrieve existing values
                 existing_tags = description.get('tags', '')
                 existing_banner_image_url = description.get('banner_image_url', None)
+                existing_MobileBanner_Image_url = description.get('MobileBanner_Image_url', None)
+                existing_TabBanner_Image_url = description.get('TabBanner_Image_url', None)
                 existing_grid_image_url = description.get('grid_image_url', None)
                 existing_cover_image_url = description.get('cover_image_url', None)
                 existing_banner_image_path = description.get('banner_image_path', None)
+                existing_TabBanner_Image_path = description.get('TabBanner_Image_path', None)
+                existing_MobileBanner_Image_path = description.get('MobileBanner_Image_path', None)
                 existing_grid_image_path = description.get('grid_image_path', None)
                 existing_cover_image_path = description.get('cover_image_path', None)
                 # existing_tagsid = request.description('tagsid',None)
                 existing_banner_image = description.get('banner_image', None)
+                existing_TabBanner_Image = description.get('TabBanner_Image', None)
+                existing_MobileBanner_Image = description.get('MobileBanner_Image', None)
                 existing_cover_image = description.get('cover_image', None)
                 existing_grid_image = description.get('grid_image', None)
-                created_by = description.get('created_by', None)
-                created_on = description.get('created_on', None)
-                updated_on = description.get('updated_on', None)
-                updated_by = description.get('updated_by', None)
+                
                 hint = request.POST.get('hint')
                 category = request.POST.get('category')
                 new_tags = request.POST.get('tags')
@@ -1418,21 +1479,25 @@ def addblogs(request):
                     "meta_title": meta_title,
                     "meta_description": meta_description,
                     "meta_keywords": meta_keywords,
-                    "richtextarea": richtextarea,
-                    "created_by":created_by,
+
                     "banner_image_url": existing_banner_image_url,
                     "banner_image_path": existing_banner_image_path,
                     "banner_image":existing_banner_image,
+
+                    "MobileBanner_Image_url": existing_MobileBanner_Image_url,
+                    "MobileBanner_Image_path": existing_MobileBanner_Image_path,
+                    "MobileBanner_Image":existing_MobileBanner_Image,
+
+                    "TabBanner_Image_url": existing_TabBanner_Image_url,
+                    "TabBanner_Image_path": existing_TabBanner_Image_path,
+                    "TabBanner_Image":existing_TabBanner_Image,
+
                     "cover_image_url": existing_cover_image_url,
                     "cover_image_path": existing_cover_image_path,
                     "cover_image":existing_cover_image,
                     "grid_image_url": existing_grid_image_url,
                     "grid_image_path": existing_grid_image_path,
                     "grid_image":existing_grid_image,
-                    "updated_by": updated_by,   # Assuming you have authentication and can access the current user
-                    "updated_on": updated_on,
-                    "created_by": created_by,   # Assuming you have authentication and can access the current user
-                    "created_on": created_on,
                     "tags":existing_tags
                 }
 
@@ -1457,27 +1522,11 @@ def addblogs(request):
                     blog_entry.url = existing_url
 
 
-                    
-
-                # Delete old images if new ones are uploaded and update image URLs
-                # if new_banner_image_url:
-                #     if existing_banner_image_url:
-                #         # Delete old banner image file
-                        
-                #         os.remove(existing_banner_image_path)
-                #     # Save new banner image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     banner_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(banner_image_folder):
-                #         os.makedirs(banner_image_folder)
-                #     banner_image_path = os.path.join(banner_image_folder, new_banner_image_url.name)
-                #     with open(banner_image_path, 'wb') as destination:
-                #         for chunk in new_banner_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['banner_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_banner_image_url.name)
                 blog_entry_folder = str(blog_entry.id)
                 banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+                TabBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+                MobileBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+
                 cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
                 grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
 
@@ -1500,6 +1549,44 @@ def addblogs(request):
                     banner_image_url_final = banner_image_url_first.replace("\\", "/")
                     description['banner_image_url'] = banner_image_url_final
                     description['banner_image'] = img_path
+                if 'TabBanner_Image' in request.FILES:
+                    blog_entry_folder = str(blog_entry.id)
+                    if TabBanner_Image_folder:
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder,existing_banner_image)
+                        if os.path.exists(old_image_path):
+                            os.remove(old_image_path)
+                    
+                    if not os.path.exists(TabBanner_Image_folder):
+                        os.makedirs(TabBanner_Image_folder)
+                    new_image = request.FILES['TabBanner_Image']
+                    img_path = new_image.name
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_images', blog_entry_folder, img_path)
+                    with open(image_path, 'wb') as destination:
+                        for chunk in new_image.chunks():
+                            destination.write(chunk)
+                    banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, img_path)
+                    banner_image_url_final = banner_image_url_first.replace("\\", "/")
+                    description['TabBanner_Image_url'] = banner_image_url_final
+                    description['TabBanner_Image'] = img_path
+                if 'MobileBanner_Image' in request.FILES:
+                    blog_entry_folder = str(blog_entry.id)
+                    if existing_MobileBanner_Image:
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder,existing_banner_image)
+                        if os.path.exists(old_image_path):
+                            os.remove(old_image_path)
+                    
+                    if not os.path.exists(MobileBanner_Image_folder):
+                        os.makedirs(MobileBanner_Image_folder)
+                    new_image = request.FILES['MobileBanner_Image']
+                    img_path = new_image.name
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_images', blog_entry_folder, img_path)
+                    with open(image_path, 'wb') as destination:
+                        for chunk in new_image.chunks():
+                            destination.write(chunk)
+                    banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, img_path)
+                    banner_image_url_final = banner_image_url_first.replace("\\", "/")
+                    description['MobileBanner_Image_url'] = banner_image_url_final
+                    description['MobileBanner_Image'] = img_path
                 
                 if 'Grid_Image' in request.FILES:
                     blog_entry_folder = str(blog_entry.id)
@@ -1536,40 +1623,7 @@ def addblogs(request):
                             destination.write(chunk)
                     description['cover_image_url'] = os.path.join('/image/blog_images', blog_entry_folder, img_path)
                     description['cover_image'] = img_path
-                # Repeat the same process for grid and cover images
-                # if new_grid_image_url:
-                #     if existing_grid_image_url:
-                #         # Delete old grid image file
-                #         print(existing_grid_image_path)
-                #         os.remove(existing_grid_image_path)
-                #     # Save new grid image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     grid_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(grid_image_folder):
-                #         os.makedirs(grid_image_folder)
-                #     grid_image_path = os.path.join(grid_image_folder, new_grid_image_url.name)
-                #     with open(grid_image_path, 'wb') as destination:
-                #         for chunk in new_grid_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['grid_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_cover_image_url.name)
-                # if new_cover_image_url:
-                #     if existing_cover_image_url:
-                #         # Delete old cover image file
-                #         os.remove(existing_cover_image_path)
-                #     # Save new cover image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     cover_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(cover_image_folder):
-                #         os.makedirs(cover_image_folder)
-                #     cover_image_path = os.path.join(cover_image_folder, new_cover_image_url.name)
-                #     with open(cover_image_path, 'wb') as destination:
-                #         for chunk in new_cover_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['cover_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_banner_image_url.name)
-
-                # Update author-related values
+               
                 
                 # Update 'updated_by' key
                 username = request.session.get('username')
@@ -1591,6 +1645,7 @@ def addblogs(request):
     userdetails = adminheader(request)
 
     return render(request, "admin/updateblogentry.html", {'blog_entry_id': blog_entry_id, 'description': description,"userdetails":userdetails})
+from VFpages.models import Blog,BlogDetails
 
 def createblogs(request):
     if not request.session.get('username') or not request.session.get('role'):
@@ -1603,9 +1658,6 @@ def createblogs(request):
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
-    
-    
-
     if request.method == 'POST':
         username = request.session.get('username')
         hint = request.POST.get('hint')
@@ -1620,35 +1672,93 @@ def createblogs(request):
         meta_title = request.POST.get('metaTitle')
         meta_description = request.POST.get('metaDescription')
         meta_keywords = request.POST.get('metaKeywords')
-        richtextarea = request.POST.get('richtextarea')
         tagsid = request.POST.get('tagsid')
+
+        richtextarea1 = request.POST.get('richtextarea1')
+        richtextarea2 = request.POST.get('richtextarea2')
+        richtextarea3 = request.POST.get('richtextarea3')
+        richtextarea4 = request.POST.get('richtextarea4')
+        richtextarea5 = request.POST.get('richtextarea5')
+        richtextarea6 = request.POST.get('richtextarea6')
+        richtextarea7 = request.POST.get('richtextarea7')
+        richtextarea8 = request.POST.get('richtextarea8')
+        richtextarea9 = request.POST.get('richtextarea9')
+        richtextarea10 = request.POST.get('richtextarea10')
         
         # Create an instance of BlogUs model
-        blog_entry = BlogUs.objects.create()
+        blog_entry = Blog.objects.create()
+        # Blog_Details = BlogDetails.objects.create()
+        blog_entry_folder = str(blog_entry.id)
+        date = datetime.now().strftime('%Y-%m-%d')
+        # for i in range(1, 11):
+        #     richtextarea = request.POST.get(f'richtextarea{i}')
+        #     if richtextarea:
+        #         # Assuming MyModel has a field named 'text' to store the textarea value
+        #         obj = Blog_Details(blog_description=richtextarea, blog_id=blog_entry_folder ,)
+        #         obj.save()
 
         # Generate folder names based on the ID of the created blog entry
-        blog_entry_folder = str(blog_entry.id)
-        banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+        
+        banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder )
+        TabBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+        MobileBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+
         cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
         grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
 
         if 'Banner_Image' in request.FILES:
-                    banner_image_file = request.FILES['Banner_Image']
-                    banner_image = banner_image_file.name
-                    if not os.path.exists(banner_image_folder):
-                        os.makedirs(banner_image_folder)
-                    banner_image_path = os.path.join(banner_image_folder, banner_image_file.name)
-                    with open(banner_image_path, 'wb') as destination:
-                        for chunk in banner_image_file.chunks():
-                            destination.write(chunk)
-                    banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, banner_image_file.name)
-                    banner_image_url_second = banner_image_url_first.replace("\\", "/")
-                    banner_image_url = banner_image_url_second 
+            banner_image_file = request.FILES['Banner_Image']
+            banner_image = banner_image_file.name
+            if not os.path.exists(banner_image_folder):
+                os.makedirs(banner_image_folder)
+            banner_image_path = os.path.join(banner_image_folder, banner_image_file.name)
+            with open(banner_image_path, 'wb') as destination:
+                for chunk in banner_image_file.chunks():
+                    destination.write(chunk)
+            banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, banner_image_file.name)
+            banner_image_url_second = banner_image_url_first.replace("\\", "/")
+            banner_image_url = banner_image_url_second 
 
         else:
             banner_image_url = None
             banner_image_path = None
             banner_image = None
+
+        if 'TabBanner_Image' in request.FILES:
+            TabBanner_Image_file = request.FILES['TabBanner_Image']
+            TabBanner_Image = TabBanner_Image_file.name
+            if not os.path.exists(TabBanner_Image_folder):
+                os.makedirs(TabBanner_Image_folder)
+            TabBanner_Image_path = os.path.join(TabBanner_Image_folder, TabBanner_Image_file.name)
+            with open(TabBanner_Image_path, 'wb') as destination:
+                for chunk in TabBanner_Image_file.chunks():
+                    destination.write(chunk)
+            TabBanner_Image_url_first = os.path.join('/image/blog_images', blog_entry_folder, TabBanner_Image_file.name)
+            TabBanner_Image_url_second = TabBanner_Image_url_first.replace("\\", "/")
+            TabBanner_Image_url = TabBanner_Image_url_second 
+
+        else:
+            TabBanner_Image_url = None
+            TabBanner_Image_path = None
+            TabBanner_Image = None
+
+        if 'MobileBanner_Image' in request.FILES:
+            MobileBanner_Image_file = request.FILES['MobileBanner_Image']
+            MobileBanner_Image = MobileBanner_Image_file.name
+            if not os.path.exists(MobileBanner_Image_folder):
+                os.makedirs(MobileBanner_Image_folder)
+            MobileBanner_Image_path = os.path.join(MobileBanner_Image_folder, MobileBanner_Image_file.name)
+            with open(MobileBanner_Image_path, 'wb') as destination:
+                for chunk in MobileBanner_Image_file.chunks():
+                    destination.write(chunk)
+            MobileBanner_Image_url_first = os.path.join('/image/blog_images', blog_entry_folder, MobileBanner_Image_file.name)
+            MobileBanner_Image_url_second = MobileBanner_Image_url_first.replace("\\", "/")
+            MobileBanner_Image_url = MobileBanner_Image_url_second 
+
+        else:
+            MobileBanner_Image_url = None
+            MobileBanner_Image_path = None
+            MobileBanner_Image = None
 
         if 'Cover_Image' in request.FILES:
             cover_image_file = request.FILES['Cover_Image']
@@ -1680,26 +1790,256 @@ def createblogs(request):
             grid_image_path = None
             grid_image = None
 
-        # if 'Banner_Image' in request.FILES:
-        #     banner_image_file = request.FILES['Banner_Image']
-        #     banner_image_path = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_banner_images', banner_image_file.name)
-        #     with open(banner_image_path, 'wb') as destination:
-        #         for chunk in banner_image_file.chunks():
-        #             destination.write(chunk)
-        #     banner_image_url = os.path.join('admin_panel/static/image/blog_banner_images', banner_image_file.name)
+        # --------------------- blog details ------------------------
+        
+        banner_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder3 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder4 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder5 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder6 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder7 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder8 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder9 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
+        banner_image_folder10 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images/blog_main', blog_entry_folder )
 
-        # if 'Cover_Image' in request.FILES:
-        #     cover_image_file = request.FILES['Cover_Image']
-        #     cover_image_path = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_cover_images', cover_image_file.name)
-        #     with open(cover_image_path, 'wb') as destination:
-        #         for chunk in cover_image_file.chunks():
-        #             destination.write(chunk)
-        #     cover_image_url = os.path.join('admin_panel/static/image/blog_cover_images', cover_image_file.name)
-
+        if richtextarea1:
+            if 'blogImage1' in request.FILES:
+                blogImage1_file = request.FILES['blogImage1']
+                blogImage1 = blogImage1_file.name
+                if not os.path.exists(banner_image_folder1):
+                    os.makedirs(banner_image_folder1)
+                blogImage1_path = os.path.join(banner_image_folder1, blogImage1_file.name)
+                with open(blogImage1_path, 'wb') as destination:
+                    for chunk in blogImage1_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage1 = None
+            
+                # Assuming Blog_Details has fields to store image details
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea1,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry.id,
+                image_path=blogImage1,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea2:
+            if 'blogImage2' in request.FILES:
+                blogImage2_file = request.FILES['blogImage2']
+                blogImage2 = blogImage2_file.name
+                if not os.path.exists(banner_image_folder2):
+                    os.makedirs(banner_image_folder2)
+                blogImage2_path = os.path.join(banner_image_folder2, blogImage2_file.name)
+                with open(blogImage2_path, 'wb') as destination:
+                    for chunk in blogImage2_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage2 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea2,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage2,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea3:
+            if 'blogImage3' in request.FILES:
+                blogImage3_file = request.FILES['blogImage3']
+                blogImage3 = blogImage3_file.name
+                if not os.path.exists(banner_image_folder3):
+                    os.makedirs(banner_image_folder3)
+                blogImage3_path = os.path.join(banner_image_folder3, blogImage3_file.name)
+                with open(blogImage3_path, 'wb') as destination:
+                    for chunk in blogImage3_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage3 = None 
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea3,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage3,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea4:
+            if 'blogImage4' in request.FILES:
+                blogImage4_file = request.FILES['blogImage4']
+                blogImage4 = blogImage4_file.name
+                if not os.path.exists(banner_image_folder4):
+                    os.makedirs(banner_image_folder4)
+                blogImage4_path = os.path.join(banner_image_folder4, blogImage4_file.name)
+                with open(blogImage4_path, 'wb') as destination:
+                    for chunk in blogImage4_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage4 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea4,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage4,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea5:
+            if 'blogImage5' in request.FILES:
+                blogImage5_file = request.FILES['blogImage5']
+                blogImage5 = blogImage5_file.name
+                if not os.path.exists(banner_image_folder5):
+                    os.makedirs(banner_image_folder5)
+                blogImage5_path = os.path.join(banner_image_folder5, blogImage5_file.name)
+                with open(blogImage5_path, 'wb') as destination:
+                    for chunk in blogImage5_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage5 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea5,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage5,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea6:
+            if 'blogImage6' in request.FILES:
+                blogImage6_file = request.FILES['blogImage6']
+                blogImage6 = blogImage6_file.name
+                if not os.path.exists(banner_image_folder6):
+                    os.makedirs(banner_image_folder6)
+                blogImage6_path = os.path.join(banner_image_folder6, blogImage6_file.name)
+                with open(blogImage6_path, 'wb') as destination:
+                    for chunk in blogImage6_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage6 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea6,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage6,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea7:
+            if 'blogImage7' in request.FILES:
+                blogImage7_file = request.FILES['blogImage7']
+                blogImage7 = blogImage7_file.name
+                if not os.path.exists(banner_image_folder7):
+                    os.makedirs(banner_image_folder7)
+                blogImage7_path = os.path.join(banner_image_folder7, blogImage7_file.name)
+                with open(blogImage7_path, 'wb') as destination:
+                    for chunk in blogImage7_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage7 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea7,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage7,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea8:
+            if 'blogImage8' in request.FILES:
+                blogImage8_file = request.FILES['blogImage8']
+                blogImage8 = blogImage8_file.name
+                if not os.path.exists(banner_image_folder8):
+                    os.makedirs(banner_image_folder8)
+                blogImage8_path = os.path.join(banner_image_folder8, blogImage8_file.name)
+                with open(blogImage8_path, 'wb') as destination:
+                    for chunk in blogImage8_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage8 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea8,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage8,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        if richtextarea9:
+            if 'blogImage9' in request.FILES:
+                blogImage9_file = request.FILES['blogImage9']
+                blogImage9 = blogImage9_file.name
+                if not os.path.exists(banner_image_folder9):
+                    os.makedirs(banner_image_folder9)
+                blogImage9_path = os.path.join(banner_image_folder9, blogImage9_file.name)
+                with open(blogImage9_path, 'wb') as destination:
+                    for chunk in blogImage9_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage9 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea9,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage9,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()   
+        if richtextarea10:
+            if 'blogImage10' in request.FILES:
+                blogImage10_file = request.FILES['blogImage10']
+                blogImage10 = blogImage10_file.name
+                if not os.path.exists(banner_image_folder10):
+                    os.makedirs(banner_image_folder10)
+                blogImage10_path = os.path.join(banner_image_folder10, blogImage10_file.name)
+                with open(blogImage10_path, 'wb') as destination:
+                    for chunk in blogImage10_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage10 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea10,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage10,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+            )
+            blog_detail_obj.save()
+        
         current_time = timezone.now()
         current_time_str = current_time.strftime("%b %d, %Y")
 
         current_date_str = timezone.now().strftime("%d-%m-%Y")
+        
 
         description = {
                 "hint": hint,
@@ -1713,20 +2053,25 @@ def createblogs(request):
                 "meta_title": meta_title,
                 "meta_description": meta_description,
                 "meta_keywords": meta_keywords,
-                "richtextarea": richtextarea,
+
                 "banner_image_url": banner_image_url,
                 "banner_image_path": banner_image_path,
                 "banner_image":banner_image,
+
+                "TabBanner_Image_url": TabBanner_Image_url,
+                "TabBanner_Image_path": TabBanner_Image_path,
+                "TabBanner_Image":TabBanner_Image,
+
+                "MobileBanner_Image_url": MobileBanner_Image_url,
+                "MobileBanner_Image_path": MobileBanner_Image_path,
+                "MobileBanner_Image":MobileBanner_Image,
+
                 "cover_image_url": cover_image_url,
                 "cover_image_path": cover_image_path,
                 "cover_image":cover_image,
                 "grid_image_url": grid_image_url,
                 "grid_image_path": grid_image_path,
                 "grid_image":grid_image,
-                "updated_by": f"{username} {current_date_str}",   # Assuming you have authentication and can access the current user
-                "updated_on": current_time_str,
-                "created_by": f"{username} {current_date_str}",   # Assuming you have authentication and can access the current user
-                "created_on": current_time_str,
                 "tags":tags
             }
         
@@ -1734,8 +2079,10 @@ def createblogs(request):
         blog_entry.description = description
         blog_entry.tags = tagsid
         blog_entry.url = url
-        blog_entry.created_by = f"{username} {current_date_str}"
-        blog_entry.updated_by = f"{username} {current_date_str}"
+        blog_entry.created_by = date
+        blog_entry.updated_by = date
+        blog_entry.created_name = username
+        blog_entry.updated_name = username
         blog_entry.save()
 
         print(description)
@@ -1763,11 +2110,17 @@ def updateblogs(request):
         try:
             # Get the BlogUs instance with the provided ID
             userdetails = adminheader(request)
-            blog_entry = BlogUs.objects.get(id=blog_entry_id)
+            blog_entry = Blog.objects.get(id=blog_entry_id)
+            ids = blog_entry.id
             tagsid = blog_entry.tags
             description = blog_entry.description
+            blogContent = []
+            Blog_Details = BlogDetails.objects.filter(blog_id=ids)
+            for blog_detail in Blog_Details:
+                blogContent.append({'blog_id':blog_detail.blog_id,'id':blog_detail.id,'blog_description':blog_detail.blog_description,"image_path":blog_detail.image_path})
+            print(blogContent  )
             # Now you have access to all the details of the blog entry through 'description'
-            return render(request, "admin/updateblogentry.html", {'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails})
+            return render(request, "admin/updateblogentry.html", {'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails,"blogContent":blogContent})
         except BlogUs.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist')
     else:
@@ -1899,7 +2252,7 @@ def update_blog_popular_state(request):
         blog_id = request.POST.get('blog_id')
         new_state = request.POST.get('new_state') == 'on'
 
-        blog = BlogUs.objects.get(id=blog_id)
+        blog = Blog.objects.get(id=blog_id)
         blog.popular = int(not new_state)  # Convert new_state to int (0 or 1)
         blog.save()
 
@@ -1925,7 +2278,7 @@ def update_blog_hidden_state(request):
         blog_id = request.POST.get('blog_id')
         new_state = request.POST.get('new_state') == 'on'
 
-        blog = BlogUs.objects.get(id=blog_id)
+        blog = Blog.objects.get(id=blog_id)
         blog.hidden = int(not new_state)  # Convert new_state to int (0 or 1)
         blog.save()
 
@@ -2189,6 +2542,8 @@ def createpackages(request):
         # Generate folder names based on the ID of the created blog entry
         Packages_folder = str(Package.id)
         cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+        cover_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+        cover_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
         grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
 
         if 'Cover_Image' in request.FILES:
@@ -2206,6 +2561,36 @@ def createpackages(request):
             cover_image_url = None
             cover_image_path = None
             cover_image = None
+        if 'TabCover' in request.FILES:
+            cover_image_file1 = request.FILES['TabCover']
+            cover_image1 = cover_image_file1.name
+            if not os.path.exists(cover_image_folder1):
+                os.makedirs(cover_image_folder1)
+            cover_image_path1 = os.path.join(cover_image_folder, cover_image_file1.name)
+            with open(cover_image_path1, 'wb') as destination:
+                for chunk in cover_image_file1.chunks():
+                    destination.write(chunk)
+            cover_image_url_first1 = os.path.join('/image/packages', Packages_folder, cover_image_file1.name)
+            cover_image_url1 = cover_image_url_first1.replace("\\", "/")
+        else:
+            cover_image_url1 = None
+            cover_image_path1 = None
+            cover_image1 = None
+        if 'MobileCover' in request.FILES:
+            cover_image_file2 = request.FILES['MobileCover']
+            cover_image2 = cover_image_file2.name
+            if not os.path.exists(cover_image_folder2):
+                os.makedirs(cover_image_folder2)
+            cover_image_path2 = os.path.join(cover_image_folder2, cover_image_file2.name)
+            with open(cover_image_path2, 'wb') as destination:
+                for chunk in cover_image_file2.chunks():
+                    destination.write(chunk)
+            cover_image_url_first2 = os.path.join('/image/packages', Packages_folder, cover_image_file2.name)
+            cover_image_url2 = cover_image_url_first2.replace("\\", "/")
+        else:
+            cover_image_url2 = None
+            cover_image_path2 = None
+            cover_image2 = None
         
         if 'Grid_Image' in request.FILES:
             grid_image_file = request.FILES['Grid_Image']
@@ -2226,6 +2611,7 @@ def createpackages(request):
         current_time_str = current_time.strftime("%b %d, %Y")
 
         current_date_str = datetime.now().strftime("%d/%m/%Y")
+        current_d = datetime.now().strftime('%Y-%m-%d')
 
         # filtered_cities = InternationalCities.objects.filter(destination_id=destination_package_id)
         # print(filtered_cities)
@@ -2248,6 +2634,15 @@ def createpackages(request):
                 "cover_image_url": cover_image_url,
                 "cover_image_path": cover_image_path,
                 "cover_image":cover_image,
+
+                "cover_image_url1": cover_image_url1,
+                "cover_image_path1": cover_image_path1,
+                "cover_image1":cover_image1,
+
+                "cover_image_url2": cover_image_url2,
+                "cover_image_path2": cover_image_path2,
+                "cover_image2":cover_image2,
+
                 "grid_image_url": grid_image_url,
                 "grid_image_path": grid_image_path,
                 "grid_image":grid_image,
@@ -2274,8 +2669,10 @@ def createpackages(request):
         # Update the BlogUs model instance with the created description
         Package.description = description
         Package.packages_id = destination_package_id
-        Package.updated_by = f"{username} {current_date_str}"
-        Package.created_by = f"{username} {current_date_str}"
+        Package.updated_by = username
+        Package.created_by = username
+        Package.created_date = current_d
+        Package.updated_date = current_d
         Package.itinaries_id = itinerayid
         Package.destination_category = "Not-selected"
         Package.save()
@@ -2389,11 +2786,17 @@ def addpackages(request):
                 # Retrieve existing values
                 existing_grid_image_url = description.get('grid_image_url', None)
                 existing_cover_image_url = description.get('cover_image_url', None)
+                existing_cover_image_url1 = description.get('cover_image_url1', None)
+                existing_cover_image_url2 = description.get('cover_image_url2', None)
                 
                 existing_grid_image_path = description.get('grid_image_path', None)
                 existing_cover_image_path = description.get('cover_image_path', None)
+                existing_cover_image_path1 = description.get('cover_image_path1', None)
+                existing_cover_image_path2 = description.get('cover_image_path2', None)
                
                 existing_cover_image = description.get('cover_image', None)
+                existing_cover_image1 = description.get('cover_image1', None)
+                existing_cover_image2 = description.get('cover_image2', None)
                 existing_grid_image = description.get('grid_image', None)
                 created_by = description.get('created_by', None)
                 created_on = description.get('created_on', None)
@@ -2446,6 +2849,16 @@ def addpackages(request):
                     "cover_image_url": existing_cover_image_url,
                     "cover_image_path": existing_cover_image_path,
                     "cover_image":existing_cover_image,
+
+                    "cover_image_url1": existing_cover_image_url1,
+                    "cover_image_path1": existing_cover_image_path1,
+                    "cover_image1":existing_cover_image1,
+
+                    "cover_image_url2": existing_cover_image_url2,
+                    "cover_image_path2": existing_cover_image_path2,
+                    "cover_image2":existing_cover_image2,
+
+
                     "grid_image_url": existing_grid_image_url,
                     "grid_image_path": existing_grid_image_path,
                     "grid_image":existing_grid_image,
@@ -2471,6 +2884,8 @@ def addpackages(request):
                 # Generate folder names based on the ID of the created blog entry
                 Packages_folder = str(Package_list.id)
                 cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+                cover_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+                cover_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
                 grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
                 if 'Grid_Image' in request.FILES:
                     blog_entry_folder = str(Package_list.id)
@@ -2507,21 +2922,58 @@ def addpackages(request):
                     cover_image_url = cover_image_url_first.replace("\\", "/")
                     description['cover_image_url'] = cover_image_url
                     description['cover_image'] = img_path
+                if 'TabCover' in request.FILES:
+                    blog_entry_folder = str(Package_list.id)
+                    if existing_cover_image1:
+                        old_image_path1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', blog_entry_folder,existing_cover_image1)
+                        if os.path.exists(old_image_path1):
+                            os.remove(old_image_path1)
+                    if not os.path.exists(cover_image_folder1):
+                        os.makedirs(cover_image_folder1)
+                    new_image1 = request.FILES['TabCover']
+                    img_path1 = new_image1.name
+                    image_path1 = os.path.join(settings.BASE_DIR,'VFpages/static/image/packages', blog_entry_folder, img_path1)
+                    with open(image_path1, 'wb') as destination:
+                        for chunk in new_image1.chunks():
+                            destination.write(chunk)
+                    cover_image_url_first1 = os.path.join('/image/packages', blog_entry_folder, img_path1)
+                    cover_image_url1= cover_image_url_first1.replace("\\", "/")
+                    description['cover_image_url1'] = cover_image_url1
+                    description['cover_image1'] = img_path1
+                if 'MobileCover' in request.FILES:
+                    blog_entry_folder = str(Package_list.id)
+                    if existing_cover_image2:
+                        old_image_path2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', blog_entry_folder,existing_cover_image2)
+                        if os.path.exists(old_image_path2):
+                            os.remove(old_image_path2)
+                    if not os.path.exists(cover_image_folder2):
+                        os.makedirs(cover_image_folder2)
+                    new_image2 = request.FILES['MobileCover']
+                    img_path2 = new_image2.name
+                    image_path2 = os.path.join(settings.BASE_DIR,'VFpages/static/image/packages', blog_entry_folder, img_path2)
+                    with open(image_path2, 'wb') as destination:
+                        for chunk in new_image2.chunks():
+                            destination.write(chunk)
+                    cover_image_url_first2 = os.path.join('/image/packages', blog_entry_folder, img_path2)
+                    cover_image_url2 = cover_image_url_first2.replace("\\", "/")
+                    description['cover_image_url2'] = cover_image_url2
+                    description['cover_image2'] = img_path2
                 
                 # Update 'updated_by' key
                 username = request.session.get('username')
                 current_time = timezone.now().strftime("%Y-%m-%d %H:%M")
                 current_date_str = datetime.now().strftime("%d/%m/%Y")
-                description['updated_by'] = f"{username} {current_date_str}"
+                current_d = datetime.now().strftime('%Y-%m-%d')
+                description['updated_by'] = username
 
                 # Update BlogUs instance with the modified description
                 Package_list.description = description
                 Package_list.packages_id = destination_package_id
                 Package_list.itinaries_id = itinerayid
                 
-                Package_list.updated_by = f"{username} {current_date_str}"
-                Package_list.created_by = created_by
-                print(Package_list.description )
+                Package_list.updated_by = username
+                Package_list.updated_date = current_d
+                
                 Package_list.save()
                 return redirect('packagesadmin') 
         except BlogUs.DoesNotExist:
@@ -4774,7 +5226,7 @@ def editmainflight(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('flightadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect('useradminpage')  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'flight.html', {'hotel': hotel})
@@ -5824,8 +6276,53 @@ def downloadattachment(request, id, type):
 
         return HttpResponse("File not found", status=404)
 
-def useradminpage(request):
-    return render(request,'admin/UserCMS/customerportel.html')
+def useradminpage(request): 
+     # Check if user is authenticated
+    if not request.session.get('username') or not request.session.get('role'):
+        # Redirect to login page if session data is not found
+        return redirect('login')
+
+    # Check if the user has the appropriate role to access this page
+    role = request.session.get('role')
+    userdetails = adminheader(request)
+    if role != 'superadmin':
+        return redirect('dashboard')
+    hotel_data = UploadFlight.objects.all()
+    hotel_data2 = Uploadhotel.objects.all()
+    hotel_data3 = UploadTransfers.objects.all()
+    hotel_data4 = UploadUserdetails.objects.all()
+    # hotel_data5 = UploadUserdetails.objects.all()
+    search_query = request.GET.get('search_query')
+    if search_query:
+        filtered_hotels = hotel_data.filter(phone_number=search_query)
+        filtered_hotels2 = hotel_data2.filter(phone_number=search_query)
+        filtered_hotels3 = hotel_data3.filter(phone_number=search_query)
+        filtered_hotels4 = hotel_data4.filter(phone_number=search_query)
+        # filtered_hotels5 = hotel_data4.filter(phone_number=search_query)
+        
+        if not filtered_hotels:
+            # Return a JSON response with a message indicating no hotels found
+            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        if not filtered_hotels2:
+            # Return a JSON response with a message indicating no hotels found
+            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        if not filtered_hotels3:
+            # Return a JSON response with a message indicating no hotels found
+            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        if not filtered_hotels4:
+            # Return a JSON response with a message indicating no hotels found
+            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        
+
+        
+        hotel_data = filtered_hotels
+        hotel_data2 = filtered_hotels2
+        hotel_data3 = filtered_hotels3
+        hotel_data4 = filtered_hotels4
+
+    
+    
+    return render(request,'admin/UserCMS/customerportel.html',{"userdetails":userdetails,"hotel_data":hotel_data,"hotel_data2":hotel_data2,"hotel_data3":hotel_data3,"hotel_data4":hotel_data4})
 
 
 

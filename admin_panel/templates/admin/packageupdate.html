@@ -72,10 +72,21 @@
                               <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="100">
                               <input class="form-control" type="file" id="uploadGrid"  onchange="previewImage(this, 'gridImagePreview')">
                             </div>
+                            
                             <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Cover Images(size:1800x1200)</label>
+                                <label for="uploadCover" class="form-label">Desktop Banner Images(size:1800x1200)</label>
                                 <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="100">
                                 <input class="form-control" type="file" id="uploadCover" onchange="previewImage(this, 'coverImagePreview')">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Tab Banner Images</label>
+                                <img src="{% static description.cover_image_url1 %}" id="TabImagePreview" width="100" height="100">
+                                <input class="form-control" type="file" id="TabCover" onchange="previewImage(this, 'TabImagePreview')">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Mobile Banner Images</label>
+                                <img src="{% static description.cover_image_url2 %}" id="MobileImagePreview" width="100" height="100">
+                                <input class="form-control" type="file" id="MobileCover" onchange="previewImage(this, 'MobileImagePreview')">
                               </div>
                               <script>
                                 function previewImage(input, imageId) {
@@ -342,6 +353,8 @@
                                     // Get file objects
                                     var id = $('#id').val();
                                     var coverImageFile = document.getElementById('uploadCover').files[0];
+                                    var TabCover = document.getElementById('TabCover').files[0];
+                                    var MobileCover = document.getElementById('MobileCover').files[0];
                                     var gridImageFile = document.getElementById('uploadGrid').files[0];
                                     // var richtextarea = tinymce.get("myTextarea").getContent();
                                     // Get other input values
@@ -378,6 +391,8 @@
                                     var formData = new FormData();
                                     formData.append('id', id);
                                     formData.append('Cover_Image', coverImageFile);
+                                    formData.append('TabCover', TabCover);
+                                    formData.append('MobileCover', MobileCover);
                                     formData.append('Grid_Image', gridImageFile);
                                     formData.append('Noofdays', Noofdays);
                                     // formData.append('rating', rating);
