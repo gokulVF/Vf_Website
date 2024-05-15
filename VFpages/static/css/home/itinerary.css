@@ -302,7 +302,7 @@
             /* font-style: italic; */
             font-size: 16px;
             /*text-transform: capitalize;*/
-            font-family: sans-serif;
+            /* font-family: sans-serif; */
             margin-top: 3px;
         }
 
@@ -1024,12 +1024,84 @@
   box-shadow: 5px 5px 5px 0.5 gray;
   padding: 2px 8px;
  }
- 
-@media only screen and (max-width: 768px) {
-  #main_container {
-      flex-direction: column;
-  }
+
+ .crmWebToEntityForm {
+    padding: 0px;
+    border: 2px solid #029e9d;
 }
+
+ .zcwf_lblLeft .zcwf_row {
+        padding: 2px 6px  !important;
+    }
+
+.f_label {
+    font-size: 15px !important;
+    margin-bottom: 5px !important;
+    color:#029e9d !important;
+    text-transform: uppercase !important;
+}
+
+  .fo_head{ 
+        background:#029e9d ;
+        padding: 3px 5px !important;
+        border-radius: 7px 7px 0px 0px;
+        color:white !important;
+     }
+
+     .banner-theme {
+        background: linear-gradient(240deg, #076cd0, #029e9d) !important;
+        display: block !important;
+        border-radius: 6px 6px 0px 0px;
+     }
+
+     .f_mhead {
+        padding: 3px 5px !important;
+        color: white !important;
+     }
+
+     .tab-f-head {
+        display:  none ;
+     }
+
+     
+     .activity {
+        display: flex;
+        flex-direction: row; 
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        }
+
+.blink {
+color : red;
+margin-right: 0.5rem;
+animation: blink 2s steps(5, start) infinite;
+-webkit-animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+to {
+visibility: hidden;
+}
+}
+@-webkit-keyframes blink {
+to {
+visibility: hidden;
+}
+}
+.noblink {
+margin-right: 0.5rem;
+}
+
+
+ 
+ @media only screen and (max-width: 768px) {
+    #main_container {
+        flex-direction: column;
+    }
+    
+    }
+  
 
 @media (max-width: 811px) {
   .error {

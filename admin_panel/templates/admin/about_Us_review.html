@@ -57,6 +57,7 @@
             <nav class="page-breadcrumb d-flex align-items-center justify-content-between">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">About Us</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Client Reviews</li>
                 </ol>
         <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -189,12 +190,12 @@
   <div class="modal fade" id="addslider-review" tabindex="-1" aria-labelledby="addslider-review" aria-hidden="true">
     <div class="modal-dialog" >
       <div class="modal-content">
-        <div class="modal-header text-center d-flex justify-content-between">
+        <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Client Review</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
-          <form class="forms-sample" action="{% url 'client_review_insert' %}" method="POST" enctype="multipart/form-data">
+          <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'client_review_insert' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
           <div class="mb-3 row">
             <div class="mb-3 col-lg-7">
@@ -235,8 +236,9 @@
               <input class="form-control" required type="file" name="ClientImages" id="upload" >
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> Create Content</button>
-            </div>
+              <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+              <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
             </div>
           </form>
         </div>
@@ -248,12 +250,12 @@
   <div class="modal fade" id="addslider-{{ review.id }}" tabindex="-1" aria-labelledby="addslider-{{ review.id }}" aria-hidden="true">
     <div class="modal-dialog" >
       <div class="modal-content">
-        <div class="modal-header text-center d-flex justify-content-between">
+        <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Client Review</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
-          <form class="forms-sample" action="{% url 'client_review_update' review.id %}" method="POST" enctype="multipart/form-data">
+          <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'client_review_update' review.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
           <div class="mb-3 row">
             <div class="mb-3 col-lg-7">
@@ -297,8 +299,9 @@
               <input class="form-control"  type="file" name="ClientImages" id="upload" >
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> Submit</button>
-            </div>
+              <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+              <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
             </div>
           </form>
         </div>
@@ -376,6 +379,19 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
-
+  <!-- Css -->
+  <style>
+    .theme {
+      color: #029e9d !important;
+    }
+  
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+  </style>
+  <!-- Css -->
 </body>
 </html>    

@@ -195,6 +195,30 @@
             height:500px;
         }
     }
+
+    /* Desktop - default style already provided in your message */
+/* #breadcrumb-main-img {
+    background-image: url("{% static 'path/to/default/desktop_image.jpg' %}");
+    height: 500px;
+    background-attachment: local !important;
+    background-size: cover; 
+    background-position: center;
+} */
+
+/* Tablet view */
+@media (max-width: 768px) {
+    #breadcrumb-main-img {
+        background-image: url("{% static 'path/to/default/tablet_image.jpg' %}");
+    }
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+    #breadcrumb-main-img {
+        background-image: url("{% static 'path/to/default/mobile_image.jpg' %}");
+    }
+}
+
      </style>
       <!--Css-->
      

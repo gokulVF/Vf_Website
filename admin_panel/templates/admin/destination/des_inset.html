@@ -38,7 +38,6 @@
 <body>
 	<div class="container">
         <div class="mt-2 mx-auto justify-content-center" > 
-         
              <div class="text-center mt-3 mb-4 d-flex justify-content-center" >
                 <h2 style="color: #029e9d;">DESTINATIONS DETAILS</h2>
                 <a href="{% url 'destination' %}" class="btn btn-primary ps-3 text-end" style="margin-left:100px"><i class="link-icon" data-feather="arrow-left"></i> Back</a>
@@ -49,9 +48,9 @@
                 {% csrf_token %}
                     
                     <div class="mb-4 mt-3 input-div col-lg-4" >
-                        <label for="description" class="form-label">International/Domestic?</label>
+                        <label for="description" class="form-label">Sector</label>
                         <select class="form-select form-width" name="int-domes" id="">
-                            <option value="">Select any one</option>
+                            <option value="">Select</option>
                             <option value="1">Domestic</option>
                             <option value="0">International</option>
                             </select>
@@ -59,7 +58,7 @@
                     <div class="mb-4 mt-3 input-div col-lg-4">
                         <label for="description" class="form-label">Category</label>
                         <select class="form-select form-width" name="Category" id="">
-                            <option value="">Select any one</option>
+                            <option value="">Select</option>
                             <optgroup label="Domestic">
                                 <option value="North">North India</option>
                                 <option value="South">South India</option>
@@ -97,19 +96,19 @@
                         <label for="subtitle" class="form-label">Title Slug</label>
                         <input type="text" class="form-control form-width" id="subtitle" name="TitleSlug" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-6">
                         <label for="subtitle" class="form-label">Meta Title</label>
                         <input type="text" class="form-control form-width" id="MetaTitle" name="MetaTitle" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-6">
                         <label for="subtitle" class="form-label">Meta Description</label>
                         <input type="text" class="form-control form-width" id="Metadescription" name="Metadescription" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-6">
                         <label for="subtitle" class="form-label">Meta keyword</label>
                         <input type="text" class="form-control form-width" id="Metakeyword" name="Metakeyword" autocomplete="off">
                     </div>
-                    <div class="mb-4 input-div">
+                    <div class="mb-4 input-div col-lg-6">
                         <label for="subtitle" class="form-label">canonical tag</label>
                         <input type="text" class="form-control form-width" id="canonical" name="canonical" autocomplete="off">
                     </div>
@@ -171,6 +170,7 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+
 
 </body>
 </html>    

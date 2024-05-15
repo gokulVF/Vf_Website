@@ -429,49 +429,54 @@
             <div class="trend-box package_slider">
                 <div class="row item-slider">
                     {% for packages in packages_top %}
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
-                        <div class="trend-item rounded box-shadow bg-white">
+                   
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                             <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
-                            <div class="trend-image position-relative">
-                                <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
-                                <!--<div class="color-overlay"></div>-->
-                            </div>
-                            </a>
-                            <div class="trend-content px-3 py-2 position-relative" style="height:225px">
-                                <div class="trend-meta bg-theme white px-2 py-1 rounded">
-                                    <div class="entry-author">
-                                        <i class="icon-calendar nod_cal"  style="font-size:14px;"></i>
-                                        <span class="fw-bold  ps-1 nod_tour" style="font-size:14px;">{{ packages.description.Noofdays }}</span>
+                                <div class="trend-item rounded box-shadow bg-white">
+                                
+                                    <div class="trend-image position-relative">
+                                        <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
+                                        <!--<div class="color-overlay"></div>-->
+                                    </div>
+                                    
+                                    <div class="trend-content px-3 py-2 position-relative" style="height:225px">
+                                        <div class="trend-meta bg-theme white px-2 py-1 rounded">
+                                            <div class="entry-author">
+                                                <i class="icon-calendar nod_cal"  style="font-size:14px;"></i>
+                                                <span class="fw-bold  ps-1 nod_tour" style="font-size:14px;">{{ packages.description.Noofdays }}</span>
+                                            </div>
+                                        </div>
+                                        <div style="height:135px">
+                                            <h5 class="theme mb-0" style="font-size:16px;"><i class="flaticon-location-pin"></i>  {{ packages.description.place1 }}</h5>
+                                            <!-- <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}"> -->
+                                            <h3 class="mb-1 pac_price" style="font-size:22px" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</h3>
+                                            <script>
+                                                // Get the place2 element
+                                                var placeElement = document.getElementById('tag-link{{ packages.id }}');
+                                                var placeText = placeElement.textContent;
+                                            
+                                                // Replace '&' with a span having a specific class
+                                                var replacedText = placeText.replace(/&/g, function(match) {
+                                                    return "<span class='number'>" + match + "</span>";
+                                                });
+                                            
+                                                // Set the modified HTML back to the element
+                                                placeElement.innerHTML = replacedText;
+                                            </script>
+                                            <p class="pb-1 mb-0 pac_sname" style="font-size:14px;cursor: pointer;">{{ packages.description.descriptions }}</p>
+                                        </div>
+                                        <div class="entry-meta">
+                                                <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end" style="cursor: pointer;">
+                                                    <span class="theme1 mb-0 mt-0 me-2 start_from" style="border-bottom: 3px solid #029e9d !important;">Starts from</span>
+                                                <span class="theme fw-bold fs-5 p-1 px-2 stay_price" style="background:#f1f1f1;font-size:22px;border-radius:6px"> {{ packages.description.price }}</span><br>
+                                                <span class="mb-1 mt-1 stay_person" style="font-size:14px;">{{ packages.description.person }}</span>
+                                                </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div style="height:135px">
-                                    <h5 class="theme mb-0" style="font-size:16px;"><i class="flaticon-location-pin"></i>  {{ packages.description.place1 }}</h5>
-                                     <h3 class="mb-1 pac_price" style="font-size:22px"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
-                                     <script>
-                                        // Get the place2 element
-                                        var placeElement = document.getElementById('tag-link{{ packages.id }}');
-                                        var placeText = placeElement.textContent;
-                                    
-                                        // Replace '&' with a span having a specific class
-                                        var replacedText = placeText.replace(/&/g, function(match) {
-                                            return "<span class='number'>" + match + "</span>";
-                                        });
-                                    
-                                        // Set the modified HTML back to the element
-                                        placeElement.innerHTML = replacedText;
-                                    </script>
-                                    <p class="pb-1 mb-0 pac_sname" style="font-size:14px;">{{ packages.description.descriptions }}</p>
-                                </div>
-                                <div class="entry-meta">
-                                        <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end">
-                                            <span class="theme1 mb-0 mt-0 me-2 start_from" style="border-bottom: 3px solid #029e9d !important;">Starts from</span>
-                                          <span class="theme fw-bold fs-5 p-1 px-2 stay_price" style="background:#f1f1f1;font-size:22px;border-radius:6px"> {{ packages.description.price }}</span><br>
-                                          <span class="mb-1 mt-1 stay_person" style="font-size:14px;">{{ packages.description.person }}</span>
-                                        </div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
+                  
                     {% endfor %}
                 </div>
             </div>  
@@ -544,38 +549,40 @@
                                         </div> 
                                     </div>
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="trend-content bucket_details py-1 position-relative">
-                                            <div style="height: 115px;" class="buc_text_div" >
-                                                <h5 class="theme mb-0 b_place1" style="font-size: 16px;"><i class="flaticon-location-pin"></i>{{ package.description.place1 }}</h5>
-                                                <h3 class="mb-1 b_place2" style="font-size: 18px;"><a href="{% url 'tour-packages' package.description.Url_in_lead %}" id="New-link{{ package.id }}">{{ package.description.place2 }}</a></h3>
-                                                <script>
-                                                    // Get the place2 element
-                                                    var placeElement = document.getElementById('New-link{{ package.id }}');
-                                                    var placeText = placeElement.textContent;
-                                                
-                                                    // Replace '&' with a span having a specific class
-                                                    var replacedText = placeText.replace(/&/g, function(match) {
-                                                        return "<span class='number'>" + match + "</span>";
-                                                    });
-                                                
-                                                    // Set the modified HTML back to the element
-                                                    placeElement.innerHTML = replacedText;
-                                                </script>
-                                                <div class="trend-meta mb-1">
-                                                    <div class="entry-author">
-                                                         <i class="icon-calendar cal_days"  style="font-size:14px;"></i>
-                                                        <span style="font-size: 13px;" class="days_text">{{ package.description.Noofdays }}</span>
+                                        <a href="{% url 'tour-packages' package.description.Url_in_lead %}" >
+                                            <div class="trend-content bucket_details py-1 position-relative">
+                                                <div style="height: 115px;" class="buc_text_div" >
+                                                    <h5 class="theme mb-0 b_place1" style="font-size: 16px;"><i class="flaticon-location-pin"></i>{{ package.description.place1 }}</h5>
+                                                    <h3 class="mb-1 b_place2" style="font-size: 18px;" id="New-link{{ package.id }}">{{ package.description.place2 }}</h3>
+                                                    <script>
+                                                        // Get the place2 element
+                                                        var placeElement = document.getElementById('New-link{{ package.id }}');
+                                                        var placeText = placeElement.textContent;
+                                                    
+                                                        // Replace '&' with a span having a specific class
+                                                        var replacedText = placeText.replace(/&/g, function(match) {
+                                                            return "<span class='number'>" + match + "</span>";
+                                                        });
+                                                    
+                                                        // Set the modified HTML back to the element
+                                                        placeElement.innerHTML = replacedText;
+                                                    </script>
+                                                    <div class="trend-meta mb-1">
+                                                        <div class="entry-author">
+                                                            <i class="icon-calendar cal_days"  style="font-size:14px;"></i>
+                                                            <span style="font-size: 13px;" class="days_text">{{ package.description.Noofdays }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="entry-meta border-t mb-0">
+                                                    <div class="entry-author align-items-center">
+                                                        <span class="theme1 fw-bold mb-0 bstart_from" style="font-size: 14px;">Starts from</span>
+                                                        <p class="theme fw-bold mb-0 bg-theme buclist_price text-center" style="font-size:18px">{{ package.description.price }}</p>
+                                                        <p class="mt-0 mb-0 pp_text" style="font-size:13px">{{ package.description.person }}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="entry-meta border-t mb-0">
-                                                <div class="entry-author align-items-center">
-                                                    <span class="theme1 fw-bold mb-0 bstart_from" style="font-size: 14px;">Starts from</span>
-                                                    <p class="theme fw-bold mb-0 bg-theme buclist_price text-center" style="font-size:18px">{{ package.description.price }}</p>
-                                                    <p class="mt-0 mb-0 pp_text" style="font-size:13px">{{ package.description.person }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -790,22 +797,24 @@
                                     </div> 
                                 </div>
                                 <div class="col-lg-7 col-md-8">
-                                    <div class="trend-content py-2 position-relative r_det">
-                                        <h5 class="theme mb-1"><i class="flaticon-location-pin"></i>{{ R_P.description.place1 }}</h5>
-                                        <h3 class="mb-1 r_place2"><a href="{% url 'tour-packages' R_P.description.Url_in_lead %}">{{ R_P.description.place2 }}</a></h3>
-                                        <p class="r_des">{{ R_P.description.descriptions }}</p>
-                                        <div class="trend-meta border-b mb-2">
-                                            <div class="entry-author theme r_days">
-                                                <i class="icon-calendar"  style="font-size:14px;"></i>
-                                                <span>{{ R_P.description.Noofdays }}</span>
+                                    <a href="{% url 'tour-packages' R_P.description.Url_in_lead %}">
+                                        <div class="trend-content py-2 position-relative r_det">
+                                            <h5 class="theme mb-1"><i class="flaticon-location-pin"></i>{{ R_P.description.place1 }}</h5>
+                                            <h3 class="mb-1 r_place2">{{ R_P.description.place2 }}</h3>
+                                            <p class="r_des">{{ R_P.description.descriptions }}</p>
+                                            <div class="trend-meta border-b mb-2">
+                                                <div class="entry-author theme r_days">
+                                                    <i class="icon-calendar"  style="font-size:14px;"></i>
+                                                    <span>{{ R_P.description.Noofdays }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="entry-meta">
+                                                <div class="entry-author d-flex align-items-center">
+                                                    <p class="mb-0"><span class="theme fw-bold fs-5"> {{ R_P.description.price }}</span>{{ R_P.description.person }}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="entry-meta">
-                                            <div class="entry-author d-flex align-items-center">
-                                                <p class="mb-0"><span class="theme fw-bold fs-5"> {{ R_P.description.price }}</span>{{ R_P.description.person }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>

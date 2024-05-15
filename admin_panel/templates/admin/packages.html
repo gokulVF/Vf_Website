@@ -61,21 +61,25 @@
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Packages</li>
 					</ol>
-          <a href="{% url 'packagesmainadmin' %}" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> Add Packages</a>
 				</nav>
 
         <div class="search-box p-4 bg-white rounded mb-3 box-shadow">
           <form class="forms-sample">
             <div class="row align-items-center">
-              <div class="col-lg-3 mb-3">
-                <h5>Packages Lists</h5>
-              </div>
-              <div class="col-lg-12 col-md-4">
+              <div class="">
                 <form method="GET" action="{% url 'packagesadmin' %}">
                   <div class="input-group">
-                      <input type="text" class="form-control" name="search_query" placeholder="Search by package title" value="{{ search_query }}">
-                      <div class="input-group-append ms-5">
+                    <div class="col-lg-2">
+                        <h5 class="mt-3">Packages Lists</h5>
+                      </div>
+                      <div class="col-lg-6">
+                        <input type="text" class="form-control" name="search_query" placeholder="Search by package title" value="{{ search_query }}">
+                      </div>
+                      <div class="input-group-append  col-lg-2 text-center">
                           <button class="btn btn-outline-secondary" type="submit">Search</button>
+                      </div>
+                      <div class="col-lg-2">
+                        <a href="{% url 'packagesmainadmin' %}" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> Add Packages</a>
                       </div>
                   </div>
               </form>
@@ -84,16 +88,17 @@
           </form>
         </div>
          <div class="search-box p-4 bg-white rounded mb-3 box-shadow">
-              <h5 class="w-20 mb-2"><a href="?count=0"><span style="padding-bottom:10px" >Homepage Button: {{ count_false_popular }}</span></a></h5>
+              <h4 class="w-20 mb-2"><a href="?count=0"><button class="btn btn-primary btn-cat">Best Tour Packages <span class="bg-white theme px-2 py-1 ms-1 rounded">{{ count_false_popular }}</span></button></a></h4>
            
             <div class="d-flex">
                  {% for key, value in counts_by_slug.items %}
-                     <h5 class="w-20 route_btn"><a href="?categories={{ key }}"><span style="padding-right:10px">{{ key }} Button:{{ value }}</span></a></h5>
+                     <h5 class="w-20 route_btn"><a href="?categories={{ key }}"><button class="btn btn-primary btn-cat">{{ key }}<span class="bg-white theme px-2 py-1 ms-1 rounded">{{ value }}</span></button></a></h5>
                 {% endfor %}
             </div>
         </div>
 				<div class="row">
 					<div class="col-md-12 grid-margin stretch-card">
+                    
               <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -112,10 +117,10 @@
                             <th>Day</th> -->
                             <!--<th>Created by</th>-->
                             <!--<th>Updated by</th>-->
-                            <th class="text-center">Published</th>
-                            <th class="text-center">HomePage</th>
                             <th class="text-center">Category</th>
-                            <th class="text-center">Category Button</th>
+                            <th class="text-center">Published</th>
+                            <th class="text-center">Tour Packages</th>
+                            <th class="text-center">Bucket Lists</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -138,6 +143,61 @@
                                 <td>{{ destination.description.Noofdays }}</td> -->
                                 <!--<td>{{ destination.created_by }}</td>-->
                                 <!--<td>{{ destination.updated_by }}</td>-->
+                                <td class="text-center" style="width:210px">
+                                    <select id="destinationCategorySelect_{{ destination.id }}" class="form-select form-select-lg">
+                                      <option selected disabled>{{ destination.destination_category}}</option>
+                                      {% for category in destination_category %}
+                                      <option value="{{ category.categeory_slug }}">{{ category.categoriesname }}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </td>
+                                  <script>
+                                    function getCSRFToken() {
+                                        var cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                // Check if the cookie name matches the CSRF token cookie name
+                                                if (cookie.substring(0, 10) === 'csrftoken=') {
+                                                    cookieValue = decodeURIComponent(cookie.substring(10));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+          
+          
+                                    $(document).ready(function() {
+                                        // Event handler for dropdown change
+                                        $('select[id^="destinationCategorySelect_"]').change(function() {
+                                            var destinationId = $(this).attr('id').split('_')[1]; // Extract destination ID
+                                            var selectedCategory = $(this).val(); // Get the selected value
+                                
+                                            // AJAX call to update the destination_category field in the Packages model
+                                            $.ajax({
+                                                url: '/update_destination_category/',  // URL to your view for updating destination category
+                                                type: 'POST',
+                                                headers: {
+                                                    'X-CSRFToken': getCSRFToken(),
+                                                },
+                                                data: {
+                                                    'destination_id': destinationId,
+                                                    'selected_category': selectedCategory
+                                                },
+                                                success: function(data) {
+                                                    // Handle success response
+                                                    console.log('Destination category updated successfully.');
+                                                },
+                                                error: function(xhr, errmsg, err) {
+                                                    // Handle error
+                                                    console.log('Error updating destination category.');
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
                                 <td class="text-center">
                                   <span class="form-check form-switch">
                                       <input type="checkbox" class="form-check-input hidden-switch" id="hiddenSwitch{{ destination.id }}" {% if not destination.hidden %} checked{% endif %} data-blogid="{{ destination.id }}" data-switchtype="hidden">
@@ -236,61 +296,7 @@
                                 });
                             });
                         </script>
-                        <td class="text-center" style="width:210px">
-                          <select id="destinationCategorySelect_{{ destination.id }}" class="form-select form-select-lg">
-                            <option selected disabled>{{ destination.destination_category}}</option>
-                            {% for category in destination_category %}
-                            <option value="{{ category.categeory_slug }}">{{ category.categoriesname }}</option>
-                            {% endfor %}
-                          </select>
-                        </td>
-                        <script>
-                          function getCSRFToken() {
-                              var cookieValue = null;
-                              if (document.cookie && document.cookie !== '') {
-                                  var cookies = document.cookie.split(';');
-                                  for (var i = 0; i < cookies.length; i++) {
-                                      var cookie = cookies[i].trim();
-                                      // Check if the cookie name matches the CSRF token cookie name
-                                      if (cookie.substring(0, 10) === 'csrftoken=') {
-                                          cookieValue = decodeURIComponent(cookie.substring(10));
-                                          break;
-                                      }
-                                  }
-                              }
-                              return cookieValue;
-                          }
-
-
-                          $(document).ready(function() {
-                              // Event handler for dropdown change
-                              $('select[id^="destinationCategorySelect_"]').change(function() {
-                                  var destinationId = $(this).attr('id').split('_')[1]; // Extract destination ID
-                                  var selectedCategory = $(this).val(); // Get the selected value
-                      
-                                  // AJAX call to update the destination_category field in the Packages model
-                                  $.ajax({
-                                      url: '/update_destination_category/',  // URL to your view for updating destination category
-                                      type: 'POST',
-                                      headers: {
-                                          'X-CSRFToken': getCSRFToken(),
-                                      },
-                                      data: {
-                                          'destination_id': destinationId,
-                                          'selected_category': selectedCategory
-                                      },
-                                      success: function(data) {
-                                          // Handle success response
-                                          console.log('Destination category updated successfully.');
-                                      },
-                                      error: function(xhr, errmsg, err) {
-                                          // Handle error
-                                          console.log('Error updating destination category.');
-                                      }
-                                  });
-                              });
-                          });
-                      </script>
+                        
                       <td class="text-center">
                         <span class="form-check form-switch">
                             <input type="checkbox" class="form-check-input category-switch" id="homeSwitch{{ destination.id }}" {% if not destination.category_button %} checked{% endif %} data-blogid="{{ destination.id }}" data-switchtype="hidden">
@@ -459,6 +465,26 @@
   <script src="{% static 'js/admin/dashboard-light.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
 	<!-- End custom js for this page -->
+<!-- Css -->
+<style>
+    .theme {
+      color: #029e9d !important;
+    }
 
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+
+    .btn-cat.focused {
+        border:1px solid #029e9d;
+        background: #fff;
+        color: #029e9d;
+    }
+    </style>
+   <!-- Css --> 
+   
 </body>
 </html>    

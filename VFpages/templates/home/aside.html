@@ -84,11 +84,12 @@
                 <a href="{% url 'about_us_review' %}" class="nav-link">Client Review</a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'aboutUsStaff' %}" class="nav-link">Team Member Details</a>
+                <a href="{% url 'addTeam' %}" class="nav-link">Add Team</a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'addTeam' %}" class="nav-link">Add Team</a>
-            </li>
+                <a href="{% url 'aboutUsStaff' %}" class="nav-link">Team Member Details</a>
+              </li>
+              
             </ul>
           </div>
         </li>
@@ -255,7 +256,7 @@
         }
   </style>
   
-  <script>
+  <!-- <script>
       document.addEventListener("DOMContentLoaded", function() {
     // Get the current URL path
     var currentPath = window.location.pathname;
@@ -276,5 +277,84 @@
     });
 });
 
-  </script>
+  </script> -->
 
+  <!-- <script>
+    $(document).ready(function() {
+        function setActiveBasedOnUrl() {
+            var currentUrl = window.location.pathname;
+    
+            // Reset active states first
+            $('#sidebar-nav .nav-item').removeClass('active');
+            $('#sidebar-nav .nav-link').addClass('collapsed');
+            $('#sidebar-nav .nav-content').removeClass('show');
+    
+            // Check for exact match or base path match
+            $('#sidebar-nav .nav-item a').each(function() {
+                var link = $(this).attr('href');
+                if (currentUrl === link || currentUrl.startsWith(link + '/') || currentUrl.startsWith(link + '?')) {
+                    $(this).closest('.nav-item').addClass('active');
+                    $(this).removeClass('collapsed');
+                    $(this).closest('.nav-item').children('.nav-content').addClass('show');
+                    $(this).closest('.nav-content').addClass('show'); // Ensure submenus are shown
+                    $(this).closest('a').addClass('active'); // Mark the parent <li> as active too
+                }
+            });
+    
+            // Specific logic to expand parent menus
+            if (currentUrl.includes("upcominghotel") || currentUrl.includes("travelhotel") || currentUrl.includes("hotelcompleted")) {
+                $('#hotel-menu').addClass('active');
+                $('#hotel-menu > .nav-link').removeClass('collapsed');
+                $('#tables-nav').addClass('show');
+            }
+            if (currentUrl.includes("upcomingflight") || currentUrl.includes("travelflight") || currentUrl.includes("flightcompleted")) {
+                $('#flight-menu').addClass('active');
+                $('#flight-menu > .nav-link').removeClass('collapsed');
+                $('#tables-nav1').addClass('show');
+            }
+        }
+    
+        setActiveBasedOnUrl(); // Call this function on page load
+    });
+    </script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        function setActiveBasedOnUrl() {
+            var currentUrl = window.location.pathname;
+    
+            // Reset active states
+            $('.sidebar-body .nav-item').removeClass('active');
+            $('.sidebar-body .nav-link').addClass('collapsed').attr('aria-expanded', 'false');
+            $('.sidebar-body .collapse').removeClass('show');
+    
+            // Set active states based on URL match
+            $('.sidebar-body .nav-link').each(function() {
+                var link = $(this).attr('href');
+                if (currentUrl === link || currentUrl.startsWith(link + '/') || currentUrl.startsWith(link + '?')) {
+                    $(this).addClass('active');
+                    $(this).removeClass('collapsed').attr('aria-expanded', 'true');
+                    $(this).parent().addClass('active'); // Parent <li>
+                    $(this).next('.collapse').addClass('show'); // Child elements
+                }
+            });
+    
+            // Expand parent items if necessary
+            $('.sidebar-body .collapse').each(function() {
+                if ($(this).find('.active').length > 0) {
+                    $(this).addClass('show');
+                    $(this).parent().find('> .nav-link').removeClass('collapsed').attr('aria-expanded', 'true');
+                    $(this).parent().addClass('active');
+                }
+            });
+        }
+    
+        setActiveBasedOnUrl(); // Call this function on page load
+    
+        // Optional: Update active states on navigation click
+        // $('.sidebar-body .nav-link').click(function() {
+        //     setTimeout(setActiveBasedOnUrl, 300); // Update after collapse animation
+        // });
+    });
+    </script>
+    

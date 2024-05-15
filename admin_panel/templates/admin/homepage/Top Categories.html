@@ -57,6 +57,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#">Homepage</a></li>
+            <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Destination Categories</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -86,20 +88,25 @@
           <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="">
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
-                           
+                            <th>S.No</th>
                             <th>Categories Name</th>
                             <th>Action</th>
                             <!-- <th>Client postion</th>
                             <th class="text-center">Client Review</th>
                             <th class="text-center">Action</th> -->
                           </tr>
-                          <div class="justify-content-between d-flex"><p class="mb-0 mt-2">Add Categories </p>
-                            <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Categories </button>
+                          <div class="row d-flex align-items-center mb-2">
+                            <div class="col-lg-10 text-center">
+                              <h3 class="mb-0 theme">Home Page</h3>
+                              <p>Theme 1 - Add Categories </p>
+                            </div>
+                            <div class="col-lg-2 text-end">
+                              <button class="btn btn-primary  px-3 py-2 rounded fw-bold" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Categories </button>
+                            </div>
                           </div>
             
                         </thead>
@@ -108,7 +115,6 @@
                           {% for team in form %}
                           <tr>
                             <td>{{ forloop.counter }}</td>
-                           
                             <td>{{team.categoriesname}}</td>
                             <td class="text-center">
                                 <ul class="d-flex justify-content-center list-unstyled mb-0">
@@ -166,12 +172,12 @@
 <div class="modal fade" id="addslider-addteam" tabindex="-1" aria-labelledby="addTeamModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+          <div class="modal-header text-center">
               <h5 class="modal-title" id="addTeamModalLabel">Add Categories</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'add_categories' %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample bg-grey rounded mx-1 p-2" action="{% url 'add_categories' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3">
                       <label for="TeamName" class="form-label">Categories Name</label>
@@ -185,9 +191,11 @@
                   <label for="upload" class="form-label">Categories Images(png=size:64x64)</label>
                   <input class="form-control" required type="file" name="CategoriesImages" id="upload" >
                 </div>
-                  <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Add Categories</button>
+                  <div class="text-center mt-3">
+                      <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+                      <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                   </div>
+                  
               </form>
           </div>
       </div>
@@ -199,12 +207,12 @@
 <div class="modal fade" id="editTeamModal{{ team.id }}" tabindex="-1" aria-labelledby="editTeamModalLabel{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+          <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Categories</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'edit_categories' team_id=team.id %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample bg-grey rounded mx-1 p-2" action="{% url 'edit_categories' team_id=team.id %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3">
                       <label for="TeamNamemodify{{ team.id }}" class="form-label">Categories Name</label>
@@ -215,12 +223,13 @@
                       <input type="text" class="form-control" id="upCategories-Url" name="upCategories-Url" autocomplete="off" value="{{ team.categeory_slug }}">
                   </div>
                   <div class="mb-3">
-                  <label for="upload" class="form-label">Categories Images(png=size:64x64)</label>
+                  <label for="upload" class="form-label">Categories Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 64 x 64</span></label>
                   <input class="form-control"  type="file" name="upCategoriesImages" id="upload" >
                 </div>
-                  <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Update Categories</button>
-                  </div>
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+                  <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+              </div>
               </form>
           </div>
       </div>
@@ -247,6 +256,33 @@
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
   
+   <!-- Css -->
+ <style>
+  .theme {
+    color: #029e9d !important;
+  }
+
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+
+  .nav-tabs .nav-link.active {
+    background:#029e9d;
+    color: #fff;
+  }
+
+  .nav-tabs .nav-link {
+    border: 1px solid #029e9d !important;
+  }
+
+  .nav-tabs {
+  border-bottom: none !important;
+}
+</style>
+<!-- Css -->
  
 
 </body>

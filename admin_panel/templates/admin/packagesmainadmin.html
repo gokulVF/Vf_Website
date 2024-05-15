@@ -56,7 +56,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Package</li>
+            <li class="breadcrumb-item"><a href="#">Packages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Add Packages</li>
 					</ol>
           <a href="{% url 'packagesadmin' %}" class="btn btn-primary"><i class="link-icon" data-feather="arrow-left"></i> Back To List</a>
 				</nav>
@@ -67,11 +68,11 @@
                   <div class="card-body">
                       <form class="row forms-sample">
                             <div class="col-lg-6 mb-3">
-                              <label for="uploadGrid" class="form-label">Grid Images(size:800x534)</label>
+                              <label for="uploadGrid" class="form-label">Grid Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 800 x 534</span></label>
                               <input class="form-control" type="file" id="uploadGrid">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Cover Images(size:1800x1200)</label>
+                                <label for="uploadCover" class="form-label">Cover Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
                                 <input class="form-control" type="file" id="uploadCover">
                               </div>
                             <div class="col-lg-4 mb-3">
@@ -90,11 +91,11 @@
                                 <label for="person" class="form-label">Person Details</label>
                                 <input type="text" class="form-control" id="person" placeholder="">
                               </div>
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="place1" class="form-label">Country</label>
                             <input type="text" class="form-control" id="place1" autocomplete="off" placeholder="">
                           </div>
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="place2" class="form-label">Package Name</label>
                             <input type="text" class="form-control" id="place2" placeholder="">
                           </div>
@@ -102,10 +103,10 @@
                           <!--  <label for="url" class="form-label">URL</label>-->
                           <!--  <input type="text" class="form-control" id="url" placeholder="">-->
                           <!--</div>-->
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="destination" class="form-label">Destination</label>
                             <select class="form-select" id="destinationType" name="destinationType">
-                                <option value=" ">Please select the destination</option>
+                                <option value=" ">Select</option>
                                 <option value="international">International</option>
                                 <option value="domestic">Domestic</option>
                             </select>
@@ -195,26 +196,27 @@
                           
                             
                            
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                               <label for="description" class="form-label">Description</label>
                               <textarea class="form-control" name="tinymce" id="description" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
+                              <label for="metaKeywords" class="form-label">Canonical Tag</label>
+                              <textarea class="form-control" name="canonical" id="canonical" rows="2"></textarea>
+                          </div>
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaTitle" class="form-label">Meta title</label>
-                                <textarea class="form-control" name="tinymce" id="metaTitle" rows="1"></textarea>
+                                <textarea class="form-control" name="tinymce" id="metaTitle" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
                                 <textarea class="form-control" name="tinymce" id="metaDescription" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaKeywords" class="form-label">Meta Keywords</label>
                                 <textarea class="form-control" name="tinymce" id="metaKeywords" rows="2"></textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
-                                <label for="metaKeywords" class="form-label">Canonical tag</label>
-                                <textarea class="form-control" name="canonical" id="canonical" rows="2"></textarea>
-                            </div>
+                           
 
                         <h4 class="mb-3">Highlights</h4>
                     <div class="row py-3 rounded" style="background:#f1f1f1;margin:1px;">
@@ -265,11 +267,11 @@
                           });
                           </script>
                           <div class="mb-3 col-lg-4">
-                            <label for="TeamNamemodify" class="form-label">Url in pakage page</label>
+                            <label for="TeamNamemodify" class="form-label">Url in Package page</label>
                             <input type="text" class="form-control" id="Urlinpakage" required name="Urlinpakage"  autocomplete="off">
                         </div>
                         <div class="mb-3 col-lg-4">
-                          <label for="TeamNamemodify" class="form-label">pakage Heading</label>
+                          <label for="TeamNamemodify" class="form-label">Package Heading</label>
                           <input type="text" class="form-control" id="pakageHeading" required name="pakageHeading"  autocomplete="off">
                       </div>
                       
@@ -488,7 +490,20 @@
 <!-- Template Main JS File -->
 <script src="{% static 'assets/js/main.js' %}"></script>
   <!-- End custom js for this page -->
+ <!-- Css -->
+ <style>
+  .theme {
+    color: #029e9d !important;
+  }
 
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 
 </body>
 </html>    
