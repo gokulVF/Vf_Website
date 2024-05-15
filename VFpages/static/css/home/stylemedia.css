@@ -1,11 +1,13 @@
 
+        .slicknav_nav { 
+            top:70px !important;
+        }
         
         .checked {
             color:orange;
         }
         
-       
-        
+
         .pmore-btn {
             background:#029e9d;
             color: #fff;
@@ -17,6 +19,15 @@
             position: relative;
         }
         
+        .cat_name {
+            font-size: 16px !important;
+        }
+
+        .cat_div {
+            display: block;
+            width: 160px !important;
+        }
+
         
         .buclist_price {
             color: #fff !important;
@@ -275,11 +286,15 @@
             }
             
             .v_ban {
-                z-index:0 !important;
-                width: 80% !important;
+                z-index: 0 !important;
+                width: 85% !important;
                 margin: 0 auto !important;
             }
             
+            .call-banner-inner  {
+                margin-left: 0px !important;
+            }
+
             .v_text1 {
                 font-size:14px !important;
             }
@@ -317,5 +332,39 @@
             
             .author-info {
                 display:flex !important;
+            }
+
+            .r_package_div {
+                height:auto !important;
+            }
+
+            .r_det{ 
+                height: 220px !important;
+            }
+            
+            .side-slider {
+                display: none !important;
+            }
+
+        }
+        
+       @media (max-width: 1025px) { 
+            .cat_div {
+                display: block;
+                width: 116px !important;
+            }
+
+            .category-item img {
+                width: 40px !important;
+            }
+
+            .cat_name {
+                font-size: 13px !important;
+            }
+        }
+
+        @media (max-width: 720px) { 
+            .cat_div {
+                display: none;
             }
         }

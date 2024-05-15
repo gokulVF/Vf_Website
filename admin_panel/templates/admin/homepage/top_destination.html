@@ -49,15 +49,15 @@
 			<!-- navbar Ends -->
 <!-- ---------------------------------------------my work contend---------------------------------- -->
 
-
-
       <!-- Page Content Starts -->
 			<div class="page-content">
 
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">International Destination</li>
+                        <li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
+						<li class="breadcrumb-item active" aria-current="page">International Top Destinations</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
@@ -90,27 +90,23 @@
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
-                            <th>Date</th>
+                            <th>S.No</th>
+                            <!--<th>Date</th>-->
                             <th>Destination Name</th>
                             <!-- <th>Image</th> -->
                             <th>Action</th>
-                            
                           </tr>
-                          <div><p class="mb-2 mt-0">Home Page International Top Destination</p>
-                            <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
+                          <div class="text-center mb-3">
+                            <h3 class="mb-2 mt-0 theme">Home Page</h3>
+                            <p>International Top Destinations</p>
                           </div>
-            
                         </thead>
                        
                         <tbody class="text-center">
-
                           <tr class="text-center">
                             <td>1</td>
-                           
-                            <td>{{ topdestination.update_date }}</td>
+                            <!--<td>{{ topdestination.update_date }}</td>-->
                             <td> International Top destinations</td>
-                           
                             <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
                             <td class="text-center">
                                 <ul class="list-unstyled mb-0">
@@ -121,9 +117,7 @@
                                     </li>
                                 </ul>
                               </td>
-                          
                           </tr>
-                        
                         </tbody>
                       
                       </table>
@@ -171,238 +165,241 @@
 
 <!-- Edit Team Modal -->
 <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
-    <div class="modal-dialog" style="top: 78% !important;max-width: 1200px;">
+    <div class="modal-dialog" style="top: 35% !important;max-width: 1000px;">
       <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title" id="exampleModalLabel">International Top Destination</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="exampleModalLabel">International Top Destinations</h5>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body px-4">
           <form class="forms-sample" action="{% url 'Homepage_topdestination_Edit' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 1</p>
-          <div>
-            <div class="row">
-              <div class="mb-3 col-lg-6">
-                <input type="hidden" class="select-city1" id="new-{{topdestination.destination_1Continent}}" value="{{topdestination.destination_1Continent}}">
-                <label for="title" class="form-label">Select destination</label>
-                <select class="form-select Show-city1" id="mySelect1"  name="destination_1Continent" onchange="getSelectedText1()">
-                      <option value="">Select destination</option>
-                      <optgroup label="International">
-                        {% for internation in Internation %}
-                          <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
-                        {% endfor %}
-                      </optgroup>
-                      
-                      <!--<optgroup label="Domestic">-->
-                      <!--  {% for domestic in Domestic %}-->
-                      <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
-                      <!--  {% endfor %}-->
-                      <!--</optgroup>-->
-                  </select>
-                </div>
-                <input type="hidden" class="new-id-1" name="destination_1Name" value="{{topdestination.destination_1Name}}">
-                <script>
-                    function getSelectedText1() {
-                        var selectElement = document.getElementById("mySelect1");
-                        var selectedText = selectElement.options[selectElement.selectedIndex].text;
-                        console.log("Selected text: " + selectedText);
-            
-                        var inputElement = document.querySelector(".new-id-1");
-                        inputElement.value = selectedText;
-                    }
-            </script>
-              <div class="mb-3 col-lg-6">
-                <label for="title" class="form-label">Select destination Cities</label>
-                <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
-                <select class="form-select Show-1"  name="destination_1Cities">
-                  <option value="">select city</option>
-                  {% for city in City_list %}
-                  <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
-                  {% endfor %}
-                </select>
+            <nav>
+              <div class="nav nav-tabs mb-3 justify-content-center" id="nav-tab" role="tablist">
+                <button class="nav-link active me-2 rounded-pill" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Destination 1</button>
+                <button class="nav-link me-2 rounded-pill" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Destination 2</button>
+                <button class="nav-link me-2 rounded-pill" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Destination 3</button>
+                <button class="nav-link me-2 rounded-pill" id="nav-des-tab" data-bs-toggle="tab" data-bs-target="#nav-des" type="button" role="tab" aria-controls="nav-des" aria-selected="false">Destination 4</button>
               </div>
-          </div>
-          <div class="row">
-            <div class="mb-3 col-lg-6">
-              <label for="title" class="form-label">Price</label>
-              <input type="text" class="form-control"  id="password" name="destination_1Price" autocomplete="off" value="{{topdestination.destination_1Price}}">
-            </div>
-            <div class="mb-3 col-lg-6">
-              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">Destination Images (size:1200x541)</label>
-              <input class="form-control"  type="file" name="destination_1image" id="upload" >
-            </div>
-        </div>
-        </div>
-        <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 2</p>
-        <div>
-          <div class="row">
-            <div class="mb-3 col-lg-6">
-              <input type="hidden" class="select-city2" id="new2-{{topdestination.destination_2Continent}}" value="{{topdestination.destination_2Continent}}">
-              <label for="title" class="form-label">Select destination</label>
-              <select class="form-select Show-city2"  name="destination_2Continent" id="mySelect2" onchange="getSelectedText2()">
-                    <option value=""></option>
-                    <optgroup label="International">
-                      {% for internation in Internation %}
-                        <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
-                      {% endfor %}
-                    </optgroup>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active bg-grey rounded my-2 px-3 py-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 1</p>
+                    <div class="row">
+                      <div class="mb-3 col-lg-6">
+                        <input type="hidden" class="select-city1" id="new-{{topdestination.destination_1Continent}}" value="{{topdestination.destination_1Continent}}">
+                        <label for="title" class="form-label">Destination</label>
+                        <select class="form-select Show-city1" id="mySelect1"  name="destination_1Continent" onchange="getSelectedText1()">
+                              <option value="">Select</option>
+                              <optgroup label="International">
+                                {% for internation in Internation %}
+                                  <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
+                                {% endfor %}
+                              </optgroup>
+                              
+                              <!--<optgroup label="Domestic">-->
+                              <!--  {% for domestic in Domestic %}-->
+                              <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
+                              <!--  {% endfor %}-->
+                              <!--</optgroup>-->
+                          </select>
+                        </div>
+                        <input type="hidden" class="new-id-1" name="destination_1Name" value="{{topdestination.destination_1Name}}">
+                        <script>
+                            function getSelectedText1() {
+                                var selectElement = document.getElementById("mySelect1");
+                                var selectedText = selectElement.options[selectElement.selectedIndex].text;
+                                console.log("Selected text: " + selectedText);
                     
-                    <!--<optgroup label="Domestic">-->
-                    <!--  {% for domestic in Domestic %}-->
-                    <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
-                    <!--  {% endfor %}-->
-                    <!--</optgroup>-->
-                </select>
+                                var inputElement = document.querySelector(".new-id-1");
+                                inputElement.value = selectedText;
+                            }
+                    </script>
+                    <div class="mb-3 col-lg-6">
+                      <label for="title" class="form-label">Price</label>
+                      <input type="text" class="form-control"  id="password" name="destination_1Price" autocomplete="off" value="{{topdestination.destination_1Price}}">
+                    </div>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">City</label>
+                        <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
+                        <select class="form-select Show-1"  name="destination_1Cities">
+                          <option value="">Select</option>
+                          {% for city in City_list %}
+                          <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="mb-3 col-lg-6">
+                        <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                        <label for="upload" class="form-label">Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1200 x 541</span></label>
+                        <input class="form-control"  type="file" name="destination_1image" id="upload" >
+                      </div>
+                    </div>
+                </div>
+              <div class="tab-pane fade bg-grey rounded my-2 px-3 py-2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 2</p>
+                    <div class="row">
+                      <div class="mb-3 col-lg-6">
+                        <input type="hidden" class="select-city2" id="new2-{{topdestination.destination_2Continent}}" value="{{topdestination.destination_2Continent}}">
+                        <label for="title" class="form-label">Destination</label>
+                        <select class="form-select Show-city2"  name="destination_2Continent" id="mySelect2" onchange="getSelectedText2()">
+                              <option value="">Select</option>
+                              <optgroup label="International">
+                                {% for internation in Internation %}
+                                  <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
+                                {% endfor %}
+                              </optgroup>
+                              
+                              <!--<optgroup label="Domestic">-->
+                              <!--  {% for domestic in Domestic %}-->
+                              <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
+                              <!--  {% endfor %}-->
+                              <!--</optgroup>-->
+                          </select>
+                        </div>
+                        <input type="hidden" class="new-id-2" name="destination_2Name" value="{{topdestination.destination_2Name}}">
+                      <script>
+                              function getSelectedText2() {
+                                  var selectElement = document.getElementById("mySelect2");
+                                  var selectedText = selectElement.options[selectElement.selectedIndex].text;
+                                  console.log("Selected text: " + selectedText);
+                      
+                                  var inputElement = document.querySelector(".new-id-2");
+                                  inputElement.value = selectedText;
+                              }
+                      </script>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">Price</label>
+                        <input type="text" class="form-control"  id="password" name="destination_2price" autocomplete="off" value="{{topdestination.destination_2price}}">
+                      </div>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">City</label>
+                        <input type="hidden" class="select-2" id="new2-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
+                        <select class="form-select Show-2"  name="destination_2Cities">
+                          <option value="">Select</option>
+                          {% for city in City_list %}
+                          <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="mb-3 col-lg-6">
+                      <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                      <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
+                      <input class="form-control"  type="file" name="destination_2image" id="upload" >
+                    </div>
+                  </div>
               </div>
-              <input type="hidden" class="new-id-2" name="destination_2Name" value="{{topdestination.destination_2Name}}">
-            <script>
-                    function getSelectedText2() {
-                        var selectElement = document.getElementById("mySelect2");
-                        var selectedText = selectElement.options[selectElement.selectedIndex].text;
-                        console.log("Selected text: " + selectedText);
-            
-                        var inputElement = document.querySelector(".new-id-2");
-                        inputElement.value = selectedText;
-                    }
-            </script>
-            <div class="mb-3 col-lg-6">
-              <label for="title" class="form-label">Select destination Cities</label>
-              <input type="hidden" class="select-2" id="new2-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
-              <select class="form-select Show-2"  name="destination_2Cities">
-                <option value=""></option>
-                {% for city in City_list %}
-                <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
-                {% endfor %}
-              </select>
+              <div class="tab-pane fade bg-grey rounded my-2 px-3 py-2" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 3</p>
+                    <div class="row">
+                      <div class="mb-3 col-lg-6">
+                        <input type="hidden" class="select-city3" id="new-{{topdestination.destination_3Continent}}" value="{{topdestination.destination_3Continent}}">
+                        <label for="title" class="form-label">Destination</label>
+                        <select class="form-select Show-city3"  name="destination_3Continent" id="mySelect3" onchange="getSelectedText3()">
+                              <option value="">Select</option>
+                              <optgroup label="International">
+                                {% for internation in Internation %}
+                                  <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
+                                {% endfor %}
+                              </optgroup>
+                              
+                              <!--<optgroup label="Domestic">-->
+                              <!--  {% for domestic in Domestic %}-->
+                              <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
+                              <!--  {% endfor %}-->
+                              <!--</optgroup>-->
+                          </select>
+                        </div>
+                        <input type="hidden" class="new-id-3" name="destination_3Name" value="{{topdestination.destination_3Name}}">
+                        <script>
+                                function getSelectedText3() {
+                                    var selectElement = document.getElementById("mySelect3");
+                                    var selectedText = selectElement.options[selectElement.selectedIndex].text;
+                                    console.log("Selected text: " + selectedText);
+                        
+                                    var inputElement = document.querySelector(".new-id-3");
+                                    inputElement.value = selectedText;
+                                }
+                        </script>
+                        <div class="mb-3 col-lg-6">
+                          <label for="title" class="form-label">Price</label>
+                          <input type="text" class="form-control"  id="password" name="destination_3price" autocomplete="off" value="{{topdestination.destination_3price}}">
+                        </div>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">City</label>
+                        <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
+                        <select class="form-select Show-3"  name="destination_3Cities">
+                          <option value="">Select</option>
+                          {% for city in City_list %}
+                          <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      
+                      <div class="mb-3 col-lg-6">
+                        <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                        <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
+                        <input class="form-control"  type="file" name="destination_3image" id="upload" >
+                      </div>
+                    </div>
+              </div>
+              <div class="tab-pane fade bg-grey rounded my-2 px-3 py-2" id="nav-des" role="tabpanel" aria-labelledby="nav-des-tab">
+                <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 4</p>
+                    <div class="row">
+                      <div class="mb-3 col-lg-6">
+                        <input type="hidden" class="select-city4" id="new-{{topdestination.destination_4Continent}}" value="{{topdestination.destination_4Continent}}">
+                        <label for="title" class="form-label">Destination</label>
+                        <select class="form-select Show-city4"  name="destination_4Continent" id="mySelect4" onchange="getSelectedText4()">
+                              <option value="">Select</option>
+                              <optgroup label="International">
+                                {% for internation in Internation %}
+                                  <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
+                                {% endfor %}
+                              </optgroup>
+                              
+                              <!--<optgroup label="Domestic">-->
+                              <!--  {% for domestic in Domestic %}-->
+                              <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
+                              <!--  {% endfor %}-->
+                              <!--</optgroup>-->
+                          </select>
+                        </div>
+                        <input type="hidden" class="new-id-4" name="destination_4Name" value="{{topdestination.destination_4Name}}">
+                        <script>
+                                function getSelectedText4() {
+                                    var selectElement = document.getElementById("mySelect4");
+                                    var selectedText = selectElement.options[selectElement.selectedIndex].text;
+                                    console.log("Selected text: " + selectedText);
+                        
+                                    var inputElement = document.querySelector(".new-id-4");
+                                    inputElement.value = selectedText;
+                                }
+                        </script>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">Price</label>
+                        <input type="text" class="form-control"  id="password" name="destination_4price" autocomplete="off" value="{{topdestination.destination_4price}}">
+                      </div>
+                      <div class="mb-3 col-lg-6">
+                        <label for="title" class="form-label">City</label>
+                        <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
+                        <select class="form-select Show-4"  name="destination_4Cities">
+                          <option value=""></option>
+                          {% for city in City_list %}
+                          <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="mb-3 col-lg-6">
+                        <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                        <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 925</span></label>
+                        <input class="form-control"  type="file" name="destination_4image" id="upload" >
+                      </div>
+                    </div>
+              </div>
             </div>
-        </div>
-     
-        <div class="row">
-          <div class="mb-3 col-lg-6">
-            <label for="title" class="form-label">Price</label>
-            <input type="text" class="form-control"  id="password" name="destination_2price" autocomplete="off" value="{{topdestination.destination_2price}}">
-          </div>
-          <div class="mb-3 col-lg-6">
-            <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-            <label for="upload" class="form-label">Destination Images(size:700x650)</label>
-            <input class="form-control"  type="file" name="destination_2image" id="upload" >
-          </div>
-      </div>
-      </div>
-      <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 3</p>
-      <div>
-        <div class="row">
-          <div class="mb-3 col-lg-6">
-            <input type="hidden" class="select-city3" id="new-{{topdestination.destination_3Continent}}" value="{{topdestination.destination_3Continent}}">
-            <label for="title" class="form-label">Select destination</label>
-            <select class="form-select Show-city3"  name="destination_3Continent" id="mySelect3" onchange="getSelectedText3()">
-                  <option value=""></option>
-                  <optgroup label="International">
-                    {% for internation in Internation %}
-                      <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
-                    {% endfor %}
-                  </optgroup>
-                  
-                  <!--<optgroup label="Domestic">-->
-                  <!--  {% for domestic in Domestic %}-->
-                  <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
-                  <!--  {% endfor %}-->
-                  <!--</optgroup>-->
-              </select>
-            </div>
-             <input type="hidden" class="new-id-3" name="destination_3Name" value="{{topdestination.destination_3Name}}">
-            <script>
-                    function getSelectedText3() {
-                        var selectElement = document.getElementById("mySelect3");
-                        var selectedText = selectElement.options[selectElement.selectedIndex].text;
-                        console.log("Selected text: " + selectedText);
-            
-                        var inputElement = document.querySelector(".new-id-3");
-                        inputElement.value = selectedText;
-                    }
-            </script>
-          <div class="mb-3 col-lg-6">
-            <label for="title" class="form-label">Select destination Cities</label>
-            <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
-            <select class="form-select Show-3"  name="destination_3Cities">
-              <option value=""></option>
-              {% for city in City_list %}
-              <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
-              {% endfor %}
-            </select>
-          </div>
-      </div>
-      <div class="row">
-        <div class="mb-3 col-lg-6">
-          <label for="title" class="form-label">Price</label>
-          <input type="text" class="form-control"  id="password" name="destination_3price" autocomplete="off" value="{{topdestination.destination_3price}}">
-        </div>
-        <div class="mb-3 col-lg-6">
-          <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-          <label for="upload" class="form-label">Destination Images (size:700x650)</label>
-          <input class="form-control"  type="file" name="destination_3image" id="upload" >
-        </div>
-    </div>
-    </div>
-    <p style="font-weight: 600;font-size: 18px;" class="mb-3">Destination 4</p>
-      <div>
-        <div class="row">
-          <div class="mb-3 col-lg-6">
-            <input type="hidden" class="select-city4" id="new-{{topdestination.destination_4Continent}}" value="{{topdestination.destination_4Continent}}">
-            <label for="title" class="form-label">Select destination</label>
-            <select class="form-select Show-city4"  name="destination_4Continent" id="mySelect4" onchange="getSelectedText4()">
-                  <option value=""></option>
-                  <optgroup label="International">
-                    {% for internation in Internation %}
-                      <option value="{{internation.destination_slug}}">{{internation.destination_name}}</option>
-                    {% endfor %}
-                  </optgroup>
-                  
-                  <!--<optgroup label="Domestic">-->
-                  <!--  {% for domestic in Domestic %}-->
-                  <!--    <option value="{{domestic.destination_slug}}">{{domestic.destination_name}}</option>-->
-                  <!--  {% endfor %}-->
-                  <!--</optgroup>-->
-              </select>
-            </div>
-            <input type="hidden" class="new-id-4" name="destination_4Name" value="{{topdestination.destination_4Name}}">
-            <script>
-                    function getSelectedText4() {
-                        var selectElement = document.getElementById("mySelect4");
-                        var selectedText = selectElement.options[selectElement.selectedIndex].text;
-                        console.log("Selected text: " + selectedText);
-            
-                        var inputElement = document.querySelector(".new-id-4");
-                        inputElement.value = selectedText;
-                    }
-            </script>
-          <div class="mb-3 col-lg-6">
-            <label for="title" class="form-label">Select destination Cities</label>
-            <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
-            <select class="form-select Show-4"  name="destination_4Cities">
-              <option value=""></option>
-              {% for city in City_list %}
-              <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
-              {% endfor %}
-            </select>
-          </div>
-      </div>
-      <div class="row">
-        <div class="mb-3 col-lg-6">
-          <label for="title" class="form-label">Price</label>
-          <input type="text" class="form-control"  id="password" name="destination_4price" autocomplete="off" value="{{topdestination.destination_4price}}">
-        </div>
-        <div class="mb-3 col-lg-6">
-          <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-          <label for="upload" class="form-label">Destination Images (size:700x925)</label>
-          <input class="form-control"  type="file" name="destination_4image" id="upload" >
-        </div>
-    </div>
-    </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Change Top destination</button>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+              <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
             </div>
           </form>
         </div>
@@ -628,6 +625,32 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  <!-- Css -->
+  <style>
+    .theme {
+      color: #029e9d !important;
+    }
 
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+
+    .nav-tabs .nav-link.active {
+      background:#029e9d;
+      color: #fff;
+    }
+
+    .nav-tabs .nav-link {
+      border: 1px solid #029e9d !important;
+    }
+
+    .nav-tabs {
+    border-bottom: none !important;
+}
+  </style>
+  <!-- Css -->
 </body>
 </html> 

@@ -1,3 +1,5 @@
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +111,7 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <a class="navbar-brand" href="{% url 'home_page' %}">
-                            <img src="{% static 'image/home/VF magnet logo.png' %}" class="logo_img" alt="image" style="width: 260px;height:auto;">
+                            <img src="{% static 'image/home/Logo - VF.jpg' %}" class="logo_img" alt="image" style="width: 260px;height:auto;">
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -245,7 +247,7 @@
                     <!-- /.navbar-collapse -->   
                     <div class="register-login d-flex align-items-center">
                         <button style="background: None;" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" id="log-btn-switch" class="me-3 logreg_btn">
-                            <i class="icon-user"></i>  LOGIN/REGISTER
+                            <i class="icon-user user_mbl"></i>  LOGIN/REGISTER
                         </button>
                     </div> 
                     <div style="display:none;" id="logProfile">
@@ -323,6 +325,10 @@
                 bottom: 100px  !important;
             }
             
+            .slicknav_nav {
+                background: #029e9d !important;
+                top:70px !important;
+            }
               
             #preloader {
               position: fixed;
@@ -475,6 +481,17 @@
                 height: auto !important;
                 }
             }
+            
+              @media (max-width: 490px)  {
+            
+            .logreg_btn{
+                font-size: 12px !important;
+            }  
+
+            .user_mbl {
+                display: none;
+            }
+        }
             
             
             @media screen and (min-width: 1100px) and (max-width: 1399px) { 

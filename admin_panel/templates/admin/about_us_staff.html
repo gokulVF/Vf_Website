@@ -93,8 +93,8 @@
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr class="text-center">
-                        <th>ID</th>
-                        <th>Changed date</th>
+                        <th>S.No</th>
+                        <!--<th>Changed date</th>-->
                         <th>Order number</th>
                         <th>Team Name</th>
                         <th>Member Name</th>
@@ -116,7 +116,7 @@
                     <tbody class="text-center">
                       <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>{{review.content.currentdate}}</td>
+                        <!--<td>{{review.content.currentdate}}</td>-->
                         <td>{{review.content.Ordernumber}}</td>
                         <td>{{review.content.team_id}}</td>
                         
@@ -193,12 +193,12 @@
   <div class="modal fade" id="addslider{{team.id}}" tabindex="-1" aria-labelledby="addslider{{team.id}}" aria-hidden="true">
     <div class="modal-dialog" >
       <div class="modal-content">
-        <div class="modal-header text-center d-flex justify-content-between">
-          <h5 class="modal-title" id="exampleModalLabel">Update Team Memeber Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="exampleModalLabel">Team Memeber Details</h5>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
-          <form class="forms-sample row" action="{% url 'updateMember' team_id=team.id%}" method="POST" enctype="multipart/form-data">
+          <form class="forms-sample row bg-grey rounded m-1 p-2" action="{% url 'updateMember' team_id=team.id%}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
               <div class="mb-3 col-lg-6">
               <label for="subtitle" class="form-label">Name</label>
@@ -226,8 +226,9 @@
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> update Memeber details</button>
-            </div>
+              <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+              <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
           </form>
         </div>
       </div>
@@ -253,6 +254,19 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+<!-- Css -->
+<style>
+  .theme {
+    color: #029e9d !important;
+  }
 
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 </body>
 </html>    

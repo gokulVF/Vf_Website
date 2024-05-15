@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
 import requests
 from django.http import JsonResponse
-from .models import CcustomerDetails,BlogUs,Tags,Destination,InternationalCity,InternationalAttraction,HomepageSlider,CategoriesDestination,Category,Lead,LeadDayInfo,Hotel,LeadDaySightSee,Place,HotelsDetails,DestinationMeta,ContinentMetas
-from .models import CcustomerDetails,BlogUs,Tags,Packages,Userdetails
-from .models import CcustomerDetails,BlogUs,Tags,Destination,InternationalCity,InternationalAttraction,HomepageSlider,HomepageTheme
-from .models import CcustomerDetails,BlogUs,Tags,Packages,FooterHeader,FooterTitle
+from .models import CcustomerDetails,Tags,Destination,InternationalCity,InternationalAttraction,HomepageSlider,CategoriesDestination,Category,Lead,LeadDayInfo,Hotel,LeadDaySightSee,Place,HotelsDetails,DestinationMeta,ContinentMetas
+from .models import CcustomerDetails,Tags,Packages,Userdetails
+from .models import CcustomerDetails,Tags,Destination,InternationalCity,InternationalAttraction,HomepageSlider,HomepageTheme
+from .models import CcustomerDetails,Tags,Packages,FooterHeader,FooterTitle
 from datetime import datetime
 from .models import PagesTable,UserReviews,Member
 from .models import PagesTable,UserReviews
@@ -81,7 +81,7 @@ def home_page(request):
        
     
         categories =  Category.objects.all()
-        last_seven_entries = BlogUs.objects.order_by('-id')[:7]
+        last_seven_entries = Blog.objects.order_by('-id')[:7]
         
         homepage_meta = DestinationMeta.objects.filter(pagename='Home_page').first()
     
@@ -182,7 +182,7 @@ def home_page(request):
     
 
         categories =  Category.objects.all()
-        last_seven_entries = BlogUs.objects.order_by('-id')[:7]
+        last_seven_entries = Blog.objects.order_by('-id')[:7]
         homepage_meta = DestinationMeta.objects.filter(pagename='Home_page').first()
 
         if homepage_meta:
@@ -445,6 +445,8 @@ def main_DestinationAttraction(request,city_name):
     for destination in all_destinations:
         new =destination.id
         image =destination.destination_image.split("/")[-1]
+        image2 =destination.Tab_image
+        image3 =destination.mobile_image
         destination_category = destination.destination_category
         destination_name = destination.destination_name
         destination_metakeyword = destination.metakeyword
@@ -511,7 +513,7 @@ def main_DestinationAttraction(request,city_name):
     else:
         all_other_city = None
     
-    return render(request, "home/destinations.html",{'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
+    return render(request, "home/destinations.html",{'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
     "packages_entry":packages_entry,"destination_name":destination_name,"footer_header":footer_header,"footer_title":footer_title,"destination_metakeyword":destination_metakeyword,"destination_metadestination":destination_metadestination,"destination_metatitle":destination_metatitle,"canonical":canonical})
 
 def destination_menu(request):
@@ -525,6 +527,7 @@ def destination_menu(request):
     return render(request, "home/destinations.html",{"footer_header":footer_header,"footer_title":footer_title})
      
     
+from VFpages.models import Blog,BlogDetails 
 def gridblogus(request):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -537,40 +540,14 @@ def gridblogus(request):
     tag_name = request.POST.get('tag_name')
 
     # Split the tagIds string into a list of integers
-    blog_entries = BlogUs.objects.filter(hidden=0).order_by('-id')
+    blog_entries = Blog.objects.filter(hidden=0).order_by('-id')
     print(tag_id)
     if tag_id:
-         blog_entries = BlogUs.objects.filter(tags__contains=tag_id)
+         blog_entries = Blog.objects.filter(tags__contains=tag_id)
     # split_values = tagIds[0].split(',')
-
-    # blog_entries = BlogUs.objects.filter(hidden=0)
-
-
-
-    # Iterate through tag IDs and add Q objects for each
-    # for tag_id in tagIds:
-    #     # print(tag_id)
-    #     # ttr = blog_entries.tags
-    #     # print(ttr)
-
-    #     blog_entries = blog_entries.filter(tags__contains=str(tag_id))
     
     count_of_entries = blog_entries.count()
-    # selected_tags_str = request.GET.get('tags','')  # Retrieve selected tag IDs as a list
-    # selected_tags = selected_tags_str.split(',') if selected_tags_str else []  # Convert string to list
     
-    print(blog_entries)
-
-    # Retrieve the description JSON data
-    # description_data = blog_entries.description
-        
-        
-    print("Start")
-    # print(filtered_blogs)
-    # selected_tags = []
-    # Assign values from tagIds to selected_tags if tagIds has any value
-    # if tagIds:
-    #     selected_tags = tagIds
     
     meta = PagesTable.objects.filter(pagesname='blog_us').first()
     data = meta.description
@@ -596,11 +573,11 @@ def gridblogus(request):
 
     
     # Filter popular blog entries
-    popular_entries = BlogUs.objects.filter(popular=False)[:5]
+    popular_entries = Blog.objects.filter(popular=False)[:5]
 
     
      # Get the last 7 entries
-    last_seven_entries = BlogUs.objects.order_by('-id')[:5]
+    last_seven_entries = Blog.objects.order_by('-id')[:5]
 
     tags = Tags.objects.all()
 
@@ -609,7 +586,7 @@ def gridblogus(request):
     return render(request, "home/gridblog.html" , {'blog_entries': blog_entries,'popular_entries':popular_entries,'last_seven_entries':last_seven_entries,'tags':tags,'search_query': search_query,'meta':data,"destinations": destinations_data,"blog_entries_count": count_of_entries,"footer_header":footer_header,"footer_title":footer_title,"tag_name":tag_name,"tag_id":tag_id,"all_categories":all_categories})
 
 def blogsdetails(request, blog_url):
-     if request.method == 'GET':
+    if request.method == 'GET':
         destinations_data,all_categories = header_fn(request)
         footers = homefooter()
         footer_header = footers["footer_header"]
@@ -617,28 +594,32 @@ def blogsdetails(request, blog_url):
         # blog_id = request.POST.get('id','')
         print(blog_url)
         # Get the BlogUs instance with the provided ID
-        blog_entry = BlogUs.objects.get(url=blog_url)
+        blog_entry = Blog.objects.get(url=blog_url)
         # Filter popular blog entries
-        popular_entries = BlogUs.objects.filter(popular=False)[:5]
+        popular_entries = Blog.objects.filter(popular=False)[:5]
         # print(popular_entries)
         
         # Get the last 7 entries
-        last_seven_entries = BlogUs.objects.order_by('-id')[:5]
+        last_seven_entries = Blog.objects.order_by('-id')[:5]
         html_string = blog_entry.description['jump_link_titles']
         print(html_string)
         print(type(html_string))
         # Remove the string containing "data-doc-id" attribute
         jump_link_titles = re.sub(r'<p[^>]*?data-doc-id="[^"]*"[^>]*>.*?</p>', '', html_string)
 
-        html_string_1 = blog_entry.description['richtextarea']
+        # html_string_1 = blog_entry.description['richtextarea']
 
-        richtextarea = re.sub(r'<p[^>]*?data-doc-id="[^"]*"[^>]*>.*?</p>', '', html_string_1)
+        # richtextarea = re.sub(r'<p[^>]*?data-doc-id="[^"]*"[^>]*>.*?</p>', '', html_string_1)
+        richtextarea = []
+        Blog_Details = BlogDetails.objects.filter(blog_id=blog_entry.id)
+        for text in Blog_Details:
+            richtextarea.append({"id":text.id,"image":text.image_path,"blogid":text.blog_id,"title":text.title,"content":re.sub(r'<p[^>]*?data-doc-id="[^"]*"[^>]*>.*?</p>', '', text.blog_description)})
+        print(richtextarea)
 
-        # Process the data as needed
 
         return render(request, "home/blogsview.html" , {'blog_entry':blog_entry,'jump_link_titles':jump_link_titles,'richtextarea':richtextarea,"destinations": destinations_data,'popular_entries':popular_entries,'last_seven_entries':last_seven_entries,"footer_header":footer_header,"footer_title":footer_title,"all_categories":all_categories})  # Return a JSON response indicating success
 
-     return JsonResponse({'status': 'error', 'message': 'Method not allowed'}, status=405)
+    return JsonResponse({'status': 'error', 'message': 'Method not allowed'}, status=405)
      
 
 
@@ -1357,39 +1338,10 @@ def send_whatsapp_message_2(phone_number, download_link,hotelname,username,booki
     gallabox_api_key = settings.GALLABOX_API_KEY
     gallabox_api_secret = settings.GALLABOX_API_SECRET
     gallabox_Channelid = settings.GALLABOX_CHANNELID
+ 
     url = "https://server.gallabox.com/devapi/messages/whatsapp"
 
-    payload = json.dumps(
-        # {
-    #   "channelId": gallabox_Channelid,  # Replace with your channelId
-    #   "channelType": "whatsapp",
-    #   "recipient": {
-    #     "name": username,
-    #     "phone": f"91{phone_number}"  # Recipient's phone number
-    #   },
-    #   "whatsapp": {
-    #     "type": "template",
-    #     "template": {
-    #       "templateName": "website_hotel_booking",
-    #       "bodyValues": {
-    #         "name": username,
-    #         "variable_2":hotelname,
-    #         "variable_3": booking_id,
-    #       },
-    #       "buttonValues": [
-    #             {
-    #                 "index": 0,
-    #                 "sub_type": "url",
-    #                 "parameters": {
-    #                     "type": "text",
-    #                     "text": download_link
-    #                 }
-    #             }
-    #         ]
-    #     }
-    #   }
-    # },
-    {
+    payload = json.dumps({
     "channelId": gallabox_Channelid,
     "channelType": "whatsapp",
     "recipient": {
@@ -1417,8 +1369,6 @@ def send_whatsapp_message_2(phone_number, download_link,hotelname,username,booki
         }
     }
 }
-    
-    
     )
     headers = {
       'apiSecret': gallabox_api_secret,  # Replace with your apiSecret
@@ -1455,21 +1405,11 @@ def send_pdf_link(request):
 
         # Construct the URL for downloading the PDF
         download_url = reverse('download_pdf')
-        # download_url = "https://vacationfeast.com/download_pdf/"
-        # download_url = request.build_absolute_uri(reverse('download_pdf'))
-        # current_site = get_current_site(request)
-        # domain = current_site.domain
-        # if settings.DEBUG:
-        #     download_url = f"https://vacationfeast.com{reverse('download_pdf')}"  
-        # else:
-        #     download_url = f"https://vacationfeast.com{reverse('download_pdf')}"
-        
         download_link = f'{download_url}?token={encrypted_token}&type={types}'
 
 
         try:
 
-            
             send_whatsapp_message_2(phone_number,download_link,hotelname,username,booking_id,ids)
 
        

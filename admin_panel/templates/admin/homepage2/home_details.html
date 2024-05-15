@@ -62,7 +62,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Home Page Details</li>
+						<li class="breadcrumb-item"><a href="#">Home Page</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Theme 2</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
@@ -95,18 +96,15 @@
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
-                            
+                            <th>S.No</th>
                             <th>Destination Name</th>
                             <th>Date</th>
-                           
                             <th>Action</th>
                             
                           </tr>
-                          <div class="justify-content-between d-flex text-center"><h4 class="mb-0 mt-3 fw-bold" >Home Page 2 Details</h4>
-                            <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
-                          </div>
-            
+                          <div class="text-center"><h4 class="mb-3 mt-3 fw-bold theme" >Home Page Theme 2 Details</h4>
+                          <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
+                        </div>
                         </thead>
                        
                         <tbody class="text-center">
@@ -143,7 +141,7 @@
                             <table id="dataTableExample" class="table">
                               <thead class="text-center">
                                 <tr class="text-center">
-                                  <th>ID</th>
+                                  <th>S.No</th>
                                   <th>Date</th>
                                   <th>Destination Name</th>
                                   <!-- <th>Image</th> -->
@@ -194,7 +192,7 @@
                                 <table id="dataTableExample" class="table">
                                   <thead class="text-center">
                                     <tr >
-                                      <th>ID</th>
+                                      <th>S.No</th>
                                       <th>Date</th>
                                       <th>Destination Name</th>
                                       <!-- <th>Image</th> -->
@@ -275,11 +273,11 @@
 
 <!-- Edit Team Modal -->
 <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 1200px;">
+    <div class="modal-dialog" style="max-width: 1400px;">
       <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
+         <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Home Page Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body px-4">
           <form class="forms-sample" id="myform" action="{% url 'home_page2_Edit' %}" method="POST" enctype="multipart/form-data">
@@ -288,39 +286,54 @@
           <div>
             
           <div class="row">
-              
-            
-            <div class="mb-3 col-lg-4">
+            <div class="mb-3 col-lg-3">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">Desktop Banner Images (size:1920x250)</label>
+              <label for="upload" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1920 x 250</span></label>
               <input class="form-control"  type="file" name="banner_image" id="upload" >
             </div>
-            <div class="mb-3 col-lg-4">
+            <div class="mb-3 col-lg-3">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">Tab Banner Images</label>
+                                <label for="upload" class="form-label">Tab Banner Image</label>
               <input class="form-control"  type="file" name="tab_image" id="upload" >
             </div>
-            <div class="mb-3 col-lg-4">
+            <div class="mb-3 col-lg-3">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">Mobile Banner Images</label>
+              <label for="upload" class="form-label">Mobile Banner Image</label>
               <input class="form-control"  type="file" name="Mobile_image" id="upload" >
             </div>
             <!-- <div class="mb-3 col-lg-6">
               <label for="title" class="form-label">Banner Title</label>
               <input type="text" class="form-control"  id="banner_title" name="banner_title" autocomplete="off" value="{{home1_details.description.banner_title}}">
             </div> -->
-            <div class="mb-3 col-lg-6">
+            <div class="mb-3 col-lg-3">
               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-              <label for="upload" class="form-label">client review Banner Images (size:1800x1200)</label>
+              <label for="upload" class="form-label">Client Review Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1800 x 1200</span></label>
               <input class="form-control"  type="file" name="review_image" id="upload" >
             </div>
-        </div>
-        </div>
-        
-        <div>
-          <hr>
-        <div class="d-flex">
-          
+       <h3 style="font-weight: 600;font-size: 18px;"> Videos</h3>
+                <div class="mb-3 pe-2 col-lg-3">
+                  <label class="form-label">Destination Video<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1280 x 720</span></label>
+                  <input class="form-control"  type="file" name="big_video" id="upload" >
+                </div>
+                <div class="mb-3 col-lg-3">
+                  <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                  <label for="upload" class="form-label">Video With Text<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 700 x 650</span></label>
+                  <input class="form-control"  type="file" name="small_video" id="upload" >
+                  </div>
+                <div class="mb-3 col-lg-3">
+                  <label for="title" class="form-label">Heading</label>
+                  <input type="text" class="form-control"  id="small_v_heading" name="small_v_heading" autocomplete="off" value="{{home1_details.description.small_v_heading}}">
+                </div>
+                <div class="mb-3 col-lg-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control"  id="small_v_title" name="small_v_title" autocomplete="off" value="{{home1_details.description.small_v_title}}">
+                </div>
+                <div class="mb-3 ">
+                    <label for="title" style="font-weight: 600;font-size: 18px;" class="form-label">Content</label>
+                    <textarea class="form-control" id="small_v_para" name="small_v_para" autocomplete="off">{{home1_details.description.small_v_para}}</textarea>
+                </div>
+              </div>
+        <!-- <div class="row"> -->
            <!-- <div class="mb-3 col-lg-6">
                     <input type="hidden" class="select-city1" id="new2-{{home1_details.description.big_v_destination}}" value="{{home1_details.description.big_v_destination}}">
                     <label for="title" class="form-label">Select destination</label>
@@ -347,21 +360,9 @@
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control"  id="big_v_title" name="big_v_title" autocomplete="off" value="{{home1_details.description.big_v_title}}">
           </div> -->
-          <div class="mb-3 pt-2 pe-2"><p style="font-weight: 600;font-size: 18px;" class="mb-3">Big Video Details  Video (size:1280x720)</p></div>
-          <div class="mb-3 col-lg-6">
-            <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-            <!-- <label for="upload" class="form-label"></label> -->
-            <input class="form-control"  type="file" name="big_video" id="upload" >
-          </div>
-        
-      </div>
+        <!-- </div> -->
+      <!-- <p style="font-weight: 600;font-size: 18px;" class="mb-3">Small Video Content</p> -->
       
-        </div>
-        <hr>
-      <p style="font-weight: 600;font-size: 18px;" class="mb-3">Small Video Content</p>
-        <div>
-            
-        <div class="row">
              <!-- <div class="mb-3 col-lg-6">
                     <input type="hidden" class="select-city2" id="new2-{{home1_details.description.small_v_destination}}" value="{{home1_details.description.small_v_destination}}">
                     <label for="title" class="form-label">Select destination</label>
@@ -380,36 +381,11 @@
                           </optgroup>
                      </select>
             </div> -->
-            <div class="mb-3 col-lg-4">
-            <label for="title" class="form-label">heading</label>
-            <input type="text" class="form-control"  id="small_v_heading" name="small_v_heading" autocomplete="off" value="{{home1_details.description.small_v_heading}}">
-            </div>
-            <div class="mb-3 col-lg-4">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control"  id="small_v_title" name="small_v_title" autocomplete="off" value="{{home1_details.description.small_v_title}}">
-            </div>
-            
-          
-            <div class="mb-3 col-lg-4">
-            <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-            <label for="upload" class="form-label">Video (size:700x650)</label>
-            <input class="form-control"  type="file" name="small_video" id="upload" >
-            </div>
-            <div class="mb-3 col-lg-12">
-              <label for="title" class="form-label">Content</label>
-              <textarea class="form-control" id="small_v_para" name="small_v_para" autocomplete="off">{{home1_details.description.small_v_para}}</textarea>
-          </div>
-            
-            
-        </div>
-        </div>
-
-       
-   
             <div class="text-center justify-content-center mb-3">
-                <button type="submit" id="submitButton2" class="btn btn-primary">
-                    <i class="link-icon" data-feather="plus"></i>Submit
+                <button type="submit" id="submitButton2" class="btn btn-primary  rounded-pill py-1 mx-1">
+                    <i class="link-icon" data-feather="plus"></i>Add
                 </button>
+                <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 <button class="btn btn-primary mt-2" style="display: none;" id="loadingbutton" type="button" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     Loading...
@@ -501,6 +477,38 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  
+   <!-- Css -->
+   <style>
+    .theme {
+      color: #029e9d !important;
+    }
+
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+
+    .nav-tabs .nav-link.active {
+      background:#029e9d;
+      color: #fff;
+    }
+
+    .nav-tabs .nav-link {
+      border: 1px solid #029e9d !important;
+    }
+
+    .nav-tabs {
+    border-bottom: none !important;
+}
+
+.modal.show .modal-dialog {
+            top: 45% !important;
+        }
+  </style>
+  <!-- Css -->
 
 </body>
 </html> 

@@ -343,11 +343,12 @@
         .hi_key {
             color: #029e9d;
             font-size: 19px;
+            font-weight: 500;
         }
 
         .hi_value {
             font-size: 16px;
-            font-family: sans-serif;
+            font-family: 'Poppins';
             margin-top: 3px;
         }
 
@@ -428,6 +429,36 @@
            background-image: url("{% static packages_lead.description.cover_image_url %}");
            height: 500px;
         }
+        
+             /* Tablet view */
+        @media (max-width: 768px) {
+             .banner{
+                background-image: url("{% static packages_lead.description.cover_image_url1 %}");
+            }
+        }
+        
+        /* Mobile view */
+        @media (max-width: 480px) {
+             .banner{
+                background-image: url("{% static packages_lead.description.cover_image_url2 %}");
+            }
+        }
+        
+        
+        @media (max-width: 400px) {
+         .banner{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+         .banner{
+                    height: 320px; 
+                }
+        }
+        /* tab url("{% static packages_lead.description.cover_image_url1 %}")*/
+        /* Mobile url("{% static packages_lead.description.cover_image_url2 %}")*/
         
         #section-shape-img  {
             background-image: url("{% static 'image/images/shape8.png' %}");
@@ -557,7 +588,7 @@
              }
              
               .included {
-                 font-size:12px;
+                 font-size:11px !important;
              }
              
              .svg-icon {
@@ -578,7 +609,7 @@
              
              .food_div {
                  display: flex;
-                 flex-direction: column !important;
+                 /*flex-direction: column !important;*/
                  text-align:center;
              }
              
@@ -629,8 +660,8 @@
     <!-- header ends -->
     
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14 banner section">
-        <div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+    <section class="breadcrumb-main pb-20 pt-14 banner section" style="background-attachment:local !important;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!-- <div class="breadcrumb-content text-center">
@@ -664,32 +695,66 @@
                                 <div class="row">
                                     
                                     <!-- Highlights Starts -->
+                                  
+                                    <!-- Highlights Ends -->
+                                    
+                                      <!-- Highlights Starts -->
                                    <div class="col-lg-8">
                                         <h2 class="Highlights mb-3 mt-4 theme it_head">Highlights</h2>
-                                        <div class="row mt-6 hili_div">
-                                             <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fa fa-calendar pe-2 fas-icon'></i>Days</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadDays_nights}}</p>
+                                        <div class="row mt-6  pt-2 hili_div">
+                                             <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div class="highdiv">
+                                                    <i class='fa fa-calendar fas-icon' style="font-size: 35px !important;"></i>
+                                                </div>
+                                              <div class="w-100">
+                                                <p class="mb-0  hi_key">Days</p>
+                                                <p class="mb-0 hi_value w-100">{{packages_lead.description.leadDays_nights}}</p>
+                                             </div>
+                                              </div>
+                                            <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div  class="highdiv"> 
+                                                    <i class='fas fa-exchange-alt fas-icon'></i>
+                                                </div>
+                                                <div  class="w-100">
+                                                    <p class="mb-0  hi_key">Transfers</p>
+                                                    <p class="mb-0 hi_value w-100">{{packages_lead.description.leadTransfers}}</p>
+                                                </div>
                                             </div>
-                                            <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fas fa-exchange-alt pe-2 fas-icon'></i>Transfers</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadTransfers}}</p>
+                                            <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div class="highdiv">
+                                                    <i class='fas fa-hotel fas-icon'></i>
+                                                </div>
+                                                <div  class="w-100">
+                                                    <p class="mb-0  hi_key">Stay</p>
+                                                    <p class="mb-0 hi_value w-100">{{packages_lead.description.leadHotel}}</p>
+                                                </div>
                                             </div>
-                                            <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fas fa-hotel pe-2 fas-icon'></i>Stay</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadHotel}}</p>
+                                            <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div class="highdiv"> 
+                                                    <i class='fas fa-hamburger fas-icon'></i>
+                                                </div>
+                                               <div  class="w-100">
+                                                    <p class="mb-0  hi_key">Meals</p>
+                                                    <p class="mb-0 hi_value w-100">{{packages_lead.description.leadBreakfast}}</p>
+                                               </div>
                                             </div>
-                                            <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fas fa-hamburger pe-2 fas-icon'></i>Meals</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadBreakfast}}</p>
+                                            <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div class="highdiv">
+                                                    <i class='fas fa-umbrella-beach fas-icon'></i>
+                                                </div>
+                                               <div  class="w-100">
+                                                    <p class="mb-0  hi_key">Sightseeing</p>
+                                                    <p class="mb-0 hi_value w-100">{{packages_lead.description.leadSightseeing}}</p>
+                                               </div>
                                             </div>
-                                            <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fas fa-umbrella-beach pe-2 fas-icon'></i>Sightseeing</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadSightseeing}}</p>
-                                            </div>
-                                            <div class="col-lg-12 d-flex mb-1 mt-2">
-                                               <p class="mb-0 col-lg-3 hi_key"><i class='fas fa-list-ul pe-2 fas-icon'></i>Category</p>
-                                               <p class="mb-0 ps-2 col-lg-9 hi_value">{{packages_lead.description.leadCategory}}</p>
+                                            <div class="col-lg-6  d-flex mb-5 mt-2 align-items-center hl_div_mbl">
+                                                <div class="highdiv">
+                                                    <i class='fas fa-list-ul fas-icon'></i>
+                                                </div>
+                                              <div  class="w-100">
+                                                <p class="mb-0  hi_key">Category</p>
+                                                <p class="mb-0 hi_value w-100">{{packages_lead.description.leadCategory}} </p>
+                                              </div>
                                             </div>
                                              <!-- <div class="col-lg-9 mb-3">
                                             </div> -->
@@ -750,9 +815,9 @@
                                             margin: 0px;
                                         } */
 
-                                        .crmWebToEntityForm {
-                                            padding: 4px 10px;
-                                        }
+                                        /*.crmWebToEntityForm {*/
+                                        /*    padding: 4px 10px;*/
+                                        /*}*/
 
                                         .f_label {
                                             font-size: 14px !important;
@@ -782,7 +847,7 @@
                                             outline: 0 !important;
                                         }.zcwf_lblLeft .zcwf_col_fld input[type=text], input[type=password], .zcwf_lblLeft .zcwf_col_fld textarea {
                                             width: 100%;
-                                            /* border: 1px solid #c0c6cc !important; */
+                                             border: 1px solid #029e9d !important; 
                                             resize: vertical;
                                             border-radius: 2px;
                                             float: left;
@@ -907,9 +972,13 @@
                                             .zcwf_lblLeft .zcwf_col_help {width: 40%;}
                                         }
                                         </style>
-                                        <div class='zcwf_title text-center'><h3 class="theme">Plan Your Vacations with Our Assistance</h3></div>
+                                                 <div class="header-content banner-theme" style="display: none;">
+                                            <div class="HeaderSaleLine_saleIcon__pwEFh" ><svg xmlns="http://www.w3.org/2000/svg" width="34" height="60" viewBox="0 0 24 38" fill="none"><path d="M24 0H14.5L5 38H14.5L24 0Z" fill="white" fill-opacity="0.5"></path><path d="M12 0H9.95238L0 38H2.04762L12 0Z" fill="white" fill-opacity="0.5"></path></svg></div>
+                                            <div class='zcwf_title text-center activity lead py-1'><h3 class="theme f_mhead mb-0"><svg style="width: 30px;" class="blink me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M432 96a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM347.7 200.5c1-.4 1.9-.8 2.9-1.2l-16.9 63.5c-5.6 21.1-.1 43.6 14.7 59.7l70.7 77.1 22 88.1c4.3 17.1 21.7 27.6 38.8 23.3s27.6-21.7 23.3-38.8l-23-92.1c-1.9-7.8-5.8-14.9-11.2-20.8l-49.5-54 19.3-65.5 9.6 23c4.4 10.6 12.5 19.3 22.8 24.5l26.7 13.3c15.8 7.9 35 1.5 42.9-14.3s1.5-35-14.3-42.9L505 232.7l-15.3-36.8C472.5 154.8 432.3 128 387.7 128c-22.8 0-45.3 4.8-66.1 14l-8 3.5c-32.9 14.6-58.1 42.4-69.4 76.5l-2.6 7.8c-5.6 16.8 3.5 34.9 20.2 40.5s34.9-3.5 40.5-20.2l2.6-7.8c5.7-17.1 18.3-30.9 34.7-38.2l8-3.5zm-30 135.1l-25 62.4-59.4 59.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L340.3 441c4.6-4.6 8.2-10.1 10.6-16.1l14.5-36.2-40.7-44.4c-2.5-2.7-4.8-5.6-7-8.6zM256 274.1c-7.7-4.4-17.4-1.8-21.9 5.9l-32 55.4L147.7 304c-15.3-8.8-34.9-3.6-43.7 11.7L40 426.6c-8.8 15.3-3.6 34.9 11.7 43.7l55.4 32c15.3 8.8 34.9 3.6 43.7-11.7l64-110.9c1.5-2.6 2.6-5.2 3.3-8L261.9 296c4.4-7.7 1.8-17.4-5.9-21.9z"/></svg>Start Your Adventure Now</h3></div>
+                                        </div>
+                                        <div class='zcwf_title text-center tab-f-head'><h3 class="theme fo_head">Plan Your Vacations with Our Assistance</h3></div>
                                         <div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Last_Name'>Name</label></div>
-                                        <div class='zcwf_col_fld'><input type='text' id='Last_Name' name='Last Name' maxlength='80'  class="rounded"></input><div class='zcwf_col_help'></div></div></div>
+                                        <div class='zcwf_col_fld'><input type='text' id='Last_Name' name='Last Name' maxlength='80'  class="rounded" autofocus></input><div class='zcwf_col_help'></div></div></div>
                                         <div id="name-error-msg" class="error-msg text-start ps-3"></div>
                                         <div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='Mobile'>Whatsapp Number</label></div>
                                         <div class='zcwf_col_fld'><input type='text' id='Mobile' name='Mobile' maxlength='30'  class="rounded"></input><div class='zcwf_col_help'></div></div></div>
@@ -1025,7 +1094,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="text-center justify-content-center">
-                                                                    <button type="button" class="btn mt-1 bg-theme white mx-auto rounded-pill px-5" id="otp-button">Send OTP</button>
+                                                                    <button type="button" class="btn mt-1 banner-theme white mx-auto rounded-pill px-5" id="otp-button">Book Now</button>
                                                                 </div>
                                                 <div class='zcwf_col_fld'><button type='submit' id='formsubmit' class='formsubmit zcwf_button d-none' value='Submit' title='Submit'></button><input type='reset' class='zcwf_button d-none' name='reset' value='Reset' title='Reset'></div></div>
                                                 <script>
@@ -1369,7 +1438,7 @@
                 {% for day, activities in data.items %}
                 <div class="accrodion {% if forloop.first %}active{% endif %}">
                     <div class="accrodion-title rounded">
-                        <h5 class="mb-0 mt-0" style="font-family:'Poppins';font-size: 20px; color: #fff "><span class="day_wise">DAY {{ day }}</span><span class="ps-2" id="City_name{{ day }}"></span></h5>
+                        <h5 class="mb-0 mt-0 day_act" style="font-family:'Poppins';font-size: 20px; color: #fff "><span class="day_wise">DAY {{ day }}</span><span class="ps-2" id="City_name{{ day }}"></span></h5>
                     </div>
                     <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -1782,7 +1851,7 @@
                             {% for item in package.include %}
                             <div class="d-flex">
                             <i class="pe-2 fa fa-smile-o pink mr-1 pe-2 point_icons" style="font-size:22px;color: #029e9d !important;"></i>
-                            <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 600;">{{ item }}</li>
+                            <li class="d-block exc_text pb-2" style="color: #17233e !important;font-weight: 500;">{{ item }}</li>
                              </div>
                             {% endfor %}
                         </ul>
@@ -1862,10 +1931,10 @@
                             </div>
                             </a>
                             <div class="trend-content px-4 py-2 position-relative" style="height:247px">
-                                <div class="trend-meta bg-theme white px-3 py-2 rounded">
+                                <div class="trend-meta bg-theme white px-2 py-1 rounded">
                                     <div class="entry-author">
-                                        <i class="icon-calendar pe-1"></i>
-                                        <span class="fw-bold">{{ packages.description.Noofdays }}</span>
+                                        <i class="icon-calendar pe-1 nod_cal"></i>
+                                        <span class="fw-bold nod_tour">{{ packages.description.Noofdays }}</span>
                                     </div>
                                 </div>
                                 <div style="height:155px">
@@ -2390,11 +2459,143 @@
       padding: 2px 8px;
      }
      
+     .crmWebToEntityForm {
+            padding: 0px;
+            border: 2px solid #029e9d;
+        }
+        
+         .zcwf_lblLeft .zcwf_row {
+                padding: 2px 6px  !important;
+            }
+
+        .f_label {
+            font-size: 15px !important;
+            margin-bottom: 5px !important;
+            color:#029e9d !important;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+          .fo_head{ 
+                background:#029e9d ;
+                padding: 3px 5px !important;
+                border-radius: 7px 7px 0px 0px;
+                color:white !important;
+             }
+             
+            
+              .banner-theme {
+                background: linear-gradient(240deg, #076cd0, #029e9d) !important;
+                display: block !important;
+                border-radius: 6px 6px 0px 0px;
+             }
+
+             .f_mhead {
+                padding: 3px 5px !important;
+                color: white !important;
+             }
+
+             .tab-f-head {
+                display:  none ;
+             }
+             
+               .fas-icon {
+            font-size: 33px !important;
+        }
+
+        .highdiv { 
+            border: 1px solid #fdc703;
+            border-radius: 0 50%; 
+            padding: 13px;
+            margin-right: 7px;
+        }
+        
+        .hi_value {
+            font-size: 14px !important;
+        }
+
+        .hi_key {
+            font-weight: 500;
+        }
+        
+           @media (max-width: 991px) {
+               .hl_div_mbl {
+                   margin-bottom:5px !important;
+               }
+               
+               .Highlights {
+                   margin-bottom:0px !important;
+               }
+           }
+             
+             
+                
+             .activity {
+                display: flex;
+                flex-direction: row; 
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+
+                }
+
+        .blink {
+            color : red;
+            margin-right: 0.5rem;
+              animation: blink 2s steps(5, start) infinite;
+              -webkit-animation: blink 1s steps(5, start) infinite;
+            }
+            @keyframes blink {
+              to {
+                visibility: hidden;
+              }
+            }
+            @-webkit-keyframes blink {
+              to {
+                visibility: hidden;
+              }
+            }
+        .noblink {
+           margin-right: 0.5rem;
+            }
+             
     @media only screen and (max-width: 768px) {
       #main_container {
           flex-direction: column;
       }
+      
+         .day_wise {
+                 font-size:12px !important;
+             }
+             
+             .day_act {
+                 font-size:16px !important;
+             }
+             
+              .nod_cal, .nod_tour {
+               font-size:12px !important; 
+            }
+             
+
     }
+    
+     @media only screen and (max-width: 399px) { 
+         .svg-icon {
+             width:15px !important;
+         }
+         
+         .fa-hamburger1{ 
+              font-size:15px !important;
+         }
+         
+             .p_food {
+                 font-size:10px !important;
+             }
+             
+                 .not-included {
+                font-size: 10px;
+            }
+        }
     
     @media (max-width: 811px) {
       .error {

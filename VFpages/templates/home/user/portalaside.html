@@ -21,13 +21,13 @@
         </a>
          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'upcominghotel' %}">
-              <i class="bi bi-circle"></i><span>Upcoming Stay</span>
+            <a  class="nav-link collapsed " href="{% url 'upcominghotel' %}">
+              <i class="bi bi-circle"></i><span >Upcoming Stay</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'hotelcompleted' %}">
-              <i class="bi bi-circle"></i><span> completed Stay</span>
+            <a class="nav-link collapsed " href="{% url 'hotelcompleted' %}">
+              <i class="bi bi-circle"></i><span > completed Stay</span>
             </a>
           </li>
         </ul>
@@ -42,12 +42,12 @@
         </a>
          <ul id="tables-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'upcomingflight' %}">
+            <a class="nav-link collapsed" href="{% url 'upcomingflight' %}">
               <i class="bi bi-circle"></i><span>Upcoming Travel</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'flightcompleted' %}">
+            <a class="nav-link collapsed" href="{% url 'flightcompleted' %}">
               <i class="bi bi-circle"></i><span>Travel Completed</span>
             </a>
           </li>
@@ -98,72 +98,47 @@
   </aside>
 
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get all list items
-      var navItems = document.querySelectorAll('.nav-item');
+
   
-      // Add click event listener to each list item
-      navItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-          // Remove 'active' class from all list items
-          navItems.forEach(function(navItem) {
-            navItem.classList.remove('active');
-          });
-          
-          // Add 'active' class to the clicked list item
-          this.classList.add('active');
-        });
-      });
-    });
-  </script>
-  
-
-<!-- 
   <script>
-$(document).ready(function() {
-    // Automatically set active state based on URL
-    function setActiveBasedOnUrl() {
-        var currentUrl = window.location.pathname;
-
-        // Reset active states first
-        $('#sidebar-nav .nav-link').removeClass('active');
-        $('#sidebar-nav .nav-item').removeClass('active');
-        $('#sidebar-nav .nav-link').addClass('collapsed');
-        $('#sidebar-nav .nav-content').removeClass('show');
-
-        // Check if URL contains specific keywords
-        if (currentUrl.includes("upcominghotel") || currentUrl.includes("travelhotel")) {
-            $('#hotel-menu').addClass('active');
-            $('#hotel-menu > .nav-link').removeClass('collapsed');
-        } else if (currentUrl.includes("upcomingflight") || currentUrl.includes("travelflight")) {
-            $('#flight-menu').addClass('active');
-            $('#flight-menu > .nav-link').removeClass('collapsed');
+    $(document).ready(function() {
+        function setActiveBasedOnUrl() {
+            var currentUrl = window.location.pathname;
+    
+            // Reset active states first
+            $('#sidebar-nav .nav-item').removeClass('active');
+            $('#sidebar-nav .nav-link').addClass('collapsed');
+            $('#sidebar-nav .nav-content').removeClass('show');
+    
+            // Check for exact match or base path match
+            $('#sidebar-nav .nav-item a').each(function() {
+                var link = $(this).attr('href');
+                if (currentUrl === link || currentUrl.startsWith(link + '/') || currentUrl.startsWith(link + '?')) {
+                    $(this).closest('.nav-item').addClass('active');
+                    $(this).removeClass('collapsed');
+                    $(this).closest('.nav-item').children('.nav-content').addClass('show');
+                    $(this).closest('.nav-content').addClass('show'); // Ensure submenus are shown
+                    $(this).closest('a').addClass('active'); // Mark the parent <li> as active too
+                }
+            });
+    
+            // Specific logic to expand parent menus
+            if (currentUrl.includes("upcominghotel") || currentUrl.includes("travelhotel") || currentUrl.includes("hotelcompleted")) {
+                $('#hotel-menu').addClass('active');
+                $('#hotel-menu > .nav-link').removeClass('collapsed');
+                $('#tables-nav').addClass('show');
+            }
+            if (currentUrl.includes("upcomingflight") || currentUrl.includes("travelflight") || currentUrl.includes("flightcompleted")) {
+                $('#flight-menu').addClass('active');
+                $('#flight-menu > .nav-link').removeClass('collapsed');
+                $('#tables-nav1').addClass('show');
+            }
         }
-    }
-
-    setActiveBasedOnUrl(); // Call this function on page load
-
-    // Handle click on sidebar links
-    $('#sidebar-nav .nav-link').click(function(e) {
-        var $this = $(this);
-        var $subMenu = $this.next('.nav-content');
-        var $parentItem = $this.parent('.nav-item');
-
-        // Remove active from all items and collapse all submenus except for current one
-        $('#sidebar-nav .nav-item').not($parentItem).removeClass('active');
-        $('#sidebar-nav .nav-link').not($this).addClass('collapsed');
-        $('#sidebar-nav .nav-content').not($subMenu).removeClass('show').collapse('hide');
-
-        // Toggle active state on the clicked item
-        $parentItem.toggleClass('active');
-        $this.removeClass('collapsed');
-
-        // Toggle submenu visibility
-        if ($subMenu.length > 0) {
-            $subMenu.collapse('toggle');
-            e.preventDefault(); // Prevent default if it's a link to avoid navigating away
-        }
+    
+        setActiveBasedOnUrl(); // Call this function on page load
     });
-});
-</script> -->
+    </script>
+    
+   
+    
+    

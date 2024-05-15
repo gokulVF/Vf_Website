@@ -56,7 +56,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}" >Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Package</li>
+						<li class="breadcrumb-item"><a href="#" >Packages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Edit Packages</li>
 					</ol>
           <a href="{% url 'packagesadmin' %}" class="btn btn-primary"><i class="link-icon" data-feather="arrow-left"></i> Back To List</a>
 				</nav>
@@ -68,24 +69,24 @@
                       <form class="row forms-sample">
                         <input type="hidden" value="{{ blog_entry_id }}" name="id" id="id">
                             <div class="col-lg-6 mb-3">
-                              <label for="uploadGrid" class="form-label">Grid Images(size:800x534)</label>
-                              <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="100">
+                              <label for="uploadGrid" class="form-label">Grid Images<span class="bg-grey px-1 mx-2 py-1 rounded">Size 800 x 534</span></label>
+                              <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="40">
                               <input class="form-control" type="file" id="uploadGrid"  onchange="previewImage(this, 'gridImagePreview')">
                             </div>
                             
                             <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Desktop Banner Images(size:1800x1200)</label>
-                                <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="100">
+                                <label for="uploadCover" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
+                                <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="40">
                                 <input class="form-control" type="file" id="uploadCover" onchange="previewImage(this, 'coverImagePreview')">
                               </div>
                               <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Tab Banner Images</label>
-                                <img src="{% static description.cover_image_url1 %}" id="TabImagePreview" width="100" height="100">
+                                <label for="uploadCover" class="form-label">Tab Banner Image</label>
+                                <img src="{% static description.cover_image_url1 %}" id="TabImagePreview" width="100" height="40">
                                 <input class="form-control" type="file" id="TabCover" onchange="previewImage(this, 'TabImagePreview')">
                               </div>
                               <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Mobile Banner Images</label>
-                                <img src="{% static description.cover_image_url2 %}" id="MobileImagePreview" width="100" height="100">
+                                <label for="uploadCover" class="form-label">Mobile Banner Image</label>
+                                <img src="{% static description.cover_image_url2 %}" id="MobileImagePreview" width="100" height="40">
                                 <input class="form-control" type="file" id="MobileCover" onchange="previewImage(this, 'MobileImagePreview')">
                               </div>
                               <script>
@@ -113,11 +114,11 @@
                                 <label for="person" class="form-label">Person Details</label>
                                 <input type="text" class="form-control" id="person" placeholder="" value="{{ description.person }}">
                               </div>
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="place1" class="form-label">Country</label>
                             <input type="text" class="form-control" id="place1" autocomplete="off" placeholder="" value="{{ description.place1 }}">
                           </div>
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="place2" class="form-label">Package Name</label>
                             <input type="text" class="form-control" id="place2" placeholder="" value="{{ description.place2 }}">
                           </div>
@@ -125,7 +126,7 @@
                           <!--  <label for="url" class="form-label">URL</label>-->
                           <!--  <input type="text" class="form-control" id="url" placeholder="" value="{{ description.url }}">-->
                           <!--</div>-->
-                          <div class="col-lg-6 mb-3">
+                          <div class="col-lg-4 mb-3">
                             <label for="destination" class="form-label">Destination</label>
                             <select class="form-select" id="destinationType" name="destinationType">
                                 <option value=" ">Please select the destination</option>
@@ -215,15 +216,15 @@
                             });
                         </script>
                            
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                               <label for="description" class="form-label">Description</label>
                               <textarea class="form-control" name="tinymce" id="description" rows="2">{{ description.descriptions }}</textarea>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaTitle" class="form-label">Meta title</label>
-                                <textarea class="form-control" name="tinymce" id="metaTitle" rows="1">{{ description.meta_title }}</textarea>
+                                <textarea class="form-control" name="tinymce" id="metaTitle" rows="2">{{ description.meta_title }}</textarea>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
                                 <textarea class="form-control" name="tinymce" id="metaDescription" rows="2">{{ description.meta_description }}</textarea>
                             </div>
@@ -643,6 +644,19 @@
 <script src="{% static 'assets/js/main.js' %}"></script>
   <!-- End custom js for this page -->
 
+ <!-- Css -->
+   <style>
+    .theme {
+      color: #029e9d !important;
+    }
 
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+    </style>
+    <!-- Css -->
 </body>
 </html>    

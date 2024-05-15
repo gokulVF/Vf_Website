@@ -73,8 +73,8 @@
                     <thead>
                       <tr>
                         <th>Header</th>
-                        <th>Created by</th>
-                        <th>updated by</th>
+                        <!--<th>Created by</th>-->
+                        <!--<th>updated by</th>-->
                         <!-- <th class="text-center">Published</th> -->
                         <th class="text-center">Action</th>
                       </tr>
@@ -83,11 +83,11 @@
                     <tbody>
                       <tr>
                         <td>{{ footer.header.Header}}</td>
-                        <td>{{ footer.created_by }}</td>
+                        <!--<td>{{ footer.created_by }}</td>-->
                         <!-- <td class="w-25">
                           <img src="../images/trending/trending2.jpg" alt="image">
                         </td> -->
-                        <td>{{ footer.updated_by }}</td>
+                        <!--<td>{{ footer.updated_by }}</td>-->
                         <!-- <td class="text-center">
                           <span class="form-check form-switch"><input type="checkbox" class="form-check-input" id="formSwitch1"></span>
                         </td> -->
@@ -111,12 +111,12 @@
                             <div class="modal fade" id="editor{{ footer.id}}" tabindex="-1" aria-labelledby="editor" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
-                                    <div class="modal-header text-center d-flex justify-content-between">
+                                    <div class="modal-header text-center">
                                       <h5 class="modal-title" id="exampleModalLabel">Edit Header</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                     </div>
                                     <div class="modal-body">
-                                        <form class="forms-sample" id="myForm" action="{% url 'updateheader' %}" method="POST">
+                                        <form class="forms-sample  bg-grey rounded m-1 p-2" id="myForm" action="{% url 'updateheader' %}" method="POST">
                                          {% csrf_token %}
                                          <input type="hidden" class="form-control" id="id" name="id" value="{{ footer.id }}" autocomplete="off" placeholder=""></input>
                                          <div class="mb-3 text-start">
@@ -129,8 +129,9 @@
                                             <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
                                             <input type="text" class="form-control" id="URL" name="URL" autocomplete="off" placeholder="" value="{{ footer.header.URL }}"></input>
                                           </div>
-                                        <div class="text-center">
-                                          <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
+                                          <div class="text-center">
+                                            <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                                            <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                         </div>
                                       </form>
                                     </div>
@@ -206,8 +207,8 @@
                         <th>Tilte</th>
                         <th>Header</th>
                         <th>URL</th>
-                        <th>Created by</th>
-                        <th>updated by</th>
+                        <!--<th>Created by</th>-->
+                        <!--<th>updated by</th>-->
                         <!-- <th class="text-center">Published</th> -->
                         <th class="text-center">Action</th>
                       </tr>
@@ -221,8 +222,8 @@
                         <!-- <td class="w-25">
                           <img src="../images/trending/trending2.jpg" alt="image">
                         </td> -->
-                        <td>{{ footer.created_by}}</td>
-                        <td>{{ footer.updated_by}}</td>
+                        <!--<td>{{ footer.created_by}}</td>-->
+                        <!--<td>{{ footer.updated_by}}</td>-->
                         <!-- <td class="text-center">
                           <span class="form-check form-switch"><input type="checkbox" class="form-check-input" id="formSwitch1"></span>
                         </td> -->
@@ -232,12 +233,12 @@
                             <div class="modal fade" id="header{{ footer.id }}" tabindex="-1" aria-labelledby="editor" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
-                                    <div class="modal-header text-center d-flex justify-content-between">
+                                    <div class="modal-header text-center">
                                       <h5 class="modal-title" id="exampleModalLabel">Edit Title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                     </div>
                                     <div class="modal-body">
-                                        <form class="forms-sample" id="myForm" action="{% url 'updatetitlefooter' %}" method="POST">
+                                        <form class="forms-sample  bg-grey rounded m-1 p-2" id="myForm" action="{% url 'updatetitlefooter' %}" method="POST">
                                             {% csrf_token %}
                                            <div class="mb-3 text-start">
                                              <label for="title" class="form-label">Title</label>
@@ -272,8 +273,9 @@
                                            
                                            
                                            <div class="text-center">
-                                             <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
-                                           </div>
+                                            <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                                            <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                        </div>
                                         </form>
                                     </div>
                                   </div>
@@ -365,12 +367,12 @@
     <div class="modal fade" id="addheader" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header text-center d-flex justify-content-between">
+            <div class="modal-header text-center">
               <h5 class="modal-title" id="exampleModalLabel">Add Header</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
-                <form class="forms-sample" id="myForm" action="{% url 'addheader' %}" method="POST">
+                <form class="forms-sample  bg-grey rounded m-1 p-2" id="myForm" action="{% url 'addheader' %}" method="POST">
                  {% csrf_token %}
                 <div class="mb-3">
                   <label for="Header" class="form-label">Header</label>
@@ -383,8 +385,9 @@
                   <input type="text" class="form-control" id="URL" name="URL" value="" autocomplete="off" placeholder=""></input>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
-                </div>
+                  <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                  <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+              </div>
               </form>
             </div>
           </div>
@@ -396,12 +399,12 @@
   <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header text-center d-flex justify-content-between">
+        <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Add title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
-            <form class="forms-sample" id="myForm" action="{% url 'addtitlefooter' %}" method="POST">
+            <form class="forms-sample bg-grey rounded m-1 p-2" id="myForm" action="{% url 'addtitlefooter' %}" method="POST">
              {% csrf_token %}
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
@@ -435,8 +438,9 @@
             
             
             <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
-            </div>
+              <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+              <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
           </form>
         </div>
       </div>
@@ -448,7 +452,7 @@
       <div class="modal-content">
         <div class="modal-header text-center d-flex justify-content-between">
           <h5 class="modal-title" id="exampleModalLabel">Edit Header</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
             <form class="forms-sample" id="myForm" action="{% url 'submit_form_contact' %}" method="POST">
@@ -496,7 +500,20 @@
   <script src="{% static 'js/admin/dashboard-light.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
 	<!-- End custom js for this page -->
+<!-- Css -->
+<style>
+  .theme {
+    color: #029e9d !important;
+  }
 
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 
 </body>
 </html>    

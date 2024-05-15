@@ -59,7 +59,7 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Home Page Details</li>
+						<li class="breadcrumb-item active" aria-current="page">Home Page Theme</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
@@ -92,14 +92,14 @@
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
+                            <th>S.No</th>
                             <!-- <th>Date</th> -->
                             <th>Defalut Theme</th>
                             <!-- <th>Image</th> -->
                             <th>Action</th>
                             
                           </tr>
-                          <div class="justify-content-between d-flex"><p class="mb-0 mt-3">Home Page Details</p>
+                          <div class="text-center"><h3 class="mb-0 mt-3 theme">Home Page Theme</h3>
                             <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
                           </div>
             
@@ -218,6 +218,21 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  
+    <!-- Css -->
+  <style>
+    .theme {
+      color: #029e9d !important;
+    }
+
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+  </style>
+  <!-- Css -->
 
 </body>
 </html> 

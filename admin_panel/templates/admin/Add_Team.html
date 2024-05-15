@@ -15,7 +15,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <!-- End fonts -->
 
 	<!-- core:css -->
 	<link rel="stylesheet" href="{% static 'vendors/core/core.css' %}">
@@ -162,20 +161,21 @@
 <div class="modal fade" id="addslider-addteam" tabindex="-1" aria-labelledby="addTeamModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+          <div class="modal-header text-center">
               <h5 class="modal-title" id="addTeamModalLabel">Add Team</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'addTeam' %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'addTeam' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3">
                       <label for="TeamName" class="form-label">Team Name</label>
                       <input type="text" class="form-control" id="TeamName" name="TeamName" autocomplete="off">
                   </div>
                   <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Add Team</button>
-                  </div>
+                    <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                    <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
               </form>
           </div>
       </div>
@@ -187,20 +187,21 @@
 <div class="modal fade" id="editTeamModal{{ team.id }}" tabindex="-1" aria-labelledby="editTeamModalLabel{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+          <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Team</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'edit_team' team_id=team.id %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'edit_team' team_id=team.id %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3">
                       <label for="TeamNamemodify{{ team.id }}" class="form-label">New Team Name</label>
                       <input type="text" class="form-control" id="TeamNamemodify{{ team.id }}" name="TeamNamemodify" value="{{ team.Teamname }}" autocomplete="off">
                   </div>
                   <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Update Team</button>
-                  </div>
+                    <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                    <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
               </form>
           </div>
       </div>
@@ -226,6 +227,19 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+<!-- Css -->
+<style>
+  .theme {
+    color: #029e9d !important;
+  }
 
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 </body>
 </html>    

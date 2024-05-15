@@ -62,7 +62,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Package</li>
+						<li class="breadcrumb-item"><a href="#">Blogs</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Add Blogs</li>
 					</ol>
           <a href="{% url 'blog_us_admin' %}" class="btn btn-primary"><i class="link-icon" data-feather="arrow-left"></i> Back To List</a>
 				</nav>
@@ -73,7 +74,7 @@
                   <div class="card-body">
                     <form id="myForm" class="row forms-sample">
                           <div class="col-lg-4 mb-3">
-                              <label for="Banner_Image" class="form-label">Desktop Banner Image(1800x1200)</label>
+                              <label for="Banner_Image" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
                               <input class="form-control" required type="file" id="Banner_Image">
                             </div>
                             <div class="col-lg-4 mb-3">
@@ -85,11 +86,11 @@
                               <input class="form-control" required type="file" id="MobileBanner_Image">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="Cover_Image" class="form-label">Cover Image(1800x300)</label>
+                                <label for="Cover_Image" class="form-label">Cover Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 300</span></label>
                                 <input class="form-control"  required type="file" id="Cover_Image">
                               </div>
                             <div class="col-lg-6 mb-3">
-                              <label for="Grid_Image" class="form-label">Grid Image(750x500)</label>
+                              <label for="Grid_Image" class="form-label">Grid Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 750 x 500</span></label>
                               <input class="form-control"  required type="file" id="Grid_Image">
                             </div>
                             <div class="col-lg-4 mb-3">
@@ -108,14 +109,13 @@
                             <label for="author" class="form-label">Author Name</label>
                             <input type="text" class="form-control" id="author" placeholder="">
                           </div>
-                          <div class="col-lg-9 mb-3 d-flex justify-content-between">
-                            <div style="width: 70%;">
+                          <div class="col-lg-5 mb-3">
                             <label for="tags" class="form-label">Tags</label>
-                            <input type="text" id="selectedTags" class="form-control mt-2" style="background-color: white;" readonly>
+                            <input type="text" id="selectedTags" class="form-control" style="background-color: white;" readonly>
                             <input type="hidden" id="selectedTagIds" name="selectedTagIds">
-                            </div>
-                            <div class="dropdown mt-4 ms-3">
-                                <button class="btn btn-secondary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                          </div>
+                            <div class="dropdown col-lg-2 mt-4 text-end">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                     Select Tags
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsDropdown">
@@ -125,8 +125,8 @@
                                 </ul>
                                 
                             </div>
-                            <div class="mt-4 ms-3">
-                            <button id="sendTagsButton" class="btn btn-primary mt-3 ms-2">Send Tags</button> <!-- Add this button -->
+                            <div class="mt-4 col-lg-2">
+                            <button id="sendTagsButton" class="btn btn-primary">Send Tags</button> <!-- Add this button -->
                             </div>
                             <script>
                               // Function to check the value of the hidden input and hide the element if the value is correct
@@ -136,7 +136,7 @@
                                       document.getElementById("sendTagsButton").style.display = "none";
                                   }
                               }
-
+    
                               document.addEventListener("DOMContentLoaded", function() {
                                   checkHiddenValue();
                               });
@@ -145,7 +145,7 @@
                               <p>You do not have access to this page.</p>
                             </div>
                             
-                        </div>
+                        
                         <script>
                           document.addEventListener('DOMContentLoaded', function() {
                               const dropdownMenu = document.getElementById('tagsDropdown');
@@ -305,7 +305,7 @@
                       
                             <div class="col-lg-6 mb-3">
                               <label for="title" class="form-label">Title</label>
-                              <textarea class="form-control" name="tinymce" id="title" rows="1"></textarea>
+                              <textarea class="form-control" name="tinymce" id="title" rows="3"></textarea>
                             </div>
                             <div class="col-lg-6 mb-3">
                               <label for="description" class="form-label">Description</label>
@@ -313,7 +313,7 @@
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="content" class="form-label">Content</label>
-                                <textarea class="form-control" name="tinymce" id="content" rows="5"></textarea>
+                                <textarea class="form-control" name="tinymce" id="content" rows="4"></textarea>
                               </div>
                             <div class="col-lg-12 mb-3">
                               <label for="jumpLinkTitles" class="form-label">Jump Link Titles</label>
@@ -322,18 +322,22 @@
                               </textarea>
                             </div>
                             <hr>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaTitle" class="form-label">Meta title</label>
                                 <textarea class="form-control" name="tinymce" id="metaTitle" rows="1"></textarea>
                             </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
                                 <textarea class="form-control" name="tinymce" id="metaDescription" rows="1"></textarea>
                             </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-6 mb-3">
+                                <label for="metaKeywords" class="form-label">Canonical Tag</label>
+                                <textarea class="form-control" name="Canonical" id="Canonical" rows="1"></textarea>
+                            </div>
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaKeywords" class="form-label">Meta Keywords</label>
                                 <textarea class="form-control" name="tinymce" id="metaKeywords" rows="1"></textarea>
-                            </div>  
+                            </div>
                             <hr> 
                             <!-- <label for="metaKeywords" class="form-label bold">Blog details </label> -->
                             <div class="text-center py-3"><h3>Blog details</h3></div>
@@ -342,16 +346,24 @@
                             <div class="main-1 row">
                               <div id="blog_all_details1" class="col-lg-6">  
                                   
-                                <div class="col-lg-6 mb-3">
-                                      <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                      <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                       <input class="form-control"  type="file" id="blogImage1">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title1">
                                 </div>
                                 <textarea id="myTextarea" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div> 
                               <div id="blog_all_details2" class="col-lg-6">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage2">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title2">
                                 </div>
                                 <textarea id="myTextarea2" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div>
@@ -361,16 +373,23 @@
                             </div>
                             <div class="main-2 row" id="main-2" >
                               <div id="blog_all_details3" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3" >
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3" >
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage3">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title3">
                                 </div>
                                 <textarea id="myTextarea3" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div>
                               <div id="blog_all_details4" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage4">
+                                </div<div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title4">
                                 </div>
                                 <textarea id="myTextarea4" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div> 
@@ -380,16 +399,24 @@
                             </div>
                             <div class="main-3 row" id="main-3" >
                               <div id="blog_all_details5" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage5">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title5">
                                 </div>
                                 <textarea id="myTextarea5" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div>
                               <div id="blog_all_details6" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage6">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title6">
                                 </div>
                                 <textarea id="myTextarea6" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div> 
@@ -399,16 +426,24 @@
                             </div>
                             <div class="main-4 row" >
                               <div id="blog_all_details7" class="col-lg-6" style="display: none;" >  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage7">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title7">
                                 </div>
                                 <textarea id="myTextarea7" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div>
                               <div id="blog_all_details8" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage8">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title8">
                                 </div>
                                 <textarea id="myTextarea8" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div> 
@@ -418,16 +453,24 @@
                             </div>
                             <div class="main-5 row" >
                               <div id="blog_all_details9" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage9">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title9">
                                 </div>
                                 <textarea id="myTextarea9" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div>
                               <div id="blog_all_details10" class="col-lg-6" style="display: none;">  
-                                <div class="col-lg-6 mb-3">
-                                  <label for="Banner_Image" class="form-label">Image(1800x300)</label>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Image(960x350)</label>
                                   <input class="form-control"  type="file" id="blogImage10">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title10">
                                 </div>
                                 <textarea id="myTextarea10" class="tinymce-editor"></textarea><!-- End TinyMCE Editor -->  
                               </div> 
@@ -512,6 +555,17 @@
                             var richtextarea8 = tinymce.get("myTextarea8").getContent();
                             var richtextarea9 = tinymce.get("myTextarea9").getContent();
                             var richtextarea10 = tinymce.get("myTextarea10").getContent();
+                            
+                            var title1 = $('#title1').val();
+                            var title2 = $('#title2').val();
+                            var title3 = $('#title3').val();
+                            var title4 = $('#title4').val();
+                            var title5 = $('#title5').val();
+                            var title6 = $('#title6').val();
+                            var title7 = $('#title7').val();
+                            var title8 = $('#title8').val();
+                            var title9 = $('#title9').val();
+                            var title10 = $('#title10').val();
 
                             var jumpLinkTitles = tinymce.get("jumpLinkTitles").getContent();
                             // Get other input values
@@ -528,6 +582,7 @@
                             var metaTitle = $('#metaTitle').val();
                             var metaDescription = $('#metaDescription').val();
                             var metaKeywords = $('#metaKeywords').val();
+                            var Canonical = $('#Canonical').val();
                 
                             // Create FormData object to send to backend
                             var formData = new FormData();
@@ -549,6 +604,7 @@
                             formData.append('metaTitle', metaTitle);
                             formData.append('metaDescription', metaDescription);
                             formData.append('metaKeywords', metaKeywords);
+                            formData.append('Canonical', Canonical);
                             formData.append('tagsid', tagsid);
 
                             formData.append('blogImage1', blogImage1);
@@ -572,6 +628,17 @@
                             formData.append('richtextarea8', richtextarea8);
                             formData.append('richtextarea9', richtextarea9);
                             formData.append('richtextarea10', richtextarea10);
+                            
+                            formData.append('title1', title1);
+                            formData.append('title2', title2);
+                            formData.append('title3', title3);
+                            formData.append('title4', title4);
+                            formData.append('title5', title5);
+                            formData.append('title6', title6);
+                            formData.append('title7', title7);
+                            formData.append('title8', title8);
+                            formData.append('title9', title9);
+                            formData.append('title10', title10);
                             
                             
 
@@ -704,6 +771,21 @@
 
   <!-- Template Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>
+     <!-- Css -->
+   <style>
+    .theme {
+      color: #029e9d !important;
+    }
+
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+    </style>
+  <!-- Css -->
+
 
 </body>
 </html>    

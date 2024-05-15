@@ -196,7 +196,7 @@
          {
              breakpoint: 500,
              settings: {
-                 slidesToShow: 1
+                 slidesToShow: 2
              }
          }]
      });
@@ -294,7 +294,7 @@
          responsive: [{
              breakpoint: 1000,
              settings: {
-                 slidesToShow: 1,
+                 slidesToShow: 2,
                  arrows: false,
              }
          }, {

@@ -57,7 +57,7 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<!--<li class="breadcrumb-item"><a href="">Destination</a></li>-->
+						<li class="breadcrumb-item"><a href="#">Destination Details</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Continent Meta</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -94,14 +94,15 @@
                             <th>ID</th>
                            
                             <th>Continent Name</th>
-                            <th>Update time</th>
+                            <!--<th>Update time</th>-->
                             <th>Action</th>
                             <!-- <th>Client postion</th>
                             <th class="text-center">Client Review</th>
                             <th class="text-center">Action</th> -->
                           </tr>
-                          <div><p class="mb-1 mt-0">Continent meta content</p>
-                            <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Team</button> -->
+                          <div class="text-center">
+                            <h3 class="mb-0 theme">Destination Details</h3>
+                            <p>Continent meta content</p>
                           </div>
             
                         </thead>
@@ -112,7 +113,7 @@
                             <td>{{ forloop.counter }}</td>
                            
                             <td>{{team.continent_name}}</td>
-                            <td>{{team.Update_at}}</td>
+                            <!--<td>{{team.Update_at}}</td>-->
                             <td class="text-center">
                               <a href="#" data-bs-toggle="modal" data-bs-target="#editTeamModal{{ team.id }}">
                                   <i class="link-icon" data-feather="edit"></i>
@@ -192,12 +193,12 @@
 <div class="modal fade" id="editTeamModal{{ teams.id }}" tabindex="-1" aria-labelledby="editTeamModalLabel{{ teams.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+          <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ teams.id }}">Edit Condinent Meta</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'Continent_Metas_edit' team_id=teams.id %}" method="POST" >
+              <form class="forms-sample bg-grey rounded my-2 px-3 py-2" action="{% url 'Continent_Metas_edit' team_id=teams.id %}" method="POST" >
                   {% csrf_token %}
                   <div class="mb-3">
                       <label for="TeamNamemodify{{ teams.id }}" class="form-label">Meta Keyword</label>
@@ -215,9 +216,10 @@
                     <label for="TeamNamemodify{{ teams.id }}" class="form-label">canonical tag</label>
                     <input type="text" class="form-control" id="canonical" name="canonical" value="{{ teams.description_son.canonical }}" autocomplete="off">
                 </div>
-                  <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+                  <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
               </form>
           </div>
       </div>
@@ -244,5 +246,19 @@
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
 
+    <!-- Css -->
+    <style>
+      .theme {
+        color: #029e9d !important;
+      }
+  
+      .black {
+        color: black !important;
+      }
+      .bg-grey{ 
+        background: #f1f1f1  !important;
+      }
+      </style>
+        <!-- Css -->
 </body>
 </html> 

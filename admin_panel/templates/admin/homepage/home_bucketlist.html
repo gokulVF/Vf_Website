@@ -58,8 +58,11 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Categories Cities</li>
 					</ol>
+          <!-- <bu
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
 
@@ -87,12 +90,12 @@
           <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="">
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
-                            <th>table id</th>
+                            <th>S.No</th>
+                            <!--<th>table id</th>-->
                             <th>Categories Name</th>
                             <!-- <th>Destination id</th> -->
                             <th>Action</th>
@@ -100,10 +103,15 @@
                             <th class="text-center">Client Review</th>
                             <th class="text-center">Action</th> -->
                           </tr>
-                          <div class="justify-content-between d-flex"><p class="mb-0 mt-2">Add Categories </p>
-                            <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Categories </button>
+                          <div class="row d-flex align-items-center mb-2">
+                            <div class="col-lg-10 text-center">
+                              <h3 class="mb-0 theme">Home Page</h3>
+                              <p>Theme 1 - Add Categories</p>
+                            </div>
+                            <div class="col-lg-2 text-end">
+                              <button class="btn btn-primary  px-3 py-2 rounded fw-bold" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Categories </button>
+                            </div>
                           </div>
-            
                         </thead>
       
                        
@@ -111,7 +119,7 @@
                           {% for result in results %}
                           <tr>
                               <td>{{ forloop.counter }}</td>
-                              <td>{{ result.id}}</td>
+                              <!--<td>{{ result.id}}</td>-->
                               <td>{{ result.city}}</td>
                            
                               <td class="text-center">
@@ -186,17 +194,17 @@
 <div class="modal fade" id="addslider-addteam" tabindex="-1" aria-labelledby="addTeamModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+         <div class="modal-header text-center">
               <h5 class="modal-title" id="addTeamModalLabel">Add Categories</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample row" action="{% url 'add_categories_cities' %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample row bg-grey rounded m-1 p-2" action="{% url 'add_categories_cities' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3  col-lg-6">
                       <label for="TeamName" class="form-label">Categories Type</label>
                       <select class="form-select show-4" id="CategoriesType"  name="CategoriesType">
-                        <option value="">Select the Categories</option>
+                        <option value="">Select</option>
                       {% for type in categories %}
                       <option value="{{type.categoriesname}}">{{type.categoriesname}}</option>
                       {% endfor %}
@@ -204,31 +212,31 @@
                   </div>
                   
                   <div class="mb-3  col-lg-6">
-                    <label for="TeamName" class="form-label">Categories Type slug</label>
+                    <label for="TeamName" class="form-label">Categories Slug</label>
 
                     <select class="form-select show-4" id="CategoriesTypeslug"  name="CategoriesTypeslug">
-                      <option value="">Select the Categories slug</option>
+                      <option value="">Select</option>
                     {% for type in categories %}
                     <option value="{{type.categeory_slug}}">{{type.categeory_slug}}</option>
                     {% endfor %}
                   </select>
                  </div>
                  <div class="mb-3 col-lg-4 ">
-                  <label for="upload" class="form-label">Desktop Banner Images</label>
+                  <label for="upload" class="form-label">Desktop Banner Image</label>
                   <input class="form-control" required type="file" name="CategoriesImages" id="upload" >
                 </div>
                 <div class="mb-3 col-lg-4">
-                  <label for="upload" class="form-label">Tab Banner Images</label>
+                  <label for="upload" class="form-label">Tab Banner Image</label>
                   <input class="form-control" required type="file" name="TabImages" id="upload" >
                 </div>
                 <div class="mb-3 col-lg-4">
-                  <label for="upload" class="form-label">Mobile Banner Images</label>
+                  <label for="upload" class="form-label">Mobile Banner Image</label>
                   <input class="form-control" required type="file" name="MobileImages" id="upload" >
                 </div>
                   <div class="mb-3">
-                    <label for="TeamName" class="form-label">Destination Name</label>
+                    <label for="TeamName" class="form-label">Destination</label>
                     <input type="hidden" class="select-4" id="new-{{team.description.HomeDestinationName}}" value="{{team.description.HomeDestinationName}}">
-                    <select class="form-select show-4" id="DestinationName" name="DestinationName" multiple>
+                    <select class="form-select show-4" id="DestinationName" name="DestinationName"  style="height: 200px;"  multiple>
                       <option value="">Select the cities</option>
                       <optgroup label="International">
                           {% for internation in Internation %}
@@ -242,7 +250,7 @@
                       </optgroup>
                   </select>
                   <input type="hidden" id="selectedCities" name="selectedCities">
-                  <div class="selected-options" id="selectedCitiesText"></div>
+                  <div class="selected-options" id="selectedCitiesText" style="height: 40px;"></div>
                   <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         const selectElement = document.getElementById('DestinationName');
@@ -288,15 +296,15 @@
                 </script>
             </div>  
                 
-            <div class="mb-3 col-lg-4">
+            <div class="mb-3 col-lg-6">
               <label for="TeamName" class="form-label">Meta Title</label>
               <input type="text" class="form-control" id="MetaTitle" name="MetaTitle"  autocomplete="off">
            </div>
-           <div class="mb-3 col-lg-4">
+           <div class="mb-3 col-lg-6">
                 <label for="TeamName" class="form-label">Meta description</label>
                 <input type="text" class="form-control" id="Metadescription" name="Metadescription"  autocomplete="off">
             </div>
-            <div class="mb-3 col-lg-4">
+            <div class="mb-3 col-lg-6">
               <label for="TeamName" class="form-label">Meta keyword</label>
               <input type="text" class="form-control" id="Metakeyword" name="Metakeyword" autocomplete="off">
            </div>
@@ -309,8 +317,9 @@
                   
 
                 <input type="hidden" class="new-id" id="new-id" name="CategoriesType_name">
-                <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Add Categories Destination</button>
+               <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+                  <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
               </form>
           </div>
@@ -327,7 +336,8 @@
   }
   .selected-option {
       display: inline-block;
-      background-color: #f0f0f0;
+      background-color: #777;
+      color: #fff;
       padding: 3px 5px;
       border-radius: 3px;
       margin-right: 5px;
@@ -353,12 +363,12 @@
 <div class="modal fade" id="editTeamModal{{ team.id }}" tabindex="-1" aria-labelledby="editTeamModalLabel{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+            <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Categories</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
-              <form class="forms-sample row" action="{% url 'edit_categories_cities' team_id=team.id %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample row bg-grey rounded m-1 p-2" action="{% url 'edit_categories_cities' team_id=team.id %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3 col-lg-6">
                     <label for="TeamName" class="form-label">Categories Type</label>
@@ -384,16 +394,16 @@
                 <input class="form-control" type="file" name="up-CategoriesImages" id="upload" >
               </div>
               <div class="mb-3 col-lg-4">
-                <label for="upload" class="form-label">Tab Banner Images</label>
+                <label for="upload" class="form-label">Tab Banner Image</label>
                 <input class="form-control"  type="file" name="up-TabImages" id="upload" >
               </div>
               <div class="mb-3 col-lg-4">
-                <label for="upload" class="form-label">Mobile Banner Images</label>
+                <label for="upload" class="form-label">Mobile Banner Image</label>
                 <input class="form-control"  type="file" name="up-MobileImages" id="upload" >
               </div>
             <div class="mb-3">
-              <select class="form-select show-4" id="DestinationName{{ team.id }}" name="up-DestinationName"  multiple>
-                <option value="">Select the cities</option>
+              <select class="form-select show-4" id="DestinationName{{ team.id }}" name="up-DestinationName" style="height: 200px;"   multiple>
+                <option value="">Select</option>
                 <optgroup label="International">
                     {% for internation in Internation %}
                     <option value="{{internation.id}}">{{internation.destination_name}}</option>
@@ -406,7 +416,7 @@
                 </optgroup>
                 </select>
                  <input type="hidden" id="selectedCities{{ team.id }}" name="uptwo-selectedCities" value='{{team.description}}'>
-                <div class="selected-options" id="selectedCitiesText{{ team.id }}"></div>
+                <div class="selected-options" id="selectedCitiesText{{ team.id }}" style="height: 40px;"></div>
             </div>
            
             <script>
@@ -469,15 +479,15 @@
               });
           </script>
 
-              <div class="mb-3 col-lg-4">
+              <div class="mb-3 col-lg-6">
                 <label for="TeamName" class="form-label">Meta Title</label>
                 <input type="text" class="form-control" id="MetaTitle" name="up-MetaTitle" value="{{team.metatitle}}"  autocomplete="off">
              </div>
-             <div class="mb-3 col-lg-4">
+             <div class="mb-3 col-lg-6">
               <label for="TeamName" class="form-label">Meta description</label>
               <input type="text" class="form-control" id="Metadescription" name="up-Metadescription" value="{{team.metadescription}}" autocomplete="off">
            </div>
-           <div class="mb-3 col-lg-4">
+           <div class="mb-3 col-lg-6">
             <label for="TeamName" class="form-label">Meta keywork</label>
             <input type="text" class="form-control" id="Metakeywork" name="up-Metakeywork" value="{{team.metakeyword}}" autocomplete="off">
          </div>
@@ -486,9 +496,10 @@
             <input type="text" class="form-control" id="canonical" name="canonical" value="{{team.canonical}}" autocomplete="off">
          </div>
               
-                  <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Update Categories</button>
-                  </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
+                <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+              </div>
               </form>
           </div>
       </div>
@@ -549,13 +560,29 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  
+   <!-- Css -->
     <style>
           @media screen and (min-width: 576px){
             .modal-dialog {
                 max-width: 900px;
             }
           }
+          
+         
+  .theme {
+    color: #029e9d !important;
+  }
+
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
     </style>
+    
+     <!-- Css -->
 
 
 </body>

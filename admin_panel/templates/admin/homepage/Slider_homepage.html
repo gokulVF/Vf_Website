@@ -57,7 +57,9 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Home Page Slider</li>
+						<li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1 </a></li>
+						<li class="breadcrumb-item active" aria-current="page">Slider</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
@@ -86,19 +88,25 @@
           <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="">
                       <table id="dataTableExample" class="table">
                         <thead class="text-center">
                           <tr >
-                            <th>ID</th>
-                            <th>Date</th>
+                            <th>S.No</th>
+                            <!--<th>Date</th>-->
                             <th>Destination Name</th>
                             <th>Image</th>
                             <th>Action</th>
                             
                           </tr>
-                          <div class="justify-content-between d-flex align-items-center"><p class="mb-0">Home Page Destination Slider</p>
-                            <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button>
+                         <div class="row d-flex align-items-center mb-2">
+                            <div class="col-lg-10 text-center">
+                              <h3 class="mb-0 theme">Home Page</h3>
+                              <p>Theme 1 - Slider</p>
+                            </div>
+                            <div class="col-lg-2 text-end">
+                              <button class="btn btn-primary px-3 py-2 rounded fw-bold" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button>
+                            </div>
                           </div>
             
                         </thead>
@@ -108,12 +116,12 @@
                           <tr class="text-center">
                             <td>{{ forloop.counter }}</td>
                            
-                            <td>{{ slider.description.update_date }}</td>
+                            <!--<td>{{ slider.description.update_date }}</td>-->
                             <td>{{ slider.description.HomeDestinationName }}</td>
                            
-                            <td><img src="{% static 'image/homepageslider_image/' %}{{ slider.description.SliderImage }}"></td>
+                        <td class="w-25"><img class="w-75" style="height: 70px;" src="{% static 'image/homepageslider_image/' %}{{ slider.description.SliderImage }}"></td>
                             <td class="text-center">
-                                <ul class="d-flex list-unstyled mb-0">
+                                <ul class="d-flex list-unstyled mb-0 justify-content-center">
                                 <li class="me-2">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#editSlider{{slider.id}}">
                                         <i class="link-icon" data-feather="edit"></i>
@@ -185,23 +193,23 @@
 <div class="modal fade" id="addslider-addteam" tabindex="-1" aria-labelledby="editSlider" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
-              <h5 class="modal-title" id="addTeamModalLabel">Add Home page slider</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-header text-center">
+              <h3 class="modal-title" id="addTeamModalLabel">Add Slider</h3>
+              <span class="black">Homepage - Slider</span>
           </div>
           <div class="modal-body">
-              <form class="forms-sample" action="{% url 'Homepage_slider_add' %}" method="POST" enctype="multipart/form-data">
+              <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'Homepage_slider_add' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="mb-3">
-                    <label for="TeamName" class="form-label">Select Internation/domestic?</label>
+                    <label for="TeamName" class="form-label">Sector</label>
                     <select class="form-select" name="SelectIn_do" id="SelectIn_do">
-                            <option value="">select this...</option>
+                            <option value="">Select</option>
                             <option value="0">International</option>
                             <option value="1">Domestic</option>
                     </select>
                 </div>
                   <div class="mb-3">
-                    <label for="TeamName" class="form-label">Destination Name</label>
+                    <label for="TeamName" class="form-label">Destination</label>
                     <select class="form-select" name="HomeDestinationName" id="HomeDestinationName">
                         <option value=""></option>
                         <!--<optgroup label="International">-->
@@ -254,17 +262,18 @@
               <!--    });-->
               <!--</script>-->
                   
-                  <div class="mb-3">
-                    <label for="TeamName" class="form-label">Slider Content</label>
-                    <input type="text" class="form-control"  id="SliderContent" name="SliderContent" autocomplete="off">
-                 </div>
+                 <!-- <div class="mb-3">-->
+                 <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
+                 <!--   <input type="text" class="form-control"  id="SliderContent" name="SliderContent" autocomplete="off">-->
+                 <!--</div>-->
                     <div class="mb-3">
-                        <label for="upload" class="form-label">Slider Image(size : 1880x1150)</label>
+                        <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                         <input class="form-control  form-width" required  type="file" name="SliderImage" id="SliderImage" >
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Add Slider</button>
+                        <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                        <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                     </div>
               </form>
           </div>
@@ -277,24 +286,24 @@
 <div class="modal fade" id="editSlider{{ team.id }}" tabindex="-1" aria-labelledby="editSlider{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header d-flex">
+           <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Slider</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <span class="black">Homepage - Slider</span>
           </div>
           <div class="modal-body">
-            <form class="forms-sample" action="{% url 'Homepage_slider_Edit' team_id=team.id %}" method="POST" enctype="multipart/form-data">
+            <form class="forms-sample  bg-grey rounded m-1 p-2" action="{% url 'Homepage_slider_Edit' team_id=team.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <label for="TeamName" class="form-label">Select Internation/domestic?</label>
+                  <label for="TeamName" class="form-label">Sector</label>
                   <input type="hidden" class="select-5" id="new-{{team.description.Select_In_do}}" value="{{team.description.Select_In_do}}">
                   <select class="form-select show-5" name="up-Select_In_do" id="up-SelectIn_do{{ team.id }}">
-                          <option value="">select this...</option>
+                          <option value="">Select</option>
                           <option value="0">International</option>
                           <option value="1">Domestic</option>
                   </select>
               </div>
                 <div class="mb-3">
-                    <label for="TeamName" class="form-label">Destination Name</label>
+                    <label for="TeamName" class="form-label">Destination</label>
                     <input type="hidden" class="select-4" id="new-{{team.description.HomeDestinationName}}" value="{{team.description.HomeDestinationName}}">
                     <select class="form-select show-4"  name="HomeDestinationName" id="HomeDestinationName{{ team.id }}">
                       <option value=""></option>
@@ -347,18 +356,19 @@
             <!--    });-->
             <!--</script>-->
                 
-                <div class="mb-3">
-                  <label for="TeamName" class="form-label">Slider Content</label>
-                  <input type="text" class="form-control"  id="SliderContent" value="{{team.description.SliderContent}}" name="SliderContent" autocomplete="off">
-               </div>
-                  <div class="mb-3">
-                      <label for="upload" class="form-label">Slider Image(size : 1880x1150)</label>
+               <!-- <div class="mb-3">-->
+               <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
+               <!--   <input type="text" class="form-control"  id="SliderContent" value="{{team.description.SliderContent}}" name="SliderContent" autocomplete="off">-->
+               <!--</div>-->
+                     <div class="mb-3">
+                    <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                       <input class="form-control  form-width" value="{{team.description.SliderImage}}"  type="file" name="SliderImage" id="SliderImage" >
                   </div>
 
                   <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Add Slider</button>
-                  </div>
+                    <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                    <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
             </form>
           </div>
       </div>
@@ -434,6 +444,22 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  
+    <!-- Css -->
+  <style>
+    .theme {
+      color: #029e9d !important;
+    }
+
+    .black {
+      color: black !important;
+    }
+    .bg-grey{ 
+      background: #f1f1f1  !important;
+    }
+  </style>
+  <!-- Css -->
+
 
 </body>
 </html> 

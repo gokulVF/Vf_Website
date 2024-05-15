@@ -141,11 +141,15 @@ class Destination(models.Model):
     canonical = models.CharField(max_length=255)
     destination_title = models.CharField(max_length=255)
     destination_title_slug = models.CharField(max_length=255)
-
+    
     Tab_image = models.CharField(max_length=255)
     mobile_image = models.CharField(max_length=255)
     updated_name = models.CharField(max_length=255)
     created_name = models.CharField(max_length=255)
+    # destination_cost = models.CharField(max_length=255)
+    # destination_duration = models.CharField(max_length=255)
+    # destination_season = models.CharField(max_length=255)
+    # destination_live_guide = models.CharField(max_length=255)
     # destination_max_group = models.CharField(max_length=255)
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
@@ -234,6 +238,8 @@ class CategoriesDestination(models.Model):
     update_date = models.DateField()
     create_date = models.DateField()
     all_description = models.JSONField()
+    updated_name = models.CharField(max_length=100, blank=True, null=True)
+    created_name = models.CharField(max_length=100, blank=True, null=True)
 
 
     class Meta:
@@ -403,6 +409,7 @@ class UploadFlight(models.Model):
     editername = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.DateField(blank=True, null=True)
     updated_by = models.DateField(blank=True, null=True)
+    flight_name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -435,9 +442,7 @@ class UploadUserdetails(models.Model):
     class Meta:
         managed = False
         db_table = 'uploaduserdetails'
-
-
-
+        
 class Blog(models.Model):
     hidden = models.BooleanField(default=False)
     popular = models.BooleanField(default=True)
@@ -448,6 +453,7 @@ class Blog(models.Model):
     updated_name = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.DateField(blank=True, null=True)
     updated_by = models.DateField(blank=True, null=True)
+    canonical = models.CharField(max_length=500, blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'blog'
@@ -464,3 +470,4 @@ class BlogDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'blog_details'
+

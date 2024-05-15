@@ -73,10 +73,36 @@
 
    <!--Css-->
     <style>
+    
+        .rev_para {
+            height: 100px;
+            overflow-y: hidden;
+        }
+
+        .review_text {
+            height: 250px;
+        }
+        
         #breadcrumb-main-img  {
             background-image: url("{% static description.Desktopimage_url %}");
             height: 500px;
         }
+        
+        /* Tablet view */
+@media (max-width: 768px) {
+    #breadcrumb-main-img {
+        background-image: url("{% static description.Tabimage_url %}");
+    }
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+    #breadcrumb-main-img {
+        background-image: url("{% static description.Mobileimage_url %}");
+    }
+}
+        /* tab url  {% static description.Tabimage_url %} */
+        /* Mobile url  {% static description.Mobileimage_url %} */
        #section-shape-img  {
             background-image: url("{% static 'image/images/shape8.png' %}");
         }
@@ -193,8 +219,8 @@
     <h1 style="display:none">About the team</h1>
     
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14" id="breadcrumb-main-img">
-        <div class="section-shape  section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+    <section class="breadcrumb-main pb-20 pt-14" id="breadcrumb-main-img" style="background-attachment:local !important;">
+        <!--<div class="section-shape  section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -539,7 +565,7 @@
                         <img src="{% static description.review_image_url %}" alt="">
                     </div>
                 </div>
-                <div class="col-lg-7 ">
+                <div class="col-lg-7 review_text">
                     <div class="row review-slider">
                         {% for review in user_reviews %}
                             <div class="col-sm-4 item">
@@ -559,7 +585,7 @@
                                     </div>
                                     <div class="details">
                                         <!-- <p class="m-0"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p> -->
-                                        <p class="m-0"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p>
+                                        <p class="m-0 rev_para"><i class="fa fa-quote-left me-2 fs-1"></i>{{ review.Client_content }}</p>
                                         <a href="{{review.reviewlink}}" onclick="toggleReadMore(this)" id="myBtn" target="_blank">Read more...</a>
                                     </div>
                                 </div>

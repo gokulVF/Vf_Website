@@ -68,6 +68,24 @@
             background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.banner_image }}");
             background-size:cover;
         }
+        
+         /* Tablet view */
+@media (max-width: 768px) {
+    .new_pic {
+            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.tab_image }}");
+            background-size:cover;
+        }
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+    .new_pic {
+            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.Mobile_image }}");
+            background-size:cover;
+        }
+}
+        /* tab url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.tab_image }}") */
+        /* Mobile url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.Mobile_image }}") */
     </style>
     <!--Css-->
     
@@ -89,6 +107,7 @@
     <!-- header ends -->
         <h1 style="display:none">Leading travel agency in Chennai</h1>
 
+   
     <!-- banner starts -->
     <section class="banner pt-3 pb-2 overflow-hidden new_pic">
         <div class="container">
@@ -97,14 +116,14 @@
                    
                     <div class="mb-0" style="margin-top:300px;">
                         <div class="category-main-inner">
-                            <div class="row side-slider mx-2">
+                            <div class="row  mx-auto justify-content-center">
                                      {% for views in all_categories %}
                                         {% if views.categoriesname != "Not selected" %}
                                 <div class="col-lg-3 col-md-6 mt-4 mb-0 cat_div">
                                     <div class="category-item box-shadow py-1 text-center bg-white rounded overflow-hidden cat_divs">
                                         <div class="trending-topic-content">
                                             <img src="{% static 'image/homepageslider_image/' %}{{views.categoriesimage}}" class="mb-1 d-inline-block" alt="">
-                                            <h4 class="mb-0"><a href="{% url 'travel-category'  views.categeory_slug  %}">{{views.categoriesname}}</a></h4>
+                                            <h4 class="mb-0 cat_name"><a href="{% url 'travel-category'  views.categeory_slug  %}">{{views.categoriesname}}</a></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +151,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-5 mb-4">
                     <div class="trend-item1">
-                        <a href="{% url 'international-tour-packages' international_page_top.description.destination_1Continent %}" >
+                        <a href="{% url 'tour-packages' international_page_top.description.destination_1Cities %}" >
                         <div class="trend-image position-relative rounded">
                             <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_1image }}" alt="image">
                             <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
@@ -153,7 +172,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'international-tour-packages' international_page_top.description.destination_2Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' international_page_top.description.destination_2Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_2image }}" alt="image">
                                     <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
@@ -182,7 +201,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'international-tour-packages' international_page_top.description.destination_3Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' international_page_top.description.destination_3Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_3image }}" alt="image">
                                     <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
@@ -211,7 +230,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'international-tour-packages' international_page_top.description.destination_4Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' international_page_top.description.destination_4Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_4image }}" alt="image">
                                     <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100">-->
@@ -240,7 +259,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'international-tour-packages' international_page_top.description.destination_5Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' international_page_top.description.destination_5Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ international_page_top.description.destination_5image }}" alt="image">
                                     <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
@@ -289,18 +308,18 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'domestic-packages' domestict_page_top.description.destination_1Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' domestict_page_top.description.destination_1Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ domestict_page_top.description.destination_1image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_1Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_1Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{domestict_page_top.description.destination_1Cities}}</h3>
-                                        </div>
-                                        <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_1Price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_1Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_1Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{domestict_page_top.description.destination_1Cities}}</h3>-->
+                                    <!--    </div>-->
+                                    <!--    <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_1Price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
                                 </a>
@@ -308,18 +327,18 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'domestic-packages' domestict_page_top.description.destination_2Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' domestict_page_top.description.destination_2Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ domestict_page_top.description.destination_2image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_2Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_2Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{domestict_page_top.description.destination_2Cities}}</h3>
-                                        </div>
-                                          <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_2price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_2Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_2Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{domestict_page_top.description.destination_2Cities}}</h3>-->
+                                    <!--    </div>-->
+                                    <!--      <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_2price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
                                 </a>        
@@ -327,18 +346,18 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'domestic-packages' domestict_page_top.description.destination_3Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' domestict_page_top.description.destination_3Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ domestict_page_top.description.destination_3image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_3Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_3Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{domestict_page_top.description.destination_3Cities}}</h3>
-                                        </div>
-                                        <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_3price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_3Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_3Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{domestict_page_top.description.destination_3Cities}}</h3>-->
+                                    <!--    </div>-->
+                                    <!--    <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_3price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
                             </a>
@@ -346,18 +365,18 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
                             <div class="trend-item1">
-                                <a href="{% url 'domestic-packages' domestict_page_top.description.destination_4Continent %}" class="theme1">
+                                <a href="{% url 'tour-packages' domestict_page_top.description.destination_4Cities %}" class="theme1">
                                 <div class="trend-image position-relative rounded">
                                     <img src="{% static 'image/home_2/topDestinations/' %}{{ domestict_page_top.description.destination_4image }}" alt="image">
-                                    <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                        <div class="trend-content-title text-end">
-                                            <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_4Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_4Name}}</a></h5>
-                                            <h3 class="mb-0 white">{{domestict_page_top.description.destination_4Cities}}</h3>
-                                        </div>
-                                            <div class="pt-4 ps-4 position-absolute z-index1">
-                                        <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_4price}}</span>
-                                    </div>
-                                    </div>
+                                    <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                                    <!--    <div class="trend-content-title text-end">-->
+                                    <!--        <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_4Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_4Name}}</a></h5>-->
+                                    <!--        <h3 class="mb-0 white">{{domestict_page_top.description.destination_4Cities}}</h3>-->
+                                    <!--    </div>-->
+                                    <!--        <div class="pt-4 ps-4 position-absolute z-index1">-->
+                                    <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_4price}}</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                     <!-- <div class="color-overlay"></div> -->
                                 </div>
                             </a>
@@ -367,19 +386,19 @@
                 </div>
                 <div class="col-lg-5 mb-4">
                     <div class="trend-item1">
-                        <a href="{% url 'domestic-packages' domestict_page_top.description.destination_5Continent %}" class="theme1">
+                        <a href="{% url 'tour-packages' domestict_page_top.description.destination_5Cities %}" class="theme1">
                         <div class="trend-image position-relative rounded">
                             <img src="{% static 'image/home_2/topDestinations/' %}{{ domestict_page_top.description.destination_5image }}" alt="image">
-                            <div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">
-                                <div class="trend-content-title text-end">
-                                    <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_5Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_5Name}}</a></h5>
-                                    <h3 class="mb-0 white">{{domestict_page_top.description.destination_5Cities}}</h3>
-                                </div>
+                            <!--<div class="trend-content d-flex align-items-center justify-content-between position-absolute bottom-0 p-4 w-100 z-index">-->
+                            <!--    <div class="trend-content-title text-end">-->
+                            <!--        <h5 class="mb-0"><a href="{% url 'domestic-packages' domestict_page_top.description.destination_5Continent %}" class="theme1 theme_new">{{domestict_page_top.description.destination_5Name}}</a></h5>-->
+                            <!--        <h3 class="mb-0 white">{{domestict_page_top.description.destination_5Cities}}</h3>-->
+                            <!--    </div>-->
                                
-                                <div class="pt-4 ps-4 position-absolute z-index1">
-                                <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_5price}}</span>
-                            </div>
-                            </div>
+                            <!--    <div class="pt-4 ps-4 position-absolute z-index1">-->
+                            <!--    <span class="white bg-theme p-1 px-2 rounded fw-bold">{{domestict_page_top.description.destination_5price}}</span>-->
+                            <!--</div>-->
+                            <!--</div>-->
                             <!-- <div class="color-overlay"></div> -->
                         </div>
                     </a>
@@ -430,23 +449,24 @@
                 <div class="row item-slider">
                     {% for packages in packages_top %}
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                        <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
                         <div class="trend-item rounded box-shadow bg-white">
-                            <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
+                            
                             <div class="trend-image position-relative">
                                 <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
                                 <!--<div class="color-overlay"></div>-->
                             </div>
-                            </a>
+                          
                             <div class="trend-content px-3 py-2 position-relative" style="height:225px">
                                 <div class="trend-meta bg-theme white px-2 py-1 rounded">
                                     <div class="entry-author">
                                         <i class="icon-calendar nod_cal"  style="font-size:14px;"></i>
-                                        <span class="fw-bold  ps-1 nod_tour" style="font-size:14px;">{{ packages.description.Noofdays }}</span>
+                                        <span class="fw-bold  ps-1 " style="font-size:14px;">{{ packages.description.Noofdays }}</span>
                                     </div>
                                 </div>
                                 <div style="height:135px">
                                     <h5 class="theme mb-0" style="font-size:16px;"><i class="flaticon-location-pin"></i>  {{ packages.description.place1 }}</h5>
-                                     <h3 class="mb-1 pac_price" style="font-size:22px"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
+                                     <h3 class="mb-1 pac_price" style="font-size:22px" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</h3>
                                      <script>
                                         // Get the place2 element
                                         var placeElement = document.getElementById('tag-link{{ packages.id }}');
@@ -471,6 +491,7 @@
                                 </div>
                             </div>
                         </div>
+                          </a>
                     </div>
                     {% endfor %}
                 </div>
@@ -537,17 +558,18 @@
                         <div class="col-lg-4 mb-4">
                             <div class="trend-full bg-white rounded box-shadow overflow-hidden">
                                 <div class="row m-0">
-                                    <div class="col-lg-6 col-md-6 ps-0 bucon_div">
+                                    <div class="col-lg-6 col-md-6 px-0 bucon_div">
                                        <div class="trend-item2 bucket_div">
                                         <a class="bucket_image" href="{% url 'tour-packages' package.description.Url_in_lead %}" style="background-image: url('{% static package.description.grid_image_url %}');"></a>
                                              <!--<div class="color-overlay"></div>-->
                                         </div> 
                                     </div>
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="trend-content bucket_details py-1 position-relative">
+                                        <a href="{% url 'tour-packages' package.description.Url_in_lead %}" >
+                                            <div class="trend-content bucket_details py-1 position-relative">
                                             <div style="height: 115px;" class="buc_text_div" >
                                                 <h5 class="theme mb-0 b_place1" style="font-size: 16px;"><i class="flaticon-location-pin"></i>{{ package.description.place1 }}</h5>
-                                                <h3 class="mb-1 b_place2" style="font-size: 18px;"><a href="{% url 'tour-packages' package.description.Url_in_lead %}" id="New-link{{ package.id }}">{{ package.description.place2 }}</a></h3>
+                                                <h3 class="mb-1 b_place2" style="font-size: 18px;" id="New-link{{ package.id }}">{{ package.description.place2 }}</h3>
                                                 <script>
                                                     // Get the place2 element
                                                     var placeElement = document.getElementById('New-link{{ package.id }}');
@@ -576,6 +598,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -790,9 +813,10 @@
                                     </div> 
                                 </div>
                                 <div class="col-lg-7 col-md-8">
-                                    <div class="trend-content py-2 position-relative">
+                                    <a href="{% url 'tour-packages' R_P.description.Url_in_lead %}">
+                                        <div class="trend-content py-2 position-relative r_det">
                                         <h5 class="theme mb-1"><i class="flaticon-location-pin"></i>{{ R_P.description.place1 }}</h5>
-                                        <h3 class="mb-1 r_place2"><a href="{% url 'tour-packages' R_P.description.Url_in_lead %}">{{ R_P.description.place2 }}</a></h3>
+                                        <h3 class="mb-1 r_place2">{{ R_P.description.place2 }}</h3>
                                         <p class="r_des">{{ R_P.description.descriptions }}</p>
                                         <div class="trend-meta border-b mb-2">
                                             <div class="entry-author theme r_days">
@@ -806,6 +830,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
