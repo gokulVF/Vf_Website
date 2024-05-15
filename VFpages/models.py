@@ -116,6 +116,8 @@ class Packages(models.Model):
     destination_category = models.CharField(max_length=200, blank=True, null=True)
     itinaries_id = models.IntegerField()
     category_button = models.BooleanField(default=True)
+    created_date = models.DateField(blank=True, null=True)
+    updated_date = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -139,6 +141,11 @@ class Destination(models.Model):
     canonical = models.CharField(max_length=255)
     destination_title = models.CharField(max_length=255)
     destination_title_slug = models.CharField(max_length=255)
+    
+    Tab_image = models.CharField(max_length=255)
+    mobile_image = models.CharField(max_length=255)
+    updated_name = models.CharField(max_length=255)
+    created_name = models.CharField(max_length=255)
     # destination_cost = models.CharField(max_length=255)
     # destination_duration = models.CharField(max_length=255)
     # destination_season = models.CharField(max_length=255)
@@ -231,6 +238,8 @@ class CategoriesDestination(models.Model):
     update_date = models.DateField()
     create_date = models.DateField()
     all_description = models.JSONField()
+    updated_name = models.CharField(max_length=100, blank=True, null=True)
+    created_name = models.CharField(max_length=100, blank=True, null=True)
 
 
     class Meta:
@@ -400,6 +409,7 @@ class UploadFlight(models.Model):
     editername = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.DateField(blank=True, null=True)
     updated_by = models.DateField(blank=True, null=True)
+    flight_name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -432,4 +442,32 @@ class UploadUserdetails(models.Model):
     class Meta:
         managed = False
         db_table = 'uploaduserdetails'
+        
+class Blog(models.Model):
+    hidden = models.BooleanField(default=False)
+    popular = models.BooleanField(default=True)
+    description = models.JSONField(db_column='Description', blank=True, null=True)  # Field name made lowercase.
+    tags = models.CharField(max_length=250, blank=True, null=True)
+    url = models.CharField(db_column='URL', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    created_name = models.CharField(max_length=100, blank=True, null=True)
+    updated_name = models.CharField(max_length=100, blank=True, null=True)
+    created_by = models.DateField(blank=True, null=True)
+    updated_by = models.DateField(blank=True, null=True)
+    canonical = models.CharField(max_length=500, blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'blog'
+
+class BlogDetails(models.Model): 
+    blog_id = models.IntegerField(blank=True, null=True)
+    blog_description = models.TextField(blank=True, null=True)
+    image_path = models.CharField(max_length=250, blank=True, null=True)
+    title = models.CharField(max_length=200, blank=True, null=True)  # Field name made lowercase.
+    created_name = models.CharField(max_length=100, blank=True, null=True)
+    updated_name = models.CharField(max_length=100, blank=True, null=True)
+    created_by = models.DateField(blank=True, null=True)
+    updated_by = models.DateField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'blog_details'
 

@@ -76,10 +76,12 @@
         #bc_image {
             background-image: url("{{ packages_entry.description.cover_image_url}}") !important;
         }
+        /* tab url("{{ packages_entry.description.cover_image_url1}}") */
+        /* mobile url("{{ packages_entry.description.cover_image_url2}}") */
     </style>
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14" id="bc_image">
-        <div class="section-shape section-shape1 top-inherit bottom-0"></div>
+    <section class="breadcrumb-main pb-20 pt-14" id="bc_image" style="background-attachment:local !important;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->

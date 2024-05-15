@@ -96,7 +96,7 @@
                         <th >Attractions</th>
                         <!-- <th>highlights image</th> -->
                         <!-- <th>INclude image</th> -->
-                        <th>Created date</th>
+                        <!--<th>Created date</th>-->
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -107,7 +107,7 @@
                         <td>{{Attraction.tour_spot_name}}</td>
                         <!-- <td><img src="{% static 'destination/Attraction_image/' %}{{Attraction.highlights_image}}"></td> -->
                         <!-- <td><img src="{% static 'destination/Attraction_image/' %}{{Attraction.includes_image}}"></td> -->
-                        <td>{{Attraction.created_at}}</td>
+                        <!--<td>{{Attraction.created_at}}</td>-->
                         <td class="text-center">
                           <ul class="d-flex list-unstyled mb-0">
                             <li class="me-2"><a href="{% url 'edit_attraction_page' %}?Cities={{Attraction.id}}" ><i class="link-icon"  data-feather="edit"></i></a></li>

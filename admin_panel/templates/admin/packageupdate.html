@@ -56,8 +56,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}" >Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#">Packages</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Update Packages</li>
+						<li class="breadcrumb-item"><a href="#" >Packages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Edit Packages</li>
 					</ol>
           <a href="{% url 'packagesadmin' %}" class="btn btn-primary"><i class="link-icon" data-feather="arrow-left"></i> Back To List</a>
 				</nav>
@@ -69,14 +69,25 @@
                       <form class="row forms-sample">
                         <input type="hidden" value="{{ blog_entry_id }}" name="id" id="id">
                             <div class="col-lg-6 mb-3">
-                              <label for="uploadGrid" class="form-label">Grid Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 800 x 534</span></label>
-                              <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="30">
+                              <label for="uploadGrid" class="form-label">Grid Images<span class="bg-grey px-1 mx-2 py-1 rounded">Size 800 x 534</span></label>
+                              <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="40">
                               <input class="form-control" type="file" id="uploadGrid"  onchange="previewImage(this, 'gridImagePreview')">
                             </div>
+                            
                             <div class="col-lg-6 mb-3">
-                                <label for="uploadCover" class="form-label">Cover Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
-                                <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="30">
+                                <label for="uploadCover" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
+                                <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="40">
                                 <input class="form-control" type="file" id="uploadCover" onchange="previewImage(this, 'coverImagePreview')">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Tab Banner Image</label>
+                                <img src="{% static description.cover_image_url1 %}" id="TabImagePreview" width="100" height="40">
+                                <input class="form-control" type="file" id="TabCover" onchange="previewImage(this, 'TabImagePreview')">
+                              </div>
+                              <div class="col-lg-6 mb-3">
+                                <label for="uploadCover" class="form-label">Mobile Banner Image</label>
+                                <img src="{% static description.cover_image_url2 %}" id="MobileImagePreview" width="100" height="40">
+                                <input class="form-control" type="file" id="MobileCover" onchange="previewImage(this, 'MobileImagePreview')">
                               </div>
                               <script>
                                 function previewImage(input, imageId) {
@@ -205,15 +216,15 @@
                             });
                         </script>
                            
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                               <label for="description" class="form-label">Description</label>
                               <textarea class="form-control" name="tinymce" id="description" rows="2">{{ description.descriptions }}</textarea>
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="metaTitle" class="form-label">Meta Title</label>
+                            <div class="col-lg-4 mb-3">
+                                <label for="metaTitle" class="form-label">Meta title</label>
                                 <textarea class="form-control" name="tinymce" id="metaTitle" rows="2">{{ description.meta_title }}</textarea>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
                                 <textarea class="form-control" name="tinymce" id="metaDescription" rows="2">{{ description.meta_description }}</textarea>
                             </div>
@@ -222,7 +233,7 @@
                                 <textarea class="form-control" name="tinymce" id="metaKeywords" rows="2">{{ description.meta_keywords }}</textarea>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="metaKeywords" class="form-label">Canonical Tag</label>
+                                <label for="metaKeywords" class="form-label">Canonical tag</label>
                                 <textarea class="form-control" name="canonical" id="canonical" rows="2">{{ description.canonical }}</textarea>
                             </div>
                             <h4 class="mb-3">Highlights</h4>
@@ -275,11 +286,11 @@
                                 }
                             </script>
                           <div class="mb-3 col-lg-4">
-                            <label for="TeamNamemodify" class="form-label">Url in Package page</label>
+                            <label for="TeamNamemodify" class="form-label">Url in pakage page</label>
                             <input type="text" class="form-control" id="up-Urlinpakage" value="{{ description.Url_in_lead }}"  required name="Urlinpakage"  autocomplete="off">
                         </div>
                         <div class="mb-3 col-lg-4">
-                          <label for="TeamNamemodify" class="form-label">Package Heading</label>
+                          <label for="TeamNamemodify" class="form-label">pakage Heading</label>
                           <input type="text" class="form-control" id="up-pakageHeading" value="{{ description.leadpakageHeading }}"  required name="pakageHeading"  autocomplete="off">
                       </div>
                       
@@ -343,6 +354,8 @@
                                     // Get file objects
                                     var id = $('#id').val();
                                     var coverImageFile = document.getElementById('uploadCover').files[0];
+                                    var TabCover = document.getElementById('TabCover').files[0];
+                                    var MobileCover = document.getElementById('MobileCover').files[0];
                                     var gridImageFile = document.getElementById('uploadGrid').files[0];
                                     // var richtextarea = tinymce.get("myTextarea").getContent();
                                     // Get other input values
@@ -379,6 +392,8 @@
                                     var formData = new FormData();
                                     formData.append('id', id);
                                     formData.append('Cover_Image', coverImageFile);
+                                    formData.append('TabCover', TabCover);
+                                    formData.append('MobileCover', MobileCover);
                                     formData.append('Grid_Image', gridImageFile);
                                     formData.append('Noofdays', Noofdays);
                                     // formData.append('rating', rating);
@@ -419,13 +434,13 @@
                                         headers: {
                                             'X-CSRFToken': csrftoken // Include CSRF token in headers
                                         },
-                                        url: '/addpackages/', // Replace with your backend URL
+                                        url: '/addpackages', // Replace with your backend URL
                                         data: formData,
                                         processData: false,
                                         contentType: false,
                                         success: function(response) {
                                             // Handle success response
-                                            window.location.href = '/packagesadmin/';
+                                            window.location.href = '/packagesadmin';
                                         },
                                         error: function(xhr, status, error) {
                                             // Handle error
@@ -629,18 +644,19 @@
 <script src="{% static 'assets/js/main.js' %}"></script>
   <!-- End custom js for this page -->
 
-  <style>
+ <!-- Css -->
+   <style>
     .theme {
       color: #029e9d !important;
     }
-  
+
     .black {
       color: black !important;
     }
     .bg-grey{ 
       background: #f1f1f1  !important;
     }
-  </style>
-  <!-- Css -->
+    </style>
+    <!-- Css -->
 </body>
 </html>    

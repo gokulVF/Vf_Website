@@ -214,7 +214,7 @@
     .des_main_div {
         flex-direction:column !important;
     }
-
+    
     .div_show{ 
         display: block !important;
         background: white;
@@ -227,21 +227,20 @@
 
     .des_nav_div {
         position: sticky;
-        top: 10px;
+        top: 5px;
     }
     
     #v-pills-tab {
         display:flex;
         flex-direction:row !important;
         margin:0px !important;
-        /* justify-content: center; */
+        /*justify-content:center;*/
     }
     
-    .des_nav_div {
+   .des_nav_div {
         justify-content: center !important;
         flex-direction: column;
     }
-
     
     .des_titles {
         font-size:20px !important;
@@ -249,15 +248,11 @@
     }
     
     .des_btn4 {
-        margin: 0px !important;
+        margin: 0 .3em !important;
         padding: 1px 4px !important;
         width: auto !important;
         font-size: 12px;
-        padding: 0px !important;
-        padding-bottom: 0px !important;
-        padding-top: 0px !important;
-        background: none !important;
-        border: 1px solid #c3c0c0 !important;
+        
     }
     
     .mbl-head {
@@ -272,7 +267,7 @@
         font-size: 11px !important;
     }
     
-    .service-nav .nav-link {
+      .service-nav .nav-link {
         margin: 2px;
         font-size: 11px;
     }
@@ -288,17 +283,21 @@
     .section-shape {
         display:none !important;
     }
-
+    
     .des_btn_mbl {
         margin:3px !important;
         padding: 0 2px !important;
+        border:1px solid #c3c0c0 !important;
     }
-
 }
 
 @media (max-width: 768px) {
     .des_div {
         flex-direction: column;
+    }
+
+    .des_nav_div div {
+       flex-direction: row;
     }
 
     .package-list-div {
@@ -318,7 +317,6 @@
         flex-direction: row !important;
     }
 
-    
    
 }
 

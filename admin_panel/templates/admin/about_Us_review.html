@@ -94,7 +94,7 @@
                 <thead class="text-center">
                     <tr >
                     <th>ID</th>
-                    <th>Changed date</th>
+                    <!--<th>Changed date</th>-->
                     <th>Image</th>
                     <th>Client Name</th>
                     <th>Client star Rating</th>
@@ -110,7 +110,7 @@
                     {% for review in user_reviews_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ review.content.curentdate }}</td>
+                        <!--<td>{{ review.content.curentdate }}</td>-->
                         <td class="w-25">
                             {% if review.content.image_path %}
                             <img src="{% static 'image/client_image/' %}{{ review.content.image_path }}" alt="image">

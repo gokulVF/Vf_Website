@@ -1,10 +1,9 @@
 from django.shortcuts import render,redirect
 from VFpages.models import UserTable,PagesTable,UserReviews,TeamName,Member,Destination,InternationalCity,InternationalAttraction,HomepageSlider,Category,CategoriesDestination,Lead,ContinentMetas,DestinationMeta
 from VFpages.models import UserTable,PagesTable,UserReviews,TeamName,Member,Destination,InternationalCities,Packages
-from VFpages.models import UserTable,PagesTable,UserReviews,BlogUs,FooterHeader,FooterTitle
+from VFpages.models import UserTable,PagesTable,UserReviews,BlogUs,FooterHeader,FooterTitle,Userdetails
 from django.http import JsonResponse
-from VFpages.models import UserTable
-from VFpages.models import PagesTable
+from VFpages.models import Blog,BlogDetails
 from django.http import JsonResponse
 import shutil
 from django.contrib.auth import logout
@@ -64,7 +63,7 @@ def  about_us_update(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee' and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     about_page = PagesTable.objects.filter(pagesname='about_us').first()
@@ -77,10 +76,10 @@ def about_us_new(request):
         # Redirect to login page if session data is not found
         return redirect('login')
 
-    # Check if the user has theus appropriate role to access this page
+    # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     about_page = PagesTable.objects.filter(pagesname='about_us').first()
@@ -116,6 +115,23 @@ def about_us_new(request):
                     destination.write(chunk)
             about_us_details['image_file_url'] = os.path.join('/image/about_us_image', img_path)
             about_us_details['image_file_path'] = img_path
+
+            
+
+        if 'image-file-2' in request.FILES:
+            old_image_path2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['review_image_path'])
+            if os.path.exists(old_image_path2):
+                os.remove(old_image_path2)
+
+            new_image2 = request.FILES['image-file-2']
+            img_path2 = new_image2.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image', img_path2)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image2.chunks():
+                    destination.write(chunk)
+            about_us_details['review_image_url'] = os.path.join('/image/about_us_image', img_path2)
+            about_us_details['review_image_path'] = img_path2
+            
         if 'Desktopimage-file' in request.FILES:
             old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['Desktopimage_path'])
             if os.path.exists(old_image_path):
@@ -158,22 +174,6 @@ def about_us_new(request):
             about_us_details['Mobileimage_path'] = img_path
 
 
-            
-
-        if 'image-file-2' in request.FILES:
-            old_image_path2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image/', about_us_details['review_image_path'])
-            if os.path.exists(old_image_path2):
-                os.remove(old_image_path2)
-
-            new_image2 = request.FILES['image-file-2']
-            img_path2 = new_image2.name
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/about_us_image', img_path2)
-            with open(image_path, 'wb') as destination:
-                for chunk in new_image2.chunks():
-                    destination.write(chunk)
-            about_us_details['review_image_url'] = os.path.join('/image/about_us_image', img_path2)
-            about_us_details['review_image_path'] = img_path2
-
           
 
         about_page.save()
@@ -190,7 +190,7 @@ def client_review_insert(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     if request.method == 'POST':
@@ -238,7 +238,7 @@ def client_review_update(request,id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
         
@@ -284,7 +284,7 @@ def about_us_review(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     user_reviews_list = UserReviews.objects.all()
@@ -310,9 +310,12 @@ def delete_review(request, id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('about_us_review')
+        
     review = UserReviews.objects.get(id=id)
     print("path verification",review.content.get('image_path'))
     if review.content.get('image_path'):
@@ -334,7 +337,7 @@ def add_team(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee'and role != 'data':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     if request.method == 'POST':
@@ -354,7 +357,7 @@ def add_view(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     teams = TeamName.objects.all()
@@ -369,7 +372,7 @@ def edit_team(request, team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     team = TeamName.objects.get(id=team_id)
@@ -392,7 +395,7 @@ def aboutUsTeam(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     teams = TeamName.objects.all()
@@ -407,7 +410,7 @@ def aboutUsmemeber(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     if request.method == 'POST':
@@ -456,7 +459,7 @@ def aboutUsStaff(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     teams = Member.objects.all()
@@ -479,7 +482,7 @@ def updateMember(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     member = Member.objects.get(id=team_id)
@@ -516,9 +519,11 @@ def delete_Member(request, team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('aboutUsStaff')
     review = Member.objects.get(id=team_id)
     print("path verification",review.description.get('image_path'))
     if review.description.get('image_path'):
@@ -540,7 +545,7 @@ def destination(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     all_destinations = Destination.objects.all()
@@ -604,7 +609,8 @@ def des_insertfn(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    username = request.session.get('username')
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     if request.method == 'POST':
@@ -633,6 +639,20 @@ def des_insertfn(request):
                 for chunk in Images.chunks():
                     destination.write(chunk)
             # imageurl = os.path.join('/static/image/destination_image', Images.name)
+        if 'Tab_Images' in request.FILES:
+            Images = request.FILES['Tab_Images']
+            img_path2 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', img_path2)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
+        if 'Mobile_Images' in request.FILES:
+            Images = request.FILES['Mobile_Images']
+            img_path3 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', img_path3)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
 
        
         new_destination = Destination(
@@ -647,6 +667,10 @@ def des_insertfn(request):
             metadestination=destination_Metadescription,
             metakeyword=destination_Metakeyword,
             canonical=canonical,
+            Tab_image=img_path2,
+            mobile_image=img_path3,
+            updated_name=username,
+            created_name=username,
             # destination_duration=destination_duration,
             # destination_season=destination_season,
             # destination_live_guide=destination_live_guide,
@@ -671,9 +695,10 @@ def destination_edit(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    username = request.session.get('username')
     destination = Destination.objects.get(id=team_id)
     if request.method == 'POST':
        
@@ -696,6 +721,40 @@ def destination_edit(request,team_id):
                     destination_file.write(chunk)
             # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
             destination.destination_image = up_img
+        if 'up-Tab_Images' in request.FILES:
+            if destination.Tab_image :
+                old_image = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/',destination.Tab_image.split("/")[-1])
+                print(" old image name",old_image)
+
+                if os.path.exists(old_image):
+                    os.remove(old_image)
+
+            new_image = request.FILES['up-Tab_Images']
+            up_img = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', up_img)
+            print('new image',image_path)
+            with open(image_path, 'wb') as destination_file:
+                for chunk in new_image.chunks():
+                    destination_file.write(chunk)
+            # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
+            destination.Tab_image = up_img
+        if 'up-Mobile_Images' in request.FILES:
+            if destination.mobile_image :
+                old_image = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/',destination.mobile_image.split("/")[-1])
+                print(" old image name",old_image)
+
+                if os.path.exists(old_image):
+                    os.remove(old_image)
+
+            new_image = request.FILES['up-Mobile_Images']
+            up_img = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image', up_img)
+            print('new image',image_path)
+            with open(image_path, 'wb') as destination_file:
+                for chunk in new_image.chunks():
+                    destination_file.write(chunk)
+            # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
+            destination.mobile_image = up_img
 
         # Update the destination object with new values
         destination.category = request.POST.get('up-in-dom')
@@ -710,11 +769,13 @@ def destination_edit(request,team_id):
         destination.metakeyword = request.POST.get('up-Metakeyword')
         # destination.destination_image = up_img
         destination.canonical = request.POST.get('canonical')
+        
         # destination.destination_duration = request.POST.get('up-Duraion')
         # destination.destination_season = request.POST.get('up-Season')
         # destination.destination_live_guide = request.POST.get('up-LiveGuide')
         # destination.destination_max_group = request.POST.get('up-MaxGroup')
         destination.updated_at = update_time
+        destination.updated_name = username
         # destination.show_text = request.POST.get('up-on-of')
 
         destination.save()
@@ -732,13 +793,23 @@ def destination_delete(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('destination')
     destinations = Destination.objects.get(id=team_id)
     
     if destinations.destination_image:
         image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.destination_image.split("/")[-1])
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if destinations.Tab_image:
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.Tab_image.split("/")[-1])
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if destinations.mobile_image:
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.mobile_image.split("/")[-1])
         if os.path.exists(image_path):
             os.remove(image_path)
     destinations.delete()
@@ -754,7 +825,7 @@ def destination_cities(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Destnation = Destination.objects.all()
@@ -819,7 +890,7 @@ def add_destination_city(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     if request.method == 'POST':
@@ -849,7 +920,7 @@ def edit_destination_city(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Sepcific_city = InternationalCity.objects.get(id = team_id)
@@ -875,9 +946,11 @@ def delete_destination_city(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('destination_cities')
     del_city = InternationalCity.objects.get(id=team_id)
     del_city.delete()
     return redirect('destination_cities')
@@ -892,7 +965,7 @@ def destination_attraction(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -945,7 +1018,7 @@ def destination_attraction_insert(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Cities = InternationalCity.objects.all()
@@ -973,7 +1046,7 @@ def desti_add_deatils (request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -1031,7 +1104,7 @@ def  edit_attraction_page(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -1072,7 +1145,7 @@ def attraction_edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -1138,9 +1211,11 @@ def delete_attraction(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('destination_attraction')
 
     destinations = InternationalAttraction.objects.get(id=team_id)
     
@@ -1186,7 +1261,7 @@ def contact_us_admin(request):
 
     # Check if the user has the appropriate role to access this page (optional)
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -1220,7 +1295,7 @@ def submit_form_contact(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     username = request.session.get('username')
@@ -1233,9 +1308,9 @@ def submit_form_contact(request):
         contact_us_details['meta_description'] = request.POST.get('description')
         contact_us_details['meta_keyword'] = request.POST.get('keyword')
        
-        contact_us.created_by = update_time
+        # contact_us.created_by = update_time
         contact_us.updated_by = update_time
-        contact_us.created_name = username
+        # contact_us.created_name = username
         contact_us.updated_name = username
 
         if 'Desktopimage' in request.FILES:
@@ -1303,26 +1378,26 @@ def blog_us_admin(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     userdetails = adminheader(request)
     search_query = request.GET.get('search_query')
     countpopular = request.GET.get('count')
-    blog_entries = BlogUs.objects.all().order_by('-id')
+    blog_entries = Blog.objects.all().order_by('-id')
     tags = Tags.objects.all()
 
 
     blog_us_page = PagesTable.objects.filter(pagesname='blog_us').first()
-    count_false_popular = BlogUs.objects.filter(popular=False).count()
+    count_false_popular = Blog.objects.filter(popular=False).count()
     datedata = blog_us_page.description
     created_by = blog_us_page.created_by
     updated_by = blog_us_page.updated_by
-    all_blog_us_instances = BlogUs.objects.all()
+    all_blog_us_instances = Blog.objects.all()
 
     # Iterate over each instance and access its hidden attribute
-    hidden = BlogUs.hidden
-    popular = BlogUs.popular
+    hidden = Blog.hidden
+    popular = Blog.popular
 
     # Now hidden_values contains the values of the hidden field for all instances
     print(hidden)
@@ -1335,8 +1410,8 @@ def blog_us_admin(request):
     paginator = Paginator(blog_entries, 5)  # Show 5 blog entries per page
     
     if countpopular:
-        blog_entries = BlogUs.objects.filter(popular=False)
-        count_false_popular = BlogUs.objects.filter(popular=False).count()
+        blog_entries = Blog.objects.filter(popular=False)
+        count_false_popular = Blog.objects.filter(popular=False).count()
         paginator = Paginator(blog_entries, count_false_popular)
 
     page = request.GET.get('page')
@@ -1359,7 +1434,7 @@ def addblogs(request):
     if not username or not role:
         return redirect('login')
 
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     blog_entry_id = None
@@ -1369,7 +1444,7 @@ def addblogs(request):
         blog_entry_id = request.POST.get('id','')
         try:
             # Get the BlogUs instance with the provided ID
-            blog_entry = BlogUs.objects.get(id=blog_entry_id)
+            blog_entry = Blog.objects.get(id=blog_entry_id)
             description = blog_entry.description
             existing_url = blog_entry.url
             existing_created_by = blog_entry.created_by
@@ -1379,24 +1454,28 @@ def addblogs(request):
                 # Retrieve existing values
                 existing_tags = description.get('tags', '')
                 existing_banner_image_url = description.get('banner_image_url', None)
+                existing_MobileBanner_Image_url = description.get('MobileBanner_Image_url', None)
+                existing_TabBanner_Image_url = description.get('TabBanner_Image_url', None)
                 existing_grid_image_url = description.get('grid_image_url', None)
                 existing_cover_image_url = description.get('cover_image_url', None)
                 existing_banner_image_path = description.get('banner_image_path', None)
+                existing_TabBanner_Image_path = description.get('TabBanner_Image_path', None)
+                existing_MobileBanner_Image_path = description.get('MobileBanner_Image_path', None)
                 existing_grid_image_path = description.get('grid_image_path', None)
                 existing_cover_image_path = description.get('cover_image_path', None)
                 # existing_tagsid = request.description('tagsid',None)
                 existing_banner_image = description.get('banner_image', None)
+                existing_TabBanner_Image = description.get('TabBanner_Image', None)
+                existing_MobileBanner_Image = description.get('MobileBanner_Image', None)
                 existing_cover_image = description.get('cover_image', None)
                 existing_grid_image = description.get('grid_image', None)
-                created_by = description.get('created_by', None)
-                created_on = description.get('created_on', None)
-                updated_on = description.get('updated_on', None)
-                updated_by = description.get('updated_by', None)
+                
                 hint = request.POST.get('hint')
                 category = request.POST.get('category')
                 new_tags = request.POST.get('tags')
                 author = request.POST.get('author')
                 new_url = request.POST.get('url')
+                Canonical = request.POST.get('Canonical')
                 title = request.POST.get('title')
                 descriptions = request.POST.get('description')
                 content = request.POST.get('content')
@@ -1404,8 +1483,20 @@ def addblogs(request):
                 meta_title = request.POST.get('metaTitle')
                 meta_description = request.POST.get('metaDescription')
                 meta_keywords = request.POST.get('metaKeywords')
-                richtextarea = request.POST.get('richtextarea')
+
+                richtextarea1 = request.POST.get('richtextarea1')
+                richtextarea2 = request.POST.get('richtextarea2')
+                richtextarea3 = request.POST.get('richtextarea3')
+                richtextarea4 = request.POST.get('richtextarea4')
+                richtextarea5 = request.POST.get('richtextarea5')
+                richtextarea6 = request.POST.get('richtextarea6')
+                richtextarea7 = request.POST.get('richtextarea7')
+                richtextarea8 = request.POST.get('richtextarea8')
+                richtextarea9 = request.POST.get('richtextarea9')
+                richtextarea10 = request.POST.get('richtextarea10')
+                
                 tagsid = request.POST.get('tagsid')
+                date = datetime.now().strftime('%Y-%m-%d')
                 description = {
                     "hint": hint,
                     "category": category,
@@ -1418,36 +1509,28 @@ def addblogs(request):
                     "meta_title": meta_title,
                     "meta_description": meta_description,
                     "meta_keywords": meta_keywords,
-                    "richtextarea": richtextarea,
-                    "created_by":created_by,
+
                     "banner_image_url": existing_banner_image_url,
                     "banner_image_path": existing_banner_image_path,
                     "banner_image":existing_banner_image,
+
+                    "MobileBanner_Image_url": existing_MobileBanner_Image_url,
+                    "MobileBanner_Image_path": existing_MobileBanner_Image_path,
+                    "MobileBanner_Image":existing_MobileBanner_Image,
+
+                    "TabBanner_Image_url": existing_TabBanner_Image_url,
+                    "TabBanner_Image_path": existing_TabBanner_Image_path,
+                    "TabBanner_Image":existing_TabBanner_Image,
+
                     "cover_image_url": existing_cover_image_url,
                     "cover_image_path": existing_cover_image_path,
                     "cover_image":existing_cover_image,
                     "grid_image_url": existing_grid_image_url,
                     "grid_image_path": existing_grid_image_path,
                     "grid_image":existing_grid_image,
-                    "updated_by": updated_by,   # Assuming you have authentication and can access the current user
-                    "updated_on": updated_on,
-                    "created_by": created_by,   # Assuming you have authentication and can access the current user
-                    "created_on": created_on,
                     "tags":existing_tags
                 }
 
-                # Get new values from request
-                # new_tags = request.POST.get('tags', existing_tags)
-                # new_banner_image_url = request.FILES.get('Banner_Image', None)
-                # print(new_banner_image_url.name)
-                # new_grid_image_url = request.FILES.get('Grid_Image', None)
-                # new_cover_image_url = request.FILES.get('Cover_Image', None)
-                # new_author = request.POST.get('author', existing_author)
-                # new_meta_title = request.POST.get('metaTitle', existing_meta_title)
-                # new_meta_description = request.POST.get('metaDescription', existing_meta_description)
-                # new_meta_keywords = request.POST.get('metaKeywords', existing_meta_keywords)
-
-                # Update tags if not empty
                 if new_tags:
                     description['tags'] = new_tags
 
@@ -1457,34 +1540,18 @@ def addblogs(request):
                     blog_entry.url = existing_url
 
 
-                    
-
-                # Delete old images if new ones are uploaded and update image URLs
-                # if new_banner_image_url:
-                #     if existing_banner_image_url:
-                #         # Delete old banner image file
-                        
-                #         os.remove(existing_banner_image_path)
-                #     # Save new banner image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     banner_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(banner_image_folder):
-                #         os.makedirs(banner_image_folder)
-                #     banner_image_path = os.path.join(banner_image_folder, new_banner_image_url.name)
-                #     with open(banner_image_path, 'wb') as destination:
-                #         for chunk in new_banner_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['banner_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_banner_image_url.name)
                 blog_entry_folder = str(blog_entry.id)
-                banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
-                cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
-                grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+                banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+                TabBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+                MobileBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+
+                cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+                grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
 
                 if 'Banner_Image' in request.FILES:
                     blog_entry_folder = str(blog_entry.id)
                     if existing_banner_image:
-                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder,existing_banner_image)
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder,existing_banner_image)
                         if os.path.exists(old_image_path):
                             os.remove(old_image_path)
                     
@@ -1492,19 +1559,57 @@ def addblogs(request):
                         os.makedirs(banner_image_folder)
                     new_image = request.FILES['Banner_Image']
                     img_path = new_image.name
-                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_images', blog_entry_folder, img_path)
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_image', blog_entry_folder, img_path)
                     with open(image_path, 'wb') as destination:
                         for chunk in new_image.chunks():
                             destination.write(chunk)
-                    banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, img_path)
+                    banner_image_url_first = os.path.join('/image/blog_image', blog_entry_folder, img_path)
                     banner_image_url_final = banner_image_url_first.replace("\\", "/")
                     description['banner_image_url'] = banner_image_url_final
                     description['banner_image'] = img_path
+                if 'TabBanner_Image' in request.FILES:
+                    blog_entry_folder = str(blog_entry.id)
+                    if existing_TabBanner_Image:
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder,existing_TabBanner_Image)
+                        if os.path.exists(old_image_path):
+                            os.remove(old_image_path)
+                    
+                    if not os.path.exists(TabBanner_Image_folder):
+                        os.makedirs(TabBanner_Image_folder)
+                    new_image = request.FILES['TabBanner_Image']
+                    img_path = new_image.name
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_image', blog_entry_folder, img_path)
+                    with open(image_path, 'wb') as destination:
+                        for chunk in new_image.chunks():
+                            destination.write(chunk)
+                    banner_image_url_first = os.path.join('/image/blog_image', blog_entry_folder, img_path)
+                    banner_image_url_final = banner_image_url_first.replace("\\", "/")
+                    description['TabBanner_Image_url'] = banner_image_url_final
+                    description['TabBanner_Image'] = img_path
+                if 'MobileBanner_Image' in request.FILES:
+                    blog_entry_folder = str(blog_entry.id)
+                    if existing_MobileBanner_Image :
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder,existing_MobileBanner_Image)
+                        if os.path.exists(old_image_path):
+                            os.remove(old_image_path)
+                    
+                    if not os.path.exists(MobileBanner_Image_folder):
+                        os.makedirs(MobileBanner_Image_folder)
+                    new_image = request.FILES['MobileBanner_Image']
+                    img_path = new_image.name
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_image', blog_entry_folder, img_path)
+                    with open(image_path, 'wb') as destination:
+                        for chunk in new_image.chunks():
+                            destination.write(chunk)
+                    banner_image_url_first = os.path.join('/image/blog_image', blog_entry_folder, img_path)
+                    banner_image_url_final = banner_image_url_first.replace("\\", "/")
+                    description['MobileBanner_Image_url'] = banner_image_url_final
+                    description['MobileBanner_Image'] = img_path
                 
                 if 'Grid_Image' in request.FILES:
                     blog_entry_folder = str(blog_entry.id)
                     if existing_grid_image:
-                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder , existing_grid_image)
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder , existing_grid_image)
                         if os.path.exists(old_image_path):
                             os.remove(old_image_path)
                     
@@ -1512,17 +1617,17 @@ def addblogs(request):
                         os.makedirs(grid_image_folder)
                     new_image = request.FILES['Grid_Image']
                     img_path = new_image.name
-                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_images', blog_entry_folder, img_path)
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_image', blog_entry_folder, img_path)
                     with open(image_path, 'wb') as destination:
                         for chunk in new_image.chunks():
                             destination.write(chunk)
-                    description['grid_image_url'] = os.path.join('/image/blog_images', blog_entry_folder, img_path)
+                    description['grid_image_url'] = os.path.join('/image/blog_image', blog_entry_folder, img_path)
                     description['grid_image'] = img_path
 
                 if 'Cover_Image' in request.FILES:
                     blog_entry_folder = str(blog_entry.id)
                     if existing_cover_image:
-                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder,existing_cover_image)
+                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder,existing_cover_image)
                         if os.path.exists(old_image_path):
                             os.remove(old_image_path)
                             
@@ -1530,62 +1635,288 @@ def addblogs(request):
                         os.makedirs(cover_image_folder)
                     new_image = request.FILES['Cover_Image']
                     img_path = new_image.name
-                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_images', blog_entry_folder, img_path)
+                    image_path = os.path.join(settings.BASE_DIR,'VFpages/static/image/blog_image', blog_entry_folder, img_path)
                     with open(image_path, 'wb') as destination:
                         for chunk in new_image.chunks():
                             destination.write(chunk)
-                    description['cover_image_url'] = os.path.join('/image/blog_images', blog_entry_folder, img_path)
+                    description['cover_image_url'] = os.path.join('/image/blog_image', blog_entry_folder, img_path)
                     description['cover_image'] = img_path
-                # Repeat the same process for grid and cover images
-                # if new_grid_image_url:
-                #     if existing_grid_image_url:
-                #         # Delete old grid image file
-                #         print(existing_grid_image_path)
-                #         os.remove(existing_grid_image_path)
-                #     # Save new grid image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     grid_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(grid_image_folder):
-                #         os.makedirs(grid_image_folder)
-                #     grid_image_path = os.path.join(grid_image_folder, new_grid_image_url.name)
-                #     with open(grid_image_path, 'wb') as destination:
-                #         for chunk in new_grid_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['grid_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_cover_image_url.name)
-                # if new_cover_image_url:
-                #     if existing_cover_image_url:
-                #         # Delete old cover image file
-                #         os.remove(existing_cover_image_path)
-                #     # Save new cover image file
-                #     blog_entry_folder = str(blog_entry.id)
-                #     cover_image_folder = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_images', blog_entry_folder)
-                #     if not os.path.exists(cover_image_folder):
-                #         os.makedirs(cover_image_folder)
-                #     cover_image_path = os.path.join(cover_image_folder, new_cover_image_url.name)
-                #     with open(cover_image_path, 'wb') as destination:
-                #         for chunk in new_cover_image_url.chunks():
-                #             destination.write(chunk)
-                #     # Update banner image URL in description
-                #     description['cover_image_url'] = os.path.join('/static/image/blog_images', blog_entry_folder, new_banner_image_url.name)
 
-                # Update author-related values
+                # ----------------------- blog details -------------
                 
+                blog_details = BlogDetails.objects.filter(blog_id=blog_entry_folder)
+
+                # Check if there are at least two BlogDetails objects with the same blog_id
+                if 10 >=10:
+                    for index, blog_detail in enumerate(blog_details):
+                        if index == 0:  # Update first row
+                            if richtextarea1:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage1' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+    
+                                    if not os.path.exists(banner_image_folder1):
+                                        os.makedirs(banner_image_folder1)
+                                    new_image = request.FILES['blogImage1']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea1
+                                blog_detail.title = request.POST.get('title1')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 1:  # Update second row
+                            if richtextarea2:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage2' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder2):
+                                        os.makedirs(banner_image_folder2)
+                                    new_image = request.FILES['blogImage2']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea2
+                                blog_detail.title = request.POST.get('title2')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 2:  # Update second row
+                            if richtextarea3:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder3 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage3' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder3):
+                                        os.makedirs(banner_image_folder3)
+                                    new_image = request.FILES['blogImage3']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea3
+                                blog_detail.title = request.POST.get('title3')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 3:  # Update second row
+                            if richtextarea4:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder4 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage4' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder4):
+                                        os.makedirs(banner_image_folder4)
+                                    new_image = request.FILES['blogImage4']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea4
+                                blog_detail.title = request.POST.get('title4')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 4:  # Update second row
+                            if richtextarea5:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder5 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage5' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder5):
+                                        os.makedirs(banner_image_folder5)
+                                    new_image = request.FILES['blogImage5']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea5
+                                blog_detail.title = request.POST.get('title5')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 5:  # Update second row
+                            if richtextarea6:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder6 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage6' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder6):
+                                        os.makedirs(banner_image_folder6)
+                                    new_image = request.FILES['blogImage6']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea6
+                                blog_detail.title = request.POST.get('title6')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 6:  # Update second row
+                            if richtextarea7:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder7 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage7' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder7):
+                                        os.makedirs(banner_image_folder7)
+                                    new_image = request.FILES['blogImage7']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea7
+                                blog_detail.title = request.POST.get('title7')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 7:  # Update second row
+                            if richtextarea8:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder8 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage8' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder8):
+                                        os.makedirs(banner_image_folder8)
+                                    new_image = request.FILES['blogImage8']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+
+                                blog_detail.blog_description = richtextarea8
+                                blog_detail.title = request.POST.get('title8')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 8:  # Update second row
+                            if richtextarea9:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder9 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage9' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder9):
+                                        os.makedirs(banner_image_folder9)
+                                    new_image = request.FILES['blogImage9']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+                                    
+                                blog_detail.blog_description = richtextarea9
+                                blog_detail.title = request.POST.get('title9')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                        elif index == 9:  # Update second row
+                            if richtextarea10:
+                                blog_entry_folder = str(blog_entry.id)
+                                banner_image_folder10 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
+                                if 'blogImage10' in request.FILES:
+                                    if blog_detail.image_path:
+                                        old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, blog_detail.image_path)
+                                        if os.path.exists(old_image_path):
+                                            os.remove(old_image_path)
+
+                                    if not os.path.exists(banner_image_folder10):
+                                        os.makedirs(banner_image_folder10)
+                                    new_image = request.FILES['blogImage10']
+                                    img_path = new_image.name
+                                    image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder, img_path)
+                                    with open(image_path, 'wb') as destination:
+                                        for chunk in new_image.chunks():
+                                            destination.write(chunk)
+                                    blog_detail.image_path = img_path
+                                    
+                                blog_detail.blog_description = richtextarea10
+                                blog_detail.title = request.POST.get('title10')
+                                blog_detail.updated_by = date
+                                blog_detail.updated_name = username
+                                blog_detail.save()
+                                
                 # Update 'updated_by' key
                 username = request.session.get('username')
                 current_time = timezone.now().strftime("%d-%m-%Y")
-                description['updated_by'] = f"{username} {current_time}"
+               
 
 
                 # Update BlogUs instance with the modified description
                 # blog_entry.created_by = f"{username} {current_time}"
-                blog_entry.updated_by = f"{username} {current_time}"
+                blog_entry.updated_by =  date
+                blog_entry.updated_name = username
                 blog_entry.tags = tagsid
+                blog_entry.canonical = Canonical
                 blog_entry.description = description
                 print(blog_entry.description )
                 blog_entry.save()
                 return redirect('blog_us_admin') 
-        except BlogUs.DoesNotExist:
+        except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist') # Redirect to success page
         
     userdetails = adminheader(request)
@@ -1599,13 +1930,10 @@ def createblogs(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
-    
-    
-
     if request.method == 'POST':
         username = request.session.get('username')
         hint = request.POST.get('hint')
@@ -1620,35 +1948,88 @@ def createblogs(request):
         meta_title = request.POST.get('metaTitle')
         meta_description = request.POST.get('metaDescription')
         meta_keywords = request.POST.get('metaKeywords')
-        richtextarea = request.POST.get('richtextarea')
         tagsid = request.POST.get('tagsid')
+        Canonical = request.POST.get('Canonical')
+
+        richtextarea1 = request.POST.get('richtextarea1')
+        richtextarea2 = request.POST.get('richtextarea2')
+        richtextarea3 = request.POST.get('richtextarea3')
+        richtextarea4 = request.POST.get('richtextarea4')
+        richtextarea5 = request.POST.get('richtextarea5')
+        richtextarea6 = request.POST.get('richtextarea6')
+        richtextarea7 = request.POST.get('richtextarea7')
+        richtextarea8 = request.POST.get('richtextarea8')
+        richtextarea9 = request.POST.get('richtextarea9')
+        richtextarea10 = request.POST.get('richtextarea10')
         
         # Create an instance of BlogUs model
-        blog_entry = BlogUs.objects.create()
-
-        # Generate folder names based on the ID of the created blog entry
+        blog_entry = Blog.objects.create()
+        # Blog_Details = BlogDetails.objects.create()
         blog_entry_folder = str(blog_entry.id)
-        banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
-        cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
-        grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+        date = datetime.now().strftime('%Y-%m-%d')
+        
+        # Generate folder names based on the ID of the created blog entry
+        
+        banner_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder )
+        TabBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+        MobileBanner_Image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+
+        cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+        grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
 
         if 'Banner_Image' in request.FILES:
-                    banner_image_file = request.FILES['Banner_Image']
-                    banner_image = banner_image_file.name
-                    if not os.path.exists(banner_image_folder):
-                        os.makedirs(banner_image_folder)
-                    banner_image_path = os.path.join(banner_image_folder, banner_image_file.name)
-                    with open(banner_image_path, 'wb') as destination:
-                        for chunk in banner_image_file.chunks():
-                            destination.write(chunk)
-                    banner_image_url_first = os.path.join('/image/blog_images', blog_entry_folder, banner_image_file.name)
-                    banner_image_url_second = banner_image_url_first.replace("\\", "/")
-                    banner_image_url = banner_image_url_second 
+            banner_image_file = request.FILES['Banner_Image']
+            banner_image = banner_image_file.name
+            if not os.path.exists(banner_image_folder):
+                os.makedirs(banner_image_folder)
+            banner_image_path = os.path.join(banner_image_folder, banner_image_file.name)
+            with open(banner_image_path, 'wb') as destination:
+                for chunk in banner_image_file.chunks():
+                    destination.write(chunk)
+            banner_image_url_first = os.path.join('/image/blog_image', blog_entry_folder, banner_image_file.name)
+            banner_image_url_second = banner_image_url_first.replace("\\", "/")
+            banner_image_url = banner_image_url_second 
 
         else:
             banner_image_url = None
             banner_image_path = None
             banner_image = None
+
+        if 'TabBanner_Image' in request.FILES:
+            TabBanner_Image_file = request.FILES['TabBanner_Image']
+            TabBanner_Image = TabBanner_Image_file.name
+            if not os.path.exists(TabBanner_Image_folder):
+                os.makedirs(TabBanner_Image_folder)
+            TabBanner_Image_path = os.path.join(TabBanner_Image_folder, TabBanner_Image_file.name)
+            with open(TabBanner_Image_path, 'wb') as destination:
+                for chunk in TabBanner_Image_file.chunks():
+                    destination.write(chunk)
+            TabBanner_Image_url_first = os.path.join('/image/blog_image', blog_entry_folder, TabBanner_Image_file.name)
+            TabBanner_Image_url_second = TabBanner_Image_url_first.replace("\\", "/")
+            TabBanner_Image_url = TabBanner_Image_url_second 
+
+        else:
+            TabBanner_Image_url = None
+            TabBanner_Image_path = None
+            TabBanner_Image = None
+
+        if 'MobileBanner_Image' in request.FILES:
+            MobileBanner_Image_file = request.FILES['MobileBanner_Image']
+            MobileBanner_Image = MobileBanner_Image_file.name
+            if not os.path.exists(MobileBanner_Image_folder):
+                os.makedirs(MobileBanner_Image_folder)
+            MobileBanner_Image_path = os.path.join(MobileBanner_Image_folder, MobileBanner_Image_file.name)
+            with open(MobileBanner_Image_path, 'wb') as destination:
+                for chunk in MobileBanner_Image_file.chunks():
+                    destination.write(chunk)
+            MobileBanner_Image_url_first = os.path.join('/image/blog_image', blog_entry_folder, MobileBanner_Image_file.name)
+            MobileBanner_Image_url_second = MobileBanner_Image_url_first.replace("\\", "/")
+            MobileBanner_Image_url = MobileBanner_Image_url_second 
+
+        else:
+            MobileBanner_Image_url = None
+            MobileBanner_Image_path = None
+            MobileBanner_Image = None
 
         if 'Cover_Image' in request.FILES:
             cover_image_file = request.FILES['Cover_Image']
@@ -1659,7 +2040,7 @@ def createblogs(request):
             with open(cover_image_path, 'wb') as destination:
                 for chunk in cover_image_file.chunks():
                     destination.write(chunk)
-            cover_image_url = os.path.join('/image/blog_images', blog_entry_folder, cover_image_file.name)
+            cover_image_url = os.path.join('/image/blog_image', blog_entry_folder, cover_image_file.name)
         else:
             cover_image_url = None
             cover_image_path = None
@@ -1674,32 +2055,272 @@ def createblogs(request):
             with open(grid_image_path, 'wb') as destination:
                 for chunk in grid_image_file.chunks():
                     destination.write(chunk)
-            grid_image_url = os.path.join('/image/blog_images', blog_entry_folder, grid_image_file.name)
+            grid_image_url = os.path.join('/image/blog_image', blog_entry_folder, grid_image_file.name)
         else:
             grid_image_url = None
             grid_image_path = None
             grid_image = None
 
-        # if 'Banner_Image' in request.FILES:
-        #     banner_image_file = request.FILES['Banner_Image']
-        #     banner_image_path = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_banner_images', banner_image_file.name)
-        #     with open(banner_image_path, 'wb') as destination:
-        #         for chunk in banner_image_file.chunks():
-        #             destination.write(chunk)
-        #     banner_image_url = os.path.join('admin_panel/static/image/blog_banner_images', banner_image_file.name)
+        # --------------------- blog details ------------------------
+        
+        banner_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder3 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder4 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder5 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder6 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder7 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder8 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder9 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
+        banner_image_folder10 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder )
 
-        # if 'Cover_Image' in request.FILES:
-        #     cover_image_file = request.FILES['Cover_Image']
-        #     cover_image_path = os.path.join(settings.BASE_DIR, 'admin_panel/static/image/blog_cover_images', cover_image_file.name)
-        #     with open(cover_image_path, 'wb') as destination:
-        #         for chunk in cover_image_file.chunks():
-        #             destination.write(chunk)
-        #     cover_image_url = os.path.join('admin_panel/static/image/blog_cover_images', cover_image_file.name)
-
+        if richtextarea1:
+            if 'blogImage1' in request.FILES:
+                blogImage1_file = request.FILES['blogImage1']
+                blogImage1 = blogImage1_file.name
+                if not os.path.exists(banner_image_folder1):
+                    os.makedirs(banner_image_folder1)
+                blogImage1_path = os.path.join(banner_image_folder1, blogImage1_file.name)
+                with open(blogImage1_path, 'wb') as destination:
+                    for chunk in blogImage1_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage1 = None
+            
+                # Assuming Blog_Details has fields to store image details
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea1,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry.id,
+                image_path=blogImage1,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title1'),
+            )
+            blog_detail_obj.save()
+        if richtextarea2:
+            if 'blogImage2' in request.FILES:
+                blogImage2_file = request.FILES['blogImage2']
+                blogImage2 = blogImage2_file.name
+                if not os.path.exists(banner_image_folder2):
+                    os.makedirs(banner_image_folder2)
+                blogImage2_path = os.path.join(banner_image_folder2, blogImage2_file.name)
+                with open(blogImage2_path, 'wb') as destination:
+                    for chunk in blogImage2_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage2 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea2,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage2,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title2'),
+            )
+            blog_detail_obj.save()
+        if richtextarea3:
+            if 'blogImage3' in request.FILES:
+                blogImage3_file = request.FILES['blogImage3']
+                blogImage3 = blogImage3_file.name
+                if not os.path.exists(banner_image_folder3):
+                    os.makedirs(banner_image_folder3)
+                blogImage3_path = os.path.join(banner_image_folder3, blogImage3_file.name)
+                with open(blogImage3_path, 'wb') as destination:
+                    for chunk in blogImage3_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage3 = None 
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea3,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage3,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title3'),
+            )
+            blog_detail_obj.save()
+        if richtextarea4:
+            if 'blogImage4' in request.FILES:
+                blogImage4_file = request.FILES['blogImage4']
+                blogImage4 = blogImage4_file.name
+                if not os.path.exists(banner_image_folder4):
+                    os.makedirs(banner_image_folder4)
+                blogImage4_path = os.path.join(banner_image_folder4, blogImage4_file.name)
+                with open(blogImage4_path, 'wb') as destination:
+                    for chunk in blogImage4_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage4 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea4,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage4,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title4'),
+            )
+            blog_detail_obj.save()
+        if richtextarea5:
+            if 'blogImage5' in request.FILES:
+                blogImage5_file = request.FILES['blogImage5']
+                blogImage5 = blogImage5_file.name
+                if not os.path.exists(banner_image_folder5):
+                    os.makedirs(banner_image_folder5)
+                blogImage5_path = os.path.join(banner_image_folder5, blogImage5_file.name)
+                with open(blogImage5_path, 'wb') as destination:
+                    for chunk in blogImage5_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage5 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea5,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage5,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title5'),
+            )
+            blog_detail_obj.save()
+        if richtextarea6:
+            if 'blogImage6' in request.FILES:
+                blogImage6_file = request.FILES['blogImage6']
+                blogImage6 = blogImage6_file.name
+                if not os.path.exists(banner_image_folder6):
+                    os.makedirs(banner_image_folder6)
+                blogImage6_path = os.path.join(banner_image_folder6, blogImage6_file.name)
+                with open(blogImage6_path, 'wb') as destination:
+                    for chunk in blogImage6_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage6 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea6,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage6,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title6'),
+            )
+            blog_detail_obj.save()
+        if richtextarea7:
+            if 'blogImage7' in request.FILES:
+                blogImage7_file = request.FILES['blogImage7']
+                blogImage7 = blogImage7_file.name
+                if not os.path.exists(banner_image_folder7):
+                    os.makedirs(banner_image_folder7)
+                blogImage7_path = os.path.join(banner_image_folder7, blogImage7_file.name)
+                with open(blogImage7_path, 'wb') as destination:
+                    for chunk in blogImage7_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage7 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea7,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage7,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title7'),
+            )
+            blog_detail_obj.save()
+        if richtextarea8:
+            if 'blogImage8' in request.FILES:
+                blogImage8_file = request.FILES['blogImage8']
+                blogImage8 = blogImage8_file.name
+                if not os.path.exists(banner_image_folder8):
+                    os.makedirs(banner_image_folder8)
+                blogImage8_path = os.path.join(banner_image_folder8, blogImage8_file.name)
+                with open(blogImage8_path, 'wb') as destination:
+                    for chunk in blogImage8_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage8 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea8,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage8,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title8'),
+            )
+            blog_detail_obj.save()
+        if richtextarea9:
+            if 'blogImage9' in request.FILES:
+                blogImage9_file = request.FILES['blogImage9']
+                blogImage9 = blogImage9_file.name
+                if not os.path.exists(banner_image_folder9):
+                    os.makedirs(banner_image_folder9)
+                blogImage9_path = os.path.join(banner_image_folder9, blogImage9_file.name)
+                with open(blogImage9_path, 'wb') as destination:
+                    for chunk in blogImage9_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage9 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea9,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage9,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title9'),
+            )
+            blog_detail_obj.save()   
+        if richtextarea10:
+            if 'blogImage10' in request.FILES:
+                blogImage10_file = request.FILES['blogImage10']
+                blogImage10 = blogImage10_file.name
+                if not os.path.exists(banner_image_folder10):
+                    os.makedirs(banner_image_folder10)
+                blogImage10_path = os.path.join(banner_image_folder10, blogImage10_file.name)
+                with open(blogImage10_path, 'wb') as destination:
+                    for chunk in blogImage10_file.chunks():
+                        destination.write(chunk)
+            else:
+                blogImage10 = None
+            
+            blog_detail_obj = BlogDetails(
+                blog_description=richtextarea10,  # Assuming you have retrieved richtextarea earlier
+                blog_id=blog_entry_folder,
+                image_path=blogImage10,
+                created_by = date,
+                updated_by = date,
+                created_name = username,
+                updated_name =username,
+                title = request.POST.get('title10'),
+            )
+            blog_detail_obj.save()
+        
         current_time = timezone.now()
         current_time_str = current_time.strftime("%b %d, %Y")
 
         current_date_str = timezone.now().strftime("%d-%m-%Y")
+        
 
         description = {
                 "hint": hint,
@@ -1713,20 +2334,25 @@ def createblogs(request):
                 "meta_title": meta_title,
                 "meta_description": meta_description,
                 "meta_keywords": meta_keywords,
-                "richtextarea": richtextarea,
+
                 "banner_image_url": banner_image_url,
                 "banner_image_path": banner_image_path,
                 "banner_image":banner_image,
+
+                "TabBanner_Image_url": TabBanner_Image_url,
+                "TabBanner_Image_path": TabBanner_Image_path,
+                "TabBanner_Image":TabBanner_Image,
+
+                "MobileBanner_Image_url": MobileBanner_Image_url,
+                "MobileBanner_Image_path": MobileBanner_Image_path,
+                "MobileBanner_Image":MobileBanner_Image,
+
                 "cover_image_url": cover_image_url,
                 "cover_image_path": cover_image_path,
                 "cover_image":cover_image,
                 "grid_image_url": grid_image_url,
                 "grid_image_path": grid_image_path,
                 "grid_image":grid_image,
-                "updated_by": f"{username} {current_date_str}",   # Assuming you have authentication and can access the current user
-                "updated_on": current_time_str,
-                "created_by": f"{username} {current_date_str}",   # Assuming you have authentication and can access the current user
-                "created_on": current_time_str,
                 "tags":tags
             }
         
@@ -1734,8 +2360,11 @@ def createblogs(request):
         blog_entry.description = description
         blog_entry.tags = tagsid
         blog_entry.url = url
-        blog_entry.created_by = f"{username} {current_date_str}"
-        blog_entry.updated_by = f"{username} {current_date_str}"
+        blog_entry.canonical = Canonical
+        blog_entry.created_by = date
+        blog_entry.updated_by = date
+        blog_entry.created_name = username
+        blog_entry.updated_name = username
         blog_entry.save()
 
         print(description)
@@ -1754,7 +2383,7 @@ def updateblogs(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -1763,12 +2392,19 @@ def updateblogs(request):
         try:
             # Get the BlogUs instance with the provided ID
             userdetails = adminheader(request)
-            blog_entry = BlogUs.objects.get(id=blog_entry_id)
+            blog_entry = Blog.objects.get(id=blog_entry_id)
+            ids = blog_entry.id
             tagsid = blog_entry.tags
+            canonical = blog_entry.canonical
             description = blog_entry.description
+            blogContent = []
+            Blog_Details = BlogDetails.objects.filter(blog_id=ids)
+            for blog_detail in Blog_Details:
+                blogContent.append({'blog_id':blog_detail.blog_id,'id':blog_detail.id,'blog_description':blog_detail.blog_description,"image_path":blog_detail.image_path,"title":blog_detail.title})
+            print(blogContent  )
             # Now you have access to all the details of the blog entry through 'description'
-            return render(request, "admin/updateblogentry.html", {'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails})
-        except BlogUs.DoesNotExist:
+            return render(request, "admin/updateblogentry.html", {'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails,"blogContent":blogContent,"canonical":canonical})
+        except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist')
     else:
         return HttpResponse('No ID provided for update')
@@ -1785,7 +2421,7 @@ def blogtag(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return HttpResponse("You do not have access to this page.")
     
@@ -1812,7 +2448,7 @@ def blogupdatetags(request):
     userdetails = adminheader(request)
     # current_time = timezone.now().strftime("%Y-%m-%d %H:%M")
     # current_time_str = current_time.strftime("%b %d, %Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -1842,9 +2478,11 @@ def deleteblogtitle(request):
     userdetails = adminheader(request)
     # current_time = timezone.now().strftime("%Y-%m-%d %H:%M")
     # current_time_str = current_time.strftime("%b %d, %Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('blog_us_admin')
 
     if request.method == 'GET':
         ids = request.GET.get('id', '')
@@ -1865,7 +2503,7 @@ def blogtagadd(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return HttpResponse("You do not have access to this page.")
     
@@ -1891,7 +2529,7 @@ def update_blog_popular_state(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -1899,7 +2537,7 @@ def update_blog_popular_state(request):
         blog_id = request.POST.get('blog_id')
         new_state = request.POST.get('new_state') == 'on'
 
-        blog = BlogUs.objects.get(id=blog_id)
+        blog = Blog.objects.get(id=blog_id)
         blog.popular = int(not new_state)  # Convert new_state to int (0 or 1)
         blog.save()
 
@@ -1917,7 +2555,7 @@ def update_blog_hidden_state(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -1925,7 +2563,7 @@ def update_blog_hidden_state(request):
         blog_id = request.POST.get('blog_id')
         new_state = request.POST.get('new_state') == 'on'
 
-        blog = BlogUs.objects.get(id=blog_id)
+        blog = Blog.objects.get(id=blog_id)
         blog.hidden = int(not new_state)  # Convert new_state to int (0 or 1)
         blog.save()
 
@@ -1940,19 +2578,28 @@ def deleteblogs(request):
     if not username or not role:
         return redirect('login')
 
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('blog_us_admin')
 
     if request.method == 'GET':
         blog_entry_id = request.GET.get('id','')
         print("blog_entry_id")
         blog_entry_folder = str(blog_entry_id)
-        review = BlogUs.objects.get(id=blog_entry_id)
-        image_path =  os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_images', blog_entry_folder)
+        review = Blog.objects.get(id=blog_entry_id)
+        blog_details = BlogDetails.objects.filter(blog_id=blog_entry_id)
+        image_path =  os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image', blog_entry_folder)
+        image_path_main =  os.path.join(settings.BASE_DIR, 'VFpages/static/image/blog_image/blog_main', blog_entry_folder)
         print(image_path)
         if os.path.exists(image_path):
             shutil.rmtree(image_path)
+        if os.path.exists(image_path_main):
+            shutil.rmtree(image_path_main)
         
+        
+        for blog in blog_details:
+            blog.delete()
         review.delete()
         return redirect('blog_us_admin')
 
@@ -1966,7 +2613,7 @@ def submit_form_blogus(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -1983,7 +2630,7 @@ def submit_form_blogus(request):
 
         # Update the description field with JSON data including updated time and person's name
         # created_by = page.created_by
-        # updated_by = current_date_str
+        # updated_by = f"{username} {current_date_str}"
         page_description = {
             'updated_time': timezone.now().isoformat(),  # Store updated time in ISO 8601 format
             'updated_person_name': username,
@@ -2001,9 +2648,9 @@ def submit_form_blogus(request):
         if blog_us:
             # If it exists, update the description
             blog_us.description = page_description
-            blog_us.created_by = current_date_str
+            # blog_us.created_by = current_date_str
             blog_us.updated_by = current_date_str
-            blog_us.created_name = username
+            # blog_us.created_name = username
             blog_us.updated_name = username
             blog_us.save()
         else:
@@ -2024,7 +2671,7 @@ def packagesadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2110,7 +2757,7 @@ def packagesmainadmin(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Destnation = Destination.objects.all()
@@ -2150,7 +2797,7 @@ def createpackages(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2189,6 +2836,8 @@ def createpackages(request):
         # Generate folder names based on the ID of the created blog entry
         Packages_folder = str(Package.id)
         cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+        cover_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+        cover_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
         grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
 
         if 'Cover_Image' in request.FILES:
@@ -2206,7 +2855,38 @@ def createpackages(request):
             cover_image_url = None
             cover_image_path = None
             cover_image = None
-        
+        if 'TabCover' in request.FILES:
+            cover_image_file1 = request.FILES['TabCover']
+            cover_image1 = cover_image_file1.name
+            if not os.path.exists(cover_image_folder1):
+                os.makedirs(cover_image_folder1)
+            cover_image_path1 = os.path.join(cover_image_folder, cover_image_file1.name)
+            with open(cover_image_path1, 'wb') as destination:
+                for chunk in cover_image_file1.chunks():
+                    destination.write(chunk)
+            cover_image_url_first1 = os.path.join('/image/packages', Packages_folder, cover_image_file1.name)
+            cover_image_url1 = cover_image_url_first1.replace("\\", "/")
+        else:
+            cover_image_url1 = None
+            cover_image_path1 = None
+            cover_image1 = None
+            
+        if 'MobileCover' in request.FILES:
+            cover_image_file2 = request.FILES['MobileCover']
+            cover_image2 = cover_image_file2.name
+            if not os.path.exists(cover_image_folder2):
+                os.makedirs(cover_image_folder2)
+            cover_image_path2 = os.path.join(cover_image_folder2, cover_image_file2.name)
+            with open(cover_image_path2, 'wb') as destination:
+                for chunk in cover_image_file2.chunks():
+                    destination.write(chunk)
+            cover_image_url_first2 = os.path.join('/image/packages', Packages_folder, cover_image_file2.name)
+            cover_image_url2 = cover_image_url_first2.replace("\\", "/")
+        else:
+            cover_image_url2 = None
+            cover_image_path2 = None
+            cover_image2 = None
+            
         if 'Grid_Image' in request.FILES:
             grid_image_file = request.FILES['Grid_Image']
             grid_image = grid_image_file.name
@@ -2226,6 +2906,7 @@ def createpackages(request):
         current_time_str = current_time.strftime("%b %d, %Y")
 
         current_date_str = datetime.now().strftime("%d/%m/%Y")
+        current_d = datetime.now().strftime('%Y-%m-%d')
 
         # filtered_cities = InternationalCities.objects.filter(destination_id=destination_package_id)
         # print(filtered_cities)
@@ -2248,6 +2929,15 @@ def createpackages(request):
                 "cover_image_url": cover_image_url,
                 "cover_image_path": cover_image_path,
                 "cover_image":cover_image,
+                
+                "cover_image_url1": cover_image_url1,
+                "cover_image_path1": cover_image_path1,
+                "cover_image1":cover_image1,
+
+                "cover_image_url2": cover_image_url2,
+                "cover_image_path2": cover_image_path2,
+                "cover_image2":cover_image2,
+                
                 "grid_image_url": grid_image_url,
                 "grid_image_path": grid_image_path,
                 "grid_image":grid_image,
@@ -2274,8 +2964,10 @@ def createpackages(request):
         # Update the BlogUs model instance with the created description
         Package.description = description
         Package.packages_id = destination_package_id
-        Package.updated_by = f"{username} {current_date_str}"
-        Package.created_by = f"{username} {current_date_str}"
+        Package.updated_by = username
+        Package.created_by = username
+        Package.created_date = current_d
+        Package.updated_date = current_d
         Package.itinaries_id = itinerayid
         Package.destination_category = "Not-selected"
         Package.save()
@@ -2293,8 +2985,10 @@ def deletepackages(request):
     if not username or not role:
         return redirect('login')
 
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('packagesadmin')
 
     if request.method == 'GET':
         blog_entry_id = request.GET.get('id','')
@@ -2317,7 +3011,7 @@ def updatepackages(request):
 
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -2356,7 +3050,7 @@ def updatepackages(request):
             
             # Now you have access to all the details of the blog entry through 'description'
             return render(request, "admin/packageupdate.html", {'blog_entry_id':blog_entry_id,'description': description,'destination_package_id':destination_package_id,'Internation':Internation,'Domestic':Domestic,"userdetails":userdetails,"Lead_details":Lead_details,"lead_id":lead_id})
-        except BlogUs.DoesNotExist:
+        except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist')
     else:
         return HttpResponse('No ID provided for update')
@@ -2371,7 +3065,7 @@ def addpackages(request):
     if not username or not role:
         return redirect('login')
 
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     blog_entry_id = None
@@ -2389,11 +3083,17 @@ def addpackages(request):
                 # Retrieve existing values
                 existing_grid_image_url = description.get('grid_image_url', None)
                 existing_cover_image_url = description.get('cover_image_url', None)
+                existing_cover_image_url1 = description.get('cover_image_url1', None)
+                existing_cover_image_url2 = description.get('cover_image_url2', None)
                 
                 existing_grid_image_path = description.get('grid_image_path', None)
                 existing_cover_image_path = description.get('cover_image_path', None)
+                existing_cover_image_path1 = description.get('cover_image_path1', None)
+                existing_cover_image_path2 = description.get('cover_image_path2', None)
                
                 existing_cover_image = description.get('cover_image', None)
+                existing_cover_image1 = description.get('cover_image1', None)
+                existing_cover_image2 = description.get('cover_image2', None)
                 existing_grid_image = description.get('grid_image', None)
                 created_by = description.get('created_by', None)
                 created_on = description.get('created_on', None)
@@ -2446,6 +3146,15 @@ def addpackages(request):
                     "cover_image_url": existing_cover_image_url,
                     "cover_image_path": existing_cover_image_path,
                     "cover_image":existing_cover_image,
+                    
+                    "cover_image_url1": existing_cover_image_url1,
+                    "cover_image_path1": existing_cover_image_path1,
+                    "cover_image1":existing_cover_image1,
+
+                    "cover_image_url2": existing_cover_image_url2,
+                    "cover_image_path2": existing_cover_image_path2,
+                    "cover_image2":existing_cover_image2,
+                    
                     "grid_image_url": existing_grid_image_url,
                     "grid_image_path": existing_grid_image_path,
                     "grid_image":existing_grid_image,
@@ -2471,6 +3180,8 @@ def addpackages(request):
                 # Generate folder names based on the ID of the created blog entry
                 Packages_folder = str(Package_list.id)
                 cover_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+                cover_image_folder1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
+                cover_image_folder2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
                 grid_image_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', Packages_folder)
                 if 'Grid_Image' in request.FILES:
                     blog_entry_folder = str(Package_list.id)
@@ -2507,11 +3218,48 @@ def addpackages(request):
                     cover_image_url = cover_image_url_first.replace("\\", "/")
                     description['cover_image_url'] = cover_image_url
                     description['cover_image'] = img_path
+                if 'TabCover' in request.FILES:
+                    blog_entry_folder = str(Package_list.id)
+                    if existing_cover_image1:
+                        old_image_path1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', blog_entry_folder,existing_cover_image1)
+                        if os.path.exists(old_image_path1):
+                            os.remove(old_image_path1)
+                    if not os.path.exists(cover_image_folder1):
+                        os.makedirs(cover_image_folder1)
+                    new_image1 = request.FILES['TabCover']
+                    img_path1 = new_image1.name
+                    image_path1 = os.path.join(settings.BASE_DIR,'VFpages/static/image/packages', blog_entry_folder, img_path1)
+                    with open(image_path1, 'wb') as destination:
+                        for chunk in new_image1.chunks():
+                            destination.write(chunk)
+                    cover_image_url_first1 = os.path.join('/image/packages', blog_entry_folder, img_path1)
+                    cover_image_url1= cover_image_url_first1.replace("\\", "/")
+                    description['cover_image_url1'] = cover_image_url1
+                    description['cover_image1'] = img_path1
+                if 'MobileCover' in request.FILES:
+                    blog_entry_folder = str(Package_list.id)
+                    if existing_cover_image2:
+                        old_image_path2 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/packages', blog_entry_folder,existing_cover_image2)
+                        if os.path.exists(old_image_path2):
+                            os.remove(old_image_path2)
+                    if not os.path.exists(cover_image_folder2):
+                        os.makedirs(cover_image_folder2)
+                    new_image2 = request.FILES['MobileCover']
+                    img_path2 = new_image2.name
+                    image_path2 = os.path.join(settings.BASE_DIR,'VFpages/static/image/packages', blog_entry_folder, img_path2)
+                    with open(image_path2, 'wb') as destination:
+                        for chunk in new_image2.chunks():
+                            destination.write(chunk)
+                    cover_image_url_first2 = os.path.join('/image/packages', blog_entry_folder, img_path2)
+                    cover_image_url2 = cover_image_url_first2.replace("\\", "/")
+                    description['cover_image_url2'] = cover_image_url2
+                    description['cover_image2'] = img_path2
                 
                 # Update 'updated_by' key
                 username = request.session.get('username')
                 current_time = timezone.now().strftime("%Y-%m-%d %H:%M")
                 current_date_str = datetime.now().strftime("%d/%m/%Y")
+                current_d = datetime.now().strftime('%Y-%m-%d')
                 description['updated_by'] = f"{username} {current_date_str}"
 
                 # Update BlogUs instance with the modified description
@@ -2519,12 +3267,12 @@ def addpackages(request):
                 Package_list.packages_id = destination_package_id
                 Package_list.itinaries_id = itinerayid
                 
-                Package_list.updated_by = f"{username} {current_date_str}"
-                Package_list.created_by = created_by
+                Package_list.updated_by = username
+                Package_list.updated_date = current_d
                 print(Package_list.description )
                 Package_list.save()
                 return redirect('packagesadmin') 
-        except BlogUs.DoesNotExist:
+        except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist') # Redirect to success page
 
     return render(request, "admin/updateblogentry.html", {'blog_entry_id': blog_entry_id, 'description': description,"userdetails":userdetails})
@@ -2539,7 +3287,7 @@ def update_packages_hidden_state(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2565,7 +3313,7 @@ def update_packages_home_state(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2592,7 +3340,7 @@ def update_packages_home_state(request):
 #     # Check if the user has the appropriate role to access this page
 #     role = request.session.get('role')
 #     userdetails = adminheader(request)
-#     if role != 'admin' and role != 'superadmin':
+#     if role != 'admin' and role != 'superadmin' and role != 'employee':
 #         # Redirect to appropriate page if the role is not admin
 #         return redirect('dashboard')
     
@@ -2610,7 +3358,7 @@ def Homepage_slider(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2643,7 +3391,7 @@ def Homepage_slider_add(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -2670,7 +3418,7 @@ def Homepage_slider_add(request):
 
         description_data = {
             "HomeDestinationName": HomeDestinationName,
-            "SliderTitle": SliderTitle,
+            # "SliderTitle": SliderTitle,
             "SliderContent": SliderContent,
             "Select_In_do": Select_In_do,
             "SliderImage": img_path,
@@ -2698,7 +3446,7 @@ def Homepage_slider_Edit(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2740,9 +3488,11 @@ def Homepage_slider_delete(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('Homepage_slider')
     
     sliderdelete = HomepageSlider.objects.get(id=team_id)
     if sliderdelete.description.get('image_path'):
@@ -2762,7 +3512,7 @@ def Homepage_topdestination(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
         
@@ -2811,11 +3561,12 @@ def Homepage_topdestination_Edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
     userdetails = adminheader(request)
+    username = request.session.get('username')
  
     topdestination_all = PagesTable.objects.filter(pagesname='international_top_destination').first()
     topdestination = topdestination_all.description
@@ -2839,6 +3590,7 @@ def Homepage_topdestination_Edit(request):
         topdestination['destination_4price'] = request.POST.get('destination_4price')
        
         topdestination_all.updated_by = current_time
+        topdestination_all.updated_name = username
         # slideredit.description['LinkedInid'] = request.POST.get('upadteLinkedInid')
       
         if 'destination_1image' in request.FILES:
@@ -2913,7 +3665,7 @@ def Homepage_domestic_topdestination(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -2964,11 +3716,12 @@ def Homepage_domestic_topdestination_Edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
     userdetails = adminheader(request)
+    username = request.session.get('username')
  
     topdestination_all = PagesTable.objects.filter(pagesname='domestic_top_destination').first()
     topdestination = topdestination_all.description
@@ -2991,7 +3744,8 @@ def Homepage_domestic_topdestination_Edit(request):
         topdestination['destination_3price'] = request.POST.get('destination_3price')
         topdestination['destination_4price'] = request.POST.get('destination_4price')
        
-        topdestination_all.updated_by =current_time
+        topdestination_all.updated_by = current_time
+        topdestination_all.updated_name = username
         # slideredit.description['LinkedInid'] = request.POST.get('upadteLinkedInid')
       
         if 'destination_1image' in request.FILES:
@@ -3067,7 +3821,7 @@ def add_categories(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -3099,7 +3853,7 @@ def categories_view(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     teams = Category.objects.all()
@@ -3114,7 +3868,7 @@ def edit_categories(request, team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     team = Category.objects.get(id=team_id)
@@ -3156,7 +3910,7 @@ def categories_cities(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Destnation = Destination.objects.all()
@@ -3229,7 +3983,8 @@ def add_categories_cities(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    username = request.session.get('username')
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     current_time = datetime.now().strftime('%Y-%m-%d')
@@ -3265,8 +4020,6 @@ def add_categories_cities(request):
                 for chunk in new_image.chunks():
                     destination.write(chunk)
         
-        
-        
         all_json = {
             "MetaTitle":MetaTitle,
             "Metadescription":Metadescription,
@@ -3280,7 +4033,7 @@ def add_categories_cities(request):
 
         parsed_data = json.loads(Category_cities)
        
-        destination = CategoriesDestination(category=Category_name, city_id=parsed_data,create_date=current_time,update_date=current_time,categeory_slug=Category_slug,all_description=all_json)
+        destination = CategoriesDestination(category=Category_name, city_id=parsed_data,create_date=current_time,update_date=current_time,categeory_slug=Category_slug,all_description=all_json,updated_name=username,created_name=username)
         destination.save()
         return redirect('categories_cities')
     else:
@@ -3297,11 +4050,12 @@ def edit_categories_cities(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Ccity= CategoriesDestination.objects.get(id=team_id)
     current_time = datetime.now().strftime('%Y-%m-%d')
+    username = request.session.get('username')
     if request.method == 'POST':
     
         Ccity.category = request.POST.get('up-CategoriesType')
@@ -3312,6 +4066,7 @@ def edit_categories_cities(request,team_id):
         Ccity.all_description["Metadescription"] = request.POST.get('up-Metadescription')
         Ccity.all_description["canonical"] = request.POST.get('canonical')
         Ccity.update_date = current_time
+        Ccity.updated_name = username
 
         if 'up-CategoriesImages' in request.FILES:
             old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages/', Ccity.all_description['img_path'])
@@ -3324,6 +4079,7 @@ def edit_categories_cities(request,team_id):
             with open(image_path, 'wb') as destination:
                 for chunk in new_image.chunks():
                     destination.write(chunk)
+           
             Ccity.all_description['img_path'] = img_path
         if 'up-TabImages' in request.FILES:
             old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/CategoriesImages/', Ccity.all_description['tab_path'])
@@ -3351,8 +4107,6 @@ def edit_categories_cities(request,team_id):
                     destination.write(chunk)
 
             Ccity.all_description['Mobile_path'] = img_path
-           
-            
         Ccity.save()
         return redirect('categories_cities')
     return redirect('categories_cities')
@@ -3366,9 +4120,11 @@ def delete_categories_cities(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('categories_cities')
     
     Catagriescitydelete = CategoriesDestination.objects.get(id=team_id)
     if Catagriescitydelete.all_description.get('img_path'):
@@ -3408,7 +4164,7 @@ def footer(request):
         footer_title = paginator.page(paginator.num_pages)
 
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     return render(request, 'admin/footer.html',{"footer_headers":footer_headers,"footer_title":footer_title,"userdetails":userdetails})
@@ -3426,7 +4182,7 @@ def addheaderfooter(request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -3468,7 +4224,7 @@ def updateheader(request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -3510,9 +4266,11 @@ def deletefooterheader(request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('footer')
 
     if request.method == 'GET':
         ids = request.GET.get('id', '')
@@ -3540,7 +4298,7 @@ def addtitlefooter (request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -3583,7 +4341,7 @@ def updatetitlefooter (request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
 
@@ -3629,9 +4387,11 @@ def deletefootertitle(request):
     # current_time_str = current_time.strftime("%b %d, %Y")
 
     current_date_str = datetime.now().strftime("%d/%m/%Y")
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('footer')
 
     if request.method == 'GET':
         ids = request.GET.get('id', '')
@@ -3655,7 +4415,7 @@ def Continent_Metas(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Contient_page = ContinentMetas.objects.all()
@@ -3671,7 +4431,7 @@ def Continent_Metas_edit(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Contient = ContinentMetas.objects.get(id=team_id)
@@ -3698,7 +4458,7 @@ def destination_Metas(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Meta_page = DestinationMeta.objects.all()
@@ -3714,7 +4474,7 @@ def destination_Metas_edit(request,team_id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     Contient = DestinationMeta.objects.get(id=team_id)
@@ -3740,7 +4500,7 @@ def update_packages_category_state(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -3848,6 +4608,8 @@ def deleteuser(request):
     if role != 'superadmin':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
+    if role == 'data':
+        return redirect('adduser')
     ids = request.GET.get('id', '')
     review = UserTable.objects.get(id=ids)
     review.delete()
@@ -3863,7 +4625,7 @@ def Homepage2_international(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
         
@@ -3896,11 +4658,11 @@ def Homepage2_international(request):
                 'id': City.id,
                 'international_city_name': City.international_city_name,
              })
-    
+    package = Packages.objects.all()
   
    
 
-    return render(request, 'admin/homepage2/international_destination2.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
+    return render(request, 'admin/homepage2/international_destination2.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails,"package":package})
 
 def Homepage2_domestic(request):
     
@@ -3911,7 +4673,7 @@ def Homepage2_domestic(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -3945,11 +4707,11 @@ def Homepage2_domestic(request):
                 'international_city_name': City.international_city_name,
              })
         
-    
+    package = Packages.objects.all()
   
    
 
-    return render(request, 'admin/homepage2/domestic_Topdestination2.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
+    return render(request, 'admin/homepage2/domestic_Topdestination2.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails,"package":package})
 
 
 
@@ -3962,7 +4724,7 @@ def home_page_details(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -3999,7 +4761,7 @@ def home_page2_Edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
@@ -4020,8 +4782,7 @@ def home_page2_Edit(request):
         topdestination['small_v_destination'] = request.POST.get('small_v_destination')
         
         homepage_detrails.updated_by = current_time
-       
-        homepage_detrails.updated_name = username  
+        homepage_detrails.updated_name = username 
 
       
         if 'banner_image' in request.FILES:
@@ -4037,6 +4798,7 @@ def home_page2_Edit(request):
                     destination.write(chunk)
            
             topdestination['banner_image'] = img_path1
+            
         if 'tab_image' in request.FILES:
             old_image_path1 = os.path.join(settings.BASE_DIR, 'VFpages/static/image/home_2/main_details/', topdestination['tab_image'])
             if os.path.exists(old_image_path1):
@@ -4123,16 +4885,17 @@ def Homepage2_international_Edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
     userdetails = adminheader(request)
+    username = request.session.get('username')
  
     topdestination_all = PagesTable.objects.filter(pagesname='international_top_destination_2').first()
     topdestination = topdestination_all.description
     if request.method == 'POST':
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        current_time = datetime.now().strftime('%Y-%m-%d')
         topdestination['destination_1Continent'] = request.POST.get('destination_1Continent')
         topdestination['destination_2Continent'] = request.POST.get('destination_2Continent')
         topdestination['destination_3Continent'] = request.POST.get('destination_3Continent')
@@ -4156,6 +4919,7 @@ def Homepage2_international_Edit(request):
         topdestination['destination_5price'] = request.POST.get('destination_5price')
        
         topdestination_all.updated_by = current_time
+        topdestination_all.updated_name = username
         # slideredit.description['LinkedInid'] = request.POST.get('upadteLinkedInid')
       
         if 'destination_1image' in request.FILES:
@@ -4245,16 +5009,17 @@ def Homepage2_topdomestic_Edit(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     
-    if role != 'admin' and role != 'superadmin':
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
         # Redirect to appropriate page if the role is not admin
         return redirect('dashboard')
     
     userdetails = adminheader(request)
+    username = request.session.get('username')
  
     topdestination_all = PagesTable.objects.filter(pagesname='domestic_top_destination_2').first()
     topdestination = topdestination_all.description
     if request.method == 'POST':
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        current_time = datetime.now().strftime('%Y-%m-%d')
         topdestination['destination_1Continent'] = request.POST.get('destination_1Continent')
         topdestination['destination_2Continent'] = request.POST.get('destination_2Continent')
         topdestination['destination_3Continent'] = request.POST.get('destination_3Continent')
@@ -4277,6 +5042,7 @@ def Homepage2_topdomestic_Edit(request):
         topdestination['destination_5price'] = request.POST.get('destination_5price')
        
         topdestination_all.updated_by =current_time
+        topdestination_all.updated_name =username
         # slideredit.description['LinkedInid'] = request.POST.get('upadteLinkedInid')
       
         if 'destination_1image' in request.FILES:
@@ -4356,6 +5122,17 @@ def Homepage2_topdomestic_Edit(request):
     return render(request, 'admin/homepage/Slider_homepage.html',{"userdetails":userdetails})
     
 def defalut_home_page(request):
+     # Check if user is authenticated
+    if not request.session.get('username') or not request.session.get('role'):
+        # Redirect to login page if session data is not found
+        return redirect('login')
+
+    # Check if the user has the appropriate role to access this page
+    role = request.session.get('role')
+    userdetails = adminheader(request)
+    if role != 'admin' and role != 'superadmin':
+        # Redirect to appropriate page if the role is not admin
+        return redirect('dashboard')
     themes = HomepageTheme.objects.filter(themename='Selected theme').first()
     theme = themes.themevalue
     return render(request,'admin/homepage2/select_page.html',{"theme":theme})
@@ -4382,7 +5159,9 @@ def update_homepage_theme(request):
         return redirect('defalut_home_page')
         
 from VFpages.models import Uploadhotel;
-def hoteladmin(request):
+
+
+def addhotel(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4391,47 +5170,7 @@ def hoteladmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = Uploadhotel.objects.all()
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-
-    return render(request, 'admin/UserCMS/hotel.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addhotel(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -4494,12 +5233,12 @@ def addhotel(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('hoteladmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def edithotel(request,id):
+def edithotel(request,id,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4508,15 +5247,15 @@ def edithotel(request,id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
 
     hotel_ = Uploadhotel.objects.filter(id=id)
     print(hotel_)
-    return render(request, 'admin/UserCMS/hoteledit.html',{"userdetails":userdetails,"hotel_d":hotel_})
+    return render(request, 'admin/UserCMS/hoteledit.html',{"userdetails":userdetails,"hotel_d":hotel_,"search_query":search_query})
 
-def editmainhotel(request,id):
+def editmainhotel(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         hotel_name = request.POST.get('Hotel')
@@ -4575,14 +5314,16 @@ def editmainhotel(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('hoteladmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'hotel.html', {'hotel': hotel})
 
 from VFpages.models import UploadFlight ,UploadTransfers, UploadUserdetails;
 
-def flightadmin(request):
+
+def addflight(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4591,47 +5332,7 @@ def flightadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadFlight.objects.all()
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-
-    return render(request, 'admin/UserCMS/flight.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addflight(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -4643,6 +5344,7 @@ def addflight(request):
         return_date = request.POST.get('checkout')
         baggage = request.POST.get('Noofnights')
         sector = request.POST.get('Room')
+        flight_name = request.POST.get('FlightName')
         # attachment = request.FILES.get('attachmentfiles')  # Assuming you have a file field in your form
         print(request.FILES)
 
@@ -4688,16 +5390,17 @@ def addflight(request):
             uplodername = username,
             editername = username,
             ticketattachment = uploadhotel_,
+            flight_name = flight_name,
         )
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('flightadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editflight(request,id):
+def editflight(request,id,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4706,15 +5409,15 @@ def editflight(request,id):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
 
     hotel_ = UploadFlight.objects.filter(id=id)
     print(hotel_)
-    return render(request, 'admin/UserCMS/flightedit.html',{"userdetails":userdetails,"hotel_d":hotel_})
+    return render(request, 'admin/UserCMS/flightedit.html',{"userdetails":userdetails,"hotel_d":hotel_,"search_query":search_query})
 
-def editmainflight(request,id):
+def editmainflight(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         # hotel_name = request.POST.get('Hotel')
@@ -4723,8 +5426,10 @@ def editmainflight(request,id):
         return_date = request.POST.get('checkout')
         baggage = request.POST.get('Noofnights')
         sector = request.POST.get('Room')
+        flight_name = request.POST.get('FlightName')
+        
         hotel = UploadFlight.objects.filter(id=id).first()
-
+       
         # Check if a new file is uploaded
         if 'attachmentfiles' in request.FILES:
             uploaded_file = request.FILES['attachmentfiles']
@@ -4762,6 +5467,7 @@ def editmainflight(request,id):
         hotel.returendate = return_date
         hotel.baggage = baggage
         hotel.sector = sector
+        hotel.flight_name = flight_name
         
         # Update the updated_by field
         username = request.session.get('username')
@@ -4774,13 +5480,14 @@ def editmainflight(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('flightadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'flight.html', {'hotel': hotel})
 
 
-def transferadmin(request):
+
+def addtrans(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4789,48 +5496,7 @@ def transferadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadTransfers.objects.all()
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-
-
-    return render(request, 'admin/UserCMS/transfers.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addtrans(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -4887,12 +5553,12 @@ def addtrans(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('transferadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmaintransfer(request,id):
+def editmaintransfer(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         # hotel_name = request.POST.get('Hotel')
@@ -4951,13 +5617,14 @@ def editmaintransfer(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('transferadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'transfers.html', {'hotel': hotel})
 
 
-def ticketsadmin(request):
+
+def addticket(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -4966,48 +5633,7 @@ def ticketsadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadUserdetails.objects.all()
-    
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-
-    return render(request, 'admin/UserCMS/tickets.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addticket(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -5063,12 +5689,12 @@ def addticket(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('ticketsadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query) # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainticket(request,id):
+def editmainticket(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         filed1 = request.POST.get('From')
@@ -5125,13 +5751,14 @@ def editmainticket(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('ticketsadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'transfers.html', {'hotel': hotel})
 
 
-def visaadmin(request):
+
+def addvisa(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5140,46 +5767,7 @@ def visaadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadUserdetails.objects.all()
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-    return render(request, 'admin/UserCMS/visa.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addvisa(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -5188,7 +5776,7 @@ def addvisa(request):
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('TO')
         filed3 = request.POST.get('Noofnights')
-        # filed1 = request.POST.get('Noofnights')
+        checkout = request.POST.get('checkout')
         print(request.FILES)
 
         uploadhotel_ = UploadUserdetails.objects.all()
@@ -5224,7 +5812,7 @@ def addvisa(request):
         # Create and save instance
         uploadhotel_instance = UploadUserdetails(
             phone_number=phone_number,
-            visa={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_},
+            visa={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_,"checkout":checkout},
             created_by = date_object,
             updated_by = date_object,
             uplodername = username,
@@ -5234,17 +5822,18 @@ def addvisa(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('visaadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainvisa(request,id):
+def editmainvisa(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('TO')
         filed3 = request.POST.get('Noofnights')
+        checkout = request.POST.get('checkout')
         hotel = UploadUserdetails.objects.filter(id=id).first()
 
         # Check if a new file is uploaded
@@ -5281,6 +5870,7 @@ def editmainvisa(request,id):
         hotel.visa['filed3'] = filed3
         hotel.visa['filed1']=filed1
         hotel.visa['filed2']=filed2
+        hotel.visa['checkout'] = checkout
 
 
         # Update the updated_by field
@@ -5294,13 +5884,13 @@ def editmainvisa(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('visaadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'visa.html', {'hotel': hotel})
 
 
-def insurenceadmin(request):
+def addinsurence(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5309,55 +5899,15 @@ def insurenceadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadUserdetails.objects.all()
-    search_query = request.GET.get('search_query')
-
-    if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        
-        if not filtered_hotels:
-            # Return a JSON response with a message indicating no hotels found
-            return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
-        hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-    
-    return render(request, 'admin/UserCMS/insurance.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addinsurence(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
         # Get form data
         phone_number = request.POST.get('Phonenumber')
         filed1 = request.POST.get('From')
-        filed2 = request.POST.get('TO')
-        filed3 = request.POST.get('Noofnights')
+        filed2 = request.POST.get('checkin')
+        filed3 = request.POST.get('checkout')
         # filed1 = request.POST.get('Noofnights')
         print(request.FILES)
 
@@ -5404,17 +5954,17 @@ def addinsurence(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('insurenceadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmaininsurence(request,id):
+def editmaininsurence(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         filed1 = request.POST.get('From')
-        filed2 = request.POST.get('TO')
-        filed3 = request.POST.get('Noofnights')
+        filed2 = request.POST.get('checkin')
+        filed3 = request.POST.get('checkout')
         hotel = UploadUserdetails.objects.filter(id=id).first()
 
         # Check if a new file is uploaded
@@ -5464,13 +6014,13 @@ def editmaininsurence(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('insurenceadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'insurense.html', {'hotel': hotel})
 
 
-def passportadmin(request):
+def addpassport(request,search_query):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5479,54 +6029,7 @@ def passportadmin(request):
     # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'superadmin':
-        return redirect('dashboard')
-    
-
-    hotel_data = UploadUserdetails.objects.all()
-    search_query = request.GET.get('search_query')
-    if search_query:
-        if type(search_query) == int:
-            filtered_hotels = hotel_data.filter(phone_number=search_query)
-            
-            if not filtered_hotels:
-                # Return a JSON response with a message indicating no hotels found
-                return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-            
-            hotel_data = filtered_hotels
-        else:
-            filtered_hotels = hotel_data.filter(Passport__clientname=search_query)
-            
-            if not filtered_hotels:
-                # Return a JSON response with a message indicating no hotels found
-                return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-            
-            hotel_data = filtered_hotels
-    
-
-    paginator = Paginator(hotel_data,10)  # Show 5 blog entries per page
-
-    page = request.GET.get('page')
-    try:
-        hotel_data = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        hotel_data = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        hotel_data = paginator.page(paginator.num_pages)
-    return render(request, 'admin/UserCMS/passport.html',{"userdetails":userdetails,"hotel_data":hotel_data})
-
-def addpassport(request):
-     # Check if user is authenticated
-    if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
-        return redirect('login')
-
-    # Check if the user has the appropriate role to access this page
-    role = request.session.get('role')
-    userdetails = adminheader(request)
-    if role != 'superadmin':
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -5575,12 +6078,12 @@ def addpassport(request):
         uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect('passportadmin')  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainpassport(request,id):
+def editmainpassport(request,id,search_query):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
         clientnmae = request.POST.get('From')
@@ -5635,197 +6138,151 @@ def editmainpassport(request,id):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect('passportadmin')  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'insurense.html', {'hotel': hotel})
 
 
-def delete_userpanel(request, id, type):
-    # Delete all rows with the given ID
-    if type == 'flight':
-        hotel = UploadFlight.objects.filter(id=id).first()
+def delete_userpanel(request):
+  
+    if request.method == 'GET':
+        id = request.GET.get('id', '')
+        search_query = request.GET.get('search_query', '')
+        type = request.GET.get('type', '')
 
-        if hotel.ticketattachment:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/flightvoucher/', hotel.ticketattachment)
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('flightadmin')
-    if type == 'hotel':
-        hotel = Uploadhotel.objects.filter(id=id).first()
+        if type == 'hotel':
+            hotel = Uploadhotel.objects.filter(id=id).first()
 
-        if hotel.attachment:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/hotelvoucher/', hotel.attachment)
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('hoteladmin') 
-    if type == 'transfers':
-        hotel = UploadTransfers.objects.filter(id=id).first()
+            if hotel.attachment:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/hotelvoucher/', hotel.attachment)
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
 
-        if hotel.datas['attachment']:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/transfers/', hotel.datas['attachment'])
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('transferadmin') 
-    if type == 'tickets':
-        hotel = UploadUserdetails.objects.filter(id=id).first()
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
 
-        if hotel.tickets['attachment']:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/tickets/', hotel.tickets['attachment'])
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('ticketsadmin') 
-    if type == 'visa':
-        hotel = UploadUserdetails.objects.filter(id=id).first()
+        if type == 'flight':
+            hotel = UploadFlight.objects.filter(id=id).first()
 
-        if hotel.visa['attachment']:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/visa/', hotel.visa['attachment'])
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('visaadmin') 
-    if type == 'insurance':
-        hotel = UploadUserdetails.objects.filter(id=id).first()
+            if hotel.ticketattachment:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/flightvoucher/', hotel.ticketattachment)
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+        
+            
+        if type == 'transfers':
+            hotel = UploadTransfers.objects.filter(id=id).first()
 
-        if hotel.insurense['attachment']:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/insurense/', hotel.insurense['attachment'])
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('insurenceadmin') 
-    if type == 'Passport':
-        hotel = UploadUserdetails.objects.filter(id=id).first()
+            if hotel.datas['attachment']:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/transfers/', hotel.datas['attachment'])
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+        if type == 'tickets':
+            hotel = UploadUserdetails.objects.filter(id=id).first()
 
-        if hotel.Passport['attachment']:
-            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/Passport/', hotel.Passport['attachment'])
-            if os.path.exists(image_path):
-                os.remove(image_path)
-        hotel.delete() 
-    
-        return redirect('passportadmin') 
+            if hotel.tickets['attachment']:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/tickets/', hotel.tickets['attachment'])
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+        if type == 'visa':
+            hotel = UploadUserdetails.objects.filter(id=id).first()
+
+            if hotel.visa['attachment']:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/visa/', hotel.visa['attachment'])
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+        if type == 'insurance':
+            hotel = UploadUserdetails.objects.filter(id=id).first()
+
+            if hotel.insurense['attachment']:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/insurense/', hotel.insurense['attachment'])
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+        if type == 'Passport':
+            hotel = UploadUserdetails.objects.filter(id=id).first()
+
+            if hotel.Passport['attachment']:
+                image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/Passport/', hotel.Passport['attachment'])
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            hotel.delete() 
+        
+            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+
 import mimetypes
 from django.http import FileResponse, HttpResponse
-def downloadattachment(request, id, type):
-    if type == 'flight':
-        hotel = UploadFlight.objects.filter(id=id).first()
-        if hotel.ticketattachment:
-                    file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/flightvoucher/', hotel.ticketattachment)
-                    if os.path.exists(file_path):
-                        content_type, _ = mimetypes.guess_type(file_path)
-                        with open(file_path, 'rb') as f:
-                            if content_type:
-                                response = HttpResponse(f.read(), content_type=content_type)
-                            else:
-                                response = FileResponse(f)
-                        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                        return response
 
-        return HttpResponse("File not found", status=404)
-    if type == 'hotel': 
-        hotel = Uploadhotel.objects.filter(id=id).first()
-        if hotel.attachment:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/hotelvoucher/', hotel.attachment)
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
+def useradminpage(request): 
+     # Check if user is authenticated
+    if not request.session.get('username') or not request.session.get('role'):
+        # Redirect to login page if session data is not found
+        return redirect('login')
 
-            return HttpResponse("File not found", status=404)
-    if type == 'transfers': 
-        hotel = UploadTransfers.objects.filter(id=id).first()
-        if hotel.datas['attachment']:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/transfers/', hotel.datas['attachment'])
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
+    # Check if the user has the appropriate role to access this page
+    role = request.session.get('role')
+    userdetails = adminheader(request)
+    if role != 'Sales' and role != 'superadmin' and role != 'employee':
+        return redirect('dashboard')
+    # my_value1 = request.session.get('my_value1')
+    hotel_data = UploadFlight.objects.all()
+    hotel_data2 = Uploadhotel.objects.all()
+    hotel_data3 = UploadTransfers.objects.all()
+    hotel_data4 = UploadUserdetails.objects.all()
+    # hotel_data5 = UploadUserdetails.objects.all()
+    search_query = request.GET.get('search_query')
+    user_name = None
+    if search_query:
+        filtered_hotels = hotel_data.filter(phone_number=search_query)
+        filtered_hotels2 = hotel_data2.filter(phone_number=search_query)
+        filtered_hotels3 = hotel_data3.filter(phone_number=search_query)
+        filtered_hotels4 = hotel_data4.filter(phone_number=search_query)
+        # filtered_hotels5 = hotel_data4.filter(phone_number=search_query)
+        
+        # if not filtered_hotels:
+        #     # Return a JSON response with a message indicating no hotels found
+        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        # if not filtered_hotels2:
+        #     # Return a JSON response with a message indicating no hotels found
+        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        # if not filtered_hotels3:
+        #     # Return a JSON response with a message indicating no hotels found
+        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        # if not filtered_hotels4:
+        #     # Return a JSON response with a message indicating no hotels found
+        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
+        
 
-            return HttpResponse("File not found", status=404)
-    if type == 'tickets': 
-        hotel = UploadUserdetails.objects.filter(id=id).first()
+        
+        hotel_data = filtered_hotels
+        hotel_data2 = filtered_hotels2
+        hotel_data3 = filtered_hotels3
+        hotel_data4 = filtered_hotels4
+        try:
+            user_name = Userdetails.objects.get(phone_number=search_query)
+        except:
+            user_name = "User not found"   
 
-        if hotel.tickets['attachment']:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/tickets/', hotel.tickets['attachment'])
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
+    
+    return render(request,'admin/UserCMS/customerportel.html',{"userdetails":userdetails,"hotel_data":hotel_data,"hotel_data2":hotel_data2,"hotel_data3":hotel_data3,"hotel_data4":hotel_data4,"search_query":search_query,"user_name":user_name})
 
-            return HttpResponse("File not found", status=404)
-    if type == 'visa': 
-        hotel = UploadUserdetails.objects.filter(id=id).first()
 
-        if hotel.visa['attachment']:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/visa/',hotel.visa['attachment'])
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
 
-        return HttpResponse("File not found", status=404)
-    if type == 'insurance': 
-        hotel = UploadUserdetails.objects.filter(id=id).first()
-        if hotel.insurense['attachment']:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/insurense/',hotel.insurense['attachment'])
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
-
-        return HttpResponse("File not found", status=404)
-    if type == 'Passport': 
-        hotel = UploadUserdetails.objects.filter(id=id).first()
-        if hotel.Passport['attachment']:
-            file_path = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/Passport/',hotel.Passport['attachment'])
-            if os.path.exists(file_path):
-                content_type, _ = mimetypes.guess_type(file_path)
-                with open(file_path, 'rb') as f:
-                    if content_type:
-                        response = HttpResponse(f.read(), content_type=content_type)
-                    else:
-                        response = FileResponse(f)
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
-
-        return HttpResponse("File not found", status=404)
-
-def useradminpage(request):
-    return render(request,'admin/UserCMS/customerportel.html')
 
 
 

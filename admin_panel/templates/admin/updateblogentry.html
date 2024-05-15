@@ -74,17 +74,27 @@
                     <form id="myForm" class="row forms-sample">
                         <input type="hidden" value="{{ blog_entry_id }}" name="id" id="id">
                         <div class="col-lg-4 mb-3">
-                            <label for="Banner_Image" class="form-label">Banner Image(1800x1200)</label>
+                            <label for="Banner_Image" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
                             <img src="{% static description.banner_image_url %}" id="bannerImagePreview" width="100" height="100">
                             <input class="form-control" required type="file" id="Banner_Image" onchange="previewImage(this, 'bannerImagePreview')">
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <label for="Cover_Image" class="form-label">Cover Image(1800x300)</label>
+                          <label for="Banner_Image" class="form-label">Tab Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
+                          <img src="{% static description.TabBanner_Image_url %}" id="TabbannerImagePreview" width="100" height="100">
+                          <input class="form-control" required type="file" id="TabBanner_Image" onchange="previewImage(this, 'TabbannerImagePreview')">
+                      </div>
+                      <div class="col-lg-4 mb-3">
+                        <label for="Banner_Image" class="form-label">Mobile Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 1200</span></label>
+                        <img src="{% static description.MobileBanner_Image_url %}" id="MobilebannerImagePreview" width="100" height="100">
+                        <input class="form-control" required type="file" id="MobileBanner_Image" onchange="previewImage(this, 'MobilebannerImagePreview')">
+                    </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="Cover_Image" class="form-label">Cover Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 1800 x 300</span></label>
                             <img src="{% static description.cover_image_url %}" id="coverImagePreview" width="100" height="100">
                             <input class="form-control" required type="file" id="Cover_Image" onchange="previewImage(this, 'coverImagePreview')">
                         </div>
-                        <div class="col-lg-4 mb-3">
-                            <label for="Grid_Image" class="form-label">Grid Image(750x500)</label>
+                        <div class="col-lg-6 mb-3">
+                            <label for="Grid_Image" class="form-label">Grid Image<span class="bg-grey px-1 mx-2 py-1 rounded">Size 750 x 500</span></label>
                             <img src="{% static description.grid_image_url %}" id="gridImagePreview" width="100" height="100">
                             <input class="form-control" required type="file" id="Grid_Image" onchange="previewImage(this, 'gridImagePreview')">
                         </div>
@@ -309,11 +319,11 @@
                         });
                       </script>
                       
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                               <label for="title" class="form-label">Title</label>
                               <textarea class="form-control" name="tinymce" id="title" rows="1" placeholder="{{ description.title }}" value="{{ description.title }}">{{ description.title }}</textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                               <label for="description" class="form-label">Description</label>
                               <textarea class="form-control" name="tinymce" id="description" rows="3" placeholder="{{ description.description }}" value="{{ description.description }}">{{ description.description }}</textarea>
                             </div>
@@ -332,22 +342,174 @@
                                     {{ description.jump_link_titles }}
                                 </textarea>
                               </div>
-                            <div class="col-lg-12 mb-3">
+                              <hr>
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaTitle" class="form-label">Meta title</label>
                                 <textarea class="form-control" name="tinymce" id="metaTitle" rows="1" placeholder="{{ description.meta_title }}" value="{{ description.meta_title }}">{{ description.meta_title }}</textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaDescription" class="form-label">Meta Description</label>
-                                <textarea class="form-control" name="tinymce" id="metaDescription" rows="2" placeholder="{{ description.meta_description }}" value="{{ description.meta_description }}">{{ description.meta_description }}</textarea>
+                                <textarea class="form-control" name="tinymce" id="metaDescription" rows="1" placeholder="{{ description.meta_description }}" value="{{ description.meta_description }}">{{ description.meta_description }}</textarea>
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="metaKeywords" class="form-label">Meta Keywords</label>
-                                <textarea class="form-control" name="tinymce" id="metaKeywords" rows="2" placeholder="{{ description.meta_keywords }}" value="{{ description.meta_keywords }}">{{ description.meta_keywords }}</textarea>
-                            </div>      
-                            <label for="metaKeywords" class="form-label">Blog details Image(1800x300)</label>
-                            <textarea id="myTextarea" class="tinymce-editor">
-                                {{ description.richtextarea }}
-                            </textarea><!-- End TinyMCE Editor -->  
+                                <textarea class="form-control" name="tinymce" id="metaKeywords" rows="1" placeholder="{{ description.meta_keywords }}" value="{{ description.meta_keywords }}">{{ description.meta_keywords }}</textarea>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="metaKeywords" class="form-label">Canonical Tag</label>
+                                <textarea class="form-control" name="Canonical" id="Canonical" rows="1" placeholder="{{ canonical }}" value="{{canonical }}">{{canonical }}</textarea>
+                            </div>  
+                            <hr>   
+                            <div class="text-center py-3"><h3>Blog details</h3></div>
+                           
+                            <div id="upenddiv" >
+                              <div class="main-1 row">
+                                <div id="blog_all_details1" class="col-lg-6 blog_all_details">  
+                                    
+                                  <div class="mb-3">
+                                        <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                        <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.0.image_path }}" id="blogImage1Preview" width="100" height="100">
+                                        <input class="form-control"  type="file" id="blogImage1" onchange="previewImage(this, 'blogImage1Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title1" value="{{blogContent.0.title}}">
+                                </div>
+                                  <textarea id="myTextarea1" class="tinymce-editor">{{blogContent.0.blog_description}}</textarea>
+                                </div> 
+                                <div id="blog_all_details2" class="col-lg-6 blog_all_details" >  
+                                  <div class="mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.1.image_path }}" id="blogImage2Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage2" onchange="previewImage(this, 'blogImage2Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title2" value="{{blogContent.1.title}}">
+                                </div>
+                                  <textarea id="myTextarea2" class="tinymce-editor">{{blogContent.1.blog_description}}</textarea>
+                                </div>
+                                <!-- <div class="text-center" id="button-1">
+                                <div  class="btn btn-primary mx-4 my-4 py-3"><i class="link-icon" data-feather="plus"></i>add</div>
+                              </div> -->
+                              </div>
+                              <div class="main-2 row" id="main-2" >
+                                <div id="blog_all_details3" class="col-lg-6 blog_all_details" >  
+                                  <div class="mb-3" >
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.2.image_path }}" id="blogImage3Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage3" onchange="previewImage(this, 'blogImage3Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title3" value="{{blogContent.2.title}}">
+                                </div>
+                                  <textarea id="myTextarea3" class="tinymce-editor">{{blogContent.2.blog_description}}</textarea>
+                                </div>
+                                <div id="blog_all_details4" class="col-lg-6 blog_all_details" >  
+                                  <div class="mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.3.image_path }}" id="blogImage4Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage4" onchange="previewImage(this, 'blogImage4Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title4" value="{{blogContent.3.title}}">
+                                </div>
+                                  <textarea id="myTextarea4" class="tinymce-editor">{{blogContent.3.blog_description}}</textarea>
+                                </div> 
+                                <!-- <div class="text-center" id="button-2" style="display: none;">
+                                  <div   class="btn btn-primary mx-4 my-4 py-3"><i class="link-icon" data-feather="plus"></i>add</div>
+                                </div> -->
+                              </div>
+                              <div class="main-3 row" id="main-3" >
+                                <div id="blog_all_details5" class="col-lg-6 blog_all_details" >  
+                                  <div class=" mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.4.image_path }}" id="blogImage5Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage5" onchange="previewImage(this, 'blogImage5Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title5" value="{{blogContent.4.title}}">
+                                </div>
+                                  <textarea id="myTextarea5" class="tinymce-editor">{{blogContent.4.blog_description}}</textarea>
+                                </div>
+                                <div id="blog_all_details6" class="col-lg-6 blog_all_details" >  
+                                  <div class="mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.5.image_path }}" id="blogImage6Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage6" onchange="previewImage(this, 'blogImage6Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title6" value="{{blogContent.5.title}}">
+                                </div>
+                                  <textarea id="myTextarea6" class="tinymce-editor">{{blogContent.5.blog_description}}</textarea>
+                                </div> 
+                                <!-- <div class="text-center" id="button-3 blog_all_details">
+                                  <div  class="btn btn-primary mx-4 my-4 py-3"><i class="link-icon" data-feather="plus"></i>add</div>
+                                </div> -->
+                              </div>
+                              <div class="main-4 row" >
+                                <div id="blog_all_details7" class="col-lg-6 blog_all_details"  >  
+                                  <div class="mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.6.image_path }}" id="blogImage7Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage7" onchange="previewImage(this, 'blogImage7Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title7" value="{{blogContent.6.title}}">
+                                </div>
+                                  <textarea id="myTextarea7" class="tinymce-editor">{{blogContent.6.blog_description}}</textarea>
+                                </div>
+                                <div id="blog_all_details8" class="col-lg-6 blog_all_details" >  
+                                  <div class="mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.7.image_path }}" id="blogImage8Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage8"  onchange="previewImage(this, 'blogImage8Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title8" value="{{blogContent.7.title}}">
+                                </div>
+                                  <textarea id="myTextarea8" class="tinymce-editor">{{blogContent.7.blog_description}}</textarea>
+                                </div> 
+                                <!-- <div class="text-center" id="button-4" style="display: none;">
+                                  <div   class="btn btn-primary mx-4 my-4 py-3"><i class="link-icon" data-feather="plus"></i>add</div>
+                                </div> -->
+                              </div>
+                              <div class="main-5 row" >
+                                <div id="blog_all_details9" class="col-lg-6 blog_all_details">  
+                                  <div class=" mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.8.image_path }}" id="blogImage9Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage9" onchange="previewImage(this, 'blogImage9Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title9" value="{{blogContent.8.title}}">
+                                </div>
+                                  <textarea id="myTextarea9" class="tinymce-editor">{{blogContent.8.blog_description}}</textarea>
+                                </div>
+                                <div id="blog_all_details10" class="col-lg-6 blog_all_details" >  
+                                  <div class="col-lg-6 mb-3">
+                                    <label for="Banner_Image" class="form-label">Image<span class="bg-grey px-1 mx-2 py-1 rounded">Image(960x350)</span></label>
+                                    <img src="{% static 'image/blog_image/blog_main/' %}{{ blog_entry_id }}/{{ blogContent.9.image_path }}" id="blogImage10Preview" width="100" height="100">
+                                    <input class="form-control"  type="file" id="blogImage10" onchange="previewImage(this, 'blogImage10Preview')">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="Banner_Image" class="form-label">Title</label>
+                                  <input class="form-control" type="text" id="title10" value="{{blogContent.9.title}}">
+                                </div>
+                                  <textarea id="myTextarea10" class="tinymce-editor">{{blogContent.9.blog_description}}</textarea>
+                                </div> 
+                                <!-- <div class="text-center">
+                                  <button type="button" id="button-5" class="btn btn-primary mx-4 my-4 py-3"><i class="link-icon" data-feather="plus"></i>add</button>
+                                </div> -->
+                              </div>
+                            </div>
                           <div class="text-center">
                             <button type="submit" id="submitButton" class="btn btn-primary mt-2"><i class="link-icon" data-feather="plus"></i> Update Blog</button>
                              <button class="btn btn-primary mt-2"  style="display: none;" id="loadingbutton" type="button" disabled>
@@ -373,29 +535,49 @@
                         $('#submitButton').click(function(event) {
                             event.preventDefault();
 
-                            // // Validate inputs
-                            // var isValid = true;
-
-                            // // Example of required field validation
-                            // $('input[type="text"], input[type="file"], textarea').each(function() {
-                            //     if ($(this).val() === '') {
-                            //         $(this).addClass('is-invalid');
-                            //         isValid = false;
-                            //     } else {
-                            //         $(this).removeClass('is-invalid');
-                            //     }
-                            // });
-
-                            // // If any field is empty, stop submission
-                            // if (!isValid) {
-                            //     return false;
-                            // }
+                            
                 
                             // Get file objects
                             var bannerImageFile = document.getElementById('Banner_Image').files[0];
+                            var TabBanner_Image = document.getElementById('TabBanner_Image').files[0];
+                            var MobileBanner_Image = document.getElementById('MobileBanner_Image').files[0];
+
                             var coverImageFile = document.getElementById('Cover_Image').files[0];
                             var gridImageFile = document.getElementById('Grid_Image').files[0];
-                            var richtextarea = tinymce.get("myTextarea").getContent();
+
+                            var blogImage1 = document.getElementById('blogImage1').files[0];
+                            var blogImage2 = document.getElementById('blogImage2').files[0];
+                            var blogImage3 = document.getElementById('blogImage3').files[0];
+                            var blogImage4 = document.getElementById('blogImage4').files[0];
+                            var blogImage5 = document.getElementById('blogImage5').files[0];
+                            var blogImage6 = document.getElementById('blogImage6').files[0];
+                            var blogImage7 = document.getElementById('blogImage7').files[0];
+                            var blogImage8 = document.getElementById('blogImage8').files[0];
+                            var blogImage9 = document.getElementById('blogImage9').files[0];
+                            var blogImage10 = document.getElementById('blogImage10').files[0];
+
+                            var richtextarea1 = tinymce.get("myTextarea1").getContent();
+                            var richtextarea2 = tinymce.get("myTextarea2").getContent();
+                            var richtextarea3 = tinymce.get("myTextarea3").getContent();
+                            var richtextarea4 = tinymce.get("myTextarea4").getContent();
+                            var richtextarea5 = tinymce.get("myTextarea5").getContent();
+                            var richtextarea6 = tinymce.get("myTextarea6").getContent();
+                            var richtextarea7 = tinymce.get("myTextarea7").getContent();
+                            var richtextarea8 = tinymce.get("myTextarea8").getContent();
+                            var richtextarea9 = tinymce.get("myTextarea9").getContent();
+                            var richtextarea10 = tinymce.get("myTextarea10").getContent();
+                            
+                            var title1 = $('#title1').val();
+                            var title2 = $('#title2').val();
+                            var title3 = $('#title3').val();
+                            var title4 = $('#title4').val();
+                            var title5 = $('#title5').val();
+                            var title6 = $('#title6').val();
+                            var title7 = $('#title7').val();
+                            var title8 = $('#title8').val();
+                            var title9 = $('#title9').val();
+                            var title10 = $('#title10').val();
+
                             var jumpLinkTitles = tinymce.get("jumpLinkTitles").getContent();
                             // Get other input values
                             var id = $('#id').val();
@@ -412,11 +594,15 @@
                             var metaTitle = $('#metaTitle').val();
                             var metaDescription = $('#metaDescription').val();
                             var metaKeywords = $('#metaKeywords').val();
+                            var Canonical = $('#Canonical').val();
                 
                             // Create FormData object to send to backend
                             var formData = new FormData();
                             formData.append('id', id);
                             formData.append('Banner_Image', bannerImageFile);
+                            formData.append('TabBanner_Image', TabBanner_Image);
+                            formData.append('MobileBanner_Image', MobileBanner_Image);
+
                             formData.append('Cover_Image', coverImageFile);
                             formData.append('Grid_Image', gridImageFile);
                             formData.append('hint', hint);
@@ -431,8 +617,41 @@
                             formData.append('metaTitle', metaTitle);
                             formData.append('metaDescription', metaDescription);
                             formData.append('metaKeywords', metaKeywords);
-                            formData.append('richtextarea', richtextarea);
+                            formData.append('Canonical', Canonical);
                             formData.append('tagsid', tagsid);
+
+                            formData.append('blogImage1', blogImage1);
+                            formData.append('blogImage2', blogImage2);
+                            formData.append('blogImage3', blogImage3);
+                            formData.append('blogImage4', blogImage4);
+                            formData.append('blogImage5', blogImage5);
+                            formData.append('blogImage6', blogImage6);
+                            formData.append('blogImage7', blogImage7);
+                            formData.append('blogImage8', blogImage8);
+                            formData.append('blogImage9', blogImage9);
+                            formData.append('blogImage10', blogImage10);
+
+                            formData.append('richtextarea1', richtextarea1);
+                            formData.append('richtextarea2', richtextarea2);
+                            formData.append('richtextarea3', richtextarea3);
+                            formData.append('richtextarea4', richtextarea4);
+                            formData.append('richtextarea5', richtextarea5);
+                            formData.append('richtextarea6', richtextarea6);
+                            formData.append('richtextarea7', richtextarea7);
+                            formData.append('richtextarea8', richtextarea8);
+                            formData.append('richtextarea9', richtextarea9);
+                            formData.append('richtextarea10', richtextarea10);
+                            
+                            formData.append('title1', title1);
+                            formData.append('title2', title2);
+                            formData.append('title3', title3);
+                            formData.append('title4', title4);
+                            formData.append('title5', title5);
+                            formData.append('title6', title6);
+                            formData.append('title7', title7);
+                            formData.append('title8', title8);
+                            formData.append('title9', title9);
+                            formData.append('title10', title10);
 
                             var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
                             
@@ -470,32 +689,43 @@
 					</div>
 				</div>
 
-        <!-- <div class="row">
-          <div class="dataTables_paginate">
-                <ul class="pagination">
-                  <li class="paginate_button page-item">
-                    <a href="#" class="page-link">Previous</a>
-                  </li>
-                  <li class="paginate_button page-item active"><a href="#" class="page-link">1</a></li>
-                  <li class="paginate_button page-item"><a href="#" class="page-link">2</a></li>
-                  <li class="paginate_button page-item"><a href="#" class="page-link">3</a></li>
-                  <li class="paginate_button page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
-            </div>
-        </div> -->
+        
 
 			</div>
-			<!-- Page Content Ends -->
-
-			<!-- footer Starts -->
-      <!-- <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
-        <p class="text-muted mb-1 mb-md-0">Copyright © 2022 <a href="../index.html" target="_blank">Travelin</a>.</p>
-        <p class="text-muted">Powered By <i class="mb-1 text-primary ms-1 icon-sm" data-feather="heart"></i> Bizberg Themes</p>
-      </footer> -->
-      <!-- footer Ends -->
+			
 	
 		</div>
 	</div>
+  
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // Select all textarea elements inside div elements with class 'blog_all_details'
+      var textareas = document.querySelectorAll('.blog_all_details textarea');
+
+      // Function to check the value of each textarea
+      function checkTextareaValue() {
+          textareas.forEach(textarea => {
+              // Check if the textarea has any value
+              if (textarea.value.trim() !== '') {
+                  // If textarea has value, display the parent div
+                  textarea.parentNode.style.display = 'block';
+              } else {
+                  // If textarea has no value, hide the parent div
+                  textarea.parentNode.style.display = 'none';
+              }
+          });
+      }
+
+      // Initially check all textareas
+      checkTextareaValue();
+
+      // Add event listeners to all textareas to check on input change
+      textareas.forEach(textarea => {
+          textarea.addEventListener('input', checkTextareaValue);
+      });
+  });
+</script>
 
 	<!-- core:js -->
     <script src="{% static 'vendors/core/core.js' %}"></script>
@@ -516,17 +746,12 @@
   
       <!-- Custom js for this page -->
     <script src="{% static 'js/admin/dashboard-light.js' %}"></script>
-    <script src="{% static 'js/admin/datepicker.js' %}""></script>
-      <!-- End custom js for this page -->
-      <!-- <script src="{% static 'assets/vendors/tinymce/tinymce.min.js' %}"></script>
-
-      <script src="{% static 'assets/js/tinymce.js' %}"></script> -->
-
+    <script src="{% static 'js/admin/datepicker.js' %}"></script>
+     
     <script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
-  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-
-  <!-- Template Main JS File -->
+  
     <script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 </html>    
+

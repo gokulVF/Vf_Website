@@ -58,7 +58,7 @@
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="#">Homepage</a></li>
-            <li class="breadcrumb-item"><a href="#">Theme 1 </a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1 </a></li>
 						<li class="breadcrumb-item active" aria-current="page">Slider</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -93,13 +93,13 @@
                         <thead class="text-center">
                           <tr >
                             <th>S.No</th>
-                            <th>Date</th>
-                            <th>Destination</th>
+                            <!--<th>Date</th>-->
+                            <th>Destination Name</th>
                             <th>Image</th>
                             <th>Action</th>
                             
                           </tr>
-                          <div class="row d-flex align-items-center mb-2">
+                         <div class="row d-flex align-items-center mb-2">
                             <div class="col-lg-10 text-center">
                               <h3 class="mb-0 theme">Home Page</h3>
                               <p>Theme 1 - Slider</p>
@@ -116,10 +116,10 @@
                           <tr class="text-center">
                             <td>{{ forloop.counter }}</td>
                            
-                            <td>{{ slider.description.update_date }}</td>
+                            <!--<td>{{ slider.description.update_date }}</td>-->
                             <td>{{ slider.description.HomeDestinationName }}</td>
                            
-                            <td class="w-25"><img class="w-75" style="height: 70px;" src="{% static 'image/homepageslider_image/' %}{{ slider.description.SliderImage }}"></td>
+                        <td class="w-25"><img class="w-75" style="height: 70px;" src="{% static 'image/homepageslider_image/' %}{{ slider.description.SliderImage }}"></td>
                             <td class="text-center">
                                 <ul class="d-flex list-unstyled mb-0 justify-content-center">
                                 <li class="me-2">
@@ -262,10 +262,10 @@
               <!--    });-->
               <!--</script>-->
                   
-                  <!-- <div class="mb-3">
-                    <label for="TeamName" class="form-label">Slider Content</label>
-                    <input type="text" class="form-control"  id="SliderContent" name="SliderContent" autocomplete="off">
-                 </div> -->
+                 <!-- <div class="mb-3">-->
+                 <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
+                 <!--   <input type="text" class="form-control"  id="SliderContent" name="SliderContent" autocomplete="off">-->
+                 <!--</div>-->
                     <div class="mb-3">
                         <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                         <input class="form-control  form-width" required  type="file" name="SliderImage" id="SliderImage" >
@@ -286,7 +286,7 @@
 <div class="modal fade" id="editSlider{{ team.id }}" tabindex="-1" aria-labelledby="editSlider{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header text-center">
+           <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Slider</h5>
               <span class="black">Homepage - Slider</span>
           </div>
@@ -297,7 +297,7 @@
                   <label for="TeamName" class="form-label">Sector</label>
                   <input type="hidden" class="select-5" id="new-{{team.description.Select_In_do}}" value="{{team.description.Select_In_do}}">
                   <select class="form-select show-5" name="up-Select_In_do" id="up-SelectIn_do{{ team.id }}">
-                          <option value="">select</option>
+                          <option value="">Select</option>
                           <option value="0">International</option>
                           <option value="1">Domestic</option>
                   </select>
@@ -356,11 +356,11 @@
             <!--    });-->
             <!--</script>-->
                 
-                <!-- <div class="mb-3">
-                  <label for="TeamName" class="form-label">Slider Content</label>
-                  <input type="text" class="form-control"  id="SliderContent" value="{{team.description.SliderContent}}" name="SliderContent" autocomplete="off">
-               </div> -->
-                  <div class="mb-3">
+               <!-- <div class="mb-3">-->
+               <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
+               <!--   <input type="text" class="form-control"  id="SliderContent" value="{{team.description.SliderContent}}" name="SliderContent" autocomplete="off">-->
+               <!--</div>-->
+                     <div class="mb-3">
                     <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                       <input class="form-control  form-width" value="{{team.description.SliderImage}}"  type="file" name="SliderImage" id="SliderImage" >
                   </div>
@@ -444,8 +444,8 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
-
-  <!-- Css -->
+  
+    <!-- Css -->
   <style>
     .theme {
       color: #029e9d !important;

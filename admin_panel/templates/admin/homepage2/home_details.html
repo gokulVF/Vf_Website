@@ -36,6 +36,11 @@
   <link rel="shortcut icon" href="../images/favicon.png" />
 </head>
 <body>
+    <style>
+        .modal.show .modal-dialog {
+            top: 70% !important;
+        }
+    </style>
 	<div class="main-wrapper">
 
 		<!-- sidebar starts -->
@@ -49,6 +54,8 @@
 			<!-- navbar Ends -->
 <!-- ---------------------------------------------my work contend---------------------------------- -->
 
+
+
       <!-- Page Content Starts -->
 			<div class="page-content">
 
@@ -56,7 +63,7 @@
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="#">Home Page</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Theme 2</li>
+                        <li class="breadcrumb-item active" aria-current="page">Theme 2</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
@@ -81,133 +88,156 @@
             </div>
           </form>
         </div> -->
-        
         <div class="row">
           <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table id="dataTableExample" class="table">
-                      <thead class="text-center">
-                        <tr >
-                          <th>S.No</th>
-                          <th>Destination Name</th>
-                          <th>Date</th>
-                          <th>Action</th>
-                        </tr>
-                        <div class="text-center"><h4 class="mb-3 mt-3 fw-bold theme" >Home Page Theme 2 Details</h4>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="dataTableExample" class="table">
+                        <thead class="text-center">
+                          <tr >
+                            <th>S.No</th>
+                            <th>Destination Name</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                            
+                          </tr>
+                          <div class="text-center"><h4 class="mb-3 mt-3 fw-bold theme" >Home Page Theme 2 Details</h4>
                           <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
                         </div>
-                      </thead>
-                      <tbody class="text-center">
-                        <tr class="text-center">
-                          <td>1</td>
-                          <td> Home Page Details</td>
-                          <td>{{ home1_details.updated_by }}</td>
-                          <td class="text-center">
-                              <ul class="list-unstyled mb-0">
-                                  <li>
-                                      <a href="#" data-bs-toggle="modal" data-bs-target="#addslider">
-                                          <i class="link-icon" data-feather="edit"></i>
-                                      </a>
-                                  </li>
-                              </ul>
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                        </thead>
+                       
+                        <tbody class="text-center">
+
+                          <tr class="text-center">
+                            <td>1</td>
+                            <td> Home Page Details</td>
+                            <td>{{ home1_details.updated_by }}</td>
+                            <td class="text-center">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#addslider">
+                                            <i class="link-icon" data-feather="edit"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                              </td>
+                          </tr>
+                        
+                        </tbody>
+                      
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table id="dataTableExample" class="table">
-                    <thead class="text-center">
-                      <tr class="text-center">
-                        <th>S.No</th>
-                        <th>Destination Name</th>
-                        <th>Date</th>
-                        <!-- <th>Image</th> -->
-                        <th>Action</th>
-                      </tr>
-                      <div class="text-center"><h4 class="mb-3 mt-3 fw-bold theme" >International Top Destinations</h4>
-                        <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
-                      </div>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td> international Top destination</td>
-                        <td>{{ home2_inter.updated_by }}</td>
-                        <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
-                        <td class="text-center">
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a href="{% url 'Homepage2_international' %}">
-                                        <i class="link-icon" data-feather="edit"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                          </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table id="dataTableExample" class="table">
-                    <thead class="text-center">
-                      <tr >
-                        <th>S.No</th>
-                        <th>Destination Name</th>
-                        <th>Date</th>
-                        <!-- <th>Image</th> -->
-                        <th>Action</th>
-                      </tr>
-                      <div class="text-center"><h4 class="mb-3 mt-3 fw-bold theme">Domestic Top Destination</h4>
-                        <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table id="dataTableExample" class="table">
+                              <thead class="text-center">
+                                <tr class="text-center">
+                                  <th>S.No</th>
+                                  <th>Date</th>
+                                  <th>Destination Name</th>
+                                  <!-- <th>Image</th> -->
+                                  <th>Action</th>
+                                  
+                                </tr>
+                                <div class="justify-content-between d-flex text-center"><h4 class="mb-0 mt-3 fw-bold" >HomePage 2 International destination</h4>
+                                  <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
+                                </div>
+                  
+                              </thead>
+                             
+                              <tbody class="text-center">
+      
+                                <tr class="text-center">
+                                  <td>1</td>
+                                  <td> international Top destination</td>
+                                  <td>{{ home2_inter.updated_by }}</td>
+                                  
+                                 
+                                  <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
+                                  <td class="text-center">
+                                      <ul class="list-unstyled mb-0">
+                                          <li>
+                                              <a href="{% url 'Homepage2_international' %}">
+                                                  <i class="link-icon" data-feather="edit"></i>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                    </td>
+                                
+                                </tr>
+                              
+                              </tbody>
+                            
+                            </table>
+                          </div>
+                        </div>
                       </div>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td> Domestic top destination</td>
-                        <td>{{ home2_domes.updated_by }}</td>
-                        <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
-                        <td class="text-center">
-                          <ul class="list-unstyled mb-0">
-                              <li>
-                                  <a href="{% url 'Homepage2_domestic' %}" >
-                                      <i class="link-icon" data-feather="edit"></i>
-                                  </a>
-                              </li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                    </div>
+                  </div>
 
+                  <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="table-responsive">
+                                <table id="dataTableExample" class="table">
+                                  <thead class="text-center">
+                                    <tr >
+                                      <th>S.No</th>
+                                      <th>Date</th>
+                                      <th>Destination Name</th>
+                                      <!-- <th>Image</th> -->
+                                      <th>Action</th>
+                                      
+                                    </tr>
+                                    <div class="justify-content-between d-flex text-center"><h4 class="mb-0 mt-3 fw-bold">HomePage 2 domestic destination</h4>
+                                      <!-- <button class="btn btn-primary px-4 py-2" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
+                                    </div>
+                      
+                                  </thead>
+                                 
+                                  <tbody class="text-center">
+          
+                                    <tr class="text-center">
+                                      <td>1</td>
+                                      <td> Domestic top destination</td>
+                                      <td>{{ home2_domes.updated_by }}</td>
+                                      
+                                     
+                                      <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
+                                      <td class="text-center">
+                                          <ul class="list-unstyled mb-0">
+                                              <li>
+                                                  <a href="{% url 'Homepage2_domestic' %}" >
+                                                      <i class="link-icon" data-feather="edit"></i>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                        </td>
+                                    
+                                    </tr>
+                                  
+                                  </tbody>
+                                
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
+       
+			
+        
         <!-- <div class="row">
           <div class="dataTables_paginate">
                 <ul class="pagination">
@@ -222,6 +252,7 @@
             </div>
         </div> -->
 
+			</div>
       <!-- Page Content Ends -->
 
       
@@ -244,51 +275,53 @@
 <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1400px;">
       <div class="modal-content">
-        <div class="modal-header text-center">
+         <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Home Page Details</h5>
           <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body px-4">
           <form class="forms-sample" id="myform" action="{% url 'home_page2_Edit' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <h3 style="font-weight: 600;font-size: 18px;" class="mb-3">Images - Banner</h3>
-              <div class="row">
-                <div class="mb-3 col-lg-3">
-                  <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                  <label for="upload" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1920 x 250</span></label>
-                  <input class="form-control"  type="file" name="banner_image" id="upload" >
-                </div>
-                <div class="mb-3 col-lg-3">
-                  <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                  <label for="upload" class="form-label">Tab Banner Image</label>
-                  <input class="form-control"  type="file" name="tab_image" id="upload" >
-                </div>
-                <div class="mb-3 col-lg-3">
-                  <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                  <label for="upload" class="form-label">Mobile Banner Image</label>
-                  <input class="form-control"  type="file" name="Mobile_image" id="upload" >
-                </div>
-                <!-- <div class="mb-3 col-lg-6">
-                  <label for="title" class="form-label">Banner Title</label>
-                  <input type="text" class="form-control"  id="banner_title" name="banner_title" autocomplete="off" value="{{home1_details.description.banner_title}}">
-                </div> -->
-                <div class="mb-3 col-lg-3">
-                  <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                  <label for="upload" class="form-label">Client Review Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1800 x 1200</span></label>
-                  <input class="form-control"  type="file" name="review_image" id="upload" >
-                </div>
-                <h3 style="font-weight: 600;font-size: 18px;"> Videos</h3>
+        <p style="font-weight: 600;font-size: 18px;" class="mb-3">Banner Details</p>
+          <div>
+            
+          <div class="row">
+            <div class="mb-3 col-lg-3">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Desktop Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1920 x 250</span></label>
+              <input class="form-control"  type="file" name="banner_image" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-3">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+                                <label for="upload" class="form-label">Tab Banner Image</label>
+              <input class="form-control"  type="file" name="tab_image" id="upload" >
+            </div>
+            <div class="mb-3 col-lg-3">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Mobile Banner Image</label>
+              <input class="form-control"  type="file" name="Mobile_image" id="upload" >
+            </div>
+            <!-- <div class="mb-3 col-lg-6">
+              <label for="title" class="form-label">Banner Title</label>
+              <input type="text" class="form-control"  id="banner_title" name="banner_title" autocomplete="off" value="{{home1_details.description.banner_title}}">
+            </div> -->
+            <div class="mb-3 col-lg-3">
+              <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
+              <label for="upload" class="form-label">Client Review Banner Image<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1800 x 1200</span></label>
+              <input class="form-control"  type="file" name="review_image" id="upload" >
+            </div>
+       <h3 style="font-weight: 600;font-size: 18px;"> Videos</h3>
                 <div class="mb-3 pe-2 col-lg-3">
                   <label class="form-label">Destination Video<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 1280 x 720</span></label>
                   <input class="form-control"  type="file" name="big_video" id="upload" >
                 </div>
                 <div class="mb-3 col-lg-3">
                   <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                  <label for="upload" class="form-label">Video with text<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 700 x 650</span></label>
+                  <label for="upload" class="form-label">Video With Text<span class="bg-grey px-1 mx-2 py-1 rounded"> Size 700 x 650</span></label>
                   <input class="form-control"  type="file" name="small_video" id="upload" >
                   </div>
                 <div class="mb-3 col-lg-3">
-                  <label for="title" class="form-label">heading</label>
+                  <label for="title" class="form-label">Heading</label>
                   <input type="text" class="form-control"  id="small_v_heading" name="small_v_heading" autocomplete="off" value="{{home1_details.description.small_v_heading}}">
                 </div>
                 <div class="mb-3 col-lg-3">
@@ -444,7 +477,7 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
-
+  
    <!-- Css -->
    <style>
     .theme {
@@ -476,5 +509,6 @@
         }
   </style>
   <!-- Css -->
+
 </body>
 </html> 

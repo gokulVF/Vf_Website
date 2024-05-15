@@ -57,8 +57,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#">Homepage</a></li>
-            <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
+						<li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Domestic Destination</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -93,13 +93,13 @@
                         <thead class="text-center">
                           <tr >
                             <th>S.No</th>
-                            <th>Date</th>
+                            <!--<th>Date</th>-->
                             <th>Destination Name</th>
                             <!-- <th>Image</th> -->
                             <th>Action</th>
                             
                           </tr>
-                          <div class="text-center mb-3">
+                        <div class="text-center mb-3">
                             <h3 class="mb-2 mt-0 theme">Home Page</h3>
                             <p>Domestic Top Destinations</p>
                           </div>
@@ -108,7 +108,7 @@
                         <tbody class="text-center">
                           <tr class="text-center">
                             <td>1</td>
-                            <td>{{ topdestination.update_date }}</td>
+                            <!--<td>{{ topdestination.update_date }}</td>-->
                             <td>Domestic Top destinations</td>
                             <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
                             <td class="text-center">
@@ -169,7 +169,7 @@
       <div class="modal-content">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">Domestic Top Destinations</h5>
-          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
         </div>
         <div class="modal-body px-4">
           <form class="forms-sample" action="{% url 'Homepage_domestic_topdestination_Edit' %}" method="POST" enctype="multipart/form-data">
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mb-3 col-lg-6">
                       <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                      <label for="upload" class="form-label">Destination Images (size:1200x541)</label>
+                      <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 1200 x 541</span></label>
                       <input class="form-control"  type="file" name="destination_1image" id="upload" >
                     </div>
                   </div>
@@ -284,7 +284,7 @@
                       </div>
                       <div class="mb-3 col-lg-6">
                         <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                        <label for="upload" class="form-label">Destination Images(size:700x650)</label>
+                        <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
                         <input class="form-control"  type="file" name="destination_2image" id="upload" >
                       </div>
                     </div>
@@ -337,7 +337,7 @@
                     </div>
                     <div class="mb-3 col-lg-6">
                       <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                      <label for="upload" class="form-label">Destination Images (size:700x650)</label>
+                      <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
                       <input class="form-control"  type="file" name="destination_3image" id="upload" >
                     </div>
                 </div>
@@ -390,7 +390,7 @@
                       </div>
                       <div class="mb-3 col-lg-6">
                         <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                        <label for="upload" class="form-label">Destination Images (size:700x925)</label>
+                        <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 925</span></label>
                         <input class="form-control"  type="file" name="destination_4image" id="upload" >
                       </div>
                     </div>
@@ -652,6 +652,5 @@
 }
   </style>
   <!-- Css -->
-
 </body>
 </html> 

@@ -55,8 +55,8 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#">Homepage</a></li>
-            <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
+                        <li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
 						<li class="breadcrumb-item active" aria-current="page">International Top Destinations</li>
 					</ol>
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
@@ -91,26 +91,22 @@
                         <thead class="text-center">
                           <tr >
                             <th>S.No</th>
-                            <th>Date</th>
+                            <!--<th>Date</th>-->
                             <th>Destination Name</th>
                             <!-- <th>Image</th> -->
                             <th>Action</th>
-                            
                           </tr>
                           <div class="text-center mb-3">
                             <h3 class="mb-2 mt-0 theme">Home Page</h3>
                             <p>International Top Destinations</p>
                           </div>
-            
                         </thead>
                        
                         <tbody class="text-center">
                           <tr class="text-center">
                             <td>1</td>
-                           
-                            <td>{{ topdestination.update_date }}</td>
+                            <!--<td>{{ topdestination.update_date }}</td>-->
                             <td> International Top destinations</td>
-                           
                             <!-- <td><img src="{% static 'image/homepageslider_image/' %}{{ topdestination.description.SliderImage }}"></td> -->
                             <td class="text-center">
                                 <ul class="list-unstyled mb-0">
@@ -121,9 +117,7 @@
                                     </li>
                                 </ul>
                               </td>
-                          
                           </tr>
-                        
                         </tbody>
                       
                       </table>
@@ -165,9 +159,11 @@
 		</div>
 	</div>
 
+ 
+  <!-- Add Team Modal -->
 
 
-<!-- Edit Destinations Modal -->
+<!-- Edit Team Modal -->
 <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
     <div class="modal-dialog" style="top: 35% !important;max-width: 1000px;">
       <div class="modal-content">
@@ -178,7 +174,6 @@
         <div class="modal-body px-4">
           <form class="forms-sample" action="{% url 'Homepage_topdestination_Edit' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            
             <nav>
               <div class="nav nav-tabs mb-3 justify-content-center" id="nav-tab" role="tablist">
                 <button class="nav-link active me-2 rounded-pill" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Destination 1</button>
@@ -630,7 +625,6 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
-
   <!-- Css -->
   <style>
     .theme {
@@ -658,6 +652,5 @@
 }
   </style>
   <!-- Css -->
-
 </body>
 </html> 

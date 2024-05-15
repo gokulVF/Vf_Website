@@ -79,12 +79,26 @@
             background-image: url("{% static 'image/home/Untitled design 54 (1).png' %}");
             height: 500px;
         }
+        
+            
+        @media (max-width: 400px) {
+         .breadcrumb-main{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+       .breadcrumb-main{
+                    height: 320px; 
+                }
+        }
     </style>
 <h1 style="display:none">Blogs - Travel Blogs </h1>
 
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14">
-        <div class="section-shape section-shape1 top-inherit bottom-0"></div>
+    <section class="breadcrumb-main pb-20 pt-14" style="background-attachment:local !important;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -276,7 +290,7 @@
                 </script> -->
                                     
                 <!-- sidebar starts -->
-                <div class="col-lg-4 pe-lg-4" style="background: #f1f1f1;border-radius: 12px;">
+                <div class="col-lg-4 pe-lg-4 mt-2" style="background: #f1f1f1;border-radius: 12px;">
                     <div class="sidebar-sticky">
                          
                         <div class="list-sidebar">
@@ -423,7 +437,7 @@
                                 });
                                 </script>
                             <div class="popular-post sidebar-item mb-4">
-                                <div class="sidebar-tabs">
+                                <div class="sidebar-tabs mt-3">
                                     <div class="post-tabs">
                                         <!-- tab navs -->
                                         <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab1" role="tablist">
@@ -531,6 +545,17 @@
         
         .rec_par {
             border: 1px solid #029e9d !important;
+        }
+        
+        .sidebar-sticky .list-sidebar .sidebar-item {
+            padding:0 !important;
+            margin-bottom:0 !important;
+        }
+        
+        @media (max-width: 400px) {
+            .blog-full .blog-height {
+                height: 190px;
+            }
         }
      </style>
     <!--Css-->

@@ -66,8 +66,8 @@
     <!-- header ends -->
     
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14 banner" >
-        <div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+    <section class="breadcrumb-main pb-20 pt-14 banner" style="background-attachment:local !important;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -184,6 +184,19 @@
         .banner{
             background-image: url("{% static 'image/Continents/domestic_banner.jpg' %}");
             height: 500px; 
+        }
+             
+        @media (max-width: 400px) {
+         .banner{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+         .banner{
+                    height: 320px; 
+                }
         }
         
         #section-shape-img  {

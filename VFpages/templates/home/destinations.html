@@ -74,7 +74,7 @@
    
    
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14 banner" >
+    <section class="breadcrumb-main pb-20 pt-14 banner" style="background-attachment:local !important;">
         <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
@@ -112,12 +112,12 @@
                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %} justify-content-center" id="pills-{{city_id}}" role="tabpanel" aria-labelledby="pills-{{city_id}}-tab">
                     <div class="d-flex des_main_div">
                         <div class="col-lg-3">
-                            <div class="py-1 des_nav_div div_hid justify-content-start align-items-center">
+                            <div class="d-flex des_nav_div div_hid justify-content-start align-items-center">
                                 <h3 class="des_titles  mb-0 mbl-head" style="display:none;">Tourist Attractions</h3>
                                 <div class="nav flex-column nav-pills  me-3 " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <h3 class="des_titles  mb-0 des-head">Tourist Attractions</h3>
                                 {% for attraction in attractions_list %}
-                                  <button class="des_btn4 pt-1 pb-1 mt-2 text-start nav-link {% if forloop.first %}active{% endif %}" style="width:95%" id="v-pills-home-{{attraction.id}}" data-bs-toggle="pill" data-bs-target="#v-pills-{{attraction.id}}" type="button" role="tab" aria-controls="v-pills-{{attraction.id}}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{attraction.tour_spot_name}}</button>
+                                  <button class="des_btn4 bg-grey rounded pt-1 pb-1 mt-2 text-start nav-link {% if forloop.first %}active{% endif %}" style="width:95%" id="v-pills-home-{{attraction.id}}" data-bs-toggle="pill" data-bs-target="#v-pills-{{attraction.id}}" type="button" role="tab" aria-controls="v-pills-{{attraction.id}}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{attraction.tour_spot_name}}</button>
                                   <!--<i class='fas fa-globe icon_btn2'></i>-->
                                   <!-- <button class="des_btn4 pt-1 pb-1 mt-2 text-start nav-link"  id="v-pills-messages3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages3" type="button" role="tab" aria-controls="v-pills-messages3" aria-selected="false"><i class='fas fa-globe icon_btn2'></i> Lalgarh Palace and Museum</button> -->
                                   {% endfor %}
@@ -127,11 +127,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 mb-4">
+                         <div class="col-lg-9 mb-4">
                             <div class="des_nav_div div_show justify-content-start align-items-center" style="display: none;">
-                                <h3 class="des_titles  mb-0 mbl-head" style="display:none;">Tourist Attractions</h3>
+                                <h3 class="des_titles  mb-1 mbl-head" style="display:none;">Tourist Attractions</h3>
                                 <div class="nav flex-column nav-pills  me-3 " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <h3 class="des_titles  mb-1 des-head">Tourist Attractions</h3>
+                                    <h3 class="des_titles  mb-2 des-head">Tourist Attractions</h3>
                                 {% for attraction in attractions_list %}
                                   <button class="des_btn4 des_btn_mbl text-start nav-link {% if forloop.first %}active{% endif %}" style="width:95%" id="v-pills-home-{{attraction.id}}" data-bs-toggle="pill" data-bs-target="#v-pills-{{attraction.id}}" type="button" role="tab" aria-controls="v-pills-{{attraction.id}}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{attraction.tour_spot_name}}</button>
                                   <!--<i class='fas fa-globe icon_btn2'></i>-->
@@ -206,23 +206,23 @@
                 <div class="row item-slider1">
                     {% for packages in packages_entry %}
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                         <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
                         <div class="trend-item rounded box-shadow bg-white">
-                            <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
+                           
                             <div class="trend-image position-relative">
                                 <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
                                 <!--<div class="color-overlay"></div>-->
                             </div>
-                            </a>
                             <div class="trend-content px-4 py-2 position-relative" style="height:247px">
-                                <div class="trend-meta bg-theme white px-3 py-2 rounded">
+                                <div class="trend-meta bg-theme white px-2 py-1 rounded">
                                     <div class="entry-author">
-                                        <i class="icon-calendar pe-1"></i>
-                                        <span class="fw-bold">{{ packages.description.Noofdays }}</span>
+                                        <i class="icon-calendar pe-1 nod_cal"></i>
+                                        <span class="fw-bold nod_tour">{{ packages.description.Noofdays }}</span>
                                     </div>
                                 </div>
                                 <div style="height:155px">
                                     <h5 class="theme mb-0"><i class="flaticon-location-pin"></i> {{ packages.description.place1 }}</h5>
-                                    <h3 class="mb-1"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
+                                    <h3 class="mb-1" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</h3>
                                      <script>
                                         // Get the place2 element
                                         var placeElement = document.getElementById('tag-link{{ packages.id }}');
@@ -257,6 +257,7 @@
                                 </div>
                             </div>
                         </div>
+                            </a>
                     </div>
                
                     {% endfor %}
@@ -398,7 +399,7 @@
 	    .slick-next {right: 16px;}
 	    
 	     .item-slider1 .slick-prev, .item-slider1 .slick-next {
-            top: -124px;
+            top: -94px;
             background: #fff;
             border-radius: 5px;
             border: 1px solid #f1f1f1;
@@ -431,6 +432,40 @@
             height: 500px; 
         }
         
+        /* Tablet view */
+        @media (max-width: 790px) {
+            .banner{
+                background-image: url("{% static 'destination/desti_image/' %}{{ image2 }}");
+            }
+            
+            .nod_cal, .nod_tour {
+               font-size:12px !important; 
+            }
+        }
+        
+        /* Mobile view */
+        @media (max-width: 480px) {
+            .banner{
+                background-image: url("{% static 'destination/desti_image/' %}{{ image3 }}");
+            }
+        }
+        
+        @media (max-width: 400px) {
+         .banner{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+         .banner{
+                    height: 320px; 
+                }
+        }
+        
+        /* tab url("{% static 'destination/desti_image/' %}{{ image2 }}") */
+         /* Mobile url("{% static 'destination/desti_image/' %}{{ image3 }}") */
+        
         #section-shape-img  {
            background-image: url("{% static 'image/images/shape8.png' %}");
         }
@@ -448,8 +483,7 @@
         }
         
         .nav-pills .des_btn4.active, .nav-pills .show>.nav-link {
-             margin:1em ;
-             border:none !important;
+             border:none;
              padding: 17px 26px 17px 15px;
              text-align:left !important;
              background: #029e9d !important;
@@ -461,15 +495,15 @@
         }
             
         .des_btn4 {
-             margin:1em ;
-             border:none !important;
+             border:none;
              padding: 17px 26px 17px 15px ;
              text-align:left !important;
-             background: #f1f1f1 !important;
+             background: white;
              /*background:*/
              /*linear-gradient(-120deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1em, transparent 2em, #f1f1f1 0em) top no-repeat,*/
              /*    linear-gradient(300deg, transparent 1em, #f1f1f1 1.0em , #f1f1f1 1.0em, transparent 1.0em, transparent 2em, #f1f1f1 2.05em) bottom no-repeat  !important;*/
              background-size: 100% 50% !important;
+             
         }
             
         .icon_btn2 {

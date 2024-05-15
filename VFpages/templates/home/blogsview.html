@@ -36,6 +36,9 @@
         .number {
             font-family: "Font Awesome 5 Brands;"
         }
+        .rec_par {
+            border: 1px solid #029e9d !important;
+        }
      </style>
      
      <!-- Google tag (gtag.js) -->
@@ -84,16 +87,40 @@
             height: 500px; 
         }
         
+        
+         @media (max-width: 400px) {
+        #bc_image{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+       #bc_image{
+                    height: 320px; 
+                }
+        }
+        
         .par_rec {
             background: #f1f1f1;
             padding: 5px 10px;
             border-radius: 12px;
+            
+                    
+                
+        }
+        .blog_content {
+            color: #029e9d !important;
+            font-size: 20px !important;
+            text-align: start !important;
+            padding: 20px !important;
+            border-left: 8px solid #029e9d;
         }
     </style>
 
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14" id="bc_image">
-        <div class="section-shape section-shape1 top-inherit bottom-0"></div>
+    <section class="breadcrumb-main pb-20 pt-14" id="bc_image" style="background-attachment: local;">
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->
@@ -107,7 +134,7 @@
                 <!--</div>-->
             </div>
         </div>
-        <div class="dot-overlay"></div>
+        <!--<div class="dot-overlay"></div>-->
     </section>
     <!-- BreadCrumb Ends --> 
 
@@ -121,57 +148,85 @@
                         <div class="blog-wrapper">
                             <h2 class="lh-sm" id="title-link{{blog_entry.id}}">{{ blog_entry.description.title}}</h2>
                             <script>
-                                            // Get the title element
-                                            var titleElement = document.getElementById('title-link{{blog_entry.id}}');
-                                            var titleText = titleElement.textContent;
-                                        
-                                            // Replace numbers with spans having a specific class
-                                            var replacedText = titleText.replace(/[\d&]+/g, function(match) {
-                                                return "<span class='number'>" + match + "</span>";
-                                            });
-                                        
-                                            // Set the modified HTML back to the element
-                                            titleElement.innerHTML = replacedText;
+                                // Get the title element
+                                var titleElement = document.getElementById('title-link{{blog_entry.id}}');
+                                var titleText = titleElement.textContent;
+                            
+                                // Replace numbers with spans having a specific class
+                                var replacedText = titleText.replace(/[\d&]+/g, function(match) {
+                                    return "<span class='number'>" + match + "</span>";
+                                });
+                            
+                                // Set the modified HTML back to the element
+                                titleElement.innerHTML = replacedText;
                             </script>
                             <div class="blog-content first-child-cap">
                                 <p class="mb-3">{{ blog_entry.description.description}}<br><br>
-                                <img src="{% static blog_entry.description.cover_image_url %}" alt="image" style="height: 300px;width: 100%; class="mb-3 rounded">
+                                <img src="{% static blog_entry.description.cover_image_url %}" alt="image" style="height: 350px;width: 100%;" class="mb-3 rounded">
                                 {{ blog_entry.description.content}}</p>
                             </div>
 
                             <!-- blog blockquote -->
+                            {% if blog_entry.description.jump_link_titles %}
                             <div class="blog_content mt-2 mb-5">
+                                
                                 {{ blog_entry.description.jump_link_titles | safe}}
+                                
                                 <!-- <p class="white">“To take a trivial example, which ever undertakes laborious physical work exercise, except obtain some advantage blinded” </p>
                                 <span class="white">By Michael Delwell</span>
                                 <i class="fas fa-quote-left"></i> -->
                             </div>
+                            {% endif %}
                             <div id="richTextAreaContent">
-                                {{ blog_entry.description.richtextarea | safe }}
+                                {% for contents in richtextarea %}
+                                <h3 class="mt-4 change_id{{contents.id}}" id="{{contents.title}}">{{ contents.title}}</h3>
+                                <input type="hidden" id="title-new{{contents.id}}" value="{{ contents.title }}">
+                                {% if contents.image %}
+                                <img src="{% static 'image/blog_image/blog_main/' %}{{ contents.blogid }}/{{ contents.image }}" alt="image" style="height: 350px; width: 100%;" class="mb-3 rounded">
+                                {% endif %}
+                                <div>{{ contents.content | safe }}</div>
+                                <script>
+                                    // Add an event listener for the DOMContentLoaded event
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Get the input element by its id
+                                        var inputElement = document.getElementById("title-new{{contents.id}}");
+                                
+                                        // Get the value of the input element
+                                        var titleValue = inputElement.value;
+                                
+                                        // Remove spaces and hyphens from the title
+                                        var cleanedTitle = titleValue.replace(/[-\s]/g, '');
+                                
+                                        // Get the h3 element by its original class
+                                        var h3Element = document.querySelector(".change_id{{contents.id}}");
+                                
+                                        // Set the cleaned title as the ID for the h3 element
+                                        h3Element.id = cleanedTitle;
+                                
+                                        // Now the h3 element has the new ID without spaces and hyphens
+                                        console.log(h3Element.id); // Output: titleplacestovisitinKeralathingstodo
+                                    });
+                                </script>
+                                
+                                {% endfor %}
                             </div>
-                            <style>
-                                .blog_content {
-                                    color: #029e9d !important;
-                                    font-size: 20px !important;
-                                    text-align: start !important;
-                                    padding: 20px !important;
-                                    border-left: 8px solid #029e9d;
-                                }
-                            </style>
-                            </div>
-                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3 mb-4" style="position: sticky;top: 20px;height: 600px;">
+                
+                
+                <div class="col-lg-3 mb-4" style="position: sticky; top: 20px; height: 600px;">
                     <div class="popular-post sidebar-item mb-4">
                         <div class="sidebar-tabs">
                             <div class="post-tabs">
                                 <!-- tab navs -->
                                 <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab1" role="tablist">
                                     <li class="nav-item d-inline-block" role="presentation">
-                                        <button aria-selected="false" class="nav-link active py-1" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button>
+                                        <button aria-selected="false" class="nav-link active py-1 rec_par" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button>
                                     </li>
                                     <li class="nav-item d-inline-block" role="presentation">
-                                        <button aria-selected="true" class="nav-link py-1" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button>
+                                        <button aria-selected="true" class="nav-link py-1 rec_par" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button>
                                     </li>
                                 </ul>
                                 <!-- tab contents -->
@@ -182,7 +237,7 @@
                                                 <article class="post mb-1 par_rec">
                                                     <div class="s-content d-flex align-items-center justify-space-between">
                                                         <div class="sidebar-image w-25 me-3 rounded">
-                                                            <a href="/blogs/{{ popular.description.url }}"><img src="{% static popular.description.grid_image_url %}" alt="" style="height: 80px;"></a>
+                                                            <a href="/blogs/{{ popular.description.url }}"><img src="{% static popular.description.grid_image_url %}" alt="" style="height: 60px;"></a>
                                                         </div>
                                                         <div class="content-list w-75">
                                                             <h5 class="mb-1"><a href="/blogs/{{ popular.description.url }}" class="update-link" id="popular{{popular.id}}" data-blog-id="{{ popular.id }}" data-blog-url="{{ popular.description.url }}">{{ popular.description.title }}</a></h5>
@@ -211,7 +266,7 @@
                                                 <article class="post mb-1 par_rec">
                                                     <div class="s-content d-flex align-items-center justify-space-between">
                                                         <div class="sidebar-image w-25 me-3 rounded">
-                                                            <a href="/blogs/{{ last_entry.description.url }}"><img src="{% static last_entry.description.grid_image_url %}" alt="" style="height: 80px;"></a>
+                                                            <a href="/blogs/{{ last_entry.description.url }}"><img src="{% static last_entry.description.grid_image_url %}" alt="" style="height: 60px;"></a>
                                                         </div>
                                                         <div class="content-list w-75">
                                                             <h5 class="mb-1"><a href="/blogs/{{ last_entry.description.url }}" id="recent{{last_entry.id}}" class="update-link" data-blog-id="{{ last_entry.id }}" data-blog-url="{{ last_entry.description.url }}">{{ last_entry.description.title }}</a></h5>

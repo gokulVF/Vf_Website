@@ -51,37 +51,34 @@
       <!-- Page Content Starts -->
 			<div class="page-content">
 
-        <nav class="page-breadcrumb d-flex align-items-center justify-content-between">
-          <div class="col-lg-10">
-            <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#">Destination Details</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Destinations</li>
-          </ol>
-        </div>
-        </nav>
+				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
+                  <p class="breadcrumb-item fw-bold h3">Destination Details</p>
+          
+				</nav>
 
-        <div class="search-box p-4 bg-white rounded mb-3 box-shadow">
-          <div class="forms-sample">
-            <div class="row justify-content-between">
-              <form class="col-lg-10" method="GET" action="{% url 'destination' %}">
-                  <div class="align-items-center row">
-                    <div class="col-lg-2">
-                      <h5>Search Destination</h5>
-                    </div>
-                    <div class="col-lg-6">
-                      <input type="text" name="search_query" id="searchInput" placeholder="Enter Destination Name ...." class="form-control" value="">
-                    </div> 
-                    <div class="input-group-append mx-2 col-lg-1">
-                          <button class="btn btn-outline-secondary" type="submit">Search</button>
-                      </div>
-                </div>
-              </form>
-              <div class="col-lg-2">
-                <a href="{% url 'des_insertfn' %}"><button class="btn btn-primary" ><i class="link-icon" data-feather="plus"></i>Create Destination</button></a>
+
+           <div class="search-box p-4 bg-white rounded mb-3 box-shadow">
+              <div class="forms-sample">
+                <div class="row justify-content-between">
+              <form class="row col-lg-10" method="GET" action="{% url 'destination' %}">
+                <div class="align-items-center row">
+                  <div class="col-lg-3">
+                    <h5>Search Destination</h5>
+                  </div>
+                  <div class="mx-2 col-lg-7">
+                    <input type="text" name="search_query" id="searchInput" placeholder="Enter destination Name........" class="form-control" value="">
+                    
+                  </div> 
+            <div class="input-group-append mx-2 col-lg-1">
+                  <button class="btn btn-outline-secondary" type="submit">Search</button>
               </div>
+              </div>
+          </form>
+            <div class="mt-2 col-lg-2">
+              <a href="{% url 'des_insertfn' %}"><button class="btn btn-primary" ><i class="link-icon" data-feather="plus"></i>Create Destination</button></a>
             </div>
           </div>
+        </div>
         </div>
 
 				<div class="row">
@@ -92,11 +89,11 @@
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr class="text-center">
-                        <th>S.No</th>
-                        <th >Destination Name</th>
-                        <th>Destination Slug</th>
-                        <!-- <th>Cities image</th> -->
+                        <th>ID</th>
                         <th>Created date</th>
+                        <th >Page Name</th>
+                        <th>Page Slug</th>
+                        <th>Cities image</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -104,10 +101,10 @@
                       {% for value in destination %}
                       <tr class="text-center">
                         <td>{{ forloop.counter }}</td>
+                        <td>{{value.created_at}}</td>
                         <td>{{value.destination_name}}</td>
                         <td>{{value.destination_slug}}</td>
-                        <!-- <td><img src="{% static 'destination/desti_image/' %}{{ value.destination_image }}"></td> -->
-                        <td>{{value.created_at}}</td>
+                        <td><img src="{% static 'destination/desti_image/' %}{{ value.destination_image }}"></td>
                         <td class="text-center">
                           <ul class="d-flex list-unstyled mb-0">
                             <li class="me-2"><a href="" data-bs-toggle="modal" data-bs-target="#addslider{{value.id}}"><i class="link-icon"  data-feather="edit"></i></a></li>
@@ -185,27 +182,27 @@
   <div class="modal fade" id="addslider{{value.id}}" tabindex="-1" aria-labelledby="addslider{{value.id}}" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content" >
-        <div class="modal-header text-center">
+        <div class="modal-header text-center d-flex justify-content-between">
           <h5 class="modal-title" id="exampleModalLabel">Edit Destination Details</h5>
-            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form class="forms-sample row bg-grey rounded my-2 mx-1 p-3" action="{% url 'destination_edit' team_id=value.id%}" method="POST" enctype="multipart/form-data" >
+          <form class="forms-sample row" action="{% url 'destination_edit' team_id=value.id%}" method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
-                <div class="mb-3 input-div col-lg-6">
-                    <label for="description" class="form-label">Sector</label>
+                <div class="mb-3 input-div col-lg-3">
+                    <label for="description" class="form-label">International/Domestic?</label>
                     <input type="hidden" class="selectTourValue" id="countryHiddnValue_{{value.id}}" value="{{value.category}}">
                     <select class="form-select form-width showTourValue" name="up-in-dom" >
-                        <option value="">Select</option>
+                        <option value="">Select any one</option>
                         <option value="1">Domestic</option>
                         <option value="0">International</option>
                      </select>
                 </div>
-                <div class="mb-3 input-div col-lg-6">
+                <div class="mb-3 input-div col-lg-3">
                     <label for="description" class="form-label">Category</label>
                     <input type="hidden" class="selectCountryValue" id="countryHiddnValue_{{value.id}}" value="{{value.destination_category}}">
                     <select class="form-select form-width showCountryValue" name="up-destination-Category">
-                        <option value="">Select</option>
+                        <option value="">Select any one</option>
                         <optgroup label="Domestic">
                             <option value="North">North India</option>
                             <option value="South">South India</option>
@@ -231,18 +228,15 @@
               <!--        <option value="0">OFF</option>-->
               <!--     </select>-->
               <!--</div>-->
-              <div class="mb-3 input-div col-lg-4">
-                <label for="subtitle" class="form-label">Destination Name</label>
+              <div class="mb-3 input-div col-lg-3">
+                <label for="subtitle" class="form-label">Name</label>
                 <input type="text" class="form-control form-width" value="{{value.destination_name}}" required id="subtitle" name="up-Name" autocomplete="off">
             </div>
-              <div class="mb-3 input-div col-lg-4">
-                <label for="description" class="form-label">Destination Slug</label>
+              <div class="mb-3 input-div col-lg-3">
+                <label for="description" class="form-label">Name Slug</label>
                 <input type="text" class="form-control form-width" required value="{{value.destination_slug}}" id="password" name="up-NameSlug" autocomplete="off" >
             </div>
-              <div class="mb-3 input-div col-lg-4">
-                  <label for="upload" class="form-label">Banner Image</label>
-                  <input class="form-control  form-width"  type="file" value="{{value.destination_image}}" name="up-Baner_Images" id="upload" >
-              </div>
+            
               
               <div class="mb-3 input-div col-lg-6" >
             <label for="description" class="form-label">Title</label>
@@ -257,19 +251,31 @@
                 <input type="number" class="form-control form-width" required id="up-Cost" value="{{value.destination_cost}}" name="up-cost" autocomplete="off">
             </div> -->
         </div>
-              <div class="mb-3 input-div col-lg-6">
+        <div class="mb-3 input-div col-lg-4">
+          <label for="upload" class="form-label">Desktop Banner Images</label>
+          <input class="form-control  form-width"  type="file" value="{{value.destination_image}}" name="up-Baner_Images" id="upload" >
+      </div>
+      <div class="mb-3 input-div col-lg-4">
+        <label for="upload" class="form-label">Tab Banner Images</label>
+        <input class="form-control  form-width"  type="file"  name="up-Tab_Images" id="upload" >
+    </div>
+    <div class="mb-3 input-div col-lg-4">
+      <label for="upload" class="form-label">Mobile Banner Images</label>
+      <input class="form-control  form-width"  type="file"  name="up-Mobile_Images" id="upload" >
+  </div>
+              <div class="mb-3 input-div col-lg-4">
                 <label for="subtitle" class="form-label">Meta Title</label>
                 <input type="text" class="form-control form-width" id="MetaTitle" value="{{value.metatitle}}" name="up-MetaTitle" autocomplete="off">
               </div>
-              <div class="mb-3 input-div col-lg-6">
+              <div class="mb-3 input-div col-lg-4">
                 <label for="subtitle" class="form-label">Meta Description</label>
                 <input type="text" class="form-control form-width" id="Metadescription" value="{{value.metadestination}}" name="up-Metadescription" autocomplete="off">
               </div>
-              <div class="mb-3 input-div col-lg-6">
+              <div class="mb-3 input-div col-lg-4">
                 <label for="subtitle" class="form-label">Meta keyword</label>
                 <input type="text" class="form-control form-width" id="Metakeyword" value="{{value.metakeyword}}" name="up-Metakeyword" autocomplete="off">
               </div>
-              <div class="mb-3 input-div col-lg-6">
+              <div class="mb-3 input-div">
                 <label for="subtitle" class="form-label">canonical tag</label>
                 <input type="text" class="form-control form-width" id="canonical" value="{{value.canonical}}" name="canonical" autocomplete="off">
               </div>
@@ -293,11 +299,10 @@
                   <label for="description" class="form-label">Max Group</label>
                   <input type="text" class="form-control" required id="password" value="{{value.destination_max_group}}" name="up-MaxGroup" autocomplete="off" >
               </div> -->
-                <div class="text-center mt-3">
-                  <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
-                  <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-              </div>
-            </form>
+               <div class="text-center">
+                    <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i> Edit Destination</button>
+                </div>
+</form>
         </div>
       </div>
     </div>
@@ -305,6 +310,25 @@
  {% endfor %}
 
 
+  <style>
+    .form-width{
+          width: 98%;
+        }
+        /*.input-div{*/
+        /*  width: 100%;*/
+        /*}*/
+        .form-control2{
+          width: 95%;
+        }
+        /*.form-label{*/
+        /*  font-size: medium;*/
+        /*  font-weight: 600;*/
+        /*}*/
+        .modal-dialog{
+          max-width: 1000px;
+        }
+  
+      </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -402,50 +426,6 @@
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <script src="{% static 'js/admin/tags-input.js' %}"></script>
   <!-- End custom js for this page -->
-
-     <!-- Css -->
- <style>
-  .theme {
-    color: #029e9d !important;
-  }
-
-  .black {
-    color: black !important;
-  }
-  .bg-grey{ 
-    background: #f1f1f1  !important;
-  }
-
-  .nav-tabs .nav-link.active {
-    background:#029e9d;
-    color: #fff;
-  }
-
-  .nav-tabs .nav-link {
-    border: 1px solid #029e9d !important;
-  }
-
-  .nav-tabs {
-  border-bottom: none !important;
-}
-
-.form-width{
-          width: 98%;
-        }
-        .form-control2{
-          width: 95%;
-        }
-        .modal-dialog{
-          max-width: 1000px;
-        }
-
-        .modal.show .modal-dialog {
-    transform: scale(1.02) translateY(-50%);
-    top: 50% !important;
-}
-  
-</style>
-<!-- Css -->
 
 </body>
 </html>    

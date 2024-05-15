@@ -76,8 +76,8 @@
                         <th>tilte</th>
                         <th>description</th>
                         <th>keywords</th>
-                        <th>Created by</th>
-                        <th>updated date</th>
+                        <!--<th>Created by</th>-->
+                        <!--<th>updated date</th>-->
                         <!-- <th class="text-center">Published</th> -->
                         <th class="text-center">Action</th>
                       </tr>Meta tags
@@ -90,8 +90,8 @@
                         <td>{{ datedata.meta_title}}</td>
                         <td>{{ datedata.meta_description}}</td>
                         <td>{{ datedata.meta_keyword}}</td>
-                        <td>{{ created_by }}</td>
-                        <td>{{ updated_by }}</td>
+                        <!--<td>{{ created_by }}</td>-->
+                        <!--<td>{{ updated_by }}</td>-->
                         <!-- <td class="text-center">
                           <span class="form-check form-switch"><input type="checkbox" class="form-check-input" id="formSwitch1"></span>
                         </td> -->
@@ -122,28 +122,31 @@
                       <div class="modal fade" id="addslider" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
-                            <div class="modal-header text-center d-flex justify-content-between">
+                            <div class="modal-header text-center">
                               <h5 class="modal-title" id="exampleModalLabel">Edit Meta tags</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                             </div>
                             <div class="modal-body">
                                 <form class="forms-sample" id="myForm" action="{% url 'submit_form_blogus' %}" method="POST">
                                  {% csrf_token %}
-                                <div class="mb-3">
-                                  <label for="subtitle" class="form-label">Title</label>
-                                  <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
-                                  <textarea type="text" class="form-control" id="title" name="title" value="" autocomplete="off" placeholder="">{{ datedata.meta_title}}</textarea>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="title" class="form-label">Description</label>
-                                  <textarea type="text" class="form-control" id="description" name="description" value="" placeholder="">{{ datedata.meta_description}}</textarea>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="description" class="form-label">Keywords</label>
-                                  <textarea type="text" class="form-control" id="keyword" name="keyword" value="" autocomplete="off" placeholder="">{{ datedata.meta_keyword}}</textarea>
-                                </div>
-                                <div class="text-center">
-                                  <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
+                                 <div class="row bg-grey rounded m-1 p-2">
+                                    <div class="mb-3">
+                                      <label for="subtitle" class="form-label">Title</label>
+                                      <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
+                                      <textarea type="text" class="form-control" id="title" name="title" value="" autocomplete="off" placeholder="">{{ datedata.meta_title}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="title" class="form-label">Description</label>
+                                      <textarea type="text" class="form-control" id="description" name="description" value="" placeholder="">{{ datedata.meta_description}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="description" class="form-label">Keywords</label>
+                                      <textarea type="text" class="form-control" id="keyword" name="keyword" value="" autocomplete="off" placeholder="">{{ datedata.meta_keyword}}</textarea>
+                                    </div>
+                                    <div class="text-center">
+                                       <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                                       <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
                                 </div>
                               </form>
                             </div>
@@ -170,12 +173,12 @@
         <div class="modal fade" id="addheader" tabindex="-1" aria-labelledby="addslider" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header text-center d-flex justify-content-between">
+              <div class="modal-header text-center">
                 <h5 class="modal-title" id="exampleModalLabel">Add Tags</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
               </div>
               <div class="modal-body">
-                  <form class="forms-sample" id="myForm" action="{% url 'blogtagadd' %}" method="POST">
+                  <form class="forms-sample bg-grey rounded m-1 p-2" id="myForm" action="{% url 'blogtagadd' %}" method="POST">
                   {% csrf_token %}
                   <div class="mb-3">
                     <label for="Header" class="form-label">Tags</label>
@@ -183,8 +186,9 @@
                     <input type="text" class="form-control" id="Header" name="word" value="" autocomplete="off" placeholder=""></input>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
-                  </div>
+                       <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                       <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    </div>
                 </form>
               </div>
             </div>
@@ -228,12 +232,12 @@
                             <div class="modal fade" id="{{ footer.tag_name}}{{ footer.id}}" tabindex="-1" aria-labelledby="editor" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
-                                    <div class="modal-header text-center d-flex justify-content-between">
+                                    <div class="modal-header text-center">
                                       <h5 class="modal-title" id="exampleModalLabel">Edit Tags</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                                     </div>
                                     <div class="modal-body">
-                                        <form class="forms-sample" id="myForm" action="{% url 'blogupdatetags' %}" method="POST">
+                                        <form class="forms-sample bg-grey rounded m-1 p-2" id="myForm" action="{% url 'blogupdatetags' %}" method="POST">
                                          {% csrf_token %}
                                          <input type="hidden" class="form-control" id="id" name="id" value="{{ footer.id }}" autocomplete="off" placeholder=""></input>
                                          <div class="mb-3 text-start">
@@ -241,9 +245,10 @@
                                             <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
                                             <input type="text" class="form-control" id="tags" name="tags" value="{{ footer.tag_name}}" autocomplete="off" placeholder=""></input>
                                           </div>
-                                        <div class="text-center">
-                                          <button type="submit" class="btn btn-primary"><i class="link-icon" data-feather="plus"></i>Submit</button>
-                                        </div>
+                                           <div class="text-center">
+                                               <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
+                                               <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                            </div>
                                       </form>
                                     </div>
                                   </div>
@@ -622,8 +627,23 @@
 
 	<!-- Custom js for this page -->
   <script src="{% static 'js/admin/dashboard-light.js' %}"></script>
-  <script src="{% static 'js/admin/datepicker.js' %}""></script>
+  <script src="{% static 'js/admin/datepicker.js' %}"></script>
 	<!-- End custom js for this page -->
+	
+	<!-- Css -->
+<style>
+  .theme {
+    color: #029e9d !important;
+  }
+
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 
 
 </body>

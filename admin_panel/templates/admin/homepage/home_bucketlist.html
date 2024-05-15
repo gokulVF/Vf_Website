@@ -58,10 +58,11 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#">Homepage</a></li>
-            <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
+                        <li class="breadcrumb-item"><a href="#">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="#">Theme 1</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Categories Cities</li>
 					</ol>
+          <!-- <bu
           <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addslider"><i class="link-icon" data-feather="plus"></i> Add Slider</button> -->
 				</nav>
 
@@ -94,7 +95,7 @@
                         <thead class="text-center">
                           <tr >
                             <th>S.No</th>
-                            <!-- <th>table id</th> -->
+                            <!--<th>table id</th>-->
                             <th>Categories Name</th>
                             <!-- <th>Destination id</th> -->
                             <th>Action</th>
@@ -111,7 +112,6 @@
                               <button class="btn btn-primary  px-3 py-2 rounded fw-bold" data-bs-toggle="modal" data-bs-target="#addslider-addteam"><i class="link-icon" data-feather="plus"></i> Add Categories </button>
                             </div>
                           </div>
-            
                         </thead>
       
                        
@@ -119,7 +119,7 @@
                           {% for result in results %}
                           <tr>
                               <td>{{ forloop.counter }}</td>
-                              <!-- <td>{{ result.id}}</td> -->
+                              <!--<td>{{ result.id}}</td>-->
                               <td>{{ result.city}}</td>
                            
                               <td class="text-center">
@@ -194,7 +194,7 @@
 <div class="modal fade" id="addslider-addteam" tabindex="-1" aria-labelledby="addTeamModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header text-center">
+         <div class="modal-header text-center">
               <h5 class="modal-title" id="addTeamModalLabel">Add Categories</h5>
               <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
@@ -210,8 +210,10 @@
                       {% endfor %}
                     </select>
                   </div>
+                  
                   <div class="mb-3  col-lg-6">
                     <label for="TeamName" class="form-label">Categories Slug</label>
+
                     <select class="form-select show-4" id="CategoriesTypeslug"  name="CategoriesTypeslug">
                       <option value="">Select</option>
                     {% for type in categories %}
@@ -231,10 +233,11 @@
                   <label for="upload" class="form-label">Mobile Banner Image</label>
                   <input class="form-control" required type="file" name="MobileImages" id="upload" >
                 </div>
-                <div class="mb-3">
+                  <div class="mb-3">
                     <label for="TeamName" class="form-label">Destination</label>
                     <input type="hidden" class="select-4" id="new-{{team.description.HomeDestinationName}}" value="{{team.description.HomeDestinationName}}">
-                    <select class="form-select show-4" id="DestinationName" name="DestinationName" style="height: 200px;" multiple>
+                    <select class="form-select show-4" id="DestinationName" name="DestinationName"  style="height: 200px;"  multiple>
+                      <option value="">Select the cities</option>
                       <optgroup label="International">
                           {% for internation in Internation %}
                           <option value="{{internation.id}}">{{internation.destination_name}}</option>
@@ -291,25 +294,30 @@
                         }
                     });
                 </script>
-                </div>  
-                <div class="mb-3 col-lg-6">
-                    <label for="TeamName" class="form-label">Meta Title</label>
-                    <input type="text" class="form-control" id="MetaTitle" name="MetaTitle"  autocomplete="off">
-                </div>
-                <div class="mb-3 col-lg-6">
-                      <label for="TeamName" class="form-label">Meta description</label>
-                      <input type="text" class="form-control" id="Metadescription" name="Metadescription"  autocomplete="off">
-                  </div>
-                  <div class="mb-3 col-lg-6">
-                    <label for="TeamName" class="form-label">Meta keyword</label>
-                    <input type="text" class="form-control" id="Metakeyword" name="Metakeyword" autocomplete="off">
-                </div>
-                <div class="mb-3 col-lg-6">
-                    <label for="TeamName" class="form-label">canonical tag</label>
-                    <input type="text" class="form-control" id="canonical" name="canonical" autocomplete="off">
-                </div>
+            </div>  
+                
+            <div class="mb-3 col-lg-6">
+              <label for="TeamName" class="form-label">Meta Title</label>
+              <input type="text" class="form-control" id="MetaTitle" name="MetaTitle"  autocomplete="off">
+           </div>
+           <div class="mb-3 col-lg-6">
+                <label for="TeamName" class="form-label">Meta description</label>
+                <input type="text" class="form-control" id="Metadescription" name="Metadescription"  autocomplete="off">
+            </div>
+            <div class="mb-3 col-lg-6">
+              <label for="TeamName" class="form-label">Meta keyword</label>
+              <input type="text" class="form-control" id="Metakeyword" name="Metakeyword" autocomplete="off">
+           </div>
+           <div class="mb-3 col-lg-6">
+              <label for="TeamName" class="form-label">canonical tag</label>
+              <input type="text" class="form-control" id="canonical" name="canonical" autocomplete="off">
+           </div>
+                  
+                  
+                  
+
                 <input type="hidden" class="new-id" id="new-id" name="CategoriesType_name">
-                <div class="text-center mt-3">
+               <div class="text-center mt-3">
                   <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
                   <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
@@ -355,7 +363,7 @@
 <div class="modal fade" id="editTeamModal{{ team.id }}" tabindex="-1" aria-labelledby="editTeamModalLabel{{ team.id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header text-center">
+            <div class="modal-header text-center">
               <h5 class="modal-title" id="editTeamModalLabel{{ team.id }}">Edit Categories</h5>
               <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
@@ -393,83 +401,83 @@
                 <label for="upload" class="form-label">Mobile Banner Image</label>
                 <input class="form-control"  type="file" name="up-MobileImages" id="upload" >
               </div>
-              <div class="mb-3">
-                <select class="form-select show-4" id="DestinationName{{ team.id }}" name="up-DestinationName" style="height: 200px;"  multiple>
-                  <option value="">Select</option>
-                  <optgroup label="International">
-                      {% for internation in Internation %}
-                      <option value="{{internation.id}}">{{internation.destination_name}}</option>
-                      {% endfor %}
-                  </optgroup>
-                  <optgroup label="Domestic">
-                      {% for domestic in Domestic %}
-                      <option value="{{domestic.id}}">{{domestic.destination_name}}</option>
-                      {% endfor %}
-                  </optgroup>
-                  </select>
-                  <input type="hidden" id="selectedCities{{ team.id }}" name="uptwo-selectedCities" value='{{team.description}}'>
-                  <div class="selected-options" id="selectedCitiesText{{ team.id }}" style="height: 40px;"></div>
-              </div>
-            
-              <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const selectElement = document.getElementById('DestinationName{{ team.id }}');
-                    const hiddenInput = document.getElementById('selectedCities{{ team.id }}');
-                    // const hiddenInput = JSON.stringify(new_)
-                    const selectedCitiesText = document.getElementById('selectedCitiesText{{ team.id }}');
-                    let selectedValues = JSON.parse(hiddenInput.value); // Initialize selected values from hidden input
-            
-                    // Function to initialize display of all selected values
-                    function initializeSelectedValuesDisplay() {
-                        selectedValues.forEach(value => {
-                            const option = selectElement.querySelector(`option[value="${value}"]`);
-                            if (option) {
-                                addSelectedOptionToDiv(option.text, option.value);
-                            }
-                        });
-                    }
-            
-                    initializeSelectedValuesDisplay(); // Call the function to initialize display
-            
-                    selectElement.addEventListener('change', function () {
-                        const selectedOptions = Array.from(this.selectedOptions);
-            
-                        selectedOptions.forEach(option => {
-                            if (!selectedValues.includes(option.value)) { // Check if value is already selected
-                                selectedValues.push(option.value); // Add selected value to array
-                                addSelectedOptionToDiv(option.text, option.value);
-                            }
-                        });
-            
-                        updateHiddenInput(selectedValues);
-                    });
-            
-                    function addSelectedOptionToDiv(optionText, optionValue) {
-                        const selectedOptionDiv = document.createElement('div');
-                        selectedOptionDiv.classList.add('selected-option');
-                        selectedOptionDiv.textContent = optionText;
-            
-                        const closeIcon = document.createElement('span');
-                        closeIcon.classList.add('selected-option-close');
-                        closeIcon.textContent = '✖';
-                        closeIcon.onclick = function () {
-                            const index = selectedValues.indexOf(optionValue);
-                            if (index !== -1) {
-                                selectedValues.splice(index, 1); // Remove the value from array
-                                updateHiddenInput(selectedValues);
-                                selectedCitiesText.removeChild(selectedOptionDiv); // Remove the selected option from display
-                            }
-                        };
-            
-                        selectedOptionDiv.appendChild(closeIcon);
-                        selectedCitiesText.appendChild(selectedOptionDiv);
-                    }
-            
-                    function updateHiddenInput(selectedValues) {
-                        hiddenInput.value = JSON.stringify(selectedValues); // Store array as JSON string
-                    }
-                });
-            </script>
+            <div class="mb-3">
+              <select class="form-select show-4" id="DestinationName{{ team.id }}" name="up-DestinationName" style="height: 200px;"   multiple>
+                <option value="">Select</option>
+                <optgroup label="International">
+                    {% for internation in Internation %}
+                    <option value="{{internation.id}}">{{internation.destination_name}}</option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup label="Domestic">
+                    {% for domestic in Domestic %}
+                    <option value="{{domestic.id}}">{{domestic.destination_name}}</option>
+                    {% endfor %}
+                </optgroup>
+                </select>
+                 <input type="hidden" id="selectedCities{{ team.id }}" name="uptwo-selectedCities" value='{{team.description}}'>
+                <div class="selected-options" id="selectedCitiesText{{ team.id }}" style="height: 40px;"></div>
+            </div>
+           
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                  const selectElement = document.getElementById('DestinationName{{ team.id }}');
+                  const hiddenInput = document.getElementById('selectedCities{{ team.id }}');
+                  // const hiddenInput = JSON.stringify(new_)
+                  const selectedCitiesText = document.getElementById('selectedCitiesText{{ team.id }}');
+                  let selectedValues = JSON.parse(hiddenInput.value); // Initialize selected values from hidden input
+          
+                  // Function to initialize display of all selected values
+                  function initializeSelectedValuesDisplay() {
+                      selectedValues.forEach(value => {
+                          const option = selectElement.querySelector(`option[value="${value}"]`);
+                          if (option) {
+                              addSelectedOptionToDiv(option.text, option.value);
+                          }
+                      });
+                  }
+          
+                  initializeSelectedValuesDisplay(); // Call the function to initialize display
+          
+                  selectElement.addEventListener('change', function () {
+                      const selectedOptions = Array.from(this.selectedOptions);
+          
+                      selectedOptions.forEach(option => {
+                          if (!selectedValues.includes(option.value)) { // Check if value is already selected
+                              selectedValues.push(option.value); // Add selected value to array
+                              addSelectedOptionToDiv(option.text, option.value);
+                          }
+                      });
+          
+                      updateHiddenInput(selectedValues);
+                  });
+          
+                  function addSelectedOptionToDiv(optionText, optionValue) {
+                      const selectedOptionDiv = document.createElement('div');
+                      selectedOptionDiv.classList.add('selected-option');
+                      selectedOptionDiv.textContent = optionText;
+          
+                      const closeIcon = document.createElement('span');
+                      closeIcon.classList.add('selected-option-close');
+                      closeIcon.textContent = '✖';
+                      closeIcon.onclick = function () {
+                          const index = selectedValues.indexOf(optionValue);
+                          if (index !== -1) {
+                              selectedValues.splice(index, 1); // Remove the value from array
+                              updateHiddenInput(selectedValues);
+                              selectedCitiesText.removeChild(selectedOptionDiv); // Remove the selected option from display
+                          }
+                      };
+          
+                      selectedOptionDiv.appendChild(closeIcon);
+                      selectedCitiesText.appendChild(selectedOptionDiv);
+                  }
+          
+                  function updateHiddenInput(selectedValues) {
+                      hiddenInput.value = JSON.stringify(selectedValues); // Store array as JSON string
+                  }
+              });
+          </script>
 
               <div class="mb-3 col-lg-6">
                 <label for="TeamName" class="form-label">Meta Title</label>
@@ -478,16 +486,17 @@
              <div class="mb-3 col-lg-6">
               <label for="TeamName" class="form-label">Meta description</label>
               <input type="text" class="form-control" id="Metadescription" name="up-Metadescription" value="{{team.metadescription}}" autocomplete="off">
-            </div>
-            <div class="mb-3 col-lg-6">
+           </div>
+           <div class="mb-3 col-lg-6">
             <label for="TeamName" class="form-label">Meta keywork</label>
             <input type="text" class="form-control" id="Metakeywork" name="up-Metakeywork" value="{{team.metakeyword}}" autocomplete="off">
-            </div>
-            <div class="mb-3 col-lg-6">
+         </div>
+         <div class="mb-3 col-lg-6">
             <label for="TeamName" class="form-label">canonical tag</label>
             <input type="text" class="form-control" id="canonical" name="canonical" value="{{team.canonical}}" autocomplete="off">
-            </div>
-              <div class="text-center mt-3">
+         </div>
+              
+            <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1"><i class="link-icon" data-feather="plus"></i>Add</button>
                 <button type="button" class="btn btn-primary rounded-pill black bg-white py-1 mx-1" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
               </div>
@@ -551,15 +560,16 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
+  
+   <!-- Css -->
     <style>
           @media screen and (min-width: 576px){
             .modal-dialog {
                 max-width: 900px;
             }
           }
-    </style>
- <!-- Css -->
- <style>
+          
+         
   .theme {
     color: #029e9d !important;
   }
@@ -570,9 +580,10 @@
   .bg-grey{ 
     background: #f1f1f1  !important;
   }
+    </style>
+    
+     <!-- Css -->
 
-</style>
-<!-- Css -->
 
 </body>
 </html>    

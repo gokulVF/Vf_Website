@@ -95,7 +95,7 @@
               <div class=" px-4">
                 <form class="forms-sample" action="{% url 'Homepage2_international_Edit' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
-                  <nav>
+                 <nav>
                     <div class="nav nav-tabs mb-3 justify-content-center" id="nav-tab" role="tablist">
                       <button class="nav-link active me-2 rounded-pill" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Destination 1</button>
                       <button class="nav-link me-2 rounded-pill" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Destination 2</button>
@@ -137,7 +137,7 @@
                                 inputElement.value = selectedText;
                             }
                         </script>
-                        <div class="mb-3 col-lg-6">
+                        <!-- <div class="mb-3 col-lg-6">
                         <label for="title" class="form-label">Select destination Cities</label>
                         <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
                         <select class="form-select Show-1"  name="destination_1Cities">
@@ -146,14 +146,61 @@
                           <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                           {% endfor %}
                         </select>
-                        </div>
+                        </div> -->
+                        <div class="input-container col-lg-6 mb-2">
+                          <label for="TeamNamemodify" class="form-label">Package Name</label>
+                          <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
+                          <input type="text" class="form-input form-control" id="searchInput11" placeholder="Search...">
+                          <select class="form-select form-control Show-1" id="selectOptions11" name="destination_1Cities" size="1"  onchange="getSelectedText11()">
+                            {% for lead in package %}
+                            <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                            {% endfor %}
+                          </select>
+                      </div>
+  
+                      <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+                          const searchInput = document.getElementById('searchInput11');
+                          const selectOptions = document.getElementById('selectOptions11');
+                          const originalOptions = Array.from(selectOptions.options);
+  
+                          function filterOptions(searchTerm) {
+                              const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                              selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                              selectOptions.innerHTML = '';
+                              filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                          }
+  
+                          searchInput.addEventListener('input', function() {
+                              filterOptions(this.value.toLowerCase());
+                              selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                          });
+  
+                          selectOptions.addEventListener('change', function() {
+                              const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                              const selectedValue = selectedOption.value;
+                            //   alert("Selected Value: " + selectedValue);
+                          });
+                      });
+                      </script>
+                      <input type="hidden" class="new-id-11" id="leadName11" value="{{topdestination.destination_1Cities}}">
+                        <script>
+                        function getSelectedText11() {
+                                var selectElement = document.getElementById("selectOptions11");
+                                var selectedText = selectElement.options[selectElement.selectedIndex].value;
+                                console.log("Selected text: " + selectedText);
+                    
+                                var inputElement = document.querySelector(".new-id-11");
+                                inputElement.value = selectedText;
+                            }
+                        </script>
                         <div class="mb-3 col-lg-6">
                           <label for="title" class="form-label">Price</label>
                           <input type="text" class="form-control"  id="password" name="destination_1Price" autocomplete="off" value="{{topdestination.destination_1Price}}">
                         </div>
                         <div class="mb-3 col-lg-6">
                           <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                          <label for="upload" class="form-label">Destination Images (size:700x925)</label>
+                          <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 925</span></label>
                           <input class="form-control"  type="file" name="destination_1image" id="upload" >
                         </div>
                       </div>
@@ -190,7 +237,7 @@
                                       inputElement.value = selectedText;
                                   }
                           </script>
-                          <div class="mb-3 col-lg-6">
+                          <!-- <div class="mb-3 col-lg-6">
                             <label for="title" class="form-label">Select destination Cities</label>
                             <input type="hidden" class="select-2" id="new2-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
                             <select class="form-select Show-2"  name="destination_2Cities">
@@ -199,14 +246,61 @@
                               <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                               {% endfor %}
                             </select>
-                          </div>
+                          </div> -->
+                          <div class="input-container col-lg-6 mb-2">
+                            <label for="TeamNamemodify" class="form-label">Lead</label>
+                            <input type="hidden" class="select-2" id="new-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
+                            <input type="text" class="form-input form-control" id="searchInput12" placeholder="Search...">
+                            <select class="form-select form-control Show-2" id="selectOptions12" name="destination_2Cities" size="1"  onchange="getSelectedText12()">
+                              {% for lead in package %}
+                              <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+    
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const searchInput = document.getElementById('searchInput12');
+                            const selectOptions = document.getElementById('selectOptions12');
+                            const originalOptions = Array.from(selectOptions.options);
+    
+                            function filterOptions(searchTerm) {
+                                const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                                selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                                selectOptions.innerHTML = '';
+                                filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                            }
+    
+                            searchInput.addEventListener('input', function() {
+                                filterOptions(this.value.toLowerCase());
+                                selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                            });
+    
+                            selectOptions.addEventListener('change', function() {
+                                const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                                const selectedValue = selectedOption.value;
+                              //   alert("Selected Value: " + selectedValue);
+                            });
+                        });
+                        </script>
+                        <input type="hidden" class="new-id-12" id="leadName12" value="{{topdestination.destination_2Cities}}">
+                          <script>
+                          function getSelectedText12() {
+                                  var selectElement = document.getElementById("selectOptions12");
+                                  var selectedText = selectElement.options[selectElement.selectedIndex].value;
+                                  console.log("Selected text: " + selectedText);
+                      
+                                  var inputElement = document.querySelector(".new-id-12");
+                                  inputElement.value = selectedText;
+                              }
+                          </script>
                           <div class="mb-3 col-lg-6">
                             <label for="title" class="form-label">Price</label>
                             <input type="text" class="form-control"  id="password" name="destination_2price" autocomplete="off" value="{{topdestination.destination_2price}}">
                           </div>
                           <div class="mb-3 col-lg-6">
                             <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                            <label for="upload" class="form-label">Destination Images(size:700x650)</label>
+                            <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
                             <input class="form-control"  type="file" name="destination_2image" id="upload" >
                           </div>
                         </div>
@@ -243,7 +337,7 @@
                                           inputElement.value = selectedText;
                                       }
                               </script>
-                            <div class="mb-3 col-lg-6">
+                            <!-- <div class="mb-3 col-lg-6">
                               <label for="title" class="form-label">Select destination Cities</label>
                               <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
                               <select class="form-select Show-3"  name="destination_3Cities">
@@ -252,14 +346,61 @@
                                 <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                                 {% endfor %}
                               </select>
-                            </div>
+                            </div> -->
+                            <div class="input-container col-lg-6 mb-2">
+                              <label for="TeamNamemodify" class="form-label">Lead</label>
+                              <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
+                              <input type="text" class="form-input form-control" id="searchInput13" placeholder="Search...">
+                              <select class="form-select form-control Show-3" id="selectOptions13" name="destination_3Cities" size="1"  onchange="getSelectedText13()">
+                                {% for lead in package %}
+                                <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                                {% endfor %}
+                              </select>
+                          </div>
+      
+                          <script>
+                          document.addEventListener('DOMContentLoaded', function() {
+                              const searchInput = document.getElementById('searchInput13');
+                              const selectOptions = document.getElementById('selectOptions13');
+                              const originalOptions = Array.from(selectOptions.options);
+      
+                              function filterOptions(searchTerm) {
+                                  const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                                  selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                                  selectOptions.innerHTML = '';
+                                  filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                              }
+      
+                              searchInput.addEventListener('input', function() {
+                                  filterOptions(this.value.toLowerCase());
+                                  selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                              });
+      
+                              selectOptions.addEventListener('change', function() {
+                                  const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                                  const selectedValue = selectedOption.value;
+                                //   alert("Selected Value: " + selectedValue);
+                              });
+                          });
+                          </script>
+                          <input type="hidden" class="new-id-13" id="leadName13" value="{{topdestination.destination_3Cities}}">
+                            <script>
+                            function getSelectedText13() {
+                                    var selectElement = document.getElementById("selectOptions13");
+                                    var selectedText = selectElement.options[selectElement.selectedIndex].value;
+                                    console.log("Selected text: " + selectedText);
+                        
+                                    var inputElement = document.querySelector(".new-id-13");
+                                    inputElement.value = selectedText;
+                                }
+                            </script>
                             <div class="mb-3 col-lg-6">
                               <label for="title" class="form-label">Price</label>
                               <input type="text" class="form-control"  id="password" name="destination_3price" autocomplete="off" value="{{topdestination.destination_3price}}">
                             </div>
                             <div class="mb-3 col-lg-6">
                               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                              <label for="upload" class="form-label">Destination Images (size:700x650)</label>
+                              <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
                               <input class="form-control"  type="file" name="destination_3image" id="upload" >
                             </div>
                           </div>
@@ -296,7 +437,7 @@
                                           inputElement.value = selectedText;
                                       }
                               </script>
-                            <div class="mb-3 col-lg-6">
+                            <!-- <div class="mb-3 col-lg-6">
                               <label for="title" class="form-label">Select destination Cities</label>
                               <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
                               <select class="form-select Show-4"  name="destination_4Cities">
@@ -305,14 +446,61 @@
                                 <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                                 {% endfor %}
                               </select>
-                            </div>
+                            </div> -->
+                            <div class="input-container col-lg-6 mb-2">
+                              <label for="TeamNamemodify" class="form-label">Lead</label>
+                              <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
+                              <input type="text" class="form-input form-control" id="searchInput14" placeholder="Search...">
+                              <select class="form-select form-control Show-4" id="selectOptions14" name="destination_4Cities" size="1"  onchange="getSelectedText14()">
+                                {% for lead in package %}
+                                <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                                {% endfor %}
+                              </select>
+                          </div>
+      
+                          <script>
+                          document.addEventListener('DOMContentLoaded', function() {
+                              const searchInput = document.getElementById('searchInput14');
+                              const selectOptions = document.getElementById('selectOptions14');
+                              const originalOptions = Array.from(selectOptions.options);
+      
+                              function filterOptions(searchTerm) {
+                                  const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                                  selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                                  selectOptions.innerHTML = '';
+                                  filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                              }
+      
+                              searchInput.addEventListener('input', function() {
+                                  filterOptions(this.value.toLowerCase());
+                                  selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                              });
+      
+                              selectOptions.addEventListener('change', function() {
+                                  const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                                  const selectedValue = selectedOption.value;
+                                //   alert("Selected Value: " + selectedValue);
+                              });
+                          });
+                          </script>
+                          <input type="hidden" class="new-id-14" id="leadName14" value="{{topdestination.destination_4Cities}}">
+                            <script>
+                            function getSelectedText14() {
+                                    var selectElement = document.getElementById("selectOptions14");
+                                    var selectedText = selectElement.options[selectElement.selectedIndex].value;
+                                    console.log("Selected text: " + selectedText);
+                        
+                                    var inputElement = document.querySelector(".new-id-14");
+                                    inputElement.value = selectedText;
+                                }
+                            </script>
                             <div class="mb-3 col-lg-6">
                               <label for="title" class="form-label">Price</label>
                               <input type="text" class="form-control"  id="password" name="destination_4price" autocomplete="off" value="{{topdestination.destination_4price}}">
                             </div>
                             <div class="mb-3 col-lg-6">
                               <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                              <label for="upload" class="form-label">Destination Images (size:700x650)</label>
+                              <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
                               <input class="form-control"  type="file" name="destination_4image" id="upload" >
                             </div>
                           </div>
@@ -349,7 +537,7 @@
                                         inputElement.value = selectedText;
                                     }
                             </script>
-                              <div class="mb-3 col-lg-6">
+                              <!-- <div class="mb-3 col-lg-6">
                                 <label for="title" class="form-label">Select destination Cities</label>
                                 <input type="hidden" class="select-5" id="new-{{topdestination.destination_5Cities}}" value="{{topdestination.destination_5Cities}}">
                                 <select class="form-select Show-5"  name="destination_5Cities">
@@ -358,15 +546,62 @@
                                   <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                                   {% endfor %}
                                 </select>
-                              </div>
+                              </div> -->
+                              <div class="input-container col-lg-6 mb-2">
+                                <label for="TeamNamemodify" class="form-label">Lead</label>
+                                <input type="hidden" class="select-5" id="new-{{topdestination.destination_5Cities}}" value="{{topdestination.destination_5Cities}}">
+                                <input type="text" class="form-input form-control" id="searchInput15" placeholder="Search...">
+                                <select class="form-select form-control Show-5" id="selectOptions15" name="destination_5Cities" size="1"  onchange="getSelectedText15()">
+                                  {% for lead in package %}
+                                  <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                                  {% endfor %}
+                                </select>
+                            </div>
+        
+                            <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const searchInput = document.getElementById('searchInput15');
+                                const selectOptions = document.getElementById('selectOptions15');
+                                const originalOptions = Array.from(selectOptions.options);
+        
+                                function filterOptions(searchTerm) {
+                                    const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                                    selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                                    selectOptions.innerHTML = '';
+                                    filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                                }
+        
+                                searchInput.addEventListener('input', function() {
+                                    filterOptions(this.value.toLowerCase());
+                                    selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                                });
+        
+                                selectOptions.addEventListener('change', function() {
+                                    const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                                    const selectedValue = selectedOption.value;
+                                  //   alert("Selected Value: " + selectedValue);
+                                });
+                            });
+                            </script>
+                            <input type="hidden" class="new-id-15" id="leadName15" value="{{topdestination.destination_5Cities}}">
+                              <script>
+                              function getSelectedText15() {
+                                      var selectElement = document.getElementById("selectOptions15");
+                                      var selectedText = selectElement.options[selectElement.selectedIndex].value;
+                                      console.log("Selected text: " + selectedText);
+                          
+                                      var inputElement = document.querySelector(".new-id-15");
+                                      inputElement.value = selectedText;
+                                  }
+                              </script>
                               <div class="mb-3 col-lg-6">
                                 <label for="title" class="form-label">Price</label>
                                 <input type="text" class="form-control"  id="password" name="destination_5price" autocomplete="off" value="{{topdestination.destination_5price}}">
                               </div>
                               <div class="mb-3 col-lg-6">
                                 <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
-                                <label for="upload" class="form-label">Destination Images (size:700x925)</label>
-                                <input class="form-control"  type="file" name="destination_1image" id="upload" >
+                                <label for="upload" class="form-label">Destination Images<span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 925</span></label>
+                                <input class="form-control"  type="file" name="destination_5image" id="upload" >
                               </div>
                           </div>
                     </div>
@@ -689,7 +924,7 @@
   <script src="{% static 'js/admin/tinymce.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
   <!-- End custom js for this page -->
-
+  
    <!-- Css -->
    <style>
     .theme {

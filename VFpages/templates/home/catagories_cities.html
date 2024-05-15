@@ -63,6 +63,8 @@
             background-image: url("{% static 'image/CategoriesImages/' %}{{ meata_image.img_path }}");
             height: 500px;
         }
+        /* tab  url("{% static 'image/CategoriesImages/' %}{{ meata_image.tab_path }}") */
+        /* tab  mobile("{% static 'image/CategoriesImages/' %}{{ meata_image.Mobile_path }}") */
         #section-shape-img  {
            background-image: url("{% static 'image/images/shape8.png' %}");
        }
@@ -85,8 +87,8 @@
     <!-- header ends -->
 
     <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14 background-image banner" >
-        <div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>
+    <section class="breadcrumb-main pb-20 pt-14 background-image banner" style="background-attachment:local !important;" >
+        <!--<div class="section-shape section-shape1 top-inherit bottom-0" id="section-shape-img"></div>-->
         <div class="breadcrumb-outer">
             <div class="container">
                 <!--<div class="breadcrumb-content text-center">-->

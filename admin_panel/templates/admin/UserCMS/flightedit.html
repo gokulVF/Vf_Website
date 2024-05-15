@@ -62,16 +62,20 @@
 				<nav class="page-breadcrumb d-flex align-items-center justify-content-between">
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Footer Title</li>
+						<li class="breadcrumb-item"><a href="#">User Panel</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Flight</li>
 					</ol>
-                    <a href="{% url 'flightadmin' %}"><button class="btn btn-primary" ><i class="link-icon" data-feather="plus"></i> Back</button></a>
+                    <a href="{% url 'useradminpage'  %}?search_query={{search_query}}"><button class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left link-icon"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</button></a>
 				</nav>
           
     {% for hotel_data in hotel_d %}
     <div class="">
-            <form class="forms-sample row" id="myForm" action="{% url 'editmainflight' hotel_data.id  %}" method="POST" enctype="multipart/form-data">
+            <div class="text-start mb-3">
+                <h3 class="theme">Edit Flight Details</h3>
+            </div>
+            <form class="forms-sample row bg-white rounded pt-4 px-2" id="myForm" action="{% url 'editmainflight' hotel_data.id search_query %}" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
-            <div class="mb-3  col-lg-6">
+            <div class="mb-3  col-lg-6" style="display: none;">
                 <label for="subtitle" class="form-label">User Phone Number</label>
                 <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
                 <input type="tel" class="form-control" name="Phonenumber" id="Phonenumber" class="Phonenumber"  pattern="[0-9]{10}" maxlength="10" placeholder="Phone Number" value="{{hotel_data.phone_number}}">
@@ -84,6 +88,10 @@
                 <label for="exampleFormControlSelect2" class="form-label">PNR Number</label>
                 <input type="text" class="form-control"  placeholder="Confirmation Number" name="Confirmation" id="Confirmation" value="{{hotel_data.pnr_number}}">
             </div>
+            <div class="mb-3 col-lg-6">
+              <label for="exampleFormControlSelect2" class="form-label">Flight Name</label>
+              <input type="text" class="form-control"  placeholder="Confirmation Number" name="FlightName" id="FlightName" value="{{hotel_data.flight_name}}">
+          </div>
             <div class="mb-3 col-lg-6">
                 <label for="exampleFormControlSelect2" class="form-label">Baggage</label>
                 <input type="text" class="form-control"  placeholder="No Of Nights" name="Noofnights" id="Noofnights" value="{{hotel_data.baggage}}">
@@ -168,6 +176,21 @@
   <script src="{% static 'js/admin/dashboard-light.js' %}"></script>
   <script src="{% static 'js/admin/datepicker.js' %}"></script>
 	<!-- End custom js for this page -->
+	
+		<!-- Css -->
+<style>
+  .theme {
+    color: #029e9d !important;
+  }
+
+  .black {
+    color: black !important;
+  }
+  .bg-grey{ 
+    background: #f1f1f1  !important;
+  }
+</style>
+<!-- Css -->
 
 
 </body>
