@@ -434,13 +434,13 @@
                                         headers: {
                                             'X-CSRFToken': csrftoken // Include CSRF token in headers
                                         },
-                                        url: '/addpackages/', // Replace with your backend URL
+                                        url: '/addpackages', // Replace with your backend URL
                                         data: formData,
                                         processData: false,
                                         contentType: false,
                                         success: function(response) {
                                             // Handle success response
-                                            window.location.href = '/packagesadmin/';
+                                            window.location.href = '/packagesadmin';
                                         },
                                         error: function(xhr, status, error) {
                                             // Handle error

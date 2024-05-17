@@ -61,7 +61,8 @@
         }
         
          #new-testimonial {
-            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.review_banner_image }}");
+            /*background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.review_banner_image }}");*/
+            background: linear-gradient(45deg, black, transparent);
         }
         
         .new_pic {
@@ -70,20 +71,34 @@
         }
         
          /* Tablet view */
-@media (max-width: 768px) {
-    .new_pic {
-            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.tab_image }}");
-            background-size:cover;
+        @media (max-width: 768px) {
+            .new_pic {
+                    background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.tab_image }}");
+                    background-size:cover;
+                }
         }
-}
-
-/* Mobile view */
-@media (max-width: 480px) {
-    .new_pic {
-            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.Mobile_image }}");
-            background-size:cover;
+        
+        /* Mobile view */
+        @media (max-width: 480px) {
+            .new_pic {
+                    background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.Mobile_image }}");
+                    background-size:cover;
+                }
         }
-}
+        
+              
+        @media (max-width: 400px) {
+         .new_pic{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+         .new_pic{
+                    height: 320px; 
+                }
+        }
         /* tab url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.tab_image }}") */
         /* Mobile url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.Mobile_image }}") */
     </style>
@@ -461,7 +476,7 @@
                                 <div class="trend-meta bg-theme white px-2 py-1 rounded">
                                     <div class="entry-author">
                                         <i class="icon-calendar nod_cal"  style="font-size:14px;"></i>
-                                        <span class="fw-bold  ps-1 " style="font-size:14px;">{{ packages.description.Noofdays }}</span>
+                                        <span class="fw-bold  ps-1 nod_tour" style="font-size:14px;">{{ packages.description.Noofdays }}</span>
                                     </div>
                                 </div>
                                 <div style="height:135px">
@@ -594,8 +609,8 @@
                                                 <div class="entry-author align-items-center">
                                                     <span class="theme1 fw-bold mb-0 bstart_from" style="font-size: 14px;">Starts from</span>
                                                     <p class="theme fw-bold mb-0 bg-theme buclist_price text-center" style="font-size:18px">{{ package.description.price }}</p>
-                                                    <p class="mt-0 mb-0 pp_text" style="font-size:13px">{{ package.description.person }}</p>
                                                 </div>
+                                                <div class="text-end"><p class="mt-0 mb-0 pp_text" style="font-size:13px">{{ package.description.person }}</p></div>
                                             </div>
                                         </div>
                                         </a>
@@ -871,7 +886,7 @@
                         <div class="trend-item1 box-shadow bg-white mb-4 rounded">
                             <a href="/blogs/{{ last_entry.description.url }}">
                             <div class="trend-image1">
-                                <img src="{% static last_entry.description.grid_image_url %}" alt="image" style="height: 502px;">
+                                <img src="{% static last_entry.description.grid_image_url %}" alt="image" class="b_img1" style="height: 502px;">
                             </div>
                             </a>
                             <div class="trend-content-main">

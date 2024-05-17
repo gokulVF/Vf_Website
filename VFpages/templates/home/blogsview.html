@@ -36,6 +36,9 @@
         .number {
             font-family: "Font Awesome 5 Brands;"
         }
+        .rec_par {
+            border: 1px solid #029e9d !important;
+        }
      </style>
      
      <!-- Google tag (gtag.js) -->
@@ -82,6 +85,20 @@
         #bc_image {
             background-image: url("{% static blog_entry.description.banner_image_url %}") !important;
             height: 500px; 
+        }
+        
+        
+         @media (max-width: 400px) {
+        #bc_image{
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+       #bc_image{
+                    height: 320px; 
+                }
         }
         
         .par_rec {
@@ -206,10 +223,10 @@
                                 <!-- tab navs -->
                                 <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab1" role="tablist">
                                     <li class="nav-item d-inline-block" role="presentation">
-                                        <button aria-selected="false" class="nav-link active py-1" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button>
+                                        <button aria-selected="false" class="nav-link active py-1 rec_par" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button>
                                     </li>
                                     <li class="nav-item d-inline-block" role="presentation">
-                                        <button aria-selected="true" class="nav-link py-1" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button>
+                                        <button aria-selected="true" class="nav-link py-1 rec_par" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button>
                                     </li>
                                 </ul>
                                 <!-- tab contents -->
@@ -220,7 +237,7 @@
                                                 <article class="post mb-1 par_rec">
                                                     <div class="s-content d-flex align-items-center justify-space-between">
                                                         <div class="sidebar-image w-25 me-3 rounded">
-                                                            <a href="/blogs/{{ popular.description.url }}"><img src="{% static popular.description.grid_image_url %}" alt="" style="height: 80px;"></a>
+                                                            <a href="/blogs/{{ popular.description.url }}"><img src="{% static popular.description.grid_image_url %}" alt="" style="height: 60px;"></a>
                                                         </div>
                                                         <div class="content-list w-75">
                                                             <h5 class="mb-1"><a href="/blogs/{{ popular.description.url }}" class="update-link" id="popular{{popular.id}}" data-blog-id="{{ popular.id }}" data-blog-url="{{ popular.description.url }}">{{ popular.description.title }}</a></h5>
@@ -249,7 +266,7 @@
                                                 <article class="post mb-1 par_rec">
                                                     <div class="s-content d-flex align-items-center justify-space-between">
                                                         <div class="sidebar-image w-25 me-3 rounded">
-                                                            <a href="/blogs/{{ last_entry.description.url }}"><img src="{% static last_entry.description.grid_image_url %}" alt="" style="height: 80px;"></a>
+                                                            <a href="/blogs/{{ last_entry.description.url }}"><img src="{% static last_entry.description.grid_image_url %}" alt="" style="height: 60px;"></a>
                                                         </div>
                                                         <div class="content-list w-75">
                                                             <h5 class="mb-1"><a href="/blogs/{{ last_entry.description.url }}" id="recent{{last_entry.id}}" class="update-link" data-blog-id="{{ last_entry.id }}" data-blog-url="{{ last_entry.description.url }}">{{ last_entry.description.title }}</a></h5>

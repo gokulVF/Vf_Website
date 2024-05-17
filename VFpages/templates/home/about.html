@@ -89,18 +89,32 @@
         }
         
         /* Tablet view */
-@media (max-width: 768px) {
-    #breadcrumb-main-img {
-        background-image: url("{% static description.Tabimage_url %}");
-    }
-}
-
-/* Mobile view */
-@media (max-width: 480px) {
-    #breadcrumb-main-img {
-        background-image: url("{% static description.Mobileimage_url %}");
-    }
-}
+        @media (max-width: 768px) {
+            #breadcrumb-main-img {
+                background-image: url("{% static description.Tabimage_url %}");
+            }
+        }
+        
+        /* Mobile view */
+        @media (max-width: 480px) {
+            #breadcrumb-main-img {
+                background-image: url("{% static description.Mobileimage_url %}");
+            }
+        }
+        
+         @media (max-width: 400px) {
+        #breadcrumb-main-img {
+                    height: 400px; 
+                }
+        }
+        
+        
+        @media (max-width: 300px) {
+       #breadcrumb-main-img {
+                    height: 320px; 
+                }
+        }
+        
         /* tab url  {% static description.Tabimage_url %} */
         /* Mobile url  {% static description.Mobileimage_url %} */
        #section-shape-img  {
@@ -112,20 +126,21 @@
         #testimonial-img {
             background-image:url("{% static 'image/images/testimonial.png' %}");
           }
-          #backpattren {
-            background-image:url("{% static 'image/images/background_pattern.png' %}");
-    
-          } #backpattren2{
+        #backpattren {
+         background-image:url("{% static 'image/images/background_pattern.png' %}");
+        } 
+        
+        #backpattren2{
             background-image:url("{% static 'image/images/shape8.png' %}");
           }
-          
+      
           .about_icons { 
             font-size: 30px;
           }
-    
-          .abt_text {
-            font-weight: 600;
-            font-size: 18px;
+
+      .abt_text {
+        font-weight: 600;
+        font-size: 18px;
         }
               
          .accrodion-grp .accrodion .accrodion-title {
@@ -196,6 +211,17 @@
             height:145px !important;
         }
     }
+    
+    @media screen and (min-width: 1200px) and (max-width: 1400px) { 
+            .why-us-tab {
+                height:500px;
+            }
+            
+             .para-about {
+                font-size:15px;
+            }
+        }
+        
     @media screen and (min-width: 992px) and (max-width: 1199px) { 
         .why-us-tab {
             height:600px;
