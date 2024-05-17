@@ -44,7 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'VFpages',
     'admin_panel',
+    'captcha',
 ]
+
+CAPTCHA_IMAGE_SIZE = (150, 50)
+CAPTCHA_FONT_SIZE = 32
+CAPTCHA_FOREGROUND_COLOR = '#000000'
+CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

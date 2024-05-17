@@ -63,6 +63,8 @@ urlpatterns= [
     path('hotelcompleted',views.hotelcompleted,name='hotelcompleted'),
     path('flightcompleted',views.flightcompleted,name='flightcompleted'),
     
+    path('send_captcha',views.send_captcha,name='send_captcha'),
+    path('lead_page',views.lead_html,name='lead_page')
     
 
 

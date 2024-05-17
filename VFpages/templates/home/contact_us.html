@@ -394,95 +394,12 @@
                                                     </select><div class='zcwf_col_help'></div></div></div>
                                                     <div class='zcwf_row mb-2'><div class='zcwf_col_lab' style='font-size:14px;'><label class="f_label" for='LEADCF23'>Destination</label></div>
                                                     <div class='zcwf_col_fld'><textarea id='LEADCF23' name='LEADCF23' class="rounded" style="height: 50px !important;"></textarea><div class='zcwf_col_help'></div></div><div id="destination-error-msg" class="error-msg text-start ps-3"></div></div><div class='zcwf_row'><div class='zcwf_col_lab'></div>
-                                                    <div><p style="color: black;"  id="otpmessages"></p></div>
-                                                                    <div class="row justify-content-center" id="otp_containerlf">
-                                                                        <div class="mt-2">
-                                                                            <div class="card border">
-                                                                            <div class="card-body bg-grey p-2 text-center">
-                                                                                <!-- <h4>Verify</h4>
-                                                                                <p>Your code was sent to you via email</p> -->
-                                                                                <div class="otp-fields mb-2">
-                                                                                    <input id="digitlf1" class="otp-inp3 text-center p-1" type="number" />
-                                                                                    <input id="digitlf2" class="otp-inp3 text-center p-1" type="number" disabled />
-                                                                                    <input id="digitlf3" class="otp-inp3 text-center p-1" type="number" disabled />
-                                                                                    <input id="digitlf4" class="otp-inp3 text-center p-1" type="number" disabled />
-                                                                                </div>
-                                                                                <span class="error bg-grey" id="Otp_error1"></span>
-                                                                                <!--<p class="resend text-muted mb-2">Didn't receive code? <a href="">Request again</a></p>-->
-                                                                                <div class="mt-0 mb-0">Time left : <span id="timerlf"></span></div>
-                                                                                <div> <button id="verifyBtns" class="verify_btns mb-0 mt-2"> Submit</button> </div>
-                                                                                {% if error_message %}
-                                                                                <script>
-                                                                                    alert("{{ error_message }}")
-                                                                                </script>    
-                                                                                {% endif %}
-                                                                                                                        
-                                                                                <script>
-                                                                                    document.addEventListener('DOMContentLoaded', function () {
-                                                                                        document.getElementById('verifyBtns').addEventListener('click', function () {
-                                                                                            var digit1 = document.getElementById('digitlf1').value;
-                                                                                            var digit2 = document.getElementById('digitlf2').value;
-                                                                                            var digit3 = document.getElementById('digitlf3').value;
-                                                                                            var digit4 = document.getElementById('digitlf4').value;
+                                                   <div class='zcwf_col_fld'><button type='submit' id='formsubmit' class='formsubmit zcwf_button d-none' value='Submit' title='Submit'></button><input type='reset' class='zcwf_button d-none' name='reset' value='Reset' title='Reset'></div></div>
                                                     
-                                                                                            // Concatenate the digits into a single string
-                                                                                            var otp = digit1 + digit2 + digit3 + digit4;
-                                                    
-                                                                                            // Get CSRF token
-                                                                                            var csrftoken = getCookie('csrftoken');
-                                                                                
-                                                                                            // Send the OTP to the backend using AJAX
-                                                                                            $.ajax({
-                                                                                                type: 'POST',
-                                                                                                url: '/verify-otp/',  // URL to the backend view
-                                                                                                headers: {
-                                                                                                    'X-CSRFToken': csrftoken
-                                                                                                },
-                                                                                                data: {
-                                                                                                    'otp': otp,
-                                                                                                    // You can include other data if needed
-                                                                                                },
-                                                                                                success: function(response) {
-                                                                                                    // Handle success response
-                                                                                                    console.log(response);
-                                                                                                    
-                                                                                                    if (response.success === true) {
-                                                                                                        console.log("submitted")
-                                                                                                        var clickbtn = document.getElementById('formsubmit');
-                                                                                                        $("#Sucessmessages2").click();
-                                                                                                        
-                                                                                                        setTimeout(function() {
-                                                                                                            // Submit the form associated with the element stored in the variable 'clickbtn'
-                                                                                                            clickbtn.form.submit();
-                                                                                                        }, 2000);
-                                                                                                        
-                                                                                                        } else {
-                                                                                                        console.log(response.message)
-                                                                                                        var otperror = document.getElementById('Otp_error1');
-                                                                                                        
-                                                                                                        otperror.innerText = response.message;
-                                                                                                    }
-                                                                                                },
-                                                                                                error: function(xhr, errmsg, err) {
-                                                                                                    // Handle error
-                                                                                                    console.log(xhr.status + ": " + xhr.responseText);
-                                                                                                }
-                                                                                            });
-                                                                                        });
-                                                                                    });
-                                                                                </script>
-                                                                              
-                                                                            </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                 <div class="text-center justify-content-center">
-                                                                    <button type="button" class="btn mt-1 banner-theme white mx-auto rounded-pill px-5" id="otp-button">Book Now</button>
-                                                                </div>
-                                                    <div class='zcwf_col_fld'><button type='submit' id='formsubmit' class='formsubmit zcwf_button d-none' value='Submit' title='Submit'></button><input type='reset' class='zcwf_button d-none' name='reset' value='Reset' title='Reset'></div></div>
+                                                <div class="text-center justify-content-center d-none">
+                                                    <button type="submit" class="btn mt-1 banner-theme white mx-auto rounded-pill px-5" id="otp-button">Book Now</button>
+                                                </div>
                                                     <script>
-    
-    
                                                     function checkMandatory3397113000057768001() {
                                                         var mndFileds = new Array('Last Name','Mobile','LEADCF23');
                                                         var fldLangVal = new Array('Name','Mobile','Destination');
@@ -536,51 +453,7 @@
                                                     }
                                                 }
                                                 </script>
-                                            <script>
-                                            document.getElementById("otp-button").addEventListener("click", function() {
-                                                // Perform form validation
-                                                var name = document.getElementById("Last_Name").value;
-                                                
-                                                var phone = document.getElementById("Mobile").value;
-                                                var destination = document.getElementById("LEADCF23").value;
-    
-                                                var nameRegex = /^[a-zA-Z\s]+$/;
-                                                
-                                                var phoneRegex = /^[0-9]{10}$/;
-    
-                                                var isValid = true;
-    
-                                                if (!nameRegex.test(name)) {
-                                                    document.getElementById("name-error-msg").innerHTML = "Please enter a valid name.";
-                                                    isValid = false;
-                                                } else {
-                                                    document.getElementById("name-error-msg").innerHTML = "";
-                                                }
-    
-                                                
-    
-                                                if (!phoneRegex.test(phone)) {
-                                                    document.getElementById("phone-error-msg").innerHTML = "Please enter a valid 10-digit whatsapp number.";
-                                                    isValid = false;
-                                                } else {
-                                                    document.getElementById("phone-error-msg").innerHTML = "";
-                                                }
-    
-                                                if (destination.trim() === "") { // Check if destination is empty after trimming whitespace
-                                                    document.getElementById("destination-error-msg").innerHTML = "Please enter a message.";
-                                                    isValid = false;
-                                                } else {
-                                                    document.getElementById("destination-error-msg").innerHTML = "";
-                                                }
-    
-                                                if (isValid) {
-                                                    sendOTP1()
-                                                }
-                                            });
-    
-                                            
-                                            </script>
-                                                    
+                                           
                                                 
     
                                             <script type='text/javascript' id='VisitorTracking'>
@@ -596,211 +469,18 @@
                                             }}} catch(e){}}
                                             </script>
                                                 <!-- Do not remove this --- Analytics Tracking code starts --><script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=553616f3ab68af4589383196f38ec75ebb31c086276d644e7249c5657f5d197d37b5c77cb87cf03f0bb79bcbde36465cgid1c95ff888e93be923f9d3e73b1fecfe36415557f452a9219a86ae1ba5cc1b43agidc993dbf93b2cbf2298aeb893d6ddfadf855062c77eaab33b30a3cb7614769fc8gid4db0c9a387eaa753aa8a73456f6547cb2d209c6185e7262927171c7bdf60e454&tw=6fd9e1e88bb47dfccb6ab1729a48e4175225c22e25ed30ddbb83440452f9388d'></script><!-- Do not remove this --- Analytics Tracking code ends. -->
-                                                </form>
-                                                <script>
-                                                function sendOTP1() {
-                                                    // Send AJAX request to server to send OTP to the provided phone number
-                                                    var phone_number = document.getElementById("Mobile").value;
-                                                    // var email = document.getElementById("Email").value;
-                                                    var user_name = document.getElementById("Last_Name").value;
-                                                    var otpDiv = document.getElementById("otp_containerlf");
-                                                    var signBtn1 = document.getElementById("otp-button");
-                                                    
-                                                    // Get CSRF token from the cookie
-                                                    var csrftoken = getCookie('csrftoken');
+                                            </form>
+                                            <form id="yourFormId" class="px-3">
+                                                <label  class="f_label">ENTER CAPTCHA</label>
+                                                <div class="d-flex">{{form.captcha}}</div>
+                                                <span class="error bg-grey" id="Otp_error1"></span>
+                                                <div class="text-center justify-content-center pb-1">
+                                                    <button type="button" class="btn mt-1 banner-theme white mx-auto rounded-pill px-5" id="submit-btn">Book Now</button>
+                                                </div>
+                                            </form>
                                             
-                                                    // Example AJAX request with CSRF token included
-                                                    $.ajax({
-                                                        url: '/send_otp/',
-                                                        type: 'POST',
-                                                        data: {
-                                                            'phone_number': phone_number,
-                                                            // 'email':email,
-                                                            'user_name':user_name,
-                                                            'csrfmiddlewaretoken': csrftoken  // Include the CSRF token in the data
-                                                        },
-                                                        success: function(response) {
-                                                            if (response.success === true) {
-                                                                // If the response is success, submit the for
-                                                                otpDiv.style.display = "block";
-                                                                signBtn1.style.display = "none";
-                                                                document.getElementById("verifyBtns").style.display="block";
-                                                                var expirationTimelf = new Date();
-                                                                expirationTimelf.setSeconds(expirationTimelf.getSeconds() + 180); // Assuming expiration time is 180 seconds
-                                                                localStorage.setItem('expirationTime', expirationTimelf.getTime());
-    
-                                                                timerlf();
-                                                            } else {
-                                                                var errorButton = document.getElementById('errorButtons');
-                                                                errorButton.click();
-                                                                otpDiv.style.display = "none";
-                                                                signBtn1.style.display = "block"
-                                                            }
-                                                        }
-                                                    });
-                                                }
-    
-    
-                                                // Function to get CSRF token from the cookie
-                                                function getCookie(name) {
-                                                    var cookieValue = null;
-                                                    if (document.cookie && document.cookie !== '') {
-                                                        var cookies = document.cookie.split(';');
-                                                        for (var i = 0; i < cookies.length; i++) {
-                                                            var cookie = cookies[i].trim();
-                                                            // Check if the cookie name matches the requested name
-                                                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                                                // Extract and decode the CSRF token
-                                                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                    return cookieValue;
-                                                }
                                                 
-                                                var otpDiv = document.getElementById("otp_containerlf");
-                                                var signBtn1 = document.getElementById("otp-button");
-                                                var veriBtn = document.getElementById("verifyBtns")
-    
-                                                function timerlf() {
-                                                    var expirationTimelf = localStorage.getItem('expirationTime');
-    
-                                                    if (!expirationTimelf) return;
-    
-                                                    function updateTimerlf() {
-                                                        var currentTime = new Date().getTime();
-                                                        var remainingTime = Math.max(0, Math.floor((expirationTimelf - currentTime) / 1000));
-    
-                                                        var m = Math.floor(remainingTime / 60);
-                                                        var s = remainingTime % 60;
-    
-                                                        m = m < 10 ? '0' + m : m;
-                                                        s = s < 10 ? '0' + s : s;
-                                                        document.getElementById('timerlf').innerHTML = m + ':' + s;
-    
-                                                        if (remainingTime > 0) {
-                                                            setTimeout(updateTimerlf, 1000);
-                                                        } else {
-                                                            // Handle timeout
-                                                            otpDiv.style.display = "none";
-                                                            signBtn1.style.display = "block";
-                                                            veriBtn.style.display="none";
-                                                            signBtn1.innerHTML = "Resend OTP";
-                                                        }
-                                                    }
-    
-                                                    updateTimerlf();
-                                                }
-    
-                                                // Call timers() on page load to resume timer if expirationTime is stored
-                                                // timer();
-                                            </script>  
-                                            <script>
-                                                document.addEventListener("DOMContentLoaded", function() {
-                                                    const inputs = document.querySelectorAll(".otp-fields > .otp-inp3");
-                                                    const button = document.querySelector(".verify_btns");
-    
-                                                    // Focus on the first input field when the page loads
-                                                    window.addEventListener("load", () => inputs[0].focus());
-    
-                                                    // Disable the button by default
-                                                    // button.disabled = true;
-    
-                                                    // Handle paste event
-                                                    inputs[0].addEventListener("paste", function(event) {
-                                                        event.preventDefault();
-                                                        const pastedValue = (event.clipboardData || window.clipboardData).getData("text");
-                                                        const otpLength = inputs.length;
-    
-                                                        for (let i = 0; i < otpLength; i++) {
-                                                            if (i < pastedValue.length) {
-                                                                inputs[i].value = pastedValue[i];
-                                                                inputs[i].removeAttribute("disabled");
-                                                                inputs[i].focus();
-                                                            } else {
-                                                                inputs[i].value = ""; // Clear any remaining inputs
-                                                                inputs[i].focus();
-                                                            }
-                                                        }
-                                                    });
-    
-                                                    // Handle keyup event for each input
-                                                    inputs.forEach((input, index1) => {
-                                                        input.addEventListener("keyup", (e) => {
-                                                            const currentInput = input;
-                                                            const nextInput = input.nextElementSibling;
-                                                            const prevInput = input.previousElementSibling;
-    
-                                                            // Clear input if more than one character is entered
-                                                            if (currentInput.value.length > 1) {
-                                                                currentInput.value = "";
-                                                                return;
-                                                            }
-    
-                                                            // Enable next input field and focus on it
-                                                            if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
-                                                                nextInput.removeAttribute("disabled");
-                                                                nextInput.focus();
-                                                            }
-    
-                                                            // Handle backspace key
-                                                            if (e.key === "Backspace") {
-                                                                inputs.forEach((input, index2) => {
-                                                                    if (index1 <= index2 && prevInput) {
-                                                                        input.setAttribute("disabled", true);
-                                                                        input.value = "";
-                                                                        prevInput.focus();
-                                                                    }
-                                                                });
-                                                            }
-    
-                                                            // Enable/disable the button based on inputs
-                                                            // button.disabled = true;
-                                                            // button.classList.remove("active");
-    
-                                                            // const inputsNo = inputs.length;
-                                                            // if (!inputs[inputsNo - 1].disabled && inputs[inputsNo - 1].value !== "") {
-                                                            //     button.disabled = false;
-                                                            //     button.classList.add("active");
-                                                            // }
-                                                        });
-                                                    });
-                                                });
-                                            </script>
-                                              <script>
-                                                let timerOn = true;
-                                                var otpDiv = document.getElementById("otp_containerlf");
-                                                var signBtn1 = document.getElementById("otp-button");
-                                                var verifyBtn = document.getElementById("verifyBtns");
-                                                function timer(remaining) {
-                                                var m = Math.floor(remaining / 60);
-                                                var s = remaining % 60;
-                                                
-                                                m = m < 10 ? '0' + m : m;
-                                                s = s < 10 ? '0' + s : s;
-                                                document.getElementById('timerlf').innerHTML = m + ':' + s;
-                                                remaining -= 1;
-                                                
-                                                if(remaining >= 0 && timerOn) {
-                                                    setTimeout(function() {
-                                                        timer(remaining);
-                                                    }, 1000);
-                                                    return;
-                                                }
-                                        
-                                                if(!timerOn) {
-                                                    // Do validate stuff here
-                                                    return;
-                                                }
-                                                
-                                                // Do timeout stuff here
-                                                alert('Timeout for otp');
-                                                otpDiv.style.display = "none";
-                                                signBtn1.style.display = "block"
-                                                }
-                                                </script>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -810,7 +490,89 @@
             </div>
         </div>
     </section>
-    <!-- contact Ends -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('submit-btn').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+        
+                var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+        
+                // Check if the validation passes before making the AJAX call
+                if (validatefunction()) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/send_captcha',  // URL to the backend view
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                        data: $('#yourFormId').serialize(), // Adjust this to your form ID
+                        success: function(response) {
+                            // Handle success response
+                            
+        
+                            if (response.success === true) {
+                                alert("submitted");
+                                var clickbtn = document.getElementById('formsubmit');
+                                $("#Sucessmessages2").click();
+        
+                                setTimeout(function() {
+                                    // Submit the form associated with the element stored in the variable 'clickbtn'
+                                    clickbtn.form.submit();
+                                }, 2000);
+        
+                            } else {
+                                console.log(response.message);
+                                var otperror = document.getElementById('Otp_error1');
+        
+                                otperror.innerText = response.message;
+                            }
+                        },
+                        error: function(xhr, errmsg, err) {
+                            // Handle error
+                            console.log(xhr.status + ": " + xhr.responseText);
+                        }
+                    });
+                } else {
+                    console.log("Validation failed");
+                }
+            });
+        });
+        
+        function validatefunction() {
+            // Perform form validation
+            var name = document.getElementById("Last_Name").value;
+            var phone = document.getElementById("Mobile").value;
+            var destination = document.getElementById("LEADCF23").value;
+        
+            var nameRegex = /^[a-zA-Z\s]+$/;
+            var phoneRegex = /^[0-9]{10}$/;
+        
+            var isValid = true;
+        
+            if (!nameRegex.test(name)) {
+                document.getElementById("name-error-msg").innerHTML = "Please enter a valid name.";
+                isValid = false;
+            } else {
+                document.getElementById("name-error-msg").innerHTML = "";
+            }
+        
+            if (!phoneRegex.test(phone)) {
+                document.getElementById("phone-error-msg").innerHTML = "Please enter a valid 10-digit whatsapp number.";
+                isValid = false;
+            } else {
+                document.getElementById("phone-error-msg").innerHTML = "";
+            }
+        
+            if (destination.trim() === "") { // Check if destination is empty after trimming whitespace
+                document.getElementById("destination-error-msg").innerHTML = "Please enter a message.";
+                isValid = false;
+            } else {
+                document.getElementById("destination-error-msg").innerHTML = "";
+            }
+        
+            return isValid; // Ensure the function returns the validation status
+        }
+    </script>
 
     <!-- footer starts -->
     {% include 'home/footer.html' %}

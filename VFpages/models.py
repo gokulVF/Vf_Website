@@ -1,5 +1,13 @@
 from django.db import models
 
+class MyFormTable(models.Model):
+    challenge = models.CharField(max_length=4)
+    response = models.CharField(max_length=4)
+    class Meta:
+        managed = False
+        db_table = 'captcha_captchastore'
+
+
 # Create your models here.
 class PagesTable(models.Model):
     pagesname = models.CharField(max_length=255)

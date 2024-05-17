@@ -240,7 +240,7 @@ def home_page(request):
         return render(request, "home/home_page_2.html",{"big":big,"small":small,"all_RP_details":all_RP_details,"home_page_2":home_page_2,"destinations": destinations_data,'description': description,"Packages_details":Packages_details,"categories":days_activities,"footer_header":footer_header,"footer_title":footer_title,"packages_top":packages_top,"domestict_page_top":domestict_page_top,"international_page_top":international_page_top,"last_seven_entries":last_seven_entries,"homepage_meta":mew_details,"all_categories":all_categories,"user_reviews":all_content})
         
 
-
+from .forms import MyForm
 def contact_us(request):
         destinations_data,all_categories = header_fn(request)
         footers = homefooter()
@@ -248,9 +248,24 @@ def contact_us(request):
         footer_title = footers["footer_title"]
         meta = PagesTable.objects.filter(pagesname='contact us').first()
         data = meta.description
-        print(data)
-        return render(request, "home/contact_us.html",{'meta':data,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title,"all_categories":all_categories})
+        form = MyForm()
+        return render(request, "home/contact_us.html",{'meta':data,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title,"all_categories":all_categories,"form":form})
 
+def lead_html(request):
+     form = MyForm()
+     return render(request, "home/lead.html",{"form":form})
+
+def send_captcha(request):
+    if request.method == 'POST':
+        form = MyForm(request.POST)
+        if form.is_valid():
+           return JsonResponse({'success': True, 'message': 'Form submitted successfully!'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Enter the Correct Captcah'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
+   
+        
 def footer(request):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -788,7 +803,8 @@ def lead_itinerary(request,lead):
         # print(hotel_all)
         packages_view = Packages.objects.filter(packages_id=all_package)
         
-        return render(request, "home/lead_itinerary.html",{"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
+        form = MyForm()
+        return render(request, "home/lead_itinerary.html",{"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
 
 def catagories_city(request,city_name):
     destinations_data,all_categories = header_fn(request)

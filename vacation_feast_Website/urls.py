@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('VFpages.urls')),
     path('',include('admin_panel.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 handler404 = 'VFpages.views.custom_404'
