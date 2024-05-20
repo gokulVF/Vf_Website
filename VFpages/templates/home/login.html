@@ -36,21 +36,20 @@
 
 <!-- Login start -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body px-2 py-0">
-                <div class="container">
+    <div class="modal-dialog modal-dialog-centered rounded px-2" role="document" style="max-width: 470px;">
+        <div class="modal-content" style="border-radius: 6px !important;">
+            <div class="modal-body px-3 py-1">
+                <div class="container p-0">
                     <div id="main_container">
                         <!--Form starts-->
-                        <form class="px-2 py-1" "signup_container">
+                        <form class="px-2" id="signup_container">
                             {% csrf_token %}
                             <button type="button" class="btn btn-primary d-none" id="errorButton" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;">
                                 Error Message
                             </button>
-                            
                             <div class="modal fade container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog ">
-                                    <div class="modal-content">
+                                <div class="modal-dialog px-2">
+                                    <div class="modal-content"  style="border-radius: 6px !important;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Error Message</h5>
                                             <button type="button" class="btn-close mt-0" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -61,12 +60,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <!-- Container for the error message -->
                             <div id="errorContainer" style="display: none;">
                                 {{ error }}
                             </div>
-                            
                             <script>
                                 // Function to check for error condition and display error message
                                 function checkForError() {
@@ -85,7 +82,7 @@
                                 checkForError();
                             </script>
                             
-                            <div class="mt-1" id="sign_head_div">
+                            <div class="mt-1 mb-4 border-b" id="sign_head_div">
                                 <div class=" d-flex justify-content-between">
                                     <h4 class="signup_text head_modal mb-1">WELCOME BACK</h4>
                                     <button type="button" class="btn-close mt-0" data-bs-dismiss="modal"  id="SignClose"  aria-label="Close"></button>
@@ -94,16 +91,16 @@
                                     <p class="sign_utext">Please enter your contact details to connect</p>
                                 </div>
                             </div>
-                            <div class="input_div mt-6">
-                                <label for="email" class="mb-0 lab_blue">Email Or Phone Number</label>
-                                <input type="text" class="mt-1 input_login email2" placeholder="Email or Phone Number" name="email_or_phone" id="email_or_phone">
+                            <div class="input_div mb-3">
+                                <label for="email" class="mb-0 lab_blue">EMAIL or PHONE NUMBER</label>
+                                <input type="text" class="mt-1 input_login form-control email2" placeholder="Email or Phone Number" name="email_or_phone" id="email_or_phone">
                                 <span class="error" id="emailError2"></span>
                                 <span class="error" id="Errormessagelogin"></span>
                             </div>
-                            <div class="mt-2 input_div">
-                                <label for="email" class="mb-0 lab_blue">Password</label>
-                                <input type="password" class="input_login  password2 mt-1" name="password" id="signpassword" placeholder="Enter Password">
-                                <span class="password-toggle-icon" style="position:absolute;height: 20px !important;"><i class="fas fa-eye-slash" style="margin-left: 400px;margin-top: 50px;cursor:pointer;"></i></span>
+                            <div class="input_div">
+                                <label for="email" class="mb-0 lab_blue">PASSWORD</label>
+                                <input type="password" class="input_login form-control  password2 mt-1" name="password" id="signpassword" placeholder="Enter Password">
+                                <span class="password-toggle-icon" style="position:absolute;height: 20px !important;"><i class="fas fa-eye-slash eye-icon" style="margin-left: 360px;margin-top: 50px;cursor:pointer;"></i></span>
                                 <span class="error" id="passwordError2"></span>
                             </div>
                             <script>
@@ -122,22 +119,22 @@
                                 }
                                 });
                             </script>
+                            <div class="text-end">
+                                <a onclick="forgetpassword()" class="check_text fp_text">Forget Password?</a>
+                            </div>
                             
-                            <div class="mt-2" id="checkbox_div">
-                                <div>
+                            <!-- <div class="mt-2" id="checkbox_div">
+                                <div> -->
                                     <!--<div class="d-flex">-->
                                     <!--    <input type="checkbox" class="checkbox2" style="width: 19px;height: 19px">-->
                                     <!--    <p class="mb-0 check_text">Remember Me</p>-->
                                     <!--</div>-->
-                                    <div class="text-end">
-                                        <a onclick="forgetpassword()" class="check_text fp_text">Forget Password?</a>
-                                    </div>
-                                </div>
+                                <!-- </div>
+                            </div> -->
+                            <div class="mt-4 ">
+                                <button class="sign_btn btn btn-primary bg-theme w-100 py-1" onclick="validateFormPopup()" type="button">Log In</button>
                             </div>
-                            <div class="mt-2 btn_div">
-                                <button class="sign_btn" onclick="validateFormPopup()" type="button">Log In</button>
-                            </div>
-                            <div class="mt-3 d-flex" id="concern_text">
+                            <div class="mt-1 d-flex" id="concern_text">
                                 <p class="mb-0">Don’t have an account ?</p> &nbsp
                                 <button type="button" onclick="linklogin()" class="lg_btn" style="border: none;background: none;text-decoration: underline">Sign Up Here</button>
                             </div>
@@ -234,7 +231,7 @@
                             // AJAX request
                             $.ajax({
                                 type: "POST",
-                                url: "/login_views/",
+                                url: "/login_views",
                                 headers: {
                                         'X-CSRFToken': csrftoken
                                 },
@@ -304,34 +301,35 @@
 
 <!-- SIGNIN POPUP -->
 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter1Title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
+    <div class="modal-dialog modal-dialog-centered px-2" role="document">
+        <div class="modal-content" style="border-radius: 6px !important;">
+            <div class="modal-body p-2">
                 <div class="container">
-                    <div class="d-flex" id="main_container1">
+                    <div class="" id="main_container1">
                         <!--Signin Form starts-->
                             <form class="" id="signup_form">
                             {% csrf_token %}
-                            <div class="d-flex justify-content-between" id="sign_head_div">
+                            
+                            <div class="d-flex justify-content-between " id="sign_head_div">
                                 <h4 class="signup_text head_modal">SIGN UP</h4>
                                 <button type="button" class="btn-close mt-0" data-bs-dismiss="modal"  id="LogClose"  aria-label="Close"></button>
                             </div>
-                            <div>
-                                <p class="sign_utext">Create Your Account,Get Your Personalized Tour Account.</p>
+                            <div class="border-b">
+                                <p class="sign_utext mb-0">Create Your Account,Get Your Personalized Tour Account.</p>
                                 <p class="sign_utext">OTP will be send to the enter whatsapp number</p>
                             </div>
                             <div class="input_div mt-0">
                                 <div class="mt-1 justify-content-between d-flex">
                                     <div style="width: 49%;">
-                                        <input type="text" class="input_signin username" id="user_name" placeholder="First Name" name="user_name">
+                                        <input type="text" class="input_signin form-control username" id="user_name" placeholder="First Name" name="user_name">
                                         <span class="error" id="nameError"></span>
                                     </div>
                                     <div style="width: 49%;">
-                                        <input type="text" class="input_signin last_user_name" id="last_user_name" placeholder="Last Name" name="last_user_name">
+                                        <input type="text" class="input_signin form-control last_user_name" id="last_user_name" placeholder="Last Name" name="last_user_name">
                                         <span class="error" id="lastnameError"></span>
                                     </div>
                                 </div>
-                                <input type="text" onfocus="(this.type='date')" class="mt-2 input_signin dateofbirth" placeholder="Date Of Birth" name="dateofbirth" id="dateofbirth" max="<?php echo date('Y-m-d'); ?>">
+                                <input type="text" onfocus="(this.type='date')" class="mt-2 input_signin form-control dateofbirth" placeholder="Date Of Birth" name="dateofbirth" id="dateofbirth" max="<?php echo date('Y-m-d'); ?>">
                                 <span class="error" id="dateError"></span>
                                 <script>
                                     document.getElementById('dateofbirth').max = new Date().toISOString().split('T')[0];
@@ -386,11 +384,11 @@
                                   <!--          background: rgba(0, 78, 174, 1);-->
                                   <!--      }-->
                                   <!--  </style>-->
-                                <input type="text" class="mt-2 input_signin phone_number" placeholder="WhatsApp Number" name="phone_number" id="phone_number">
+                                <input type="text" class="mt-2 input_signin form-control phone_number" placeholder="WhatsApp Number" name="phone_number" id="phone_number">
                                 <span class="error" id="phoneError"></span>
-                                <input type="text" class="mt-2 input_signin second_phone_number" placeholder="Phone Number" name="second_phone_number" id="second_phone_number">
+                                <input type="text" class="mt-2 input_signin form-control second_phone_number" placeholder="Phone Number" name="second_phone_number" id="second_phone_number">
                                 <span class="error" id="secondphoneError"></span>
-                                <input type="email" class="mt-2 input_signin email" placeholder="Email" name="email" id="Email">
+                                <input type="email" class="mt-2 input_signin form-control email" placeholder="Email" name="email" id="Email">
                                 <span class="error" id="emailError"></span>
                             </div>
 
@@ -420,11 +418,11 @@
                             <!--</div>-->
                             <div class="mt-2 justify-content-between d-flex">
                                 <div style="width: 49%">
-                                    <input type="password" class="input_signin password" name="password" id="password" placeholder="Enter Password">
+                                    <input type="password" class="input_signin form-control password" name="password" id="password" placeholder="Enter Password">
                                     <span class="error" id="passwordError"></span>
                                 </div>
                                 <div style="width: 49%">
-                                    <input type="password" class="input_signin confirm_password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" >
+                                    <input type="password" class="input_signin form-control confirm_password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" >
                                     <span class="error" id="confirmPasswordError"></span>
                                 </div>
                             </div>
@@ -433,7 +431,7 @@
                                     <input type="checkbox" class="checkbox1" style="width: 19px;height: 19px">
                                     <p class="mb-0 check_text">I Agree with <span>Terms of Servies</span>  and the <span> Privacy policy</span> </p>
                                 </div>
-                                <span class="error" id="checkboxError"></span>
+                                <p class="error" id="checkboxError"></p>
                             </div>
                             <div><p style="color: black;"  id="otpmessages"></p></div>
                             <div class="row justify-content-center" id="otp_container">
@@ -450,8 +448,8 @@
                                         </div>
                                         <span class="error" id="Otp_error"></span>
                                         <!--<p class="resend text-muted mb-2">Didn't receive code? <a href="">Request again</a></p>-->
-                                        <div class="mt-0 mb-0">Time left : <span id="timer"></span></div>
-                                        <div id="verifyBtn" class=" verify_btn btn btn-primary mb-0 mt-2">Submit</div>
+                                        <div class="mt-0 mb-2">Time left : <span id="timer"></span></div>
+                                        <div id="verifyBtn" class="sign_btn verify_btn btn btn-primary bg-theme w-100 py-1 mt-2">Submit</div>
                                         {% if error_message %}
                                         <script>
                                             alert("{{ error_message }}")
@@ -474,7 +472,7 @@
                                                 // AJAX request
                                                 $.ajax({
                                                     type: "POST",
-                                                    url: "/signups/",
+                                                    url: "/signups",
                                                     headers: {
                                                             'X-CSRFToken': csrftoken
                                                     },
@@ -551,7 +549,7 @@
                                                     // Send the OTP to the backend using AJAX
                                                     $.ajax({
                                                         type: 'POST',
-                                                        url: '/verify-otp/',  // URL to the backend view
+                                                        url: '/verify-otp',  // URL to the backend view
                                                         headers: {
                                                             'X-CSRFToken': csrftoken
                                                         },
@@ -584,10 +582,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-2 btn_div">
-                                <button class="sign_btn" id="signBtn"  type="button" onclick="validateFormSign()">SUBMIT</button>
+                            <div class="mt-0">
+                                <button class="sign_btn btn btn-primary bg-theme w-100 py-1" id="signBtn"  type="button" onclick="validateFormSign()">SUBMIT</button>
                             </div>
-                            <div class="mt-3 d-flex" id="concern_text">
+                            <div class="mt-0 d-flex" id="concern_text">
                                 <p class="mb-0">Already Have An Account? </p> &nbsp
                                 <button type="button" onclick="loginroute()" class="lg_btn" style="border: none;background: none;text-decoration: underline">Log In</button>
                             </div>
@@ -770,7 +768,7 @@
                             }
                     
                             if (valid) {
-                                document.getElementById("otpmessages").innerText = "OTP WILL BE SEND TO THE PHONE NUMBER AND MAIL";
+                                document.getElementById("otpmessages").innerText = "OTP Will Be Send to the Whatsapp Number";
                                 sendOTP();
                             }
                     
@@ -794,7 +792,7 @@
                 
                         // Example AJAX request with CSRF token included
                         $.ajax({
-                            url: '/send_otp/',
+                            url: '/send_otp',
                             type: 'POST',
                             data: {
                                 'phone_number': phone_number,
@@ -956,12 +954,12 @@
 
 
 <!-- FORGOT PASSWORD START-->
-<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter1Title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter2Title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered px-2" role="document">
+        <div class="modal-content"  style="border-radius: 6px !important;">
             <div class="modal-body">
                 <div class="container">
-                    <div class="d-flex" id="main_container2">
+                    <div class="" id="main_container2">
                         <!--form starts-->
                         <form class="col-md-12 mt-0" id="signup_form">
                             <div class="d-flex justify-content-between" id="sign_head_div">
@@ -969,11 +967,11 @@
                                 <button type="button" class="btn-close mt-0" data-bs-dismiss="modal" aria-label="Close" id="forgetclose"></button>
                             </div>
                             <div>
-                                <p class="sign_utext">OTP send to the whatsapp or mail.</p>
+                                <p class="sign_utext">OTP Sent to the Whatsapp</p>
                             </div>
                             <div class="input_div mt-2" id="UserName">
-                                <label for="email_or_phone_password" class="lab_blue">Email Or Phone Number</label><span class="error" id="emailError2"></span>
-                                <input type="text" class="mt-1 input_signin email_or_phone_password" placeholder="phone number or email" name="email_or_phone_password" id="email_or_phone_password">
+                                <label for="email_or_phone_password" class="lab_blue">MOBILE NUMBER</label><span class="error" id="emailError2"></span>
+                                <input type="text" class="mt-1 input_signin email_or_phone_password" placeholder="Mobile Number" name="email_or_phone_password" id="email_or_phone_password">
                                 <span class="error" id="email_or_phone_number"></span>
                             </div>
                             <div class="input_div mt-0" id="Password"></div>
@@ -995,16 +993,16 @@
                                     <div class="card-body p-2 text-center">
                                         <!-- <h4>Verify</h4>
                                         <p>Your code was sent to you via email</p> -->
-                                        <div class="otp-field mb-2">
-                                            <input id="digit1" class="otp_inp2 p-1" type="number" />
-                                            <input id="digit2" class="otp_inp2 p-1" type="number" disabled />
-                                            <input id="digit3" class="otp_inp2 p-1" type="number" disabled />
-                                            <input id="digit4" class="otp_inp2 p-1" type="number" disabled />
+                                        <div class="otp-field1 mb-2">
+                                            <input id="digit1" class="otp_inp2 text-center" type="number" />
+                                            <input id="digit2" class="otp_inp2 text-center" type="number" disabled />
+                                            <input id="digit3" class="otp_inp2 text-center" type="number" disabled />
+                                            <input id="digit4" class="otp_inp2 text-center" type="number" disabled />
                                         </div>
                                         <span class="error" id="Otp_error_forgot"></span>
                                         <!-- <p class="resend text-muted mb-2">Didn't receive code? <a href="">Request again</a></p> -->
-                                        <div class="mt-0 mb-0">Time left : <span id="timers"></span></div>
-                                        <div id="verifyButton" class=" verify_btn btn btn-primary mb-0 mt-2">Submit</div>
+                                        <div class="mt-0 mb-2">Time left : <span id="timers"></span></div>
+                                        <div id="verifyButton" class="sign_btn verify_btn btn btn-primary bg-theme w-100 py-1">Submit</div>
                                         <script>
                                             function submitPassword() {
                                                 // Retrieve form values
@@ -1017,7 +1015,7 @@
                                                 // AJAX request
                                                 $.ajax({
                                                     type: "POST",
-                                                    url: "/change_password/",
+                                                    url: "/change_password",
                                                     headers: {
                                                             'X-CSRFToken': csrftoken
                                                     },
@@ -1049,13 +1047,13 @@
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function () {
                                                 document.getElementById('verifyButton').addEventListener('click', function () {
-                                                    var digit1 = document.getElementById('digit1').value;
-                                                    var digit2 = document.getElementById('digit2').value;
-                                                    var digit3 = document.getElementById('digit3').value;
-                                                    var digit4 = document.getElementById('digit4').value;
+                                                    var digit11 = document.getElementById('digit1').value;
+                                                    var digit12 = document.getElementById('digit2').value;
+                                                    var digit13 = document.getElementById('digit3').value;
+                                                    var digit14 = document.getElementById('digit4').value;
             
                                                     // Concatenate the digits into a single string
-                                                    var otp = digit1 + digit2 + digit3 + digit4;
+                                                    var otp = digit11 + digit12 + digit13 + digit14;
             
                                                     // Get CSRF token
                                                     var csrftoken = getCookie('csrftoken');
@@ -1063,7 +1061,7 @@
                                                     // Send the OTP to the backend using AJAX
                                                     $.ajax({
                                                         type: 'POST',
-                                                        url: '/verify-otp/',  // URL to the backend view
+                                                        url: '/verify-otp',  // URL to the backend view
                                                         headers: {
                                                             'X-CSRFToken': csrftoken
                                                         },
@@ -1093,7 +1091,7 @@
                                                                             <span class="error" id="passwordErrors" class="passwordErrors"></span>
                                                                         </div>
                                                                     </div>
-                                                                    <div id="verifyBtn" onclick="submitPassword()" class=" verify_btn btn btn-primary mb-0 mt-2">Submit</div>
+                                                                    <div id="verifyBtn" onclick="submitPassword()" class="sign_btn verify_btn btn btn-primary bg-theme w-100 py-1 mt-2">Submit</div>
                                                                 `;
                                                             } else {
                                                                 console.log(response.message)
@@ -1119,8 +1117,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-2 btn_div">
-                                <button class="sign_btn" id="signButton"  type="button" onclick="validateFormpassword()">SUBMIT</button>
+                            <div class="mt-2 ">
+                                <button class="sign_btn btn btn-primary bg-theme w-100 py-1" id="signButton"  type="button" onclick="validateFormpassword()">SUBMIT</button>
                             </div>
                             <!-- <div class="mt-3 d-flex" id="concern_text">
                                 <p class="mb-0">Already Have An Account? </p> &nbsp
@@ -1156,7 +1154,7 @@
                             filter: blur(10px);
                         } */
                         
-                        .otp-field input {
+                        .otp-field input,.otp-field1 input {
                             height: 45px !important;
                             width: 42px  !important;
                             border-radius: 6px;
@@ -1174,9 +1172,18 @@
                         .otp-field input:focus {
                             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
                         }
+
+                        .otp-field1 input:focus {
+                            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+                        }
                 
                         .otp-field input::-webkit-inner-spin-button,
                         .otp-field input::-webkit-outer-spin-button {
+                            display: none;
+                        }
+
+                        .otp-field1 input::-webkit-inner-spin-button,
+                        .otp-field1 input::-webkit-outer-spin-button {
                             display: none;
                         }
                 
@@ -1209,45 +1216,30 @@
                             border-radius: 18px;
                         }
                 
-                        #sign_head_div {
-                            margin: 2px;
-                        }
-                
                         .input_div{
                             flex-direction: column;
                             display: flex;
                             margin: 2px;
                         }
-                
-                        .input_signin {
-                            background: rgba(237, 237, 237, 0.75);
-                            border-radius: 50px !important;
-                            padding: 13px 18px;
+
+                        .input_login,.input_signin {
+                            border-radius: 4px !important;
+                            border: 1px solid;
                             font-size: 14px !important;
-                            height: auto !important;
-                            font-weight: 600;
-                            color:rgba(23, 52, 73, 0.61);
-                            border: none;
-                            width: 100%;
-                            margin: 2px;
-                            border: 1px solid rgba(0, 78, 174, 1) !important ;
                         }
                 
-                        .input::placeholder {
+                        /* .input::placeholder {
                             font-weight: 400;
                             color:black !important;
                             font-size: 15px;
                         }
                         
                         input:focus::placeholder {
-                          color: rgba(0, 78, 174, 1) !important; /* Color after typing */
+                          color: rgba(0, 78, 174, 1) !important;
                           font-size:13px !important;
-                        }
+                        } */
                                         
-                        #checkbox_div {
-                           margin: 2px 10px;
-                           /* display: none; */
-                        }
+                      
                 
                         .check_text {
                             color: rgba(23, 52, 73, 1);
@@ -1262,31 +1254,16 @@
                             cursor: pointer;
                         }
                         
-                        .sign_btn {
-                            padding: 12px 20px;
-                            background: linear-gradient(240deg, rgba(0, 78, 174, 1), rgba(75, 153, 249, 1));
-                            border-radius: 50px;
-                            color:rgba(255, 255, 255, 1);
-                            text-align: center;
-                            font-weight: 600;
-                            font-size: 15px;
-                            width: 100%;
-                            height: 50px;
-                            border: none;
+                        .sign_btn,.verify_btn {
+                           border-radius: 4px;
+                           border: none;
                         }
-                
-                       #verifyBtn {
-                            padding: 12px 20px;
-                            color:rgba(255, 255, 255, 1);
-                            background: linear-gradient(240deg, rgba(0, 78, 174, 1), rgba(75, 153, 249, 1));
-                            width: 100%;
-                            height: 50px;
-                            border: none;
-                            font-weight: 600;
-                            font-size: 15px;
-                            border-radius: 50px;
-                       }
-                
+
+                        .form-control:focus {
+                            border-color: #029e9d !important;
+                            box-shadow: 0 0 0 0.2rem rgb(143, 194, 194) !important;
+                        } 
+
                        #timer{
                             border: 1px solid black;
                             border-radius: 10px;
@@ -1295,10 +1272,6 @@
                             padding: 4px;
                        }
                         
-                
-                        .sign_btn:hover {
-                            background: linear-gradient(240deg, rgba(75, 153, 249, 1), rgba(0, 78, 174, 1));
-                        }
                 
                         #concern_text {
                             align-items: center;
@@ -1323,18 +1296,18 @@
                         .head_modal{
                             color:#029e9d;
                             font-weight:700;
-                            font-size:30px;
+                            font-size:25px;
                         }
                     
                         .btn-close {
-                            font-size: 12px;
-                            /* background: #029e9d; */
-                            color: #777 !important;
-                            border: 2px solid rgba(0, 78, 174, 1);
-                            border-radius: 50%;
-                            padding: 12px;
-                            font-weight: 700;
-                        }
+                                font-size: 12px !important;
+                                /* background: #029e9d; */
+                                color: #777 !important;
+                                border: 1px solid #029e9d !important;
+                                border-radius: 50% !important;
+                                padding: 12px !important;
+                                font-weight: 700 !important;
+                            }
                         
                         .btn-close1 {
                                padding: 6px 14px;
@@ -1365,9 +1338,6 @@
                             border-bottom: none !important;
                         }
 
-                        .modal-content {
-                            border-radius: 12px !important;
-                        }
                 
                         #main_container {
                             background: rgba(255, 255, 255, 1);
@@ -1375,22 +1345,11 @@
                         }
                 
                         .fp_text {
-                            color:rgba(0, 78, 174, 1) !important;
+                            color:#777;
                         }
                         
-                        .fp_text: hover {
-                            color:rgba(0, 78, 174, 1) !important;
-                            opacity:0.6 !important;
-                        }
-                
-                        .input_login {
-                            font-size: 14px !important;
-                            border-radius: 50px !important;
-                            padding: 13px 18px !important;
-                            color: rgba(43, 43, 43, 0.5) !important;
-                            width: 100% !important;
-                            border: 1px solid rgba(0, 78, 174, 1) !important;
-                            
+                        .fp_text:hover {
+                            color:rgba(0, 78, 174, 1);
                         }
                 
                         #concern_text p {
@@ -1400,12 +1359,7 @@
                 
                         }
                 
-                        .btn_div {
-                            margin: 2px;
-                        }
-                
-                
-                        .otp-field {
+                        .otp-field,.otp-field1 {
                             flex-direction: row;
                             column-gap: 20px;
                             display: flex;
@@ -1421,15 +1375,14 @@
                         .error {
                             color: red;
                             font-size: 11px !important;
-                            margin-left: 16px !important;
-                            margin-top: 4px !important;
+                            margin-top: 2px !important;
                             border-top :none !important;
                         }
                 
                         .sign_utext {
-                            font-size: 15px;
+                            font-size: 14px;
                             font-weight: 500;
-                            color: rgba(0, 0, 0, 0.7);
+                            color: #777;
                         }
                 
                        #timers {
@@ -1493,7 +1446,7 @@
                         }
             
                         if (valid) {
-                            document.getElementById("otpmessage").innerText = "OTP WILL BE SEND TO THE PHONE NUMBER AND MAIL";
+                            document.getElementById("otpmessage").innerText = "OTP Will Be Send to the Whatsapp Number";
                             sendOTPass();
                         }
             
@@ -1511,7 +1464,7 @@
     
                             // Example AJAX request with CSRF token included
                             $.ajax({
-                                url: '/send_otp_forgot/',
+                                url: '/send_otp_forgot',
                                 type: 'POST',
                                 data: {
                                     'phone_number': phone_number,
@@ -1594,11 +1547,11 @@
                         }
                     </script>
                     <script>
-                        const inputss = document.querySelectorAll(".otp-field > input");
+                        const inputss = document.querySelectorAll(".otp-field1 > input");
                         const buttons = document.querySelector(".verify_btn");
                 
                         window.addEventListener("load", () => inputss[0].focus());
-                        button.setAttribute("disabled", "disabled");
+                        buttons.setAttribute("disabled", "disabled");
                 
                         inputss[0].addEventListener("paste", function (event) {
                         event.preventDefault();
@@ -1641,7 +1594,7 @@
                             }
                 
                             if (e.key === "Backspace") {
-                            inputs.forEach((input, index2) => {
+                                inputss.forEach((input, index2) => {
                                 if (index1 <= index2 && prevInput) {
                                 input.setAttribute("disabled", true);
                                 input.value = "";
@@ -1673,10 +1626,10 @@
 
 <!-- Success Page -->
 <div class="modal fade" id="success_tic" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter1Title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered px-2" role="document">
   
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" style="border-radius: 6px !important;">
         <div class="text-end px-3 pt-2">
             <a class="btn-close btn-close1 mt-0" href="#" data-bs-dismiss="modal" aria-label="Close"></a>
         </div>
@@ -1694,155 +1647,204 @@
       </div>
     </div>
 </div>
-    <style>
-        .lab_blue {
-            color:rgba(0, 78, 174, 1) !important;
-        }
-        
-        #success_tic .page-body{
-          max-width:300px;
-          background-color:#FFFFFF;
-          margin:10px auto;
-        }
-         #success_tic .page-body .head{
-          text-align:center;
-        }
-        /* #success_tic .tic{
-          font-size:186px;
-        } */
-        #success_tic .close{
-              /* opacity: 1; */
-            position: absolute;
-            right: 0px;
-            font-size: 30px;
-            padding: 3px 15px;
-          margin-bottom: 10px;
-        }
-        #success_tic .checkmark-circle {
-          width: 150px;
-          height: 150px;
-          position: relative;
-          display: inline-block;
-          vertical-align: top;
-        }
-        .checkmark-circle .background {
-          width: 150px;
-          height: 150px;
-          border-radius: 50%;
-          background: #1ab394;
-          position: absolute;
-        }
-        #success_tic .checkmark-circle .checkmark {
-          border-radius: 5px;
-        }
-        #success_tic .checkmark-circle .checkmark.draw:after {
-          -webkit-animation-delay: 300ms;
-          -moz-animation-delay: 300ms;
-          animation-delay: 300ms;
-          -webkit-animation-duration: 1s;
-          -moz-animation-duration: 1s;
-          animation-duration: 1s;
-          -webkit-animation-timing-function: ease;
-          -moz-animation-timing-function: ease;
-          animation-timing-function: ease;
-          -webkit-animation-name: checkmark;
-          -moz-animation-name: checkmark;
-          animation-name: checkmark;
-          -webkit-transform: scaleX(-1) rotate(135deg);
-          -moz-transform: scaleX(-1) rotate(135deg);
-          -ms-transform: scaleX(-1) rotate(135deg);
-          -o-transform: scaleX(-1) rotate(135deg);
-          transform: scaleX(-1) rotate(135deg);
-          -webkit-animation-fill-mode: forwards;
-          -moz-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-        }
-        #success_tic .checkmark-circle .checkmark:after {
-          opacity: 1;
-          height: 75px;
-          width: 37.5px;
-          -webkit-transform-origin: left top;
-          -moz-transform-origin: left top;
-          -ms-transform-origin: left top;
-          -o-transform-origin: left top;
-          transform-origin: left top;
-          border-right: 15px solid #fff;
-          border-top: 15px solid #fff;
-          border-radius: 2.5px !important;
-          content: '';
-          left: 35px;
-          top: 80px;
-          position: absolute;
-        }
-        
-        @-webkit-keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-        @-moz-keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-        @keyframes checkmark {
-          0% {
-            height: 0;
-            width: 0;
-            opacity: 1;
-          }
-          20% {
-            height: 0;
-            width: 37.5px;
-            opacity: 1;
-          }
-          40% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-          100% {
-            height: 75px;
-            width: 37.5px;
-            opacity: 1;
-          }
-        }
-    </style>
 <!-- End Success Page -->
+
+<!-- CSS -->
+<style>
+    .lab_blue {
+        color: #029e9d;
+        /* text-transform: uppercase; */
+        font-size: 14px;
+    }
+    
+    #success_tic .page-body{
+      max-width:300px;
+      background-color:#FFFFFF;
+      margin:10px auto;
+    }
+     #success_tic .page-body .head{
+      text-align:center;
+    }
+    /* #success_tic .tic{
+      font-size:186px;
+    } */
+    #success_tic .close{
+          /* opacity: 1; */
+        position: absolute;
+        right: 0px;
+        font-size: 30px;
+        padding: 3px 15px;
+      margin-bottom: 10px;
+    }
+    #success_tic .checkmark-circle {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .checkmark-circle .background {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #1ab394;
+      position: absolute;
+    }
+    #success_tic .checkmark-circle .checkmark {
+      border-radius: 5px;
+    }
+    #success_tic .checkmark-circle .checkmark.draw:after {
+      -webkit-animation-delay: 300ms;
+      -moz-animation-delay: 300ms;
+      animation-delay: 300ms;
+      -webkit-animation-duration: 1s;
+      -moz-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-timing-function: ease;
+      -moz-animation-timing-function: ease;
+      animation-timing-function: ease;
+      -webkit-animation-name: checkmark;
+      -moz-animation-name: checkmark;
+      animation-name: checkmark;
+      -webkit-transform: scaleX(-1) rotate(135deg);
+      -moz-transform: scaleX(-1) rotate(135deg);
+      -ms-transform: scaleX(-1) rotate(135deg);
+      -o-transform: scaleX(-1) rotate(135deg);
+      transform: scaleX(-1) rotate(135deg);
+      -webkit-animation-fill-mode: forwards;
+      -moz-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+    }
+    #success_tic .checkmark-circle .checkmark:after {
+      opacity: 1;
+      height: 75px;
+      width: 37.5px;
+      -webkit-transform-origin: left top;
+      -moz-transform-origin: left top;
+      -ms-transform-origin: left top;
+      -o-transform-origin: left top;
+      transform-origin: left top;
+      border-right: 15px solid #fff;
+      border-top: 15px solid #fff;
+      border-radius: 2.5px !important;
+      content: '';
+      left: 35px;
+      top: 80px;
+      position: absolute;
+    }
+    
+    @-webkit-keyframes checkmark {
+      0% {
+        height: 0;
+        width: 0;
+        opacity: 1;
+      }
+      20% {
+        height: 0;
+        width: 37.5px;
+        opacity: 1;
+      }
+      40% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+      100% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+    }
+    @-moz-keyframes checkmark {
+      0% {
+        height: 0;
+        width: 0;
+        opacity: 1;
+      }
+      20% {
+        height: 0;
+        width: 37.5px;
+        opacity: 1;
+      }
+      40% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+      100% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+    }
+    @keyframes checkmark {
+      0% {
+        height: 0;
+        width: 0;
+        opacity: 1;
+      }
+      20% {
+        height: 0;
+        width: 37.5px;
+        opacity: 1;
+      }
+      40% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+      100% {
+        height: 75px;
+        width: 37.5px;
+        opacity: 1;
+      }
+    }
+</style>
+<!-- CSS -->
+
+<!-- Media queries -->
+<style>
+    @media (max-width: 470px) {
+        .eye-icon {
+           margin-left: 340px !important; 
+        }
+    }
+
+    @media (max-width: 436px) {
+        .eye-icon {
+           margin-left: 320px !important; 
+        }
+    }
+
+    @media (max-width: 420px) {
+        .eye-icon {
+           margin-left: 300px !important; 
+        }
+    }
+
+    @media (max-width: 390px) {
+        .eye-icon {
+           margin-left: 280px !important; 
+        }
+    }
+    @media (max-width: 370px) {
+        .eye-icon {
+           margin-left: 260px !important; 
+        }
+    }
+    @media (max-width: 340px) {
+        .eye-icon {
+           margin-left: 240px !important; 
+        }
+    }
+    @media (max-width: 325px) {
+        .eye-icon {
+           margin-left: 220px !important; 
+        }
+    }
+</style>
+
+<!-- Media queries -->
 
 <!-- script start -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

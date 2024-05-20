@@ -168,7 +168,7 @@
                               const dropdownMenu = document.getElementById('tagsDropdown');
                       
                               // Fetch available tags from backend (Django model)
-                              fetch('/tags_list/') // Replace '/api/tags/' with your Django backend URL to fetch tags
+                              fetch('/tags_list') // Replace '/api/tags/' with your Django backend URL to fetch tags
                               .then(response => response.json())
                               .then(data => {
                                   // Clear existing dropdown menu items
@@ -217,7 +217,7 @@
                                   // Send selected tags and word to the backend using AJAX
                                   const csrftoken = getCookie('csrftoken');
                                   $.ajax({
-                                      url: "/blogtag/", // Specify your Django backend URL here
+                                      url: "/blogtag", // Specify your Django backend URL here
                                       type: "POST",
                                       data: {
                                           word: word,
@@ -664,7 +664,7 @@
                                 headers: {
                                     'X-CSRFToken': csrftoken // Include CSRF token in headers
                                 },
-                                url: '/addblogs/', // Replace with your backend URL
+                                url: '/addblogs', // Replace with your backend URL
                                 data: formData,
                                 processData: false,
                                 contentType: false,
@@ -672,7 +672,7 @@
                                     // Handle success response
                                     document.getElementById("loadingbutton").style.display = "none";
                                     document.getElementById("successmsg").style.display = "block";
-                                    window.location.href = '/blog_us_admin/';
+                                    window.location.href = '/blog_us_admin?page={{page}}';
                                 },
                                 error: function(xhr, status, error) {
                                     // Handle error

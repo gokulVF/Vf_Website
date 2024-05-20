@@ -177,7 +177,7 @@
                                 
                                             // AJAX call to update the destination_category field in the Packages model
                                             $.ajax({
-                                                url: '/update_destination_category/',  // URL to your view for updating destination category
+                                                url: '/update_destination_category',  // URL to your view for updating destination category
                                                 type: 'POST',
                                                 headers: {
                                                     'X-CSRFToken': getCSRFToken(),
@@ -228,7 +228,7 @@
                                         var newState = $(this).prop('checked');
                             
                                         $.ajax({
-                                            url: '/update_packages_hidden_state/',
+                                            url: '/update_packages_hidden_state',
                                             method: 'POST',
                                             data: {
                                                 'blog_id': blogId,
@@ -277,7 +277,7 @@
                                     var newState = $(this).prop('checked');
                         
                                     $.ajax({
-                                        url: '/update_packages_home_state/',
+                                        url: '/update_packages_home_state',
                                         method: 'POST',
                                         data: {
                                             'blog_id': blogId,
@@ -327,7 +327,7 @@
                               var newState = $(this).prop('checked');
                   
                               $.ajax({
-                                  url: '/update_packages_category_state/',
+                                  url: '/update_packages_category_state',
                                   method: 'POST',
                                   data: {
                                       'blog_id': blogId,
@@ -349,7 +349,7 @@
                                 <td class="text-center">
                                   <ul class="d-flex list-unstyled mb-0 justify-content-center">
                                       <!-- <li class="me-2"><a href="#"><i class="link-icon" data-feather="eye"></i></a></li> -->
-                                      <li class="me-2"><a href="{% url 'updatepackages' %}?id={{ destination.id }}"><i class="link-icon"  data-feather="edit"></i></a></li>
+                                      <li class="me-2"><a href="{% url 'updatepackages' %}?id={{ destination.id }}&page={{page}}"><i class="link-icon"  data-feather="edit"></i></a></li>
                                       <li>
                               <a href="#" onclick="confirmDeleteTags('{{ destination.id }}')">
                                   <i class="link-icon" data-feather="delete"></i>

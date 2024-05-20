@@ -1,395 +1,395 @@
 /*CSS---------------------------------------*/
 
-.slicknav_nav { 
-    top:70px !important;
-}
+        .slicknav_nav { 
+            top:70px !important;
+        }
+        
+        .checked {
+            color:orange;
+        }
+        
 
-.checked {
-    color:orange;
-}
+        .pmore-btn {
+            background:#029e9d;
+            color: #fff;
+            border-radius: 8px;
+        }
 
+        .banner .banner-main {
+             height: auto !important;
+            position: relative;
+        }
+        
+        .cat_name {
+            font-size: 16px !important;
+        }
 
-.pmore-btn {
-    background:#029e9d;
-    color: #fff;
-    border-radius: 8px;
-}
+        .cat_div {
+            display: block;
+            width: 160px !important;
+        }
 
-.banner .banner-main {
-     height: auto !important;
-    position: relative;
-}
-
-.cat_name {
-    font-size: 16px !important;
-}
-
-.cat_div {
-    display: block;
-    width: 160px !important;
-}
-
-
-.buclist_price {
-    color: #fff !important;
-    background: #029e9d;
-    padding: 3px 4px;
-    border-radius: 6px;font-size:18px;
-
-}
-.new_pic {
-    background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.banner_image }}");
-    background-size:cover;
-
-}
-
-.item-slider .slick-prev, .item-slider .slick-next {
-    top: -98px !important;
+        
+        .buclist_price {
+            color: #fff !important;
+            background: #029e9d;
+            padding: 3px 4px;
+            border-radius: 6px;font-size:18px;
+        
+        }
+        .new_pic {
+            background-image: url("{% static 'image/home_2/main_details/' %}{{ home_page_2.description.banner_image }}");
+            background-size:cover;
     
-}
-
-.nav-tabs > li.nav-item button {
-    border: 1px solid #029e9d !important;
-}
-
-.theme_new {
-       background-color: rgb(9 9 9 / 49%);
-        color: #fdc703 !important;
-        padding: 4px 12px;
-        border-radius: 50px;
-}
-
-.r_package_div {
-            height: 265px !important;
-}
-
+        }
+        
+        .item-slider .slick-prev, .item-slider .slick-next {
+            top: -98px !important;
+            
+        }
+        
+        .nav-tabs > li.nav-item button {
+            border: 1px solid #029e9d !important;
+        }
+        
+        .theme_new {
+               background-color: rgb(9 9 9 / 49%);
+                color: #fdc703 !important;
+                padding: 4px 12px;
+                border-radius: 50px;
+        }
+        
+        .r_package_div {
+                    height: 265px !important;
+        }
+        
 /*CSS-----------------------------------------------*/
 
 /*MEDIA QUERIES-----------------------------------------------*/
 
-@media screen and (min-width: 1200px) and (max-width: 1399px) { 
-    .cat_divs {
-        padding: 10px !important;
-    }
-    
-    .video_div {
-        height: auto !important;
-    }
-    
-    .vid_sec {
-        padding:40px !important;
-    }
-    
-    .start_from {
-        font-size:14px !important;
-    }
-    
-    .stay_price {
-        font-size:18px !important;
-    }
-    
-    .stay_person {
-          font-size:12px !important;
-    }
-    
-    .b_place1 {
-        font-size:14px !important;
-    }
-    
-    .b_place2 {
-        font-size:17px !important;
-        margin-bottom:0px !important;
-    }
-    
-    .pac_price {
-        font-size:20px !important;
-    }
-    
-    .r_des {
-        font-size:14px !important;
-    }
-    
-    .r_days {
-        font-size:14px !important;
-    }
-    
-    .r_place2 {
-        font-size:22px !important;
-    }
-    
-    .art_side_div {
-        margin-bottom: 17px !important;
-    }
-    
-    .r_package_div {
-        height: 245px !important;
-    }
-    
-    .nod_tour, .nod_cal {
-        font-size:12px !important;
-    }
-}
+        @media screen and (min-width: 1200px) and (max-width: 1399px) { 
+            .cat_divs {
+                padding: 10px !important;
+            }
+            
+            .video_div {
+                height: auto !important;
+            }
+            
+            .vid_sec {
+                padding:40px !important;
+            }
+            
+            .start_from {
+                font-size:14px !important;
+            }
+            
+            .stay_price {
+                font-size:18px !important;
+            }
+            
+            .stay_person {
+                  font-size:12px !important;
+            }
+            
+            .b_place1 {
+                font-size:14px !important;
+            }
+            
+            .b_place2 {
+                font-size:17px !important;
+                margin-bottom:0px !important;
+            }
+            
+            .pac_price {
+                font-size:20px !important;
+            }
+            
+            .r_des {
+                font-size:14px !important;
+            }
+            
+            .r_days {
+                font-size:14px !important;
+            }
+            
+            .r_place2 {
+                font-size:22px !important;
+            }
+            
+            .art_side_div {
+                margin-bottom: 17px !important;
+            }
+            
+            .r_package_div {
+                height: 245px !important;
+            }
+            
+            .nod_tour, .nod_cal {
+                font-size:12px !important;
+            }
+       }
+       
+       
+        @media screen and (min-width: 1200px) and (max-width: 1400px) { 
+            .why-us-tab {
+                height:500px;
+            }
+            
+             .para-about {
+                font-size:15px;
+            }
+        }
+        
+         @media screen and (min-width: 992px) and (max-width: 1200px) { 
+            .why-us-tab {
+                height:400px;
+            }
+            
+             .pac_price {
+                font-size:18px !important;
+            }
+            
+            .pac_sname {
+                font-size:12px !important;
+            }
+            
+            .start_from {
+                font-size:12px;
+            }
+            
+            .stay_price {
+                font-size:13px !important;
+            }
+            
+            .stay_person {
+                 font-size:12px !important;
+            }
+            
+            .nod_cal, .nod_tour {
+               font-size:12px !important; 
+            }
+            
+            .trending .trend-item .trend-meta {
+                    top: -18px !important;
+                    right: 5px !important;
+                    padding:4px 6px !important;
+            }
+            
+            .bstart_from {
+                font-size: 12px !important;
+            }
+            
+            .buclist_price  {
+                font-size:13px !important; 
+            }
+            
+            .pp_text {
+                font-size: 12px !important;
+            }
+            
+            .cal_days,.days_text {
+                font-size: 10px !important;
+            }
+            
+            .b_place2 {
+                font-size:17px !important;
+                margin-bottom:0px !important;
+            }
+            
+            .b_place1 {
+                 font-size:14px !important;
+            }
+            
+            .tab_buck {
+                font-size:14px !important;
+                padding:5px !important;
+            }
+            
+            .why-us .why-us-item {
+                padding: 25px 15px !important;
+            }
+            
+            .para-about {
+                font-size:14px;
+            }
+            
+            .head_v {
+                font-size:30px !important;
+            }
+            
+             .nod_cal, .nod_tour {
+               font-size:11px !important; 
+            }
+        }
+        
+         @media screen and (min-width: 768px) and (max-width: 992px) { 
+            .why-us-tab {
+                height:350px;
+            }
+            
+            .video-figure {
+                    margin-left: -80px !important;
+            }
+            
+            .call-banner-inner {
+                padding: 10px 12px !important;
+                margin: 10px 15px !important;
+                border-radius: 12px !important;
+            }
+            
+            .v_text1 {
+                font-size:16px !important;
+            }
+            
+            .head_v {
+                font-size:24px !important;
+            }
+            
+            .v_para {
+               font-size: 12px !important; 
+            }
+            
+            .tab_buck {
+                font-size:14px !important;
+                padding:5px !important;
+            }
+            
+            .para-about {
+                font-size:14px !important;
+            }
+            
+            .rev-text {
+                font-size:12px !important;
+                 height: 90px !important;
+            }
+        }
+        
+         @media screen and (min-width:576px ) and (max-width: 768px) { 
+            .why-us-tab {
+                height:500px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+             .why_us_div {
+                display:none;
+            }
+            
+            .vid_sec {
+                padding: 18px 4px !important;
+            }
+            
+            .v_mbl {
+                width:92% !important;
+            }
+            
+            .video-button {
+                padding:15px !important;
+            }
+            
+            .video-figure  {
+                margin-left:0px !important;
+            }
+            
+            .sm_vid {
+                width:100% !important;
+            }
+            
+            .v_ban {
+                z-index: 0 !important;
+                width: 85% !important;
+                margin: 0 auto !important;
+            }
+            
+            .call-banner-inner  {
+                margin-left: 0px !important;
+            }
 
+            .v_text1 {
+                font-size:14px !important;
+            }
+            
+            .head_v {
+                font-size:22px !important;
+            }
+            
+            .v_para {
+               font-size: 12px !important; 
+            }
+            
+            .v_div {
+                margin-top: -120px !important;
+            }
+            
+            .rev-text {
+                font-size:12px !important;
+                height: 90px !important;
+            }
+            
+            .rev-utext {
+                width:100% !important;
+                font-size:12px !important;
+            }
+            
+            .tab_buck {
+                font-size:13px !important;
+                padding:5px !important;
+            }
+            
+            .discount-action {
+                padding:0px 0px !important;
+            }
+            
+            .author-info {
+                display:flex !important;
+            }
 
-@media screen and (min-width: 1200px) and (max-width: 1400px) { 
-    .why-us-tab {
-        height:500px;
-    }
-    
-     .para-about {
-        font-size:15px;
-    }
-}
+            .r_package_div {
+                height:auto !important;
+            }
 
- @media screen and (min-width: 992px) and (max-width: 1200px) { 
-    .why-us-tab {
-        height:400px;
-    }
-    
-     .pac_price {
-        font-size:18px !important;
-    }
-    
-    .pac_sname {
-        font-size:12px !important;
-    }
-    
-    .start_from {
-        font-size:12px;
-    }
-    
-    .stay_price {
-        font-size:13px !important;
-    }
-    
-    .stay_person {
-         font-size:12px !important;
-    }
-    
-    .nod_cal, .nod_tour {
-       font-size:12px !important; 
-    }
-    
-    .trending .trend-item .trend-meta {
-            top: -18px !important;
-            right: 5px !important;
-            padding:4px 6px !important;
-    }
-    
-    .bstart_from {
-        font-size: 12px !important;
-    }
-    
-    .buclist_price  {
-        font-size:13px !important; 
-    }
-    
-    .pp_text {
-        font-size: 12px !important;
-    }
-    
-    .cal_days,.days_text {
-        font-size: 10px !important;
-    }
-    
-    .b_place2 {
-        font-size:17px !important;
-        margin-bottom:0px !important;
-    }
-    
-    .b_place1 {
-         font-size:14px !important;
-    }
-    
-    .tab_buck {
-        font-size:14px !important;
-        padding:5px !important;
-    }
-    
-    .why-us .why-us-item {
-        padding: 25px 15px !important;
-    }
-    
-    .para-about {
-        font-size:14px;
-    }
-    
-    .head_v {
-        font-size:30px !important;
-    }
-    
-     .nod_cal, .nod_tour {
-       font-size:11px !important; 
-    }
-}
+            .r_det{ 
+                height: 220px !important;
+            }
+            
+            .side-slider {
+                display: none !important;
+            }
 
- @media screen and (min-width: 768px) and (max-width: 992px) { 
-    .why-us-tab {
-        height:350px;
-    }
-    
-    .video-figure {
-            margin-left: -80px !important;
-    }
-    
-    .call-banner-inner {
-        padding: 10px 12px !important;
-        margin: 10px 15px !important;
-        border-radius: 12px !important;
-    }
-    
-    .v_text1 {
-        font-size:16px !important;
-    }
-    
-    .head_v {
-        font-size:24px !important;
-    }
-    
-    .v_para {
-       font-size: 12px !important; 
-    }
-    
-    .tab_buck {
-        font-size:14px !important;
-        padding:5px !important;
-    }
-    
-    .para-about {
-        font-size:14px !important;
-    }
-    
-    .rev-text {
-        font-size:12px !important;
-         height: 90px !important;
-    }
-}
+        }
+        
+           @media screen and (min-width: 1025px) and (max-width: 1200px) {
+              .cat_div {
+                 width: 140px !important;
+            }
+        }
+        
+        
+       @media (max-width: 1025px) { 
+            .cat_div {
+                width: 116px !important;
+            }
 
- @media screen and (min-width:576px ) and (max-width: 768px) { 
-    .why-us-tab {
-        height:500px;
-    }
-}
+            .category-item img {
+                width: 40px !important;
+            }
 
-@media (max-width: 767px) {
-     .why_us_div {
-        display:none;
-    }
-    
-    .vid_sec {
-        padding: 18px 4px !important;
-    }
-    
-    .v_mbl {
-        width:92% !important;
-    }
-    
-    .video-button {
-        padding:15px !important;
-    }
-    
-    .video-figure  {
-        margin-left:0px !important;
-    }
-    
-    .sm_vid {
-        width:100% !important;
-    }
-    
-    .v_ban {
-        z-index: 0 !important;
-        width: 85% !important;
-        margin: 0 auto !important;
-    }
-    
-    .call-banner-inner  {
-        margin-left: 0px !important;
-    }
+            .cat_name {
+                font-size: 13px !important;
+            }
+        }
 
-    .v_text1 {
-        font-size:14px !important;
-    }
-    
-    .head_v {
-        font-size:22px !important;
-    }
-    
-    .v_para {
-       font-size: 12px !important; 
-    }
-    
-    .v_div {
-        margin-top: -120px !important;
-    }
-    
-    .rev-text {
-        font-size:12px !important;
-        height: 90px !important;
-    }
-    
-    .rev-utext {
-        width:100% !important;
-        font-size:12px !important;
-    }
-    
-    .tab_buck {
-        font-size:13px !important;
-        padding:5px !important;
-    }
-    
-    .discount-action {
-        padding:0px 0px !important;
-    }
-    
-    .author-info {
-        display:flex !important;
-    }
-
-    .r_package_div {
-        height:auto !important;
-    }
-
-    .r_det{ 
-        height: 220px !important;
-    }
-    
-    .side-slider {
-        display: none !important;
-    }
-
-}
-
-   @media screen and (min-width: 1025px) and (max-width: 1200px) {
-      .cat_div {
-         width: 140px !important;
-    }
-}
-
-
-@media (max-width: 1025px) { 
-    .cat_div {
-        width: 116px !important;
-    }
-
-    .category-item img {
-        width: 40px !important;
-    }
-
-    .cat_name {
-        font-size: 13px !important;
-    }
-}
-
-@media (max-width: 720px) { 
-    .cat_div {
-        display: none;
-    }
-}
-
-@media (max-width: 540px) { 
-    .b_img1 {
-        height: 350px !important;
-    }
-}
-
+        @media (max-width: 720px) { 
+            .cat_div {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 540px) { 
+            .b_img1 {
+                height: 350px !important;
+            }
+        }
+        
 /*MEDIA QUERIES-----------------------------------------------*/

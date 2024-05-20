@@ -1423,7 +1423,7 @@ def blog_us_admin(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         blog_entries = paginator.page(paginator.num_pages)
-    return render(request, "admin/blog_us_adminpanel.html" , {'tags':tags,'blog_entries': blog_entries,'datedata': datedata,"userdetails":userdetails,"popular":popular,"hidden":hidden,"created_by":created_by,"updated_by":updated_by,"count_false_popular":count_false_popular})
+    return render(request, "admin/blog_us_adminpanel.html" , {"page":page,'tags':tags,'blog_entries': blog_entries,'datedata': datedata,"userdetails":userdetails,"popular":popular,"hidden":hidden,"created_by":created_by,"updated_by":updated_by,"count_false_popular":count_false_popular})
 
 def addblogs(request):
     # Check authentication and role
@@ -2389,6 +2389,7 @@ def updateblogs(request):
 
     if 'id' in request.GET:
         blog_entry_id = request.GET['id']
+        page = request.GET['page']
         try:
             # Get the BlogUs instance with the provided ID
             userdetails = adminheader(request)
@@ -2403,7 +2404,7 @@ def updateblogs(request):
                 blogContent.append({'blog_id':blog_detail.blog_id,'id':blog_detail.id,'blog_description':blog_detail.blog_description,"image_path":blog_detail.image_path,"title":blog_detail.title})
             print(blogContent  )
             # Now you have access to all the details of the blog entry through 'description'
-            return render(request, "admin/updateblogentry.html", {'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails,"blogContent":blogContent,"canonical":canonical})
+            return render(request, "admin/updateblogentry.html", {'page':page,'blog_entry_id':blog_entry_id,'description': description,'tagsid':tagsid,"userdetails":userdetails,"blogContent":blogContent,"canonical":canonical})
         except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist')
     else:
@@ -2730,7 +2731,7 @@ def packagesadmin(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         Package_list = paginator.page(paginator.num_pages)
     
-    return render(request, "admin/packages.html",{'Destination': Package_list,"userdetails":userdetails,"destination_category":destination_category,"counts_by_slug":counts_by_slug,"count_false_popular":count_false_popular})
+    return render(request, "admin/packages.html",{"page":page,'Destination': Package_list,"userdetails":userdetails,"destination_category":destination_category,"counts_by_slug":counts_by_slug,"count_false_popular":count_false_popular})
 
 def update_destination_category(request):
     if request.method == 'POST':
@@ -3017,6 +3018,7 @@ def updatepackages(request):
 
     if 'id' in request.GET:
         blog_entry_id = request.GET['id']
+        page = request.GET['page']
         try:
             Destnation = Destination.objects.all()
             all_des = []
@@ -3049,7 +3051,7 @@ def updatepackages(request):
             Lead_details =  Lead.objects.using('second_database').all()
             
             # Now you have access to all the details of the blog entry through 'description'
-            return render(request, "admin/packageupdate.html", {'blog_entry_id':blog_entry_id,'description': description,'destination_package_id':destination_package_id,'Internation':Internation,'Domestic':Domestic,"userdetails":userdetails,"Lead_details":Lead_details,"lead_id":lead_id})
+            return render(request, "admin/packageupdate.html", {"page":page,'blog_entry_id':blog_entry_id,'description': description,'destination_package_id':destination_package_id,'Internation':Internation,'Domestic':Domestic,"userdetails":userdetails,"Lead_details":Lead_details,"lead_id":lead_id})
         except Blog.DoesNotExist:
             return HttpResponse('Blog entry with the provided ID does not exist')
     else:
@@ -3418,7 +3420,7 @@ def Homepage_slider_add(request):
 
         description_data = {
             "HomeDestinationName": HomeDestinationName,
-            # "SliderTitle": SliderTitle,
+            "SliderTitle": SliderTitle,
             "SliderContent": SliderContent,
             "Select_In_do": Select_In_do,
             "SliderImage": img_path,

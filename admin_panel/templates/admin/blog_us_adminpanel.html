@@ -474,7 +474,7 @@
                                         var newState = $(this).prop('checked');
                             
                                         $.ajax({
-                                            url: '/update_blog_popular_state/',
+                                            url: '/update_blog_popular_state',
                                             method: 'POST',
                                             data: {
                                                 'blog_id': blogId,
@@ -498,7 +498,7 @@
                                         var newState = $(this).prop('checked');
                             
                                         $.ajax({
-                                            url: '/update_blog_hidden_state/',
+                                            url: '/update_blog_hidden_state',
                                             method: 'POST',
                                             data: {
                                                 'blog_id': blogId,
@@ -520,7 +520,7 @@
                                 <td class="text-center">
                                   <ul class="d-flex list-unstyled mb-0 justify-content-center">
                                       <!-- <li class="me-2"><a href="#"><i class="link-icon" data-feather="eye"></i></a></li> -->
-                                      <li class="me-2"><a href="{% url 'updateblogs' %}?id={{ blog_entry.id }}"><i class="link-icon"  data-feather="edit"></i></a></li>
+                                      <li class="me-2"><a href="{% url 'updateblogs' %}?id={{ blog_entry.id }}&page={{page}}"><i class="link-icon"  data-feather="edit"></i></a></li>
                                      <li>
                                         <a href="#" onclick="confirmDelete('{{ blog_entry.id }}')">
                                             <i class="link-icon" data-feather="delete"></i>

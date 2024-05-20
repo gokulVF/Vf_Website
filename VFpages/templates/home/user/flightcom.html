@@ -129,7 +129,7 @@
                             if (email != null && email !== "") {
                                 // Send data to server using AJAX
                                 $.ajax({
-                                    url: '/send_pdf_link/',
+                                    url: '/send_pdf_link',
                                     type: 'POST',
                                     headers: {
                                         'X-CSRFToken': csrftoken // Include CSRF token in headers

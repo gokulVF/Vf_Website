@@ -26,6 +26,9 @@ from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.http import Http404
 
+
+
+
 def terms(request):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -701,7 +704,7 @@ def lead_itinerary(request,lead):
     footer_title = footers["footer_title"]
 
     packages_t0_lead = Packages.objects.filter(description__Url_in_lead=lead).first()
-  
+    form = MyForm()
 
 
     new = packages_t0_lead.itinaries_id
@@ -712,7 +715,7 @@ def lead_itinerary(request,lead):
     package_url = package_city["Url_in_lead"]
     if page_id == "html":
         packages_view = Packages.objects.filter(packages_id=all_package)
-        return render(request, f"home/static pages/{page_name}.html",{"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_view,"package_city":package_city,"packages_lead":packages_t0_lead})
+        return render(request, f"home/static pages/{page_name}.html",{"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_view,"package_city":package_city,"packages_lead":packages_t0_lead})
     else:
         Lead_details = Lead.objects.using('second_database').filter(id=new)
         
@@ -803,7 +806,7 @@ def lead_itinerary(request,lead):
         # print(hotel_all)
         packages_view = Packages.objects.filter(packages_id=all_package)
         
-        form = MyForm()
+        
         return render(request, "home/lead_itinerary.html",{"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
 
 def catagories_city(request,city_name):
@@ -1662,14 +1665,71 @@ def flightcompleted(request):
     hotel_details = UploadFlight.objects.filter(phone_number=hidden_phone_number, returendate__lte=next_date)
     print(hotel_details)
     return render(request , 'home/user/flightcom.html',{'hidden_username': hidden_username,'user':user,"hotel_details":hotel_details})
+    
+def send_captcha2(request):
+    if request.method == 'POST':
+        
+        
+        form = MyForm(request.POST)
+        if form.is_valid():
+           return JsonResponse({'success': True, 'message': 'Form submitted successfully!'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Enter the Correct Captcah'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
 
     
+def send_whatsapp_lead_message(request):
+    phone_number = request.POST.get('phone')
+    Name = request.POST.get('Name')
+    destination = request.POST.get('destination')
+    now = request.POST.get('now')
+    number = "9360461524"
+    details = f"{phone_number},{Name},{destination},{now}"
+    gallabox_api_key = settings.GALLABOX_API_KEY
+    gallabox_api_secret = settings.GALLABOX_API_SECRET
+    gallabox_Channelid = settings.GALLABOX_CHANNELID
+ 
+    url = "https://server.gallabox.com/devapi/messages/whatsapp"
+
+    payload = json.dumps({
+    "channelId": gallabox_Channelid,
+    "channelType": "whatsapp",
+    "recipient": {
+        "name": Name,
+        "phone": f"91{number}"
+    },
+    "whatsapp": {
+        "type": "template",
+        "template": {
+            "templateName": "website_user_pdf_link",
+            "bodyValues": {
+                "name": details,
+            },
+            "buttonValues": [
+                {
+                    "index": 0,
+                    "sub_type": "url",
+                    "parameters": {
+                        "type": "text",
+                        "text":details,
+                        
+                    }
+                }
+            ]
+        }
+    }
+}
+    )
+    headers = {
+      'apiSecret': gallabox_api_secret,  # Replace with your apiSecret
+      'apiKey': gallabox_api_key,        # Replace with your apiKey
+      'Content-Type': 'application/json'
+    }
+    print(payload)
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return JsonResponse(response.json())
+
     
-    
-
-
-    
-
-
-
 

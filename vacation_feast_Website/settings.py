@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b42)-c7s$rn7k0)-_3e%5--&h_pvy5@n+yr_-*l3u*w6ht_3dp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'VFpages',
     'admin_panel',
     'captcha',
+    
 ]
 
 CAPTCHA_IMAGE_SIZE = (150, 50)

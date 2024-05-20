@@ -19,7 +19,7 @@
     <meta name="keywords" content="{{ meta.meta_keyword }}" />
     
     <!--canonical-->
-    <link  href="{{ meta.canonical }}" rel="canonical" />
+    <link  href="https://vacationfeast.com/blogs-travelblogs" rel="canonical" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">

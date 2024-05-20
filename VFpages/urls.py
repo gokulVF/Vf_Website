@@ -29,13 +29,13 @@ urlpatterns= [
     path('tour-packages/<str:lead>', views.lead_itinerary, name='tour-packages'),
     
     # Login
-    path('send_otp/',views.send_otp,name='send_otp'),
-    path('verify-otp/', views.verify_otp, name='verify_otp'),
-    path('signups/', views.signups, name='signups'),
-    path('login_views/',views.login_views,name='login_views'),
-    path('logout_view/',views.logout_view,name='logout_view'),
-    path('send_otp_forgot/',views.send_otp_forgot,name='send_otp_forgot'),
-    path('change_password/', views.change_password, name='change_password'),
+    path('send_otp',views.send_otp,name='send_otp'),
+    path('verify-otp', views.verify_otp, name='verify_otp'),
+    path('signups', views.signups, name='signups'),
+    path('login_views',views.login_views,name='login_views'),
+    path('logout_view',views.logout_view,name='logout_view'),
+    path('send_otp_forgot',views.send_otp_forgot,name='send_otp_forgot'),
+    path('change_password', views.change_password, name='change_password'),
 
     
     
@@ -56,15 +56,17 @@ urlpatterns= [
     
     path('download_attachment/<int:id>/<str:type>',views.download_attachment,name='download_attachment'),
     
-    path('send_pdf_link/',views.send_pdf_link,name='send_pdf_link'),
+    path('send_pdf_link',views.send_pdf_link,name='send_pdf_link'),
     path('send_whatsapp_message_2/',views.send_whatsapp_message_2,name='send_whatsapp_message_2'),
     path('download_pdf/', views.download_pdf, name='download_pdf'),
     
     path('hotelcompleted',views.hotelcompleted,name='hotelcompleted'),
     path('flightcompleted',views.flightcompleted,name='flightcompleted'),
-    
     path('send_captcha',views.send_captcha,name='send_captcha'),
-    path('lead_page',views.lead_html,name='lead_page')
+    
+    path('send_whatsapp_lead_message',views.send_whatsapp_lead_message,name='send_whatsapp_lead_message'),
+    path('send_captcha2',views.send_captcha2,name='send_captcha2'),
+    
     
 
 
