@@ -448,6 +448,7 @@ def main_DestinationAttraction(request,city_name):
     # name = request.GET.get('name')
     # continent_new = request.session.get('continent')
     # request.session['img'] = img
+    form=MyForm()
     
     print(city_name)
     # print("what is this new",continent)
@@ -531,7 +532,7 @@ def main_DestinationAttraction(request,city_name):
     else:
         all_other_city = None
     
-    return render(request, "home/destinations.html",{'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
+    return render(request, "home/destinations.html",{"form":form,'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
     "packages_entry":packages_entry,"destination_name":destination_name,"footer_header":footer_header,"footer_title":footer_title,"destination_metakeyword":destination_metakeyword,"destination_metadestination":destination_metadestination,"destination_metatitle":destination_metatitle,"canonical":canonical})
 
 def destination_menu(request):
@@ -713,9 +714,11 @@ def lead_itinerary(request,lead):
     page_id =  package_city['leadDays_nights']
     page_name =  package_city['leadpakageHeading']
     package_url = package_city["Url_in_lead"]
+    packageCityname =package_city["place1"] 
     if page_id == "html":
         packages_view = Packages.objects.filter(packages_id=all_package)
-        return render(request, f"home/static pages/{page_name}.html",{"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_view,"package_city":package_city,"packages_lead":packages_t0_lead})
+        single_des = Destination.objects.filter(destination_name=packageCityname).first()
+        return render(request, f"home/static pages/{page_name}.html",{"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_view,"package_city":package_city,"packages_lead":packages_t0_lead})
     else:
         Lead_details = Lead.objects.using('second_database').filter(id=new)
         
@@ -805,9 +808,10 @@ def lead_itinerary(request,lead):
     
         # print(hotel_all)
         packages_view = Packages.objects.filter(packages_id=all_package)
+        single_des = Destination.objects.filter(destination_name=packageCityname).first()
         
         
-        return render(request, "home/lead_itinerary.html",{"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
+        return render(request, "home/lead_itinerary.html",{"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
 
 def catagories_city(request,city_name):
     destinations_data,all_categories = header_fn(request)
@@ -1668,8 +1672,6 @@ def flightcompleted(request):
     
 def send_captcha2(request):
     if request.method == 'POST':
-        
-        
         form = MyForm(request.POST)
         if form.is_valid():
            return JsonResponse({'success': True, 'message': 'Form submitted successfully!'})
@@ -1677,59 +1679,6 @@ def send_captcha2(request):
             return JsonResponse({'success': False, 'message': 'Enter the Correct Captcah'})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
-
-    
-def send_whatsapp_lead_message(request):
-    phone_number = request.POST.get('phone')
-    Name = request.POST.get('Name')
-    destination = request.POST.get('destination')
-    now = request.POST.get('now')
-    number = "9360461524"
-    details = f"{phone_number},{Name},{destination},{now}"
-    gallabox_api_key = settings.GALLABOX_API_KEY
-    gallabox_api_secret = settings.GALLABOX_API_SECRET
-    gallabox_Channelid = settings.GALLABOX_CHANNELID
- 
-    url = "https://server.gallabox.com/devapi/messages/whatsapp"
-
-    payload = json.dumps({
-    "channelId": gallabox_Channelid,
-    "channelType": "whatsapp",
-    "recipient": {
-        "name": Name,
-        "phone": f"91{number}"
-    },
-    "whatsapp": {
-        "type": "template",
-        "template": {
-            "templateName": "website_user_pdf_link",
-            "bodyValues": {
-                "name": details,
-            },
-            "buttonValues": [
-                {
-                    "index": 0,
-                    "sub_type": "url",
-                    "parameters": {
-                        "type": "text",
-                        "text":details,
-                        
-                    }
-                }
-            ]
-        }
-    }
-}
-    )
-    headers = {
-      'apiSecret': gallabox_api_secret,  # Replace with your apiSecret
-      'apiKey': gallabox_api_key,        # Replace with your apiKey
-      'Content-Type': 'application/json'
-    }
-    print(payload)
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-    return JsonResponse(response.json())
 
     
 

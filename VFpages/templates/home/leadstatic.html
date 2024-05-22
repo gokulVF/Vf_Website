@@ -117,7 +117,7 @@
 <!-- Leadform CRM -->
 
 <!-- Whatsapp script -->
-<script>
+<!-- <script>
     // CAPTCHA FUNCTIONS
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('submitbutton2').addEventListener('click', function (event) {
@@ -127,7 +127,9 @@
             var destination = document.getElementById("des_name").value
             var now = document.getElementById("cus_source").value// Get the booking ID from Django template
             var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-    
+              if(Name) {
+                Name = document.getElementById("").value;
+              }
             // Check if the validation passes before making the AJAX call
            
                 $.ajax({
@@ -143,11 +145,12 @@
                             'now':now,
                         },// Adjust this to your form ID
                         success: function(data) {
+
                                    location.reload();
                         },
                         error: function(xhr, errmsg, err) {
                             console.log(xhr.status + ": " + xhr.responseText);
-                            alert('Error sending Lead.');
+                            alert('Error sending Lead.'); 
                         }
         });
             
@@ -155,16 +158,31 @@
     });
      // VALIDATE FUNCTIONS 
  
-</script>
+</script> -->
 <script>
     // CAPTCHA FUNCTIONS
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('submitonebtn').addEventListener('click', function (event) {
             event.preventDefault(); // Prevent the default form submission
-    
+
+            var Name = document.getElementById("cus_name").value
+            var phone = document.getElementById("cus_mob").value
+            var destination = document.getElementById("des_name").value
+            var now = document.getElementById("cus_source").value// Get the booking ID from Django template
             var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-    
+            console.log(Name,phone,destination,now)
             // Check if the validation passes before making the AJAX call
+            if (Name) {
+                document.getElementById("Last_Name").value = Name;
+            }
+            if (phone) {
+                document.getElementById("Mobile").value = phone;
+            }
+            
+            if (destination) {
+                document.getElementById("LEADCF23").value = destination;
+            }
+                           
             if(validate()) {
                 $.ajax({
                     type: 'POST',
@@ -178,13 +196,16 @@
     
                         if (response.success === true) {
                             // alert("submitted")
-                           
-                            document.getElementById("form_maindiv").style.display = "none";
+                            var clickbtn = document.getElementById('formsubmit');
+                            
+                             document.getElementById("form_maindiv").style.display = "none";
                              document.getElementById("success_div").style.display="block";
                              
                               setTimeout(function() {
                                 // Submit the form associated with the element stored in the variable 'clickbtn'
-                                 $("#submitbutton2").click()
+                                //  $("#submitbutton2").click()
+                                clickbtn.form.submit();
+                                console.log('submitted')
                             }, 1000);
                         } else {
                             console.log(response.message);

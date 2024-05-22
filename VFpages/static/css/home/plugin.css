@@ -3505,9 +3505,9 @@ button.swiper-pagination-bullet {
 .slider-section .slick-prev:before, .slider-section .slick-next:before {
     font-size: 36px;
 }
-.slick-prev {
-    left: -30px;
-}
+/*.slick-prev {*/
+/*    left: -30px;*/
+/*}*/
 [dir='rtl'] .slick-prev {
     right: 15px;
     left: auto
@@ -3518,9 +3518,9 @@ button.swiper-pagination-bullet {
 [dir='rtl'] .slick-prev:before {
     content: '\f105'
 }
-.slick-next {
-    right: -30px;
-}
+/*.slick-next {*/
+/*    right: -30px;*/
+/*}*/
 [dir='rtl'] .slick-next {
     right: auto;
     left: 15px;
