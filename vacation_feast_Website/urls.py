@@ -23,6 +23,8 @@ from django.conf.urls import handler404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('VFpages.urls')),
+    path('',include('booking.urls')),
+    path('',include('payment.urls')),
     path('',include('admin_panel.urls')),
     path('captcha/', include('captcha.urls')),
 ]

@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'VFpages',
     'admin_panel',
     'captcha',
+    'booking',
+    'payment',
+
     
 ]
 
@@ -95,7 +98,7 @@ DATABASES = {
         'NAME': 'vacationfeast',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'gokulraj',
+        'PASSWORD': '8870082135',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -106,7 +109,7 @@ DATABASES = {
         'NAME': 'newmain',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'gokulraj',
+        'PASSWORD': '8870082135',
         'PORT': '3306',
     }
 
@@ -183,7 +186,12 @@ GALLABOX_API_KEY = '63c4f8e4da6a679a061f84e4'
 GALLABOX_API_SECRET = '055c76989ae94746b5f861464c387066'
 GALLABOX_CHANNELID = '63b7e6ff3749160e1e2d36c2'
 
+
 SESSION_COOKIE_AGE = 86400
+
+
+RAZORPAY_MERCHANT_KEY = 'rzp_test_5bpcghNaRd7Qqg'
+RAZORPAY_MERCHANT_SECRET = 'AyBHtno3opb2r4D1pVgqpPG5'
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
@@ -207,4 +215,21 @@ SESSION_COOKIE_AGE = 86400
 # # Initialize Fernet with the secret key
 # fernet = Fernet(SECRET_KEY)
 
+import os
+from cryptography.fernet import Fernet
 
+# Retrieve the key from the environment variable or generate a new one
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+if not SECRET_KEY:
+    # Generate a new key if no key is found
+    generated_key = Fernet.generate_key()
+    
+    # Convert the generated key to a string
+    SECRET_KEY = generated_key.decode()
+
+    # Store the key securely (e.g., in environment variables)
+    os.environ['SECRET_KEY'] = SECRET_KEY
+
+# Initialize Fernet with the secret key
+fernet = Fernet(SECRET_KEY)
