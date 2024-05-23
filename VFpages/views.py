@@ -27,6 +27,9 @@ from django.core.mail import EmailMessage
 from django.http import Http404
 
 
+def careersnew(request):
+    return render(request,"home/careersnew.html")
+
 
 
 def terms(request):
