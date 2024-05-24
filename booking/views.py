@@ -529,7 +529,7 @@ def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
                             <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
                         </div>
                         <div class="book-room-btn">
-                            <button class="btn btn-primary book-btn" onclick="bookRoom()">Book Room</button>
+                            <button class="btn theme rounded-pill shadows px-3 book-btn" onclick="bookRoom()">Book Room</button>
                         </div>
                     </div>
                 """
@@ -935,7 +935,7 @@ def get_room_details(request):
                                                 <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
                                             </div>
                                             <div class="book-room-btn" style="{'' if not button_added else 'display: none;'}">
-                                                <button class="btn btn-primary book-btn"
+                                                <button class="btn theme rounded-pill shadows px-3 book-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
                                                 </button>

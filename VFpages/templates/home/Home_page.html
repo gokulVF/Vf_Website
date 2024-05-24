@@ -139,6 +139,11 @@
             font-size:22px;
     }
     
+    .testimonial .testimonial-item1 .details p {
+        height: 100px;
+        overflow-y: hidden;
+    }
+    
     @media (max-width: 768px) {
         .trend-full  {
             height:auto !important;
@@ -188,6 +193,39 @@
          .buc_text_div {
             height:165px !important;
         }
+    }
+    
+     @media screen and (min-width: 1000px) and (max-width: 1199px) { 
+         .daycol_div {
+            padding: 2px 10px !important;
+         }
+         .day_span, .cal_span {
+             font-size:10px !important;
+         }
+         
+         .place1 {
+             font-size:14px !important;
+         }
+         
+         .place2 {
+             font-size:18px !important;
+         }
+         
+         .des1 {
+             font-size:12px !important;
+         }
+         
+         .starts_from {
+             font-size:9px !important;
+         }
+         
+         .stay_price {
+             font-size:14px !important;
+         }
+         
+         .person_stay{ 
+             font-size:12px !important;
+     }
     }
     
      @media screen and (min-width: 768px) and (max-width: 991px) { 
@@ -469,15 +507,15 @@
                             </div>
                             </a>
                             <div class="trend-content px-3 py-2 position-relative" style="height:225px">
-                                <div class="trend-meta bg-theme white px-2 py-1 rounded">
-                                    <div class="entry-author">
-                                        <i class="icon-calendar"  style="font-size:14px;"></i>
-                                        <span class="fw-bold  ps-1" style="font-size:14px !important;">{{ packages.description.Noofdays }}</span>
+                                <div class="trend-meta bg-theme white px-2 py-1 rounded daycol_div">
+                                    <div class="entry-author ">
+                                        <i class="icon-calendar cal_span"  style="font-size:14px;"></i>
+                                        <span class="fw-bold  ps-1 day_span" style="font-size:14px;">{{ packages.description.Noofdays }}</span>
                                     </div>
                                 </div>
                                 <div style="height:135px">
-                                    <h5 class="theme mb-0" style="font-size:16px;"><i class="flaticon-location-pin"></i>  {{ packages.description.place1 }}</h5>
-                                     <h3 class="mb-1" style="font-size:22px"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
+                                    <h5 class="theme mb-0 place1" style="font-size:16px;"><i class="flaticon-location-pin"></i>  {{ packages.description.place1 }}</h5>
+                                     <h3 class="mb- place2" style="font-size:22px"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
                                      <script>
                                         // Get the place2 element
                                         var placeElement = document.getElementById('tag-link{{ packages.id }}');
@@ -501,13 +539,13 @@
                                     <!--    </div>-->
                                     <!--    <span class="ms-2">(12)</span>-->
                                     <!--</div>-->
-                                    <p class="pb-1 mb-0" style="font-size:14px;">{{ packages.description.descriptions }}</p>
+                                    <p class="pb-1 mb-0 des1" style="font-size:14px;">{{ packages.description.descriptions }}</p>
                                 </div>
                                 <div class="entry-meta">
                                         <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end">
                                             <span class="theme1 mb-0 mt-0 me-2 starts_from">Starts from</span>
                                           <span class="theme fw-bold fs-5 p-1 px-2 stay_price"> {{ packages.description.price }}</span><br>
-                                          <span class="mb-1 mt-1" style="font-size:14px;">{{ packages.description.person }}</span>
+                                          <span class="mb-1 mt-1 person_stay" style="font-size:14px;">{{ packages.description.person }}</span>
                                         </div>
                                 </div>
                             </div>
@@ -740,10 +778,10 @@
                                 <img src="{% static last_entry.description.grid_image_url %}" alt="image">
                             </div>
                             </a>
-                            <div class="trend-content-main p-4" style="height:155px;">
+                            <div class="trend-content-main p-4" style="height:175px;">
                                 <div class="trend-content">
                                     <h5 class="theme mb-1">{{ last_entry.description.category }}</h5>
-                                    <h4 class="mb-0 text-start" style="font-size:20px;"><a href="/blogs/{{ last_entry.description.url }}" id="popular{{last_entry.id}}">{{ last_entry.description.title }}</a></h4>
+                                    <h4 class="mb-0 text-start" style="font-size:18px;"><a href="/blogs/{{ last_entry.description.url }}" id="popular{{last_entry.id}}">{{ last_entry.description.title }}</a></h4>
                                     <script>
                                         // Get the title element
                                         var titleElement = document.getElementById('popular{{last_entry.id}}');

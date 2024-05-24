@@ -26,7 +26,6 @@
             align-items: center;
             justify-content: center;
         }
-
     </style>
 
     <!-- <div id="preloader"></div> -->
@@ -1946,8 +1945,8 @@
 
     <!-- INPUT SECTION -->
     <section id="input-sec" class="container-fluid">
-        <form class="container inp_con" method="get" action="{% url 'process_form' %}" onsubmit="return validateForm()">
-            <!-- <form class="container inp-row" method="get" action="{% url 'process_form' %}?city_name={{ nationality|urlize }}&city_id={{ cityid|urlize }}&country_code={{ countrycode|urlize }}&check-in={{ formatted_check_in_date|urlize }}&check-out={{ formatted_check_out_date|urlize }}&nation={{ nationality|urlize }}&roomInfoInput={{ personsdetails|urlize }}&totalRoomInfoInput={{ totalroom|urlize }}"> -->
+        <form class="container inp_con" method="get" action="{% url 'hotellist' %}" onsubmit="return validateForm()">
+            <!-- <form class="container inp-row" method="get" action="{% url 'hotellist' %}?city_name={{ nationality|urlize }}&city_id={{ cityid|urlize }}&country_code={{ countrycode|urlize }}&check-in={{ formatted_check_in_date|urlize }}&check-out={{ formatted_check_out_date|urlize }}&nation={{ nationality|urlize }}&roomInfoInput={{ personsdetails|urlize }}&totalRoomInfoInput={{ totalroom|urlize }}"> -->
             {% csrf_token %}
             <div class=" inp_div d-flex">
                 <div class="inp-row col-md-10 justify-content-between p-3">
@@ -2762,6 +2761,8 @@
         if (roomElement && adultElement && roomInput) {
             roomInput.value = totalRoomsValue + " Room " + " " + "&" +" " + totalAdultsValue + " Adults";
         }
+
+        
         function filterHotelsByRating() {
             var selectedRatings = [];
             // Iterate over checked star rating checkboxes
