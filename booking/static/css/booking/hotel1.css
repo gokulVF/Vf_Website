@@ -87,3 +87,31 @@ table>tbody tr td, table thead tr th  {
     margin-right: 6px;
 }
 
+.bg-green {
+    background: #b6efef !important;
+}
+
+.per_day{ 
+    font-size: 12px;
+}
+
+.book-btn{ 
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #029e9d;
+    /* background-color: #029e9d; */
+    border: 1px solid #029e9d !important;
+    background: white;
+}
+
+.nav-link {
+    border-radius: 4px;
+    padding: 3px 9px;
+    border: 1px solid #777 !important;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    color: #777;
+    font-size: 15px;
+}
