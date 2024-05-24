@@ -236,13 +236,16 @@
                 <label for="description" class="form-label">Name Slug</label>
                 <input type="text" class="form-control form-width" required value="{{value.destination_slug}}" id="password" name="up-NameSlug" autocomplete="off" >
             </div>
-            
+            <div class="mb-3 input-div col-lg-4">
+              <label for="upload" class="form-label">Pathway Image</label>
+              <input class="form-control  form-width"  type="file"  name="up-Pathway_Image" id="upload" >
+          </div>
               
-              <div class="mb-3 input-div col-lg-6" >
+              <div class="mb-3 input-div col-lg-4">
             <label for="description" class="form-label">Title</label>
             <input type="text" class="form-control form-width" required value="{{value.destination_title}}" id="password" name="up-Title" autocomplete="off" >
         </div>
-              <div class="mb-3 input-div col-lg-6">
+              <div class="mb-3 input-div col-lg-4">
             <label for="subtitle" class="form-label">Title Slug</label>
             <input type="text" class="form-control form-width" id="subtitle" value="{{value.destination_title_slug}}" name="up-TitleSlug" autocomplete="off">
         <!-- </div>

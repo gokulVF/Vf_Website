@@ -624,11 +624,11 @@ def des_insertfn(request):
         destination_Metadescription = request.POST.get('Metadescription')
         destination_Metakeyword = request.POST.get('Metakeyword')
         canonical = request.POST.get('canonical')
-        # destination_duration = request.POST.get('Duraion')
+        # destination_cost = request.POST.get('cost')
         # destination_season = request.POST.get('Season')
         # destination_live_guide = request.POST.get('LiveGuide')
         # destination_max_group = request.POST.get('MaxGroup')
-        show_text = request.POST.get('Textonwebsite')
+        # show_text = request.POST.get('Textonwebsite')
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if 'Baner_Images' in request.FILES:
@@ -653,6 +653,13 @@ def des_insertfn(request):
             with open(Imagesimage_path, 'wb') as destination:
                 for chunk in Images.chunks():
                     destination.write(chunk)
+        if 'Pathway_Image' in request.FILES:
+            Images = request.FILES['Pathway_Image']
+            img_path4 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_logo', img_path4)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
 
        
         new_destination = Destination(
@@ -668,19 +675,20 @@ def des_insertfn(request):
             metakeyword=destination_Metakeyword,
             canonical=canonical,
             Tab_image=img_path2,
+            pathimages=img_path4,
             mobile_image=img_path3,
             updated_name=username,
             created_name=username,
             # destination_duration=destination_duration,
-            # destination_season=destination_season,
-            # destination_live_guide=destination_live_guide,
-            # destination_max_group=destination_max_group,
-            # destination_cost=destination_cost,
-            # destination_duration=destination_duration,
+            destination_season='',
+            destination_live_guide='',
+            destination_max_group='',
+            destination_cost='',
+            destination_duration='',
             # destination_season=destination_season,
             created_at=current_time,
             updated_at=current_time,
-            # show_text=show_text 
+            show_text=0 
         )
         new_destination.save()
         return redirect('destination')
@@ -755,6 +763,23 @@ def destination_edit(request,team_id):
                     destination_file.write(chunk)
             # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
             destination.mobile_image = up_img
+        if 'up-Pathway_Image' in request.FILES:
+            if destination.pathimages :
+                old_image = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_logo/',destination.pathimages.split("/")[-1])
+                print(" old image name",old_image)
+
+                if os.path.exists(old_image):
+                    os.remove(old_image)
+
+            new_image = request.FILES['up-Pathway_Image']
+            up_img = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_logo', up_img)
+            print('new image',image_path)
+            with open(image_path, 'wb') as destination_file:
+                for chunk in new_image.chunks():
+                    destination_file.write(chunk)
+            # destination.destination_image['image_url'] = os.path.join('/image/destination/desti_image', up_img)
+            destination.pathimages = up_img
 
         # Update the destination object with new values
         destination.category = request.POST.get('up-in-dom')
@@ -810,6 +835,10 @@ def destination_delete(request,team_id):
             os.remove(image_path)
     if destinations.mobile_image:
         image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_image/', destinations.mobile_image.split("/")[-1])
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if destinations.pathimages:
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/destination/desti_logo/', destinations.pathimages.split("/")[-1])
         if os.path.exists(image_path):
             os.remove(image_path)
     destinations.delete()
@@ -3382,8 +3411,9 @@ def Homepage_slider(request):
 
     Homeslider = HomepageSlider.objects.all()
     print('home page slider',Homeslider)
+    package = Packages.objects.all()
 
-    return render(request, 'admin/homepage/Slider_homepage.html',{'Internation':Internation,'Domestic':Domestic,"Homeslider":Homeslider,"userdetails":userdetails})
+    return render(request, 'admin/homepage/Slider_homepage.html',{"package":package,'Internation':Internation,'Domestic':Domestic,"Homeslider":Homeslider,"userdetails":userdetails})
 
 def Homepage_slider_add(request):
     if not request.session.get('username') or not request.session.get('role'):
@@ -3399,7 +3429,7 @@ def Homepage_slider_add(request):
 
     if request.method == 'POST':
         HomeDestinationName = request.POST.get('HomeDestinationName')
-        # SliderTitle = request.POST.get('SliderTitle')
+        SliderTitle = request.POST.get('package')
         SliderContent = request.POST.get('SliderContent')
         Select_In_do = request.POST.get('SelectIn_do')
         # SliderImage = request.POST.get('SliderImage')
@@ -3417,6 +3447,20 @@ def Homepage_slider_add(request):
             with open(Imagesimage_path, 'wb') as destination:
                 for chunk in Images.chunks():
                     destination.write(chunk)
+        if 'tabImage' in request.FILES:
+            Images = request.FILES['tabImage']
+            img_path2 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image', img_path2)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
+        if 'mobileImage' in request.FILES:
+            Images = request.FILES['mobileImage']
+            img_path3 = Images.name
+            Imagesimage_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image', img_path3)
+            with open(Imagesimage_path, 'wb') as destination:
+                for chunk in Images.chunks():
+                    destination.write(chunk)
 
         description_data = {
             "HomeDestinationName": HomeDestinationName,
@@ -3424,6 +3468,8 @@ def Homepage_slider_add(request):
             "SliderContent": SliderContent,
             "Select_In_do": Select_In_do,
             "SliderImage": img_path,
+            "tabImage": img_path2,
+            "mobileImage": img_path3,
             "crete_date": current_time,
             "update_date": current_time
 
@@ -3456,7 +3502,7 @@ def Homepage_slider_Edit(request,team_id):
     if request.method == 'POST':
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         slideredit.description['HomeDestinationName'] = request.POST.get('HomeDestinationName')
-        # slideredit.description['SliderTitle'] = request.POST.get('SliderTitle')
+        slideredit.description['SliderTitle'] = request.POST.get('SliderTitle')
         slideredit.description['SliderContent']= request.POST.get('SliderContent')
         slideredit.description['update_date'] = current_time
         slideredit.description['Select_In_do']= request.POST.get('up-Select_In_do')
@@ -3475,6 +3521,36 @@ def Homepage_slider_Edit(request,team_id):
                     destination.write(chunk)
            
             slideredit.description['SliderImage'] = img_path
+
+        if 'tabImage' in request.FILES:
+            if slideredit.description.get('tabImage'):
+                old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image/', slideredit.description.get('tabImage', ''))
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+
+            new_image = request.FILES['tabImage']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+           
+            slideredit.description['tabImage'] = img_path
+
+        if 'mobileImage' in request.FILES:
+            if slideredit.description.get('mobileImage'):
+                old_image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image/', slideredit.description.get('mobileImage', ''))
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+
+            new_image = request.FILES['mobileImage']
+            img_path = new_image.name
+            image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image', img_path)
+            with open(image_path, 'wb') as destination:
+                for chunk in new_image.chunks():
+                    destination.write(chunk)
+           
+            slideredit.description['mobileImage'] = img_path
 
         slideredit.save()
         return redirect('Homepage_slider')
@@ -3497,8 +3573,16 @@ def Homepage_slider_delete(request,team_id):
         return redirect('Homepage_slider')
     
     sliderdelete = HomepageSlider.objects.get(id=team_id)
-    if sliderdelete.description.get('image_path'):
+    if sliderdelete.description.get('SliderImage'):
         image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image/', sliderdelete.description.get('SliderImage'))
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if sliderdelete.description.get('tabImage', ''):
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image/', sliderdelete.description.get('tabImage', ''))
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    if sliderdelete.description.get('mobileImage', ''):
+        image_path = os.path.join(settings.BASE_DIR, 'VFpages/static/image/homepageslider_image/', sliderdelete.description.get('mobileImage', ''))
         if os.path.exists(image_path):
             os.remove(image_path) 
     
@@ -3549,9 +3633,9 @@ def Homepage_topdestination(request):
              })
     
   
-   
+    package = Packages.objects.all()
 
-    return render(request, 'admin/homepage/top_destination.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
+    return render(request, 'admin/homepage/top_destination.html',{"package":package,'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
 
 
 
@@ -3704,8 +3788,8 @@ def Homepage_domestic_topdestination(request):
     
   
    
-
-    return render(request, 'admin/homepage/domestic_Topdestination.html',{'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
+    package = Packages.objects.all()
+    return render(request, 'admin/homepage/domestic_Topdestination.html',{"package":package,'Internation':Internation,'Domestic':Domestic,"topdestination":about_us_details,"City_list":do_city_list,"userdetails":userdetails})
 
 
 

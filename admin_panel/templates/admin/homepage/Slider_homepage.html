@@ -197,10 +197,10 @@
               <h3 class="modal-title" id="addTeamModalLabel">Add Slider</h3>
               <span class="black">Homepage - Slider</span>
           </div>
-          <div class="modal-body">
-              <form class="forms-sample bg-grey rounded m-1 p-2" action="{% url 'Homepage_slider_add' %}" method="POST" enctype="multipart/form-data">
+          <div class="modal-body  row">
+              <form class="forms-sample bg-grey rounded m-1 p-2 row" action="{% url 'Homepage_slider_add' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
-                  <div class="mb-3">
+                  <div class="mb-3 col-lg-6">
                     <label for="TeamName" class="form-label">Sector</label>
                     <select class="form-select" name="SelectIn_do" id="SelectIn_do">
                             <option value="">Select</option>
@@ -208,7 +208,7 @@
                             <option value="1">Domestic</option>
                     </select>
                 </div>
-                  <div class="mb-3">
+                  <div class="mb-3 col-lg-6">
                     <label for="TeamName" class="form-label">Destination</label>
                     <select class="form-select" name="HomeDestinationName" id="HomeDestinationName">
                         <option value=""></option>
@@ -266,10 +266,54 @@
                  <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
                  <!--   <input type="text" class="form-control"  id="SliderContent" name="SliderContent" autocomplete="off">-->
                  <!--</div>-->
-                    <div class="mb-3">
-                        <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
+              <div class="input-container col-lg-12 mb-2">
+                  <label for="TeamNamemodify" class="form-label">Package Name</label>
+                  <input type="text" class="form-input form-control" id="searchInput11" placeholder="Search...">
+                  <select class="form-select form-control Show-1" id="selectOptions11" name="SliderContent" size="1" >
+                    {% for lead in package %}
+                    <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+
+              <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  const searchInput = document.getElementById('searchInput11');
+                  const selectOptions = document.getElementById('selectOptions11');
+                  const originalOptions = Array.from(selectOptions.options);
+
+                  function filterOptions(searchTerm) {
+                      const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                      selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                      selectOptions.innerHTML = '';
+                      filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                  }
+
+                  searchInput.addEventListener('input', function() {
+                      filterOptions(this.value.toLowerCase());
+                      selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                  });
+
+                  selectOptions.addEventListener('change', function() {
+                      const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                      const selectedValue = selectedOption.value;
+                    //   alert("Selected Value: " + selectedValue);
+                  });
+              });
+              </script>
+              
+                    <div class="mb-3 col-lg-12">
+                        <label for="upload" class="form-label">Desktop Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                         <input class="form-control  form-width" required  type="file" name="SliderImage" id="SliderImage" >
                     </div>
+                    <div class="mb-3 col-lg-6">
+                      <label for="upload" class="form-label">Tap Slider Image</label>
+                      <input class="form-control  form-width" required  type="file" name="tabImage" id="SliderImage" >
+                   </div>
+                   <div class="mb-3 col-lg-6">
+                    <label for="upload" class="form-label">Mobile Slider Image</label>
+                    <input class="form-control  form-width" required  type="file" name="mobileImage" id="SliderImage" >
+                </div>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>
@@ -291,9 +335,9 @@
               <span class="black">Homepage - Slider</span>
           </div>
           <div class="modal-body">
-            <form class="forms-sample  bg-grey rounded m-1 p-2" action="{% url 'Homepage_slider_Edit' team_id=team.id %}" method="POST" enctype="multipart/form-data">
+            <form class="forms-sample  bg-grey rounded m-1 p-2 row" action="{% url 'Homepage_slider_Edit' team_id=team.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="mb-3">
+                <div class="mb-3 col-lg-6">
                   <label for="TeamName" class="form-label">Sector</label>
                   <input type="hidden" class="select-5" id="new-{{team.description.Select_In_do}}" value="{{team.description.Select_In_do}}">
                   <select class="form-select show-5" name="up-Select_In_do" id="up-SelectIn_do{{ team.id }}">
@@ -302,7 +346,7 @@
                           <option value="1">Domestic</option>
                   </select>
               </div>
-                <div class="mb-3">
+                <div class="mb-3 col-lg-6">
                     <label for="TeamName" class="form-label">Destination</label>
                     <input type="hidden" class="select-4" id="new-{{team.description.HomeDestinationName}}" value="{{team.description.HomeDestinationName}}">
                     <select class="form-select show-4"  name="HomeDestinationName" id="HomeDestinationName{{ team.id }}">
@@ -360,10 +404,80 @@
                <!--   <label for="TeamName" class="form-label">Slider Content</label>-->
                <!--   <input type="text" class="form-control"  id="SliderContent" value="{{team.description.SliderContent}}" name="SliderContent" autocomplete="off">-->
                <!--</div>-->
-                     <div class="mb-3">
-                    <label for="upload" class="form-label">Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
+               <div class="input-container col-lg-12 mb-2">
+                <label for="TeamNamemodify" class="form-label">Package Name</label>
+                <input type="hidden" class="select-{{ team.id }}" id="new-{{ team.id }}" value="{{team.description.SliderContent}}">
+                <input type="text" class="form-input form-control" id="searchInput{{ team.id }}" placeholder="Search...">
+                <select class="form-select form-control Show-{{ team.id }}" id="selectOptions{{ team.id }}" name="SliderContent" size="1"  onchange="getSelectedText11()">
+                  {% for lead in package %}
+                  <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                  {% endfor %}
+                </select>
+            </div>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('searchInput{{ team.id }}');
+                const selectOptions = document.getElementById('selectOptions{{ team.id }}');
+                const originalOptions = Array.from(selectOptions.options);
+
+                function filterOptions(searchTerm) {
+                    const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                    selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                    selectOptions.innerHTML = '';
+                    filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                }
+
+                searchInput.addEventListener('input', function() {
+                    filterOptions(this.value.toLowerCase());
+                    selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                });
+
+                selectOptions.addEventListener('change', function() {
+                    const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                    const selectedValue = selectedOption.value;
+                  //   alert("Selected Value: " + selectedValue);
+                });
+            });
+            </script>
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
+                  var selectTourValues = document.querySelectorAll(".select-{{ team.id }}");
+                  var showTourValues = document.querySelectorAll(".Show-{{ team.id }}");
+            
+                  selectTourValues.forEach(function(select, index) {
+                      var selectTourValue = select.value;
+                      var showTourValue = showTourValues[index];
+            
+                      // Loop through the options to find the one that matches the input value
+                      for (var k = 0; k < showTourValue.options.length; k++) {
+                          if (showTourValue.options[k].value === selectTourValue) {
+                            showTourValue.options[k].selected = true;
+                              break;
+                          }
+                      }
+            
+                      // Add event listener for change event on the select element
+                      showTourValue.addEventListener("change", function() {
+                          // Update the value of the hidden input to match the selected option
+                          select.value = this.value;
+                      });
+                  });
+              });
+            </script>
+            
+                  <div class="mb-3 col-lg-12">
+                    <label for="upload" class="form-label">Desktop Slider Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1880 x 1150</span></label>
                       <input class="form-control  form-width" value="{{team.description.SliderImage}}"  type="file" name="SliderImage" id="SliderImage" >
                   </div>
+                  <div class="mb-3 col-lg-6">
+                    <label for="upload" class="form-label">Tap Slider Image</label>
+                    <input class="form-control  form-width"   type="file" name="tabImage" id="sSliderImage" >
+                 </div>
+                 <div class="mb-3 col-lg-6">
+                  <label for="upload" class="form-label">Mobile Slider Image</label>
+                  <input class="form-control  form-width"   type="file" name="mobileImage" id="nSliderImage" >
+              </div>
 
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary rounded-pill py-1 mx-1">Add</button>

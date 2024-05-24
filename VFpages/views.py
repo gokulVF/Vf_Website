@@ -535,16 +535,7 @@ def main_DestinationAttraction(request,city_name):
     return render(request, "home/destinations.html",{"form":form,'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
     "packages_entry":packages_entry,"destination_name":destination_name,"footer_header":footer_header,"footer_title":footer_title,"destination_metakeyword":destination_metakeyword,"destination_metadestination":destination_metadestination,"destination_metatitle":destination_metatitle,"canonical":canonical})
 
-def destination_menu(request):
-    footers = homefooter()
-    footer_header = footers["footer_header"]
-    print(footer_header)
-    footer_title = footers["footer_title"]
-    print(footer_title)
-    
 
-    return render(request, "home/destinations.html",{"footer_header":footer_header,"footer_title":footer_title})
-     
     
 from VFpages.models import Blog,BlogDetails 
 def gridblogus(request):
@@ -714,7 +705,7 @@ def lead_itinerary(request,lead):
     page_id =  package_city['leadDays_nights']
     page_name =  package_city['leadpakageHeading']
     package_url = package_city["Url_in_lead"]
-    packageCityname =package_city["place1"] 
+    packageCityname =package_city["cities"] 
     if page_id == "html":
         packages_view = Packages.objects.filter(packages_id=all_package)
         single_des = Destination.objects.filter(destination_name=packageCityname).first()

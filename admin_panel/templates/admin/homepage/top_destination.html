@@ -219,7 +219,7 @@
                       <label for="title" class="form-label">Price</label>
                       <input type="text" class="form-control"  id="password" name="destination_1Price" autocomplete="off" value="{{topdestination.destination_1Price}}">
                     </div>
-                      <div class="mb-3 col-lg-6">
+                      <!-- <div class="mb-3 col-lg-6">
                         <label for="title" class="form-label">City</label>
                         <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
                         <select class="form-select Show-1"  name="destination_1Cities">
@@ -228,7 +228,43 @@
                           <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                           {% endfor %}
                         </select>
-                      </div>
+                      </div> -->
+                      <div class="input-container col-lg-6 mb-2">
+                        <label for="TeamNamemodify" class="form-label">Package Name</label>
+                        <input type="hidden" class="select-1" id="new-{{topdestination.destination_1Cities}}" value="{{topdestination.destination_1Cities}}">
+                        <input type="text" class="form-input form-control" id="searchInput11" placeholder="Search...">
+                        <select class="form-select form-control Show-1" id="selectOptions11" name="destination_1Cities" size="1"  >
+                          {% for lead in package %}
+                          <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('searchInput11');
+                        const selectOptions = document.getElementById('selectOptions11');
+                        const originalOptions = Array.from(selectOptions.options);
+
+                        function filterOptions(searchTerm) {
+                            const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                            selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                            selectOptions.innerHTML = '';
+                            filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                        }
+
+                        searchInput.addEventListener('input', function() {
+                            filterOptions(this.value.toLowerCase());
+                            selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                        });
+
+                        selectOptions.addEventListener('change', function() {
+                            const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                            const selectedValue = selectedOption.value;
+                          //   alert("Selected Value: " + selectedValue);
+                        });
+                    });
+                    </script>
                       <div class="mb-3 col-lg-6">
                         <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
                         <label for="upload" class="form-label">Image<span class="bg-white px-1 mx-2 py-1 rounded">Size 1200 x 541</span></label>
@@ -272,7 +308,7 @@
                         <label for="title" class="form-label">Price</label>
                         <input type="text" class="form-control"  id="password" name="destination_2price" autocomplete="off" value="{{topdestination.destination_2price}}">
                       </div>
-                      <div class="mb-3 col-lg-6">
+                      <!-- <div class="mb-3 col-lg-6">
                         <label for="title" class="form-label">City</label>
                         <input type="hidden" class="select-2" id="new2-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
                         <select class="form-select Show-2"  name="destination_2Cities">
@@ -281,7 +317,43 @@
                           <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                           {% endfor %}
                         </select>
-                      </div>
+                      </div> -->
+                      <div class="input-container col-lg-6 mb-2">
+                        <label for="TeamNamemodify" class="form-label">Lead</label>
+                        <input type="hidden" class="select-2" id="new-{{topdestination.destination_2Cities}}" value="{{topdestination.destination_2Cities}}">
+                        <input type="text" class="form-input form-control" id="searchInput12" placeholder="Search...">
+                        <select class="form-select form-control Show-2" id="selectOptions12" name="destination_2Cities" size="1" >
+                          {% for lead in package %}
+                          <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('searchInput12');
+                        const selectOptions = document.getElementById('selectOptions12');
+                        const originalOptions = Array.from(selectOptions.options);
+
+                        function filterOptions(searchTerm) {
+                            const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                            selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                            selectOptions.innerHTML = '';
+                            filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                        }
+
+                        searchInput.addEventListener('input', function() {
+                            filterOptions(this.value.toLowerCase());
+                            selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                        });
+
+                        selectOptions.addEventListener('change', function() {
+                            const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                            const selectedValue = selectedOption.value;
+                          //   alert("Selected Value: " + selectedValue);
+                        });
+                    });
+                    </script>
                     <div class="mb-3 col-lg-6">
                       <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
                       <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
@@ -325,7 +397,7 @@
                           <label for="title" class="form-label">Price</label>
                           <input type="text" class="form-control"  id="password" name="destination_3price" autocomplete="off" value="{{topdestination.destination_3price}}">
                         </div>
-                      <div class="mb-3 col-lg-6">
+                      <!-- <div class="mb-3 col-lg-6">
                         <label for="title" class="form-label">City</label>
                         <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
                         <select class="form-select Show-3"  name="destination_3Cities">
@@ -334,8 +406,43 @@
                           <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                           {% endfor %}
                         </select>
-                      </div>
-                      
+                      </div> -->
+                      <div class="input-container col-lg-6 mb-2">
+                        <label for="TeamNamemodify" class="form-label">Lead</label>
+                        <input type="hidden" class="select-3" id="new-{{topdestination.destination_3Cities}}" value="{{topdestination.destination_3Cities}}">
+                        <input type="text" class="form-input form-control" id="searchInput13" placeholder="Search...">
+                        <select class="form-select form-control Show-3" id="selectOptions13" name="destination_3Cities" size="1" >
+                          {% for lead in package %}
+                          <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('searchInput13');
+                        const selectOptions = document.getElementById('selectOptions13');
+                        const originalOptions = Array.from(selectOptions.options);
+
+                        function filterOptions(searchTerm) {
+                            const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                            selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                            selectOptions.innerHTML = '';
+                            filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                        }
+
+                        searchInput.addEventListener('input', function() {
+                            filterOptions(this.value.toLowerCase());
+                            selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                        });
+
+                        selectOptions.addEventListener('change', function() {
+                            const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                            const selectedValue = selectedOption.value;
+                          //   alert("Selected Value: " + selectedValue);
+                        });
+                    });
+                    </script>
                       <div class="mb-3 col-lg-6">
                         <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
                         <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 650</span></label>
@@ -379,7 +486,7 @@
                         <label for="title" class="form-label">Price</label>
                         <input type="text" class="form-control"  id="password" name="destination_4price" autocomplete="off" value="{{topdestination.destination_4price}}">
                       </div>
-                      <div class="mb-3 col-lg-6">
+                      <!-- <div class="mb-3 col-lg-6">
                         <label for="title" class="form-label">City</label>
                         <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
                         <select class="form-select Show-4"  name="destination_4Cities">
@@ -388,7 +495,43 @@
                           <option value="{{city.international_city_name}}">{{city.international_city_name}}</option>
                           {% endfor %}
                         </select>
-                      </div>
+                      </div> -->
+                      <div class="input-container col-lg-6 mb-2">
+                        <label for="TeamNamemodify" class="form-label">Lead</label>
+                        <input type="hidden" class="select-4" id="new-{{topdestination.destination_4Cities}}" value="{{topdestination.destination_4Cities}}">
+                        <input type="text" class="form-input form-control" id="searchInput14" placeholder="Search...">
+                        <select class="form-select form-control Show-4" id="selectOptions14" name="destination_4Cities" size="1" >
+                          {% for lead in package %}
+                          <option value="{{lead.description.Url_in_lead}}">{{lead.description.place2}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('searchInput14');
+                        const selectOptions = document.getElementById('selectOptions14');
+                        const originalOptions = Array.from(selectOptions.options);
+
+                        function filterOptions(searchTerm) {
+                            const filteredOptions = originalOptions.filter(option => option.textContent.toLowerCase().includes(searchTerm));
+                            selectOptions.size = filteredOptions.length > 1 ? filteredOptions.length : 1;
+                            selectOptions.innerHTML = '';
+                            filteredOptions.forEach(option => selectOptions.appendChild(option.cloneNode(true)));
+                        }
+
+                        searchInput.addEventListener('input', function() {
+                            filterOptions(this.value.toLowerCase());
+                            selectOptions.size = 1; // Reset the size to 1 when typing in the search box
+                        });
+
+                        selectOptions.addEventListener('change', function() {
+                            const selectedOption = selectOptions.options[selectOptions.selectedIndex];
+                            const selectedValue = selectedOption.value;
+                          //   alert("Selected Value: " + selectedValue);
+                        });
+                    });
+                    </script>
                       <div class="mb-3 col-lg-6">
                         <!-- <img src="{{ topdestination.image_file_url }}" alt=""> -->
                         <label for="upload" class="form-label">Image <span class="bg-white px-1 mx-2 py-1 rounded">Size 700 x 925</span></label>
