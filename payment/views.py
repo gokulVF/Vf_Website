@@ -27,118 +27,118 @@ razorpay_client = razorpay.Client(auth=(key, secret))
 
 from django.shortcuts import render
 
-def paymentflight(request):
-    print(key)
-    values = request.session.get('published_amount')
-    print("price values in payment",values)
-    flightdetails = request.session.get('flight_details', '')
-    single_flight_del = request.session.get('fullflight_details','')
-    userinformation = request.session.get('userinformation','')
-    preview_data = request.session.get('preview_data', None)
+# def paymentflight(request):
+#     print(key)
+#     values = request.session.get('published_amount')
+#     print("price values in payment",values)
+#     flightdetails = request.session.get('flight_details', '')
+#     single_flight_del = request.session.get('fullflight_details','')
+#     userinformation = request.session.get('userinformation','')
+#     preview_data = request.session.get('preview_data', None)
     
-    print("new",type(values))
-    print("preview data",preview_data)
-    publish_amount = preview_data.get('flight_information', '')
+#     print("new",type(values))
+#     print("preview data",preview_data)
+#     publish_amount = preview_data.get('flight_information', '')
    
-    print(publish_amount)    
-    email = preview_data.get('email', '')
-    phone_number = preview_data.get('phone_number', '')
+#     print(publish_amount)    
+#     email = preview_data.get('email', '')
+#     phone_number = preview_data.get('phone_number', '')
 
 
-    combined_data = {
+#     combined_data = {
        
-        'email':email,
-        'phone_number': phone_number,
-        # 'hotel_name': hotel_name,
-        # 'rating': rating,
-        # 'address': address,
-        # 'cancellation_policy': stripped_content,
-        # 'check_in_date': check_in_date,
-        # 'check_out_date': check_out_date,
-        # 'adults': adults,
-        # 'childs': childs,
-        # 'total_rooms': total_rooms,
-        # 'no_of_nights': no_of_nights,
-        # 'published_price': published_price,
-        # 'final_tax': final_tax,
-        # 'total_price': total_price,
-        # 'time_difference':time_difference,
-        'flight_details':flightdetails
-    }
+#         'email':email,
+#         'phone_number': phone_number,
+#         # 'hotel_name': hotel_name,
+#         # 'rating': rating,
+#         # 'address': address,
+#         # 'cancellation_policy': stripped_content,
+#         # 'check_in_date': check_in_date,
+#         # 'check_out_date': check_out_date,
+#         # 'adults': adults,
+#         # 'childs': childs,
+#         # 'total_rooms': total_rooms,
+#         # 'no_of_nights': no_of_nights,
+#         # 'published_price': published_price,
+#         # 'final_tax': final_tax,
+#         # 'total_price': total_price,
+#         # 'time_difference':time_difference,
+#         'flight_details':flightdetails
+#     }
     
-    # price =float(values)*100
-    price = 200*100
-    currency = 'INR'
-    print(price)
+#     # price =float(values)*100
+#     price = 200*100
+#     currency = 'INR'
+#     print(price)
 
-    razorpay_order = razorpay_client.order.create(dict(amount=price,
-                                                       currency=currency,
-                                                       payment_capture='0'))
+#     razorpay_order = razorpay_client.order.create(dict(amount=price,
+#                                                        currency=currency,
+#                                                        payment_capture='0'))
  
-    # order id of newly created order.
-    razorpay_order_id = razorpay_order['id']
-    callback_url = 'Flightpaymenthandler/'
-    context = {
-        'flightdetails': flightdetails,
-        'single_flight_del':single_flight_del,
-        'userinformation' : userinformation,
-        'combined_data': combined_data,
-        'razorpay_order_id': razorpay_order_id,
-        'razorpay_merchant_key': "rzp_test_5bpcghNaRd7Qqg",
-        'razorpay_amount': price,
-        'currency': 'INR',
-        'callback_url': callback_url,
-        'hidden_email':'gokul@gmail.com','hidden_phone_number':9360461524,'hidden_username':'hidden_username',
-    } 
-    # print(context)
+#     # order id of newly created order.
+#     razorpay_order_id = razorpay_order['id']
+#     callback_url = 'Flightpaymenthandler/'
+#     context = {
+#         'flightdetails': flightdetails,
+#         'single_flight_del':single_flight_del,
+#         'userinformation' : userinformation,
+#         'combined_data': combined_data,
+#         'razorpay_order_id': razorpay_order_id,
+#         'razorpay_merchant_key': "rzp_test_5bpcghNaRd7Qqg",
+#         'razorpay_amount': price,
+#         'currency': 'INR',
+#         'callback_url': callback_url,
+#         'hidden_email':'gokul@gmail.com','hidden_phone_number':9360461524,'hidden_username':'hidden_username',
+#     } 
+#     # print(context)
 
-    # Render the template with the context
-    return render(request, 'payment/paymentflight.html',context=context)
+#     # Render the template with the context
+#     return render(request, 'payment/paymentflight.html',context=context)
 
 
-@csrf_exempt
-def Flightpaymenthandler(request):
+# @csrf_exempt
+# def Flightpaymenthandler(request):
 
-    value = request.session.get('publish_amount', None)
-    if request.method == "POST":
-        try:
+#     value = request.session.get('publish_amount', None)
+#     if request.method == "POST":
+#         try:
            
-            # get the required parameters from post request.
-            payment_id = request.POST.get('razorpay_payment_id', '')
-            print(payment_id)
-            request.session['payment_id'] = payment_id
-            razorpay_order_id = request.POST.get('razorpay_order_id', '')
-            print(razorpay_order_id)
-            signature = request.POST.get('razorpay_signature', '')
-            payed_amount = request.POST.get('razorpay_amount', '')
-            print({'payed': payed_amount})
-            params_dict = {
-                'razorpay_order_id': razorpay_order_id,
-                'razorpay_payment_id': payment_id,
-                'razorpay_signature': signature,
-                'razorpay_amount': payed_amount,
-            }
+#             # get the required parameters from post request.
+#             payment_id = request.POST.get('razorpay_payment_id', '')
+#             print(payment_id)
+#             request.session['payment_id'] = payment_id
+#             razorpay_order_id = request.POST.get('razorpay_order_id', '')
+#             print(razorpay_order_id)
+#             signature = request.POST.get('razorpay_signature', '')
+#             payed_amount = request.POST.get('razorpay_amount', '')
+#             print({'payed': payed_amount})
+#             params_dict = {
+#                 'razorpay_order_id': razorpay_order_id,
+#                 'razorpay_payment_id': payment_id,
+#                 'razorpay_signature': signature,
+#                 'razorpay_amount': payed_amount,
+#             }
             
-            # verify the payment signature.
-            result = razorpay_client.utility.verify_payment_signature(
-                params_dict)
+#             # verify the payment signature.
+#             result = razorpay_client.utility.verify_payment_signature(
+#                 params_dict)
             
-            return redirect(reverse('onetrip_book'))
-        except:
+#             return redirect(reverse('onetrip_book'))
+#         except:
  
-            # if we don't find the required parameters in POST data
-            return HttpResponseBadRequest()
-    else:
-       # if other than POST request is made.
-        return HttpResponseBadRequest()
+#             # if we don't find the required parameters in POST data
+#             return HttpResponseBadRequest()
+#     else:
+#        # if other than POST request is made.
+#         return HttpResponseBadRequest()
 
 
 
 
 
-    return render(request,'payment/empty.html')
+#     return render(request,'payment/empty.html')
 
-    # return redirect(reverse('hotelbooked'))
+#     # return redirect(reverse('hotelbooked'))
 
 
 # hotel bookimg 

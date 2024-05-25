@@ -664,18 +664,18 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                   <div class="d-flex col-md-12" style="border-radius:10px;margin:2px;justify-content:space-between;padding:2px 6px;width:100%">
-                                    <div class="room-info d-flex justify-content-between" style="width:80%">
+                                   <div class="d-flex col-md-12" style="border-radius:10px;margin:2px;justify-content:space-between;padding:2px 6px;width:100%;background-color: gainsboro;">
+                                    <div class="room-info d-flex justify-content-between " style="width:80%">
                                         <div class="more_room_div">
                                             <p class="room-info-name">{Roomtypename}</p>
                                             <p class="room-type-name">{Roomtypedetails}</p>
                                         </div>
-                                        <div class="price-info mt-3">
+                                        <div class="price-info">
                                             <div class="rub-price">
-                                                <p style="color: #004EAE;">INR</p>
-                                                <p class="price" style="color: #004EAE;">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                <p style="color: #029e9d;">INR</p>
+                                                <p class="price" style="color: #029e9d;">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
                                             </div>
-                                            <div style="margin-top:-20px; margin-bottom:10px;">
+                                            <div style="margin-top:3px; margin-bottom:13px;">
                                                 <p class="pn" >Per Room/Night</p>
                                             </div>
                                         </div>
@@ -687,12 +687,12 @@ def your_view(request):
                                         <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                     </div>
                                     <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px; width: 23%;'}"></div>
-                                    <div class="book-room-btn mt-4" style="{'' if not button_added else 'display: none;'}">
-                                            <button class="book-btn"
+                                    <div class="book-room-btn mt-2" style="{'' if not button_added else 'display: none;  '}">
+                                            <button class="book-btn" style="background-color: #029e9d !important;"
                                                     onclick="bookRoom()">
                                                 Book Room
                                             </button>
-                                        </div>
+                                    </div>
                                    </div>
                                      
                                    
@@ -829,17 +829,17 @@ def get_room_details(request):
     try:
         response = requests.post(api_url, json=data, headers=headers)
         response.raise_for_status()
-        if response.status_code == 200:
-            api_data = response.json()
+        # if response.status_code == 200:
+        #     api_data = response.json()
 
-            # Construct the file path on the C drive
-            c_drive_path = "C:\Response"
-            file_name = "Room response.txt"
-            notepad_file_path = os.path.join(c_drive_path, file_name)
+        #     # Construct the file path on the C drive
+        #     c_drive_path = "C:\Response"
+        #     file_name = "Room response.txt"
+        #     notepad_file_path = os.path.join(c_drive_path, file_name)
 
-            # Open the file in write mode ("w") to overwrite existing content
-            with open(notepad_file_path, "w") as notepad_file:
-                notepad_file.write(str(api_data))
+        #     # Open the file in write mode ("w") to overwrite existing content
+        #     with open(notepad_file_path, "w") as notepad_file:
+        #         notepad_file.write(str(api_data))
         response_data = response.json().get('GetHotelRoomResult', {})
         print("categroyid")
         print(response_data)

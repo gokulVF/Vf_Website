@@ -211,7 +211,7 @@ ul {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #029e9d;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -219,7 +219,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color:#029e9d;
 }
 
 .more-optn {
@@ -265,8 +265,8 @@ button:hover {
 }
 
 .book-btn:hover{
-    color: rgba(0, 78, 174, 1) !important;
-    border: 1px solid rgba(0, 78, 174, 1) !important;
+    color:#029e9d !important;
+    border: 1px solid#029e9d !important;
     background: rgba(208, 213, 221, 0.23) !important;
 }
 
@@ -397,7 +397,7 @@ Footer {
 }
 
 .book-btn {
-    background: #004EAE !important;
+    background: #029e9d !important;
     color: white !important;
     border-radius: 20.14px !important;
     padding:4px 12px !important;

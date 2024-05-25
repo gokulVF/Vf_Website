@@ -1,691 +1,287 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">/
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Travelin - Travel Tour Booking HTML Templates</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!--Custom CSS-->
+    <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
+    <!--Plugin CSS-->
+    <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
+
+    <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>Razorpay Payment Gateway</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
 </head>
-<body>
-    <div id="preloader"></div>
-    <style>
-        #preloader {
-            background: url("{% static 'image/booking/loading1.gif'%}") no-repeat center center;
-            width: 100%;
-            height: 300px;
-            margin-top: 100px;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-    <Header id="header">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#" >
-                    <img src="{% static 'image/booking/Magnet logo.png' %}" alt="logo" width="79px" height="79px">
-                </a>
-                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto"> <!-- mx-auto for centering -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{% static 'image/booking/flight b.svg' %}" alt=""><p>Flights</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img src="{% static 'image/booking/hotel b.svg' %}" alt="">
-                                <p>Hotels</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{% static 'image/booking/holiday b.svg' %}" alt=""><p>Holidays</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{% static 'image/booking/island b.svg' %}" alt=""><p>Island</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{% static 'image/booking/visa b.svg' %}" alt=""><p>Visa</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="{% static 'image/booking/more b.svg' %}" alt=""><p>More</p></a>
-                        </li>
-                    </ul>
-                    <div class="d-flex mt-2">
-                        <p id="mblNumber" style="font-size: 18px;font-weight: 600;color: black;" class="mb-0 mt-3">{{ hidden_username }}</p>
-                        <a href="{% url 'portalhome'  %}"><img src="{% static 'images/user_pic.webp' %}" id="logProfile" class="login_profile" alt="Profile" style="width:50px;height: 50px;"></a>
-                    </div>
-                    <!-- <div class="d-flex">
-                        <button class="btn btn-primary log-btn">LOG IN</button>
-                    </div> -->
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+    <!-- Preloader Ends -->
+
+    <!-- header starts -->
+    {% include 'home/header.html' %}
+    <!-- header ends -->
+
+    <!-- BreadCrumb Starts -->  
+    <section class="breadcrumb-main pb-20 pt-14" style="background-image: url(images/bg/bg1.jpg);">
+        <div class="section-shape section-shape1 top-inherit bottom-0" style="background-image: url(images/shape8.png);"></div>
+        <div class="breadcrumb-outer">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="mb-3">Confirmation</h1>
+                    <nav aria-label="breadcrumb" class="d-block">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Confirmation</li>
+                        </ul>
+                    </nav>
                 </div>
-            </nav>
-        </div>
-    </Header>
-    <!-- <div id="customPopup" class="popup">
-        <div class="popup-content text-center">
-            <p >Your session has timed out. Please try again.</p>
-            <button  class="btn btn-primary ses-btn"><a href="{% url 'hotel'  %}">OK</a></button>
-        </div>
-    </div> -->
-    
-    <section id="process" class="bg-light py-5">
-        <div class="container mt-5">
-            <div class="d-flex flex-row justify-content-between">
-                <label class="text-center">Traveller Details</label>
-                <label class="text-center">Review</label>
-                <label class="text-center">Payment</label>
             </div>
-            <div class="mt-3">
-                <input type="range" class="custom-range" min="0" max="100" value="50" style="width: 100%;">
+        </div>
+        <div class="dot-overlay"></div>
+    </section>
+    <!-- BreadCrumb Ends --> 
+
+    <!-- top Destination starts -->
+    <section class="trending pt-6 pb-0 bg-lgrey">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-xs-12 mb-4">
+                    <div class="payment-book">
+                        <div class="booking-box">
+                            <div class="booking-box-title d-md-flex align-items-center bg-title p-4 mb-4 rounded text-md-start text-center">
+                                <i class="fa fa-check px-4 py-3 bg-white rounded title fs-5"></i>
+                                <div class="title-content ms-md-3">
+                                    <h3 class="mb-1 white">Thank You. Your booking order is confirmed now.</h3>
+                                    <p class="mb-0 white">A confirmation email has been sent to your provided email address.</p>
+                                </div>
+                            </div>
+                            <div class="travellers-info mb-4">
+                                <table>
+                                    <thead>
+                                        <th>Order Number</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="theme2">1012</td>
+                                            <td class="theme2">11/02/2022</td>
+                                            <td class="theme2">$550.00</td>
+                                            <td class="theme2">Bank Transfer</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="travellers-info mb-4">
+                                <h4>Traveler Information</h4>
+                                <table>
+                                    <tr>
+                                        <td>Booking Number</td>
+                                        <td>5784-BD245</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td>Jessica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td>Brown</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email Address</td>
+                                        <td>info#jessica.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Street Address and number</td>
+                                        <td>353 Third floor Avenue</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Town/City</td>
+                                        <td>Paris</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ZIP Code</td>
+                                        <td>75800-875</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>France</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="booking-border mb-4">
+                                <h4 class="border-b pb-2 mb-2">Payment</h4>
+                                <p class="mb-0">This is the third time I've used Travelo Website and telling you the truth their services are always reliable and it ony takes few minutes to plan and finalize.</p>
+                                <a href="#">Payment is made by Credit Card via Paypal</a>
+                            </div>
+                            <div class="booking-border mb-4">
+                                <h4 class="border-b pb-2 mb-2">View Booking Details</h4>
+                                <p class="mb-0">This is the third time I've used Travelo Website and telling you the truth their services are always reliable and it ony takes few minutes to plan and finalize.</p>
+                                <a href="#">https://www.travel.com/booking-details</a>
+                            </div>
+                            <div class="booking-border d-flex">
+                                <a href="#" class="nir-btn me-2"><i class="fa fa-print"></i> Print</a>
+                                <a href="#" class="nir-btn-black"><i class="fa fa-envelope-open-text"></i> Send To</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xs-12 mb-4 ps-4">
+                    <div class="sidebar-sticky">
+                        <div class="list-sidebar">
+                            <div class="sidebar-item bordernone bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                                <h4>Need Booking Help?</h4>
+                                <div class="sidebar-module-inner">
+                                    <p class="mb-2">Paid was hill sir high 24/7. For him precaution any advantages dissimilar.</p>
+                                    <ul class="help-list">
+                                        <li class="border-b pb-1 mb-1"><span class="font-weight-bold">Hotline</span>: +475 15 123 21</li>
+                                        <li class="border-b pb-1 mb-1"><span class="font-weight-bold">Email</span>: support@Yatriiworld.com</li>
+                                        <li><span class="font-weight-bold">Livechat</span>: Yatriiworld (Skype)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                                <h4>Why booking with us?</h4>
+                                <div class="sidebar-module-inner">
+                                    <ul class="featured-list-sm">
+                                        <li class="border-b pb-2 mb-2">
+                                            <h6 class="mb-0">No Booking Charges</h6>
+                                            We don't charge you an extra fee for booking a hotel room with us
+                                        </li>
+                                        <li class="border-b pb-2 mb-2">
+                                            <h6 class="mb-0">No Cancellation Sees</h6>
+                                            We don't charge you a cancellation or modification fee in case plans change
+                                        </li>
+                                        <li class="border-b pb-2 mb-2">
+                                            <h6 class="mb-0">Instant Confirmation</h6>
+                                            Instant booking confirmation whether booking online or via the telephone
+                                        </li>
+                                        <li>
+                                            <h6 class="mb-0">Flexible Booking</h6>
+                                            You can book up to a whole year in advance or right up until the moment of your stay
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <button type="button" id="timeOutBtn" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModal">
-        Timeout
-    </button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Timeout</h5>
-              <!-- <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button> -->
-            </div>
-            <div class="modal-body">
-                <div id="customPopup" class="popup">
-                    <div class="popup-content col-md-12 text-center">
-                        <p >Your session has timed out. Please try again.</p>
-                        <!-- <button  class="btn btn-primary ses-btn"></button> -->
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'hotel' %}"><button type="button" class="btn btn-secondary">Ok</button></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <section class="container d-flex" id="total-review">
-        <form action="" class="mt-3 col-md-8 hotel_details" style="margin:4px;">
-            <div class="mb-4" style="margin:4px;">
-                <h3 style="font-size: 24px;font-weight: 600;">Hotel Review</h3>
-            </div>
-            <div class="mb-4" style="margin:4px;">
-                <h4 class="h_name">{{ combined_data.hotel_name }}</h4>
-                <!-- <p>{{ combined_data.rating }}</p> -->
-                <p class="h_address">{{ combined_data.address }}</p>
-            </div>
-            <div class="d-flex justify-content-between mb-4 d_row" style="margin:4px;">
-                <div class="col-md-3">
-                    <p class="h_text">Check In</p>
-                    <p class="h_utext">{{ combined_data.check_in_date }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p class="h_text">Check Out</p>
-                    <p class="h_utext">{{ combined_data.check_out_date }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p class="h_text">Nights</p>
-                    <p class="h_utext">{{ combined_data.no_of_nights }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p class="h_text">Room</p>
-                    <p class="h_utext">{{ combined_data.total_rooms }}</p>
-                </div>
-            </div>
-            {% for hotel in combined_data.hotel_details %}
-                <div class="row mb-4 " style="background: #F2F2F2;margin:4px;">
-                    <div class="col-md-7 d-flex mt-3">
-                        <p class="ht_text">Room Type</p>
-                        <p class="ht_utext">{{ hotel.HotelName }}</p>
-                    </div>
-                    <div class="col-md-3 d-flex mt-3">
-                        <p class="ht_text">INC</p>
-                        <p class="ht_utext">{{ hotel.OfferedPrice }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="mt-5">
-                <div class="row mb-2">
-                    <div class="col-md-12">
-                        <div class="row mb-1">
-                            <h4 class="hsub_name">Contact Details</h4>
+    <!-- top Destination ends -->
+
+    <!-- Discount action starts -->
+    <section class="discount-action pt-0" style="background-image:url(images/section-bg1.png); background-position:center;">
+        <div class="container">
+            <div class="call-banner rounded pt-10 pb-14">
+                <div class="call-banner-inner w-75 mx-auto text-center px-5">
+                    <div class="trend-content-main">
+                        <div class="trend-content mb-5 pb-2 px-5">
+                            <h5 class="mb-1 theme">Love Where Your're Going</h5>
+                            <h2><a href="detail-fullwidth.html">Explore Your Life, <span class="theme1"> Travel Where You Want!</span></a></h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
-                        <div class="d-flex"  id="contact-deails" style="margin:4px;">
-                            <div class="mb-3 col-md-4">
-                                <p class="h_text cd_text mb-1">User Name</p>
-                                <p class="h_utext">{{ combined_data.user_name }}</p>
+                        <div class="video-button text-center position-relative">
+                             <div class="call-button text-center">
+                                <button type="button" class="play-btn js-video-button" data-video-id="152879427" data-channel="vimeo">
+                                    <i class="fa fa-play bg-blue"></i>
+                                </button>
                             </div>
-                            <div class="mb-3 col-md-4">
-                                <p class="h_text cd_text mb-1">Contact</p>
-                                <p class="h_utext">{{ combined_data.phone_number }}</p>
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <p class="h_text cd_text mb-1">Email</p>
-                                <p class="h_utext">{{ combined_data.email }}</p>
-                            </div>
+                            <div class="video-figure"></div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-4" style="background: #21CB511C;padding: 4px 8px;border-radius: 6px;">
-                            <h4 class="mt-2 mb-2 hsub_name">Cancellation Policy</h4>
-                            <p class="mt-2">{{ combined_data.cancellation_policy|safe }}</p>
-                        </div>
-                        <!-- <div class="row d-flex">
-                            <div class="mb-3 col-md-4">
-                                <button type="button" class="btn btn-primary" style="color: #4CAF50;background: #21CB511C;border: none;">Cancellation on or after</button>
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <button type="button" class="btn btn-primary" style="color: #4CAF50;background: #21CB511C;border: none;">Cancellation on or before</button>
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <button type="button" class="btn btn-primary" style="color: #4CAF50;background: #21CB511C;border: none;">Cancellation Charge/Comments</button>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-            <div class="mt-2">
-                <div class="row mb-4">
-                    <div class="col-md-12" style="font-size: 14px;">
-                        <h4 class="hsub_name">Booking Notes</h4>
-                        <p class="h_address">double or twin studio apartment#^#100.00%Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncu</p>
-                    </div>
-                </div>
-            
-                <div class="row">
-                    <div class="col-md-12" style="font-size: 14px;text-align: justify;">
-                        <h4 class="hsub_name">General Terms & Conditions</h4>
-                        <p class="h_address">1. scelerisque ante pulvinar. Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address" >2.condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">3.Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">4. scelerisque ante pulvinar. Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">5.condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">6.Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">7. scelerisque ante pulvinar. Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">8.condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                        <p class="h_address">9.Donec ut rhonc condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac 
-                            Nam pulvinar blandit velit, id condimentum diam faucibus at. Aliquam lacus nisi, sollicitudin at nisi nec.</p>
-                    </div>
-                    <div class="mb-3 mt-2 d-flex">
-                        <input type="checkbox" id="contactCheckbox" style="width: 19.34px; height: 20.63px;margin-right: 6px;">
-                        <p style="color: #0071FF;font-size: 14px;">I understand and agree with the company rules, the privacy policy, the user agreement.</p>
-                        <span class="error" id="checkboxError"></span>
-                    </div>
-                    
-                </div>
-            </div>
-            <div action="" class="hotel-pay pay_2 mt-1 col-md-4 mt-2">
-                <div>
-                    <div class="row mt-2" style=" border-bottom: 1px solid #FFFFFF38;">
-                        <h4>Pricing Details</h4>
-                    </div>
-                    <div class="d-flex col-md-12 mt-2" style="justify-content: space-between;">
-                        <div class="text-start col-md-8">
-                            <p>Base Fare</p>
-                            <p>({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</p>
-                        </div>
-                        <div class="d-flex col-md-4 justify-content-between">
-                            <p class="text-start">INR</p>
-                            <p class="text-end">{{ combined_data.published_price }}</p>
-                        </div>                            
-                    </div>
-                    <div class="d-flex col-md-12" style="justify-content: space-between;" >
-                        <div class="text-start col-md-8">
-                            <p>Taxes and fees</p>
-                            
-                        </div>
-                        <div class="d-flex col-md-4 justify-content-between">
-                            <p class="text-start">INR</p>
-                            <p class="text-end"> {{ combined_data.final_tax }}</p>
-                        </div>
-                    </div>
-                    <div class="d-flex col-md-12" style=" border-bottom: 1px solid #FFFFFF38;justify-content: space-between;">
-                        <div class="text-start col-md-8">
-                            <p>Total Price</p>
-                            
-                        </div>
-                        <div class="d-flex col-md-4 justify-content-between">
-                            <p class="text-start">INR</p>
-                            <p class="text-end">{{ combined_data.total_price }}</p>
-                        </div>
-                    </div>
-                    <div class="d-flex col-md-12 mt-2" style="justify-content: space-between;">
-                        <div class="d-flex col-md-8">
-                            <p>Your Price</p>
-                        </div>
-                        <div class="text-end d-flex col-md-4 justify-content-between">
-                            <p class="text-start" style="color: #5EFF81;">INR</p>
-                            <p class="text-end" style="color: #5EFF81;">{{ combined_data.total_price }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="btn_container mt-3 mb-2">
-                <button type="button" class="btn  btn-primary" id="pay-btn" style="border-radius: 26px;font-size: 14px ;padding: 3px 16px;color:#FFFFFF;" onclick="validateCheckbox()">Proceed To Payment</button>
-            </div>
-            <a href="{% url 'hotelbooked' %}">book</a>
-        </form>
-        <form action="" class="hotel-pay pay_1 mt-5 col-md-4 mt-2">
-            <div>
-                <div class="row mt-2" style=" border-bottom: 1px solid #FFFFFF38;">
-                    <h4>Pricing Details</h4>
-                </div>
-                <div class="d-flex col-md-12 mt-2" style="justify-content: space-between;">
-                    <div class="text-start col-md-8">
-                        <p>Base Fare</p>
-                        <p>({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</p>
-                    </div>
-                    <div class="d-flex col-md-4 justify-content-between">
-                        <p class="text-start">INR</p>
-                        <p class="text-end">{{ combined_data.published_price }}</p>
-                    </div>                            
-                </div>
-                <div class="d-flex col-md-12" style="justify-content: space-between;" >
-                    <div class="text-start col-md-8">
-                        <p>Taxes and fees</p>
-                        
-                    </div>
-                    <div class="d-flex col-md-4 justify-content-between">
-                        <p class="text-start">INR</p>
-                        <p class="text-end"> {{ combined_data.final_tax }}</p>
-                    </div>
-                </div>
-                <div class="d-flex col-md-12" style=" border-bottom: 1px solid #FFFFFF38;justify-content: space-between;">
-                    <div class="text-start col-md-8">
-                        <p>Total Price</p>
-                        
-                    </div>
-                    <div class="d-flex col-md-4 justify-content-between">
-                        <p class="text-start">INR</p>
-                        <p class="text-end">{{ combined_data.total_price }}</p>
-                    </div>
-                </div>
-                <div class="d-flex col-md-12 mt-2" style="justify-content: space-between;">
-                    <div class="d-flex col-md-8">
-                        <p>Your Price</p>
-                    </div>
-                    <div class="text-end d-flex col-md-4 justify-content-between">
-                        <p class="text-start" style="color: #5EFF81;">INR</p>
-                        <p class="text-end" style="color: #5EFF81;">{{ combined_data.total_price }}</p>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </div>     
+        </div>    
+        <div class="white-overlay"></div>
+        <div class="white-overlay"></div>
+        <div class="section-shape  top-inherit bottom-0" style="background-image: url(images/shape6.png);"></div>
     </section>
-    <div><input type="hidden" name="balance_time" id="balance_time" value="{{ combined_data.time_difference }}"></div>
-    <footer id="footer" class="text-center container-fluid mt-3 mb-1">
-        <!-- <p id="timer">Time remaining: 10:00</p> -->
-        <div>
-            <p>Time remaining:<span id="time">10:00</span></p></div>
-    </footer>
-    <!-- <div>
-        <h2>User Information</h2>
-        <p>User Name: {{ combined_data.user_name }}</p>
-        <p>Email: {{ combined_data.email }}</p>
-        <h2>User Information</h2>
-            {% for key, value in combined_data.items %}
-                <p>{{ key|title }}: {{ value }}</p>
-            {% endfor %}
-            <h2>Hotel Information</h2>
-            <p>Hotel Name: {{ combined_data.hotel_name }}</p>
-            <p>Rating: {{ combined_data.rating }}</p>
-            <p>Address: {{ combined_data.address }}</p>
-            <p>Cancellation Policy: {{ combined_data.cancellation_policy|safe }}</p>
-            <p>Check-in Date: {{ combined_data.check_in_date }}</p>
-            <p>Check-out Date: {{ combined_data.check_out_date }}</p>
-            <p>Adults: {{ combined_data.adults }}</p>
-            <p>Childs: {{ combined_data.childs }}</p>
-            <p>Total Rooms: {{ combined_data.total_rooms }}</p>
-            <p>Number of Nights: {{ combined_data.no_of_nights }}</p>
-            <p>Published Price: {{ combined_data.published_price }}</p>
-            <p>Final Tax: {{ combined_data.final_tax }}</p>
-            <p>Total Price: {{ combined_data.total_price }}</p>
-    </div> -->
+    <!-- Discount action Ends -->
+
+    <!-- partner starts -->
+    <section class="our-partner pb-6 pt-6">
+        <div class="container">
+            <div class="section-title mb-6 w-75 mx-auto text-center">
+                <h4 class="mb-1 theme1">Our Partners</h4>
+                <h2 class="mb-1">Our Awesome <span class="theme">partners</span></h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+            <div class="row align-items-center partner-in partner-slider">
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-1.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-5.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-2.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-3.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-4.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="partner-item p-4 py-2 rounded bg-lgrey">
+                        <img src="images/cl-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- partner ends -->
+
+    <!-- footer starts -->
+    {% include 'home/footer.html' %}
+    <!-- footer ends -->
     
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        Header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000; 
-            background-color: #fff; 
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-item  :hover {
-            opacity: 60%;
-        }
-
-        .nav-item a {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .nav-item a p {
-            margin-top: 12px;
-            margin-left: 10px;
-            color:  rgba(9, 9, 9, 1);
-            font-weight: 600;
-        }
-
-        .nav-item a img {
-            margin-top: -12px;
-            margin-right: 10px;
-        }
-
-        .log-btn {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        #process {
-            margin-top: 120px;
-            width: 100%;
-        }
-
-        .final-pro ul {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            list-style: none;
-            color: blue;
-        }
-
-        .progress {
-            height: 8px;
-        }
-
-        .progress-bar {
-            color: rgba(12, 202, 54, 1);
-        } 
-
-        .hotel-pay {
-            position: sticky;
-            top: 110px; 
-            z-index: 100;
-            background: #101828;
-            color: #FFFFFF;
-            padding: 8px; 
-            margin: 4px;
-            border-radius: 18px;
-            height: 275px;
-        }
-
-        
-        .pay_2 {
-            display: none;
-            position: static !important;
-            width: 100%;
-        } 
+    <!-- Back to top start -->
+    <div id="back-to-top">
+        <a href="#"></a>
+    </div>
+    <!-- Back to top ends -->
 
 
-        #process {
-            margin-top: 40px;
-            width: 100%;
-        }
 
-        .error {
-            color: red;
-            font-size: 13px;
-        }
 
-        .ses-btn a {
-            text-decoration: none;
-            padding: 2px 16px;
-            width: 100px;
-            color: white;
-            border-radius: 10px;
-        }
 
-        .d_row {
-            border: 1px solid #0071FF;
-            background: #EDF5FF;
-            padding: 3px 10px 0px ;
-            border-radius: 12px;
-        }
 
-        .hsub_name {
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .h_name {
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .h_text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #0071FF;
-        }
-
-        .h_utext {
-            font-size: 15px;
-            color: gray;
-        }
-
-        .ht_text {
-            color: #0071FF;
-            font-weight: 600;
-        }
-
-        .ht_utext {
-            color:  #0071FF;
-            opacity: 66%;
-            padding-left: 8px;
-        }
-
-        .h_address {
-            font-size: 14px;
-        }
-
-        /* #customPopup {
-            display: none;
-            width: 100vw;
-            height: 100px;
-            align-items: center;
-            justify-content: center;
-            margin-top: 200px;
-            background-color: white;
-            color: black;
-        }
-
-        .popup-content {
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .popup-content p {
-            font-size: 18px;
-            font-weight: 500;
-        } */
-
-        footer {
-            position: sticky;
-            bottom: 0; 
-            z-index: 100;
-            padding: 10px 20px 4px;
-            color: white;
-            background: rgba(102, 102, 102, 0.63);
-            backdrop-filter: blur(4px);
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        @media only screen and (max-width: 768px) {
-            #contact-deails {
-            display: flex;
-            flex-direction: column;
-            }
-
-            .cd_text {
-                width: 30%;
-            }
-
-            .ht_text {
-                width: 30%;
-            }
-
-        #contact-deails div {
-            width: 100%;
-            display: flex;
-            gap: 40px;
-            margin-bottom: 3px !important;
-            }
-        }
-        
-        @media only screen and (max-width: 991px) {
-
-        #total-review {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #contact-deails {
-            display: flex;
-        }
-
-        .hotel_details {
-            width: 100%;
-        }
-
-        .pay_2 {
-            display: block;
-        }
-
-        .pay_1 {
-            display: none;
-        }
-        }
-
-        @media (min-width: 768px) and (max-width: 991.98px) { 
-
-            #total-review  {
-                max-width: 900px;
-            }
-
-        }
-
-    </style>
-    <script>
-         var loader =  document.getElementById("preloader")
-        window.addEventListener("load", function() {
-            loader.style.display="none"
-        })
-
-    </script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function validateCheckbox(e) {
-            var valid = true;
-            document.getElementById('checkboxError').innerText = '';
-            var checkbox = document.getElementById('contactCheckbox').checked;
-            if (!checkbox) {
-             document.getElementById('checkboxError').innerText = 'Please select the checkbox';
-           } else {
-                valid = false;
-                razarpay();
-           } 
-            return valid;
-        }
-    </script>
-    <script> 
-        function razarpay() {
-            var options = {
-                key: "{{ razorpay_merchant_key }}", 
-                currency: "{{ currency }}",
-                name: "Vacation Feast", 
-                order_id: "{{ razorpay_order_id }}",
-                amount: "{{ amount_in_paise }}", 
-                callback_url: "{{ callback_url }}",
-                };
-                var rzp1 = new Razorpay(options);
-                
-                // add event listener to the payment button.
-                
-            
-                document.getElementById("pay-btn").onclick = function (e) {
-                rzp1.open();
-                e.preventDefault();
-                } 
-            }
-            
-    </script>
-    <script>
-        function startTimer(duration, display) {
-            var timer = duration, minutes, seconds;
-            setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    timer = 0;
-                } else if(timer === 0){
-                    $("#timeOutBtn").click();
-                }
-            }, 1000);
-        }
-
-        window.onload = function () {
-            let formattedTime = `{{ combined_data.time_difference }}`;
-                let balanceTime = formattedTime.toString().slice(2,7);
-                let timeString = balanceTime;
-
-                // Extract hours and minutes
-                let [hours, minutes] = timeString.split(':').map(Number);
-
-                // Convert hours to minutes and add to the total minutes
-                
-                let totalMinutes = hours * 60 + minutes;
-                var Minutes =  totalMinutes,
-                display = document.querySelector('#time');
-                startTimer(Minutes, display);
-        };
-    </script>
-    {% block content %}
-
-    {% endblock content %} 
+    <!-- *Scripts* -->
+    <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/home/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/home/particles.js' %}"></script>
+    <script src="{% static 'js/home/particlerun.js' %}"></script>
+    <script src="{% static 'js/home/plugin.js' %}"></script>
+    <script src="{% static 'js/home/main.js' %}"></script>
+    <script src="{% static 'js/home/custom-accordian.js' %}"></script>
+    <script src="{% static 'js/home/custom-nav.js' %}"></script>
 </body>
 </html>
