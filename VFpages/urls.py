@@ -64,6 +64,7 @@ urlpatterns= [
     path('flightcompleted',views.flightcompleted,name='flightcompleted'),
     path('send_captcha',views.send_captcha,name='send_captcha'),
     path('send_captcha2',views.send_captcha2,name='send_captcha2'),
+    path('careersnew',views.careersnew,name='careersnew'),
 
     
 

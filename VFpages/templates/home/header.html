@@ -25,26 +25,7 @@
         t = d.getElementsByTagName("script")[0];
         t.parentNode.insertBefore(s, t);
     </script>
-    <style>
-        .siq_bR{
-            right:78px;
-            bottom: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            #preloader #status {
-                width:70% !important;
-            }
-        }
-        
-         @media screen and (min-width: 1100px) and (max-width: 1399px) { 
-            .logo_img {
-               width:170px !important;
-            }
-          
-        }
-        
-    </style>
+   
     <!--Sales IQ-->
 </head>
 <body>
@@ -243,7 +224,7 @@
                             
                             <li class="submenu dropdown focus-nav  px-2"><a class="nav-top" href="{% url 'gridblogus' %}">Blogs</a></li>
                             <li class="submenu dropdown focus-nav  px-2"><a class="nav-top" href="{% url 'contact_us' %}">contact Us</a></li>
-                            <li class="submenu dropdown px-2"><a class="nav-top" href="https://vacationfeast.zohorecruit.com/jobs/Careers" target="_blank">Careers</a></li>
+                            <li class="submenu dropdown focus-nav  px-2"><a class="nav-top"  href="{% url 'careersnew' %}">Careers</a></li>
                             
                             <!-- <li class="search-main"><a href="#search1" class="mt_search"><i class="fa fa-search"></i></a></li> -->
                         </ul>
@@ -475,6 +456,31 @@
             .dropdown-menu li a:hover {
                 color: white !important;
             }
+
+            .siq_bR{
+            right:78px;
+            bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            #preloader #status {
+                width:70% !important;
+            }
+        }
+        
+         @media screen and (min-width: 1100px) and (max-width: 1399px) { 
+            .logo_img {
+               width:170px !important;
+            }
+          
+        }
+
+        @media screen and (min-width: 1087px) and (max-width: 1200px) { 
+            .navbar-nav {
+                margin-left: -70px;
+            }
+          
+        }
             
             @media (max-width: 1098px)  {
                 .dropdown-menu li a {

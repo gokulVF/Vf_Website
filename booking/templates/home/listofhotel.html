@@ -28,6 +28,8 @@
     <!--Custom CSS-->
     <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/home/stylemedia.css' %}" rel="stylesheet" type="text/css">
+    <!-- Hotel css -->
+    <link href="{% static 'css/booking/hotel1.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
 
@@ -61,9 +63,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Preloader -->
-    <!-- <div id="preloader">
+    <div id="preloader">
         <div id="status"></div>
-    </div> -->
+    </div>
     <!-- Preloader Ends -->
 
     <!-- header starts -->
@@ -80,31 +82,18 @@
                         <div class="form-group">
                             <div class="input-box">
                                 <label>LANDMARK</label>
-                                <select class="niceSelect">
-                                    <option value="1">city or airport</option>
-                                    <option value="2">Argentina</option>
-                                    <option value="3">Belgium</option>
-                                    <option value="4">Canada</option>
-                                    <option value="5">Denmark</option>
-                                </select>
-                                <!-- <div class="nice-select niceSelect" tabindex="0">
-                                    <span class="current">city or airport</span>
-                                    <ul class="list">
-                                        <li data-value="1" class="option selected">city or airport</li>
-                                        <li data-value="2" class="option">Argentina</li>
-                                        <li data-value="3" class="option">Belgium</li>
-                                        <li data-value="4" class="option">Canada</li>
-                                        <li data-value="5" class="option">Denmark</li>
-                                    </ul>
-                                </div> -->
+                                <input type="text" id="autocompleteInput" class="f-inp des" placeholder="Enter The Name, City, Landmark" value= "{{ citytitle }}" name="cityname">
+                                <input type="hidden" id="cityIdInput" name="city_id" value="{{cityid}}">
+                                <input type="hidden" id="countryCodeInput" name="country_code" value="{{countrycode}}">
                             </div>
                         </div>
                     </div>
+                  
                     <div class="col-lg mb-2">
                         <div class="form-group">
                             <div class="input-box">
                                 <label>Check In</label>
-                                <input type="text" class="check" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly>
+                                <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly>
                                 <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" style="font-size: 14px;" name="check-in" id="check-in" readonly> -->
                                 <input type="hidden" value="{{formatted_check_in_date}}" id="checkin">
                             </div>
@@ -114,18 +103,20 @@
                         <div class="form-group">
                             <div class="input-box">
                                 <label>Check Out</label>
-                                <input type="text" class="check input" data-date="" data-date-format="DD MMMM YYYY"  name="check-out" id="check-out" readonly>
+                                <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY"  name="check-out" id="check-out" readonly>
                                 <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" value="{{formatted_check_out_date}}" style="font-size: 14px;" name="check-out" id="check-out" readonly> -->
                                 <input type="hidden" value="{{formatted_check_out_date}}" id="checkout">
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" value="{{nationality}}" id="select-5">
                     <div class="col-lg mb-2">
                         <div class="form-group">
+                            
                             <div class="input-box">
                                 <label>Nationality</label>
-                                <select class="niceSelect drop_scroll" name="nation" id="nation">
-                                        <option value="IN" selected="">India</option>
+                                <select class="f-inp show-5" name="nation" id="nation">
+                                        <option value="IN">India</option>
                                         <option value="AF">Afghanistan</option>
                                         <option value="AL">Albania</option>
                                         <option value="DZ">Algeria</option>
@@ -369,6 +360,7 @@
                                         <option value="ZM">Zambia</option>
                                         <option value="ZW">Zimbabwe</option>
                                 </select>
+                                <!-- <i class="icon-time"></i> -->
                             </div>
                         </div>
                     </div>
@@ -376,20 +368,53 @@
                         <div class="form-group">
                             <div class="input-box">
                                 <label>Person & Rooms</label>
-                               <input type="text" placeholder="2 Person & 1 Room">
+                               <input type="text" class="f-inp" readonly id="room"  placeholder="2 Person & 1 Room" onclick="showForm()">
+                               <input type="hidden" id="roomInfoInput" name="roomInfoInput" value='{{ personsdetails }}'>
+                                <input type="hidden" id="totalRoomInfoInput" name="totalRoomInfoInput" value="{{ totalroom }}">
                             </div>
+                        </div>
+                        <div class="hide-persondetails" style="display: none;">
+                            <p class="rooms" id="totalRooms">{{ total_rooms }}</p>
+                            <p class="adult" id="noOfAdults">{{ total_adults }}</p>
+                            <p class="child" id="noOfChildren">{{ no_of_children }}</p>
+                            <input type="hidden" name="roomInfoInputs" id="roomDetails" value='{{ personsdetails }}'>
                         </div>
                     </div>
                     <div class="col-lg mb-2">
                         <div class="form-group mb-0 text-center">
                             <label class="mb-3"></label>
-                            <a href="#" class="nir-btn w-100"><i class="fa fa-search mr-2"></i> Search
-                                Now</a>
+                            <a href="#" class="nir-btn w-100 mod-btn"><i class="fa fa-search me-2"></i>Modify Search</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+         <!-- FORM SECTION -->
+        <div id="form" style="display: none; position: absolute; z-index: 9;" class="container">
+            <div id="wrapper" class="col-lg-5 col-md-7 col-sm-8 col-12 pax_form bg-white shadows p-2 ms-auto" style="top: -20px">
+                <div id="form_div" class="py-1">
+                    <table class="table table-hover text-nowrap" id="attribute_table">
+                        <thead>
+                            <tr>
+                                <th class="room-h" >Room</th>
+                                <th class="room-h" >Adults</th>
+                                <th class="room-h">Child</th>
+                                <th class="room-h" id="age_1"></th>
+                                <th class="room-h" id="age_2"></th>
+                                <th class="room-h" id="age_3"></th>
+                                <th class="room-h" id="age_4"></th>
+                            </tr>
+                        </thead>
+                        <tr></tr>
+                    </table>
+                    <button class="btn btn_add ms-2 mt-1 me-1 shadows bg-white theme" id="add-btn" type="button" onclick="add_attribute_row();">Add Room+</button>
+                    <button class="btn btn_rem mt-1 shadows bg-white text-red" id="remove-btn" type="button" onclick="del_att_row();">Remove Room-</button>
+                </div>
+                <div class="text-center border-t">
+                    <button class="btn btn_apply mt-1 py-1 shadows w-75 bg-theme white rounded-pill" id="app-btn" onclick="hideForm()">Apply</button>
+                </div>
+            </div>
+        </div> 
     </section>
    
     <!-- Modify Hotels -->
@@ -414,30 +439,29 @@
                                 </div>
                             </div>
                             <div class="sidebar-item mb-4">
-                                <h3 class="">Fuels Type</h3>
+                                <h3 class="">Star Ratings</h3>
                                 <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked=""> Petrol <span class="float-end">254</span></li>
-                                    <li><input type="checkbox"> Diesel <span class="float-end">125</span></li>
-                                    <li><input type="checkbox"> Electric <span class="float-end">182</span></li>
-                                    <li><input type="checkbox"> Hybrid <span class="float-end">84</span></li>
-                                </ul>
-                            </div>
-
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Transmission Type</h3>
-                                <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked=""> Automatic <span class="float-end">4524</span></li>
-                                    <li><input type="checkbox"> Manual <span class="float-end">3215</span></li>
-                                </ul>
-                            </div>
-
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Features</h3>
-                                <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked=""> Adaptive Cruise Control <span class="float-end">1192</span></li>
-                                    <li><input type="checkbox"> Cooled Seats <span class="float-end">2122</span></li>
-                                    <li><input type="checkbox"> Keyless Start <span class="float-end">1435</span></li>
-                                    <li><input type="checkbox"> avigation System <span class="float-end">2141</span></li>
+                                    <li><input type="checkbox" checked="">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </li>
+                                    <li><input type="checkbox">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    </li>
+                                    <li><input type="checkbox">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -457,9 +481,9 @@
                             <div class="sortby d-flex align-items-center justify-content-between ml-2">
                                 <select class="niceSelect" style="display: none;">
                                     <option value="1">Sort By</option>
-                                    <option value="2">Average rating</option>
-                                    <option value="3">Price: low to high</option>
-                                    <option value="4">Price: high to low</option>
+                                    <option value="2">Hotel Name</option>
+                                    <option value="3">Customer Rating</option>
+                                    <option value="4">Price</option>
                                 </select>
                             </div>
                            
@@ -473,7 +497,7 @@
                             <p>{{ error_message }}</p>
                             {% else %}
                             {% for hotel in hotel_info %}
-                            <div class="trend-full bg-white rounded box-shadow overflow-hidden p-4 mb-4 hotel" data-rating="{{ hotel.Rating }}" data-price="{{ hotel.Price }}" data-name="{{ hotel.HotelName }}">
+                            <div class="trend-full bg-white rounded box-shadow overflow-hidden p-3 mb-3 hotel" data-rating="{{ hotel.Rating }}" data-price="{{ hotel.Price }}" data-name="{{ hotel.HotelName }}">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-3">
                                        <div class="trend-item2 rounded">
@@ -486,8 +510,9 @@
                                             <small>Moscow Airport - Premium</small>
                                             <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
                                             <h3 class="mb-2"><a href="#" class="">{{ hotel.HotelName }}</a></h3>
-                                            <address>{{ hotel.Address }}</address>
-                                            <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p>
+                                            <address class="address">{{ hotel.Address }}</address>
+                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" class="theme view_det"><img src="{% static 'image/booking/bed.png' %}" alt="">View Details</a>
+                                            <!-- <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-3">
@@ -500,22 +525,19 @@
                                             </div>
                                             <!-- <small>200 Reviews</small> -->
                                             <div class="trend-price my-2">
-                                                <h3 class="mb-0">INR {{hotel.Price}}</h3>
+                                                <h3 class="mb-0" style="font-family: auto;">INR {{hotel.Price}}</h3>
                                                 <small>Per Night</small>
-                                                <div class="hotel-btn">
-                                                    <button class="btn btn-primary select-room-btn" id="{{ hotel.HotelCode }}2"
-                                                    data-hotel-code="{{ hotel.HotelCode }}" 
-                                                    data-trace-id="{{ hotel.TraceId }}" 
-                                                    data-result-index="{{ hotel.ResultIndex }}" 
-                                                    onclick="handleSelectRoom('{{ hotel.HotelCode }}', '{{ hotel.TraceId }}', '{{ hotel.ResultIndex }}','{{ token_id }}')">Select Room</button>
-                                                    <button type="hidden" class="btn btn-primary select-room-btn" id="{{ hotel.HotelCode }}1" onclick="hiderooms('{{ hotel.HotelCode }}')" style="display: none;">Hide Room</button>
+                                                <div class="hotel-btn mt-1">
+                                                    <button class="btn bg-theme white rounded-pill shadows px-3 select-room-btn" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
+                                                    onclick="handleSelectRoom('{{ hotel.HotelCode }}', '{{ hotel.TraceId }}', '{{ hotel.ResultIndex }}','{{ token_id }}')">SELECT ROOM</button>
+                                                    <button type="hidden" class="btn bg-theme white rounded-pill shadows px-3 select-room-btn ms-auto" id="{{ hotel.HotelCode }}1" onclick="hiderooms('{{ hotel.HotelCode }}')" style="display: none;">HIDE ROOM</button>
                                                 </div>
                                             </div>
-                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" class="nir-btn">View Deal</a>
+                                            
                                         </div>
                                     </div>
-                                    <div id="{{hotel.HotelCode}}" class="col-md-6 hotel-room" style="display: none;">
-                                        <div class="hide-room1" ></div>
+                                    <div id="{{hotel.HotelCode}}" class="col-lg hotel-room" style="display: none;">
+                                        <div class="hide-room1"></div>
                                     </div>
                                 </div>
                             </div>
@@ -531,7 +553,8 @@
         </div>
     </section>
     <!-- Hotel Results -->
-
+    
+   
      <!-- footer starts -->
      {% include 'home/footer.html' %}
      <!-- footer ends -->
@@ -611,21 +634,184 @@
     </script>
  <!-- //FOR DATE FUNCTION --------------------------------- -->
 
-    <!-- CSS -->
-    <style>
-        .shadows {
-            box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+ <!-- Validate Functions -->
+ <script>
+    function validateForm() {
+            var des = document.getElementsByClassName("des")[0].value.trim();
+            var room = document.getElementById("room").value.trim();
+            if (des === "") {
+                alert("Please Enter Your Destination");
+                return false; // Prevent form submission
+            } 
+                if (room === "") {
+                alert("Please Enter Room Information");
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+</script>
+
+<!-- Search Functions -->
+<script>
+    $(function () {
+        $("#autocompleteInput").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/search_destinations",
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        response(data.data);
+                    }
+                });
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                // Update the hidden input fields with selected values
+                $("#cityIdInput").val(ui.item.cityID);
+                $("#countryCodeInput").val(ui.item.countryCode);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    // FORM ROOM VALUE FUNCTIONS -----------------------
+
+    $(document).ready(function() {
+        var roomDetails = JSON.parse($("#roomDetails").val());
+        var roomsCount = roomDetails.length;
+        var html = "";
+
+        for (var i = 1; i <= roomsCount; i++) { 
+            html += "<tr id='row" + i + "' class='room-info'>";
+            html += "<td class='room_no'>Room" + i + "</td>"; 
+            html += "<td>";
+            html += "<select name='attribute_name' class='selectbox_form attribute_name' id='adult_" + i + "' onchange='getAdultCount()'>";
+            html += "<option value='1'>1</option>";
+            html += "<option value='2'>2</option>";
+            html += "<option value='3'>3</option>";
+            html += "<option value='4'>4</option>";
+            html += "<option value='5'>5</option>";
+            html += "<option value='6'>6</option>";
+            html += "</select>";
+            html += "</td>";
+            html += "<td>";
+            html += "<select name='attribute_id' id='child_" + i + "' class='selectbox_form attribute_value' onchange='updateChildAges(" + i + ");getAdultCount()'>";
+            html += "<option data-parent='0' value='0'>Select</option>";
+            html += "<option value='1'>1</option>";
+            html += "<option value='2'>2</option>";
+            html += "<option value='3'>3</option>";
+            html += "<option value='4'>4</option>";
+            html += "</select>";
+            html += "</td>";
+
+            // Initially hide all child age select tags
+            for (var j = 1; j <= 4; j++) {
+                html += "<td>";
+                html += "<select name='attribute_child' id='childage_" + i + "_" + j + "' class='selectbox_form attribute_value' style='display: none' onchange='getAdultCount()'>";
+                // html += "<option data-parent='0'>Select</option>";
+                for (var age = 1; age <= 12; age++) {
+                    html += "<option value='" + age + "'>" + age + "</option>";
+                }
+                html += "</select>";
+                html += "</td>";
+            }
+
+            html += "</tr>";
         }
 
-        /* .hotel_results {
-            z-index: -1;
-        } */
+        $("#attribute_table").append(html);
 
-        .list {
-            height: 200px;
-            overflow-y: scroll !important;
+        // Set values for adult and child selects
+        $.each(roomDetails, function(i, item) {
+            $("#adult_" + (i + 1)).val(item.NoOfAdults);
+            $("#child_" + (i + 1)).val(item.NoOfChild);
+            
+            var childAges = item.ChildAge;
+            for (var j = 0; j < childAges.length; j++) {
+                $("#childage_" + (i + 1) + "_" + (j + 1)).val(childAges[j]);
+            }
+
+            // Show child age select tags up to the selected child count
+            for (var k = 1; k <= item.NoOfChild; k++) {
+                $("#childage_" + (i + 1) + "_" + k).show();
+                document.getElementById("age_"+k).innerHTML = "Age "+ k;
+            }
+        });
+    });
+
+    function updateChildAges(roomIndex) {
+        var childCount = $("#child_" + roomIndex).val();
+        for (var i = 1; i <= 4; i++) {
+            if (i <= childCount) {
+                $("#childage_" + roomIndex + "_" + i).show();
+            } else {
+                $("#childage_" + roomIndex + "_" + i).hide();
+            }
         }
-    </style>
+    }
+
+
+    //  ROOM INPUT SHOW VALUE FUNCTIONS
+
+    //  let searchParams = new URLSearchParams(window.location.search)
+        // let param = searchParams.get('totalNoOfRooms');
+        var jsonData2 = {"TotalRooms": `{{ total_rooms }}`};
+        var jsonData = {"TotalAdults": `{{ total_adults }}`};
+        
+        var totalRoomsValue = jsonData2.TotalRooms;
+        var totalAdultsValue = jsonData.TotalAdults;
+
+        var roomElement = document.getElementById('totalRooms');
+        var adultElement = document.getElementById('noOfAdults');
+        var roomInput = document.getElementById('room');
+
+        if (roomElement && adultElement && roomInput) {
+            roomInput.value = totalRoomsValue + " Room " + " " + "&" +" " + totalAdultsValue + " Adults";
+        }
+
+        function showForm() {
+            var x = document.getElementById("form")
+            if (x.style.display === "none") {
+                x.style.display = "block" ;
+            } else {
+                x.style.display = "none" ;
+            }
+        }
+</script>
+
+<style>
+    #loading {
+    background: url("{% static 'image/booking/loader-car.gif'%}") no-repeat center center;
+    background-size: 200px;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var hiddenInput = document.getElementById('select-5');
+        var selectElement = document.getElementById('nation');
+        var selectedValue = hiddenInput.value;
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value === selectedValue) {
+                selectElement.options[i].selected = true;
+                break;
+            }
+        }
+    });
+</script>
+
+
+   
    
 </body>
 </html>

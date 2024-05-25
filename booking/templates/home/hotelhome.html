@@ -15,6 +15,8 @@
     <!--Custom CSS-->
     <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/home/stylemedia.css' %}" rel="stylesheet" type="text/css">
+    <!-- Hotel css -->
+    <link href="{% static 'css/booking/hotel1.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
     <script src="{% static 'js/booking/hotelhome.js' %}"></script>
@@ -31,6 +33,30 @@
 </head>
 
 <body>
+    <style>
+        .car-banner{
+        background-image: url("{% static 'image/images/testimonial.png' %}");
+    }
+    .ui-autocomplete {
+        z-index: 1050;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .ui-menu-item {
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .ui-menu-item:hover {
+        background-color: #f1f1f1 !important;
+    }
+    </style>
 
     <!-- Preloader -->
     <div id="preloader">
@@ -49,17 +75,17 @@
             <div class="banner-in">
                 <div class="banner-content text-center w-75 mx-auto">
                     <!-- <h4 class="theme mb-0">Explore The World</h4> -->
-                    <h1>THIS WINTER HOLIDAY HOT TRIPS</h1>
+                    <h2>THIS WINTER HOLIDAY HOT TRIPS</h2>
                     <p class="mb-4">Enjoy Your Holiday With Us</p>
                 </div>
-                <div class="book-form bg-white box-shadow mx-auto p-4 pb-1 position-relative z-index1 rounded">
+                <div class="book-form bg-white shadows mx-auto p-4 pb-1 position-relative z-index1 rounded">
                     <form id="input-sec234" class="row d-flex align-items-center justify-content-between" method="get" action="{% url 'hotellist' %}">
                         {% csrf_token %}
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
-                                    <label>Where</label>
-                                    <input type="text" class="des" id="autocompleteInput" placeholder="Enter The Name, City, Landmark" style="font-size: 14px;" name="cityname" autofocus>
+                                    <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>WHERE</label>
+                                    <input type="text" class="des f-inp d-flex" id="autocompleteInput" placeholder="Enter The Name, City, Landmark" style="font-size: 14px;" name="cityname" autofocus>
                                     <input type="hidden" id="cityIdInput" name="city_id">
                                     <input type="hidden" id="countryCodeInput" name="country_code">
                                     <i class="icon-time"></i>
@@ -69,8 +95,8 @@
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
-                                    <label>Check-In</label>
-                                    <input type="text" class="check" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly>
+                                    <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm333.3 95.9l-28.2-28.4c-4.7-4.7-12.3-4.7-17-.1L194.1 364.7l-46-46.4c-4.7-4.7-12.3-4.7-17-.1l-28.4 28.2c-4.7 4.7-4.7 12.3-.1 17l82.6 83.3c4.7 4.7 12.3 4.7 17 .1l143-141.8c4.7-4.7 4.7-12.3 .1-17z"/></svg>CHECK IN</label>
+                                    <input type="text" class="check f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly>
                                     <!-- <i class="icon-time"></i> -->
                                 </div>
                             </div>
@@ -78,8 +104,8 @@
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
-                                    <label>Check-Out</label>
-                                    <input type="text" class="check" data-date="" data-date-format="DD MMMM YYYY" name="check-out" id="check-out" readonly>
+                                    <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm257.3 160l48.1-48.1c4.7-4.7 4.7-12.3 0-17l-28.3-28.3c-4.7-4.7-12.3-4.7-17 0L224 306.7l-48.1-48.1c-4.7-4.7-12.3-4.7-17 0l-28.3 28.3c-4.7 4.7-4.7 12.3 0 17l48.1 48.1-48.1 48.1c-4.7 4.7-4.7 12.3 0 17l28.3 28.3c4.7 4.7 12.3 4.7 17 0l48.1-48.1 48.1 48.1c4.7 4.7 12.3 4.7 17 0l28.3-28.3c4.7-4.7 4.7-12.3 0-17L269.3 352z"/></svg>CHECK OUT</label>
+                                    <input type="text" class="check f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-out" id="check-out" readonly>
                                     <!-- <i class="icon-time"></i> -->
                                 </div>
                             </div>
@@ -87,8 +113,8 @@
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
-                                    <label>Nationality</label>
-                                    <select class="niceSelect" name="nation" id="nation" style="font-size: 14px;width: 100%;border: none; outline: none;"> <option value="IN" selected>India</option>
+                                    <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg_icons me-1" style="width: 18px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M349.6 98.8C296 98.8 251.7 64 184.3 64c-25 0-47.3 4.4-68 12a55.9 55.9 0 0 0 3.6-23.6C118.1 24 94.8 1.2 66.3 0 34.3-1.3 8 24.3 8 56c0 19 9.5 35.8 24 45.9V488c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-94.4c28.3-12.1 63.6-22.1 114.4-22.1 53.6 0 97.8 34.8 165.2 34.8 48.2 0 86.7-16.3 122.5-40.9C506.8 359.5 512 349.6 512 339v-243.1c0-23.4-24.3-38.9-45.5-29-34.3 15.9-76.5 31.9-117 31.9z"/></svg>NATIONALITY</label>
+                                    <select class="f-inp" name="nation" id="nation" style="font-size: 14px;width: 100%;border: none; outline: none;"> <option value="IN" selected>India</option>
                                             <option value="AF" >Afghanistan</option>
                                             <option value="AL" >Albania</option>
                                             <option value="DZ" >Algeria</option>
@@ -332,7 +358,7 @@
                                             <option value="ZM" >Zambia</option>
                                             <option value="ZW" >Zimbabwe</option>
                                     </select>
-                                    <i class="icon-time"></i>
+                                    <!-- <i class="icon-time"></i> -->
                                 </div>
                             </div>
                         </div>
@@ -342,8 +368,8 @@
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
-                                    <label>Person & Rooms</label>
-                                    <input type="text" value="1 Room & 2 Adults" readonly id="room" style="font-size: 14px;" onclick="showForm()">
+                                    <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg_icons me-1" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM576 272a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM352 477.1c0 19.3 15.6 34.9 34.9 34.9H605.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"/></svg>PERSON & ROOMS</label>
+                                    <input type="text" value="1 Room & 2 Adults" class="f-inp" readonly id="room"  onclick="showForm()">
                                     <input type="hidden" id="roomInfoInput" name="roomInfoInput">
                                     <input type="hidden" id="totalRoomInfoInput" name="totalRoomInfoInput">
                                     <!-- <input type="hidden" id="totalNoOfRooms" name="totalNoOfRooms"> -->
@@ -352,7 +378,7 @@
                         </div>
                         <div class="col-lg mb-2">
                             <div class="form-group">
-                                <button type="submit" onclick="test()" class="nir-btn ms-2" id="search-btn">Search</button>
+                                <button type="submit" onclick="test()" class="nir-btn ms-2 mt-1 py-3 px-5" id="search-btn"><i class="fa fa-search"></i>Search</button>
                             </div>
                         </div>
                     </form>
@@ -379,9 +405,9 @@
                 </div>
             </div>
         </div>
-        <div id="form" class="container" style="display: none;">
-            <div id="wrapper" class=" col-lg-5 col-md-7 col-sm-8 col-10 col-xs-8 pax_form bg-white shadows p-2 ms-auto">
-                <div id="form_div" class="bg-grey py-1">
+        <div id="form" class="container col-lg-10" style="display: none;">
+            <div id="wrapper" class=" col-lg-5 col-md-7 col-sm-8 col-12 pax_form bg-white shadows p-2 ms-auto">
+                <div id="form_div" class="py-1">
                     <table class="table table-hover text-nowrap" id="attribute_table">
                         <thead>
                             <tr>
@@ -485,11 +511,13 @@
                         </tr>
                     </table>
     
-                    <input class="btn btn_add ms-2" id="add-btn" type="button" onclick="add_attribute_row();" value="Add Room+">
+                    <button class="btn btn_add ms-2 mt-1 me-1 shadows bg-white theme" id="add-btn" type="button" onclick="add_attribute_row();">Add Room+</button>
     
-                    <input class="btn btn_rem" id="remove-btn" type="button" onclick="del_att_row();" value="Remove Room-">
+                    <button class="btn btn_rem mt-1 shadows bg-white text-red" id="remove-btn" type="button" onclick="del_att_row();">Remove Room-</button>
                 </div>
-                <button class="btn btn_apply mt-2" id="app-btn" onclick="hideForm()">Apply</button>
+                <div class="text-center border-t">
+                    <button class="btn btn_apply mt-1 py-1 shadows w-75 bg-theme white rounded-pill" id="app-btn" onclick="hideForm()">Apply</button>
+                </div>
             </div>
             
         </div>
@@ -499,6 +527,13 @@
 
 
 <script>
+
+        //   DEFAULT ADULT FUNCTIONS
+        $(document).ready(function() {
+            $("#adult_1").val("2");
+            getAdultCount();
+            });
+   
        
         function getAdultCount() {
             $rowno = $("#attribute_table tr").length-2
@@ -510,7 +545,7 @@
             for(i=1;i<=$rowno;i++) {
                 totaladult=parseInt(totaladult) + parseInt($("#adult_"+i).val())
                 totalchild=parseInt(totalchild) + parseInt($("#child_"+i).val())
-                // var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
+                var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
                 
                 // Handle the first row separately
                 // var childrenCountFirstRow = parseInt($("#child_1").val());
@@ -568,7 +603,7 @@
 
             };
 
-            function showChildAgeSelectors() {
+        function showChildAgeSelectors() {
             // Hide all child age selectors first
             $("[id^=childage_]").hide();
             $("[id^=age_]").hide();
@@ -615,7 +650,7 @@
     }
 
 
-    function add_attribute_row() {
+        function add_attribute_row() {
     // Get the current number of rows
     var $rowno = $("#attribute_table tr").length - 1;
 
@@ -658,7 +693,7 @@
     }
 
     // Function to validate the selects of the previous row
-    function validatePreviousRow(prevRowNo) {
+        function validatePreviousRow(prevRowNo) {
     // Check if the previous row's selects have valid values
     var adultValue = $("#adult_" + prevRowNo).val();
     // var childValue = $("#child_" + prevRowNo).val();
@@ -668,7 +703,7 @@
     }
 
 
-function del_att_row() {
+    function del_att_row() {
         rowno = $("#attribute_table tr").length-2 ;
         if(rowno > 1)
         $('#row' + rowno).remove();
@@ -688,54 +723,6 @@ function del_att_row() {
     });
 </script>
 
-<!-- CSS -->
-<style>
-    .car-banner{
-        background-image: url("{% static 'image/images/testimonial.png' %}");
-    }
-    .list {
-        height: 200px;
-        overflow-y: scroll !important;
-    }
-
-    .pax_form {
-        position: relative;
-        top: -880px;
-        /* right: -180px; */
-        border-radius: 4px;
-    }
-
-    .room-h {
-        font-size: 12px;
-    }
-
-    .room_no {
-        font-size: 12px;
-    }
-
-    .shadows {
-        box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
-    }
-
-    .selectbox_form {
-        font-size: 12px;
-        padding: 4px;
-        border-radius: 4px;
-    }
-
-    .btn_apply,.btn_rem,.btn_add {
-        font-size: 12px;
-        border: 1px solid;
-        border-radius: 4px;
-        padding: 4px 8px;
-    }
-
-    table>tbody tr td, table thead tr th  {
-        border: none !important;
-    }
-
-</style>
-<!-- CSS -->
 
     <!-- footer starts -->
     {% include 'home/footer.html' %}

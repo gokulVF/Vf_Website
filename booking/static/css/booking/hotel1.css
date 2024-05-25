@@ -1,0 +1,89 @@
+.car-banner{
+    background-image: url("{% static 'image/images/testimonial.png' %}");
+}
+.list {
+    height: 200px;
+    overflow-y: scroll !important;
+}
+
+.pax_form {
+    position: relative;
+    top: -520px;
+    border-radius: 4px;
+}
+
+.room-h {
+    font-size: 12px;
+    padding: 0;
+}
+
+.room_no {
+    font-size: 12px;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.selectbox_form {
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    border: none;
+}
+
+.btn_apply,.btn_rem,.btn_add {
+    font-size: 12px;
+    /* border: 1px solid; */
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+table>tbody tr td, table thead tr th  {
+    border: none !important;
+    padding: 4px 8px;
+    width: 60px;
+}
+
+.f-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 12px 15px !important;
+    border-radius: 4px !important;
+}
+
+.svg_icons {
+    width: 14px;
+    margin-bottom: 5px;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.list {
+    height: 200px;
+    overflow-y: scroll !important;
+}
+
+/* ////////////  Room Details */
+
+.select-room-btn {
+    font-size: 14px;
+}
+
+.address{ 
+    font-size: 12px;
+}
+
+.view_det{ 
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.view_det img {
+    width: 22px;
+    margin-bottom: 4px;
+    margin-right: 6px;
+}
+
