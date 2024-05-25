@@ -917,29 +917,28 @@ def get_room_details(request):
                                 print(combination_room_indices)
                                 
                                 room_html = f"""
-                                    <div class="hide-room2">
-                                        <div class="book-room">
-                                            <p class="room-info-name">{Roomtypename}</p>
-                                            <p class="room-info-sname">{Roomtypedetails}</p>
+                                    <div class="hide-room2 row py-1 my-2 mx-1 bg-green rounded">
+                                        <div class="book-room col-lg-6 col-sm-4 col-4">
+                                            <p class="room-info-name black fw-bold fs-8">{Roomtypename}</p>
+                                            <p class="room-info-sname black"><i class='fas fa-bed me-2'></i>{Roomtypedetails}</p>
                                         </div>
-                                        <div class="price_div d-flex justify-content-between">
-                                            <div class="book-room-price">
-                                                <p class="price">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
-                                                <p class="mb-0">Per Room/Night</p>
-                                            </div>
-                                            <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
-                                            <tbody id="cancellationPoliciesTableBody">
-                                            <div class="hide-elements" style="display: none;">
-                                                <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                                <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                                <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
-                                            </div>
-                                            <div class="book-room-btn" style="{'' if not button_added else 'display: none;'}">
-                                                <button class="btn theme rounded-pill shadows px-3 book-btn"
-                                                        onclick="bookRoom()">
-                                                    Book Room
-                                                </button>
-                                            </div>
+                                        <div class="book-room-price col-lg-3 col-sm-4 col-4">
+                                            <p class="price theme1 fs-2 fw-bold mb-0">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                            <p class="mb-0 per_day border-t ms-2"><i class="fa fa-moon-o"></i>Per Room/Night</p>
+                                        </div>
+                                        <div class="book-room-btn col-lg-3 col-md-4 col-sm-4 col-4 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
+                                            <button class="btn theme rounded-pill shadows px-3 book-btn bg-white"
+                                                    onclick="bookRoom()">
+                                                Book Room
+                                            </button>
+                                         </div>
+                                        <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
+                                        <tbody id="cancellationPoliciesTableBody">
+                                        <div class="hide-elements" style="display: none;">
+                                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+                                            <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+                                            <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
+                                        </div>
                                         </div>
                                         <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px;'}"></div>
                                     </div>
