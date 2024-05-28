@@ -24,101 +24,104 @@ function hideForm() {
     }
 }
 
-  function getAdultCount() {
-            $rowno = $("#attribute_table tr").length-2
-            totaladult=0
-            totalchild=0
-            roominfo=[]
-            totalroominf0=[]
+function getAdultCount() {
+    $rowno = $("#attribute_table tr").length-2
+    totaladult=0
+    totalchild=0
+    roominfo=[]
+    totalroominf0=[]
 
-            for(i=1;i<=$rowno;i++) {
-                totaladult=parseInt(totaladult) + parseInt($("#adult_"+i).val())
-                totalchild=parseInt(totalchild) + parseInt($("#child_"+i).val())
-                // var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
-                
-                // Handle the first row separately
-                var childrenCountFirstRow = parseInt($("#child_1").val());
-                var childAgeFirstRow = [];
+    for(i=1;i<=$rowno;i++) {
+        totaladult=parseInt(totaladult) + parseInt($("#adult_"+i).val())
+        totalchild=parseInt(totalchild) + parseInt($("#child_"+i).val())
+        // var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
+        
+        // Handle the first row separately
+        var childrenCountFirstRow = parseInt($("#child_1").val());
+        var childAgeFirstRow = [];
 
-                for (var k = 1; k <= childrenCountFirstRow; k++) {
-                    var ageFirstRow = parseInt($("#childage_" + k).val());
-                    if (!isNaN(ageFirstRow)) {
-                        childAgeFirstRow.push(ageFirstRow);
-                    }
-                }
-
-                roominfo[0] = {
-                    "NoOfAdults": parseInt($("#adult_1").val()),
-                    "NoOfChild": parseInt($("#child_1").val()),
-                    "ChildAge": childAgeFirstRow
-                };
-                
-
-                var childrenCount = parseInt($("#child_" + i).val());
-                var childAge = [];
-
-                for (var j = 1; j <= childrenCount; j++) {
-                var age = parseInt($("#childage_" + i + "_" + j).val());
-                if (!isNaN(age)) {
-                    childAge.push(age);
-                }
-              
+        for (var k = 1; k <= childrenCountFirstRow; k++) {
+            var ageFirstRow = parseInt($("#childage_" + k).val());
+            if (!isNaN(ageFirstRow)) {
+                childAgeFirstRow.push(ageFirstRow);
             }
-    
-                roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild":parseInt($("#child_"+i).val()),"ChildAge":childAge }
-                
-
-                // roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild": parseInt($("#child_"+i).val()),"ChildAge": childAge }
-            }
-
-            var roomCount = $rowno + " " + "Room" +" " + "&" + " " + totaladult +" " + "Adults";
-            document.getElementById('room').value = roomCount;
-            
-            showChildAgeSelectors()
-
-            // console.log($rowno,totaladult,totalchild)
-            totalroominf0={"TotalRooms":$rowno,"NoOfAdults":totaladult,"NoOfChild":totalchild}
-            console.log(roominfo,totalroominf0)
-            console.log(totalroominf0)
-
-            document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
-            document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominf0);
-            document.getElementById('totalNoOfRooms').value = $rowno;
-
-            // document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
-            // document.getElementById('totalRoomInfoInput').value = JSON.stringify({
-            //     "TotalRooms": $rowno,
-
-
-            };
-
-            function showChildAgeSelectors() {
-            // Hide all child age selectors first
-            $("[id^=childage_]").hide();
-
-            // Get the number of children selected in the first row
-            var childrenCountFirstRow = parseInt($("#child_1").val());
-
-            // Show the corresponding child age selectors in the first row
-            for (var i = 1; i <= childrenCountFirstRow; i++) {
-                $("#childage_" + i).show();
-            }
-
-            // Iterate through each dynamically added row
-            $("#attribute_table tr").each(function(index, row) {
-                var rowNumber = index + 1;
-                var childrenCount = parseInt($("#child_" + rowNumber).val());
-
-                // Show the corresponding child age selectors for each dynamically added row
-                for (var i = 1; i <= childrenCount; i++) {
-                    $("#childage_" + rowNumber + "_" + i).show();
-                }
-            });
         }
 
+        roominfo[0] = {
+            "NoOfAdults": parseInt($("#adult_1").val()),
+            "NoOfChild": parseInt($("#child_1").val()),
+            "ChildAge": childAgeFirstRow
+        };
+        
+
+        var childrenCount = parseInt($("#child_" + i).val());
+        var childAge = [];
+
+        for (var j = 1; j <= childrenCount; j++) {
+        var age = parseInt($("#childage_" + i + "_" + j).val());
+        if (!isNaN(age)) {
+            childAge.push(age);
+        }
+        
+    }
+
+        roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild":parseInt($("#child_"+i).val()),"ChildAge":childAge }
+        
+
+        // roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild": parseInt($("#child_"+i).val()),"ChildAge": childAge }
+    }
+
+    var roomCount = $rowno + " " + "Room" +" " + "&" + " " + totaladult +" " + "Adults";
+    document.getElementById('room').value = roomCount;
+    
+    showChildAgeSelectors()
+
+    // console.log($rowno,totaladult,totalchild)
+    totalroominf0={"TotalRooms":$rowno,"NoOfAdults":totaladult,"NoOfChild":totalchild}
+    console.log(roominfo,totalroominf0)
+    console.log(totalroominf0)
+
+    document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
+    document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominf0);
+    document.getElementById('totalNoOfRooms').value = $rowno;
+
+    // document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
+    // document.getElementById('totalRoomInfoInput').value = JSON.stringify({
+    //     "TotalRooms": $rowno,
 
 
-    function add_attribute_row() {
+    };
+
+    function showChildAgeSelectors() {
+        // Hide all child age selectors first
+        $("[id^=childage_]").hide();
+        $("[id^=age_]").hide();
+
+        // Get the number of children selected in the first row
+        var childrenCountFirstRow = parseInt($("#child_1").val());
+
+        // Show the corresponding child age selectors in the first row
+        for (var i = 1; i <= childrenCountFirstRow; i++) {
+            $("#childage_" + i).show();
+            $("#age_" + i).show();
+        }
+
+        // Iterate through each dynamically added row
+        $("#attribute_table tr").each(function(index, row) {
+            var rowNumber = index + 1;
+            var childrenCount = parseInt($("#child_" + rowNumber).val());
+
+            // Show the corresponding child age selectors for each dynamically added row
+            for (var i = 1; i <= childrenCount; i++) {
+                $("#childage_" + rowNumber + "_" + i).show();
+                document.getElementById("age_"+i).innerHTML = "Age "+ i;
+                $("#age_" + i).show();
+            }
+        });
+    }
+
+
+function add_attribute_row() {
     // Get the current number of rows
     var $rowno = $("#attribute_table tr").length - 1;
 
@@ -129,7 +132,7 @@ function hideForm() {
         if (prevRowIsValid) {
         // Add a new row
         $("#attribute_table tr:last").after("<tr id='row" + $rowno + "'>" +
-            "<td>Room" + $rowno + "</td>" +
+            "<td class='room_no'>Room" + $rowno + "</td>" +
             "<td><select name='attribute_name' onchange='getAdultCount()' id='adult_" + $rowno + "' class='selectbox_form  attribute_name'>" +
             "<option value='1' selected>1</option><option value='2'>2</option><option value='3'>3</option>" +
             "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select></td>" +
@@ -175,86 +178,6 @@ function del_att_row() {
         $('#row' + rowno).remove();
         getAdultCount()
     }
-
-       
-
-// function getAdultCount() {
-//     $rowno = $("#attribute_table tr").length-2
-//     totaladult=0
-//     totalchild=0
-//     roominfo=[]
-//     totalroominf0=[]
-
-//     for(i=1;i<=$rowno;i++) {
-//         totaladult=parseInt(totaladult) + parseInt($("#adult_"+i).val())
-//         totalchild=parseInt(totalchild) + parseInt($("#child_"+i).val())
-
-//         var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
-
-//         roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild": parseInt($("#child_"+i).val()),"ChildAge": childAge }
-//     }
-
-//     var roomCount = $rowno + " " + "Room" +" " + "&" + " " + totaladult +" " + "Adults";
-//     document.getElementById('room').value = roomCount;
-    
-//     totalroominf0={"TotalRooms":$rowno,"NoOfAdults":totaladult,"NoOfChild":totalchild}
-
-
-//     document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
-//     document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominf0);
-//     document.getElementById('totalNoOfRooms').value = $rowno;
-
-// }
-
-
-// function add_attribute_row() {
-//     // Get the current number of rows
-//     var $rowno = $("#attribute_table tr").length - 1;
-//     alert($rowno)
-
-//     // Check if the limit of 6 rows has been reached
-//     if ($rowno <= 6) {
-//         // Add a new row
-//         $("#attribute_table tr:last").after("<tr id='row" + $rowno + "'>" +
-//             "<td>Room" + $rowno + "</td>" +
-//             "<td><select name='attribute_name' onchange='getAdultCount()' id='adult_" + $rowno + "' class='form-control attribute_name'>" +
-//             "<option value='0'>Select</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option>" +
-//             "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select></td>" +
-//             "<td><select name='attribute_id' id='child_" + $rowno + "' onchange='getAdultCount()' class='form-control attribute_value' onchange='toggleChildAgeVisibility()'>" +
-//             "<option data-parent='0' value='0'>Select</option><option data-parent='Colour' value='1'>1</option></select></td>" +
-//             "<td><select name='attribute_id' id='childage_" + $rowno + "' onchange='getAdultCount()' class='form-control attribute_value'  style='display: none;'>" +
-//             "<option data-parent='0' value='0'>Select</option><option data-parent='Colour' value='1'>1</option><option data-parent='Colour' value='2'>2</option>" +
-//             "<option data-parent='Colour' value='3'>3</option><option data-parent='Colour' value='4'>4</option><option data-parent='Colour' value='5'>5</option>" +
-//             "<option data-parent='Colour' value='6'>6</option><option data-parent='Colour' value='7'>7</option><option data-parent='Colour' value='8'>8</option>" +
-//             "<option data-parent='Colour' value='9'>9</option><option data-parent='Colour' value='10'>10</option><option data-parent='Colour' value='11'>11</option>" +
-//             "<option data-parent='Colour' value='12'>12</option></select></td></tr>");
-//             function toggleChildAgeVisibility() {
-//                 var childValue = document.getElementById("child_ "+ $rowno).value;
-//                 var childAgeSelect = document.getElementById("childage_"+ $rowno);
-//                 // If child value is 1, show the child age select element, otherwise hide it
-//                 if (childValue === "1") {
-//                     childAgeSelect.style.display = "block";
-//                     document.getElementById("childage_label").style.display = "block";
-//                     getAdultCount(); // This might not be necessary here, depending on your implementation
-//                 } else {
-//                     childAgeSelect.style.display = "none";
-//                     document.getElementById("childage_label").style.display = "none";
-//                 }
-//             }
-//         // Call the getAdultCount function
-//         getAdultCount();
-//     } else {
-//         // Alert the user or handle the case where the limit is reached
-//         alert("Only 6 rooms are allowed..");
-//     }
-// }
-
-// function del_att_row() {
-//     rowno = $("#attribute_table tr").length-2
-//     if(rowno > 1)
-//     $('#row' + rowno).remove();
-//     getAdultCount()
-// }
 
 // FILTER HOTEL NAME ------------------------------
 

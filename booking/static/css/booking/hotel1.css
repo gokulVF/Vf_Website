@@ -15,6 +15,7 @@
 .room-h {
     font-size: 12px;
     padding: 0;
+    text-align: start;
 }
 
 .room_no {
@@ -42,14 +43,14 @@
 
 table>tbody tr td, table thead tr th  {
     border: none !important;
-    padding: 4px 8px;
-    width: 60px;
+    padding: 3px 1px;
 }
 
 .f-inp {
     border: 1px solid #d3cdcd !important;
     padding: 12px 15px !important;
     border-radius: 4px !important;
+    height: 50px;
 }
 
 .svg_icons {
@@ -101,17 +102,47 @@ table>tbody tr td, table thead tr th  {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #029e9d;
-    /* background-color: #029e9d; */
-    border: 1px solid #029e9d !important;
-    background: white;
+    color: #fff;
+    background: #029e9d;
 }
 
-.nav-link {
-    border-radius: 4px;
-    padding: 3px 9px;
-    border: 1px solid #777 !important;
-    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
-    color: #777;
+.nav-pills .nav-link { 
+    color: #fff;
     font-size: 15px;
+    background: #17233e;
 }
+
+.list-results {
+    position: sticky;
+    margin-bottom: 2rem;
+    width: 100%;
+    top: 0;
+    background: white;
+    z-index: 9;
+}
+
+
+/* LIST RESULTS */
+.car-banner{
+    background-image: url("{% static 'image/images/testimonial.png' %}");
+}
+.ui-autocomplete {
+    z-index: 1050;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-menu-item {
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #f1f1f1 !important;
+}
+

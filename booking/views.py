@@ -664,37 +664,35 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                   <div class="d-flex col-md-12" style="border-radius:10px;margin:2px;justify-content:space-between;padding:2px 6px;width:100%;background-color: gainsboro;">
-                                    <div class="room-info d-flex justify-content-between " style="width:80%">
-                                        <div class="more_room_div">
-                                            <p class="room-info-name">{Roomtypename}</p>
-                                            <p class="room-type-name">{Roomtypedetails}</p>
-                                        </div>
-                                        <div class="price-info">
-                                            <div class="rub-price">
-                                                <p style="color: #029e9d;">INR</p>
-                                                <p class="price" style="color: #029e9d;">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                    <div class="item mb-1 border-all p-3 px-4 rounded">
+                                        <div class="room-info row d-flex align-items-center">
+                                            <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                                <div class="item-inner-image text-start">
+                                                    <h5 class="mb-0">{Roomtypename}</h5>
+                                                    <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
+                                                </div>
                                             </div>
-                                            <div style="margin-top:3px; margin-bottom:13px;">
-                                                <p class="pn" >Per Room/Night</p>
+                                            <div class="price-info col-lg-4 col-md-4 col-sm-4 col-4">
+                                                <div class="rub-price item-inner flight-time">
+                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 per_day ms-2">Per Room/Night</p>
+                                                </div>
                                             </div>
+                                            <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;  '}">
+                                                <button class="book-btn nir-btn-black"
+                                                        onclick="bookRoom()">
+                                                    Book Room
+                                                </button>
+                                            </div>
+                                        </div>    
+                                        <div class="hide-elements" style="display: none;">
+                                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+                                            <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+                                            <input type="hidden" class="room-index" value="{room_json}">
+                                            <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                         </div>
-                                    </div>    
-                                    <div class="hide-elements" style="display: none;">
-                                        <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                        <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                        <input type="hidden" class="room-index" value="{room_json}">
-                                        <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
+                                        <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px; width: 23%;'}"></div>
                                     </div>
-                                    <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px; width: 23%;'}"></div>
-                                    <div class="book-room-btn mt-2" style="{'' if not button_added else 'display: none;  '}">
-                                            <button class="book-btn" style="background-color: #029e9d !important;"
-                                                    onclick="bookRoom()">
-                                                Book Room
-                                            </button>
-                                    </div>
-                                   </div>
-                                     
                                    
                                 """
                                 combination_html.append(room_html)
@@ -916,18 +914,22 @@ def get_room_details(request):
                                         combination_room_indices.append(room_index)
                                 print(combination_room_indices)
                                 
-                                room_html = f"""
-                                    <div class="hide-room2 row py-1 my-2 mx-1 bg-green rounded">
-                                        <div class="book-room col-lg-6 col-sm-4 col-4">
-                                            <p class="room-info-name black fw-bold fs-8">{Roomtypename}</p>
-                                            <p class="room-info-sname black"><i class='fas fa-bed me-2'></i>{Roomtypedetails}</p>
-                                        </div>
-                                        <div class="book-room-price col-lg-3 col-sm-4 col-4">
-                                            <p class="price theme1 fs-2 fw-bold mb-0">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
-                                            <p class="mb-0 per_day border-t ms-2"><i class="fa fa-moon-o"></i>Per Room/Night</p>
-                                        </div>
-                                        <div class="book-room-btn col-lg-3 col-md-4 col-sm-4 col-4 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
-                                            <button class="btn theme rounded-pill shadows px-3 book-btn bg-white"
+                                room_html = f"""  <div class="item mb-1 border-all p-3 px-4 rounded">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                                <div class="item-inner-image text-start">
+                                                    <h5 class="mb-0">{Roomtypename}</h5>
+                                                    <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                                                <div class="item-inner flight-time">
+                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 per_day ms-2">Per Room/Night</p>
+                                                </div>
+                                            </div>
+                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
+                                            <button class="nir-btn-black book-btn"
                                                     onclick="bookRoom()">
                                                 Book Room
                                             </button>
@@ -940,8 +942,10 @@ def get_room_details(request):
                                             <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
                                         </div>
                                         </div>
-                                        <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px;'}"></div>
+                                        <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px;'}"></div>
+                                        </div>
                                     </div>
+
                                 """
                                 combination_html.append(room_html)
 
@@ -2486,3 +2490,67 @@ def send_whatsapp_message_3(phone_number,user, download_link):
 
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.json()
+
+
+
+# HIDEROOM SCRIPTS
+
+
+# <div class="hide-room2 row py-1 my-2 mx-1 bg-green rounded">
+#     <div class="book-room col-lg-6 col-sm-4 col-4">
+#         <p class="room-info-name black fw-bold fs-8">{Roomtypename}</p>
+#         <p class="room-info-sname black"><i class='fas fa-bed me-2'></i>{Roomtypedetails}</p>
+#     </div>
+#     <div class="book-room-price col-lg-3 col-sm-4 col-4">
+#         <p class="price theme1 fs-2 fw-bold mb-0">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+#         <p class="mb-0 per_day border-t ms-2"><i class="fa fa-moon-o"></i>Per Room/Night</p>
+#     </div>
+#     <div class="book-room-btn col-lg-3 col-md-4 col-sm-4 col-4 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
+#         <button class="btn theme rounded-pill shadows px-3 book-btn bg-white"
+#                 onclick="bookRoom()">
+#             Book Room
+#         </button>
+#         </div>
+#     <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
+#     <tbody id="cancellationPoliciesTableBody">
+#     <div class="hide-elements" style="display: none;">
+#         <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+#         <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+#         <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
+#     </div>
+#     </div>
+#     <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px;'}"></div>
+# </div>
+
+
+# HIDEROOM IN VIEW MORE ROOMS
+#  <div class="d-flex col-md-12" style="border-radius:10px;margin:2px;justify-content:space-between;padding:2px 6px;width:100%;background-color: gainsboro;">
+# <div class="room-info d-flex justify-content-between " style="width:80%">
+#     <div class="more_room_div">
+#         <p class="room-info-name">{Roomtypename}</p>
+#         <p class="room-type-name">{Roomtypedetails}</p>
+#     </div>
+#     <div class="price-info">
+#         <div class="rub-price">
+#             <p style="color: #029e9d;">INR</p>
+#             <p class="price" style="color: #029e9d;">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+#         </div>
+#         <div style="margin-top:3px; margin-bottom:13px;">
+#             <p class="pn" >Per Room/Night</p>
+#         </div>
+#     </div>
+# </div>    
+# <div class="hide-elements" style="display: none;">
+#     <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+#     <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+#     <input type="hidden" class="room-index" value="{room_json}">
+#     <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
+# </div>
+# <div class="empty-placeholder" style="{'' if not button_added else 'height: 30px; width: 23%;'}"></div>
+# <div class="book-room-btn mt-2" style="{'' if not button_added else 'display: none;  '}">
+#         <button class="book-btn" style="background-color: #029e9d !important;"
+#                 onclick="bookRoom()">
+#             Book Room
+#         </button>
+# </div>
+# </div>

@@ -14,6 +14,8 @@
     <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <!--Custom CSS-->
     <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
+    <!-- Hotel css -->
+    <link href="{% static 'css/booking/hotel1.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
 
@@ -22,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
     <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/booking/hotelviews.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/booking/hotelviews.css' %}"> -->
 </head>
 
     <!-- Preloader -->
@@ -35,64 +37,44 @@
     {% include 'home/header.html' %}
     <!-- header ends -->
 
-    <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-20 pt-14" style="background-image: url(images/bg/bg1.jpg);">
-        <div class="section-shape section-shape1 top-inherit bottom-0" style="background-image: url(images/shape8.png);"></div>
-        <div class="breadcrumb-outer">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h1 class="mb-3">Flight Detail</h1>
-                    <nav aria-label="breadcrumb" class="d-block">
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Flight Detail</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="dot-overlay"></div>
-    </section>
-    <!-- BreadCrumb Ends --> 
-
     <!-- top Destination starts -->
     <section class="trending pt-6 pb-0 bg-lgrey">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="single-content">
-                        <div class="single-full-title border-b mb-2 pb-2">
+                        <div class="single-full-title border-b mb-2">
                             <div class="single-title">
-                                <h2 class="mb-0">{{ combined_info.hotel_info.hotel_name }}</h2>
+                                <h3 class="mb-0">{{ combined_info.hotel_info.hotel_name }}</h3>
                                 <input type="hidden" class="room-index" id="hotelNameContainer" value="{{ combined_info.hotel_info.hotel_name }}">
                                 <div class="rating-main d-lg-flex align-items-center text-lg-start text-center">
                                     <!-- <p class="mb-0 me-2">Business Class</p> -->
-                                    <div class="rating me-2" id="{{ combined_info.hotel_info.hotel_name }}_starRating">
+                                    <div class="rating me-2 text-start" id="{{ combined_info.hotel_info.hotel_name }}_starRating">
                                         {% for star in "12345" %}
                                             <span class="fa fa-star {% if forloop.counter <= combined_info.hotel_info.star_rating %}checked{% else %}unchecked{% endif %}"></span>
                                         {% endfor %}
                                     </div>
                                     
                                 </div>
-                                <div class="col-md-6" style="font-size: 13px;">
-                                    <address>{{ combined_info.hotel_info.address }}</address>
+                                <div class="mt-2">
+                                    <address class="mb-0" style="font-size: 14px;"><i class="icon-directions theme me-2" style="font-size: 22px;"></i>{{ combined_info.hotel_info.address }}</address>
                                 </div>
                             </div>
                         </div>
-                        <div class="description-images mb-4 overflow-hidden">
+                        <div class="description-images mb-4 overflow-hidden border-t pt-2">
                             <div class="thumbnail-images position-relative">
-                                <div class="slider-store rounded overflow-hidden" style="height: 450px !important;">
+                                <div class="slider-store rounded overflow-hidden">
                                     {% for image_url in combined_info.hotel_info.images %}
                                     <div >
-                                       <img src="{{ image_url }}" alt="1" style="height: 450px !important;">
+                                       <img src="{{ image_url }}" alt="1" style="height: 400px;">
                                     </div>
                                     {% endfor %}
                                     
                                 </div>
-                                <div class="slider-thumbs mt-1" style="height: 100px !important;" >
+                                <div class="slider-thumbs mt-1">
                                     {% for image_url in combined_info.hotel_info.images %}
                                     <div>
-                                        <img src="{{ image_url }}" alt="1" style="height:100px !important; width: 200px;">
+                                        <img src="{{ image_url }}" alt="1"  style="height: 80px;">
                                      </div>
                                      {% endfor %}
                                      
@@ -100,31 +82,30 @@
                             </div>
                         </div>
 
-                        <div class="description mb-2">
-                            <h4>General</h4>
+                        <div class="description mb-3" style="font-size: 14px;">
+                            <h3 class="theme text-uppercase">General</h3>
                             <p>{{ combined_info.hotel_info.description|safe }}</p>
                             </div>
 
-                        <div class="description mb-2">
+                        <div class="description mb-2 border-t pt-1">
                             <div class="row">
-                               
                                 <div class="mb-2">
-                                    <div class="desc-box bg-grey p-4 rounded">
-                                        <h4 class="mb-2">Facilities</h4>
+                                    <h3 class="mb-1 theme text-uppercase">Facilities</h3>
+                                    <div class="desc-box border-all py-2 px-4 bg-grey rounded">
                                         <ul>
                                             {% for facility in combined_info.hotel_info.hotel_facilities %}
                                             {% if forloop.counter0 > 200 %}
-                                            <li class="d-block pb-1"><i class="fa fa-check pink px-2"></i>{{facility }}</li>
+                                            <li class="d-block black  mb-1" style="font-size: 14px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="me-2" style="width: 20px;margin-bottom:4px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c15.1 0 28.5-6.9 37.3-17.8C340.4 462.2 320 417.5 320 368c0-54.7 24.9-103.5 64-135.8V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM640 368a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L480 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z"/></svg>{{facility }}</li>
                                             {% else %}
                                             {% if forloop.first %}
                                             <div class="row">
                                                 {% endif %}
-                                                <div class="col-md-6 col-sm-6 col-xxs-3 pt-1 pb-1">
-                                                    <li class=""><i class="fa fa-check pink  px-2"></i>{{ facility }}</li>
+                                                <div class="col-md-6 col-sm-6 col-xxs-3">
+                                                    <li class="black mb-1" style="font-size: 14px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="me-2" style="width: 20px;margin-bottom:4px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c15.1 0 28.5-6.9 37.3-17.8C340.4 462.2 320 417.5 320 368c0-54.7 24.9-103.5 64-135.8V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM640 368a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L480 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z"/></svg>{{ facility }}</li>
                                                 </div>
                                                 {% if forloop.last %}
-                                                    <!-- Close the row if it's the last item -->
-                                                    </div>
+                                                <!-- Close the row if it's the last item -->
+                                                </div>
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
@@ -134,60 +115,29 @@
                                 
                             </div>
                         </div>
+                        
+                        <div class="pt-4" >
+                            <div>
+                                <h3 class="mb-0 theme text-uppercase"><span>Rooms</span></h3>
+                            </div>
+                            <div class="room-details hotel-room" id="listofrooms">
+                                {{ combined_info.room_details_html|safe }}
+                            </div>
+                        </div>
+                       
 
-                        <div class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
+                        <!-- <div class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
                             <div class="accrodion active">
                                 <div class="accrodion-title rounded">
                                     <h5 class="mb-0"><span>ROOMS</span></h5>
                                 </div>
                                 <div class="accrodion-content" style="display: block;">
                                     <div class="inner" style="padding: 0px !important;">
-                                        <div class="room-details hotel-room" id="listofrooms">
-                                            {{ combined_info.room_details_html|safe }}
-                                        </div>
-                                    </div><!-- /.inner -->
+                                        
+                                    </div>
                                 </div>
                             </div>
-                            <!-- <div class="accrodion ">
-                                <div class="accrodion-title rounded">
-                                    <h5 class="mb-0"><span>Day 2</span> - Zurich - Biel/Bienne - Neuchatel - Geneva</h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="accrodion">
-                                <div class="accrodion-title rounded">
-                                    <h5 class="mb-0"><span>Day 3</span> - Enchanting Engelberg</h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="accrodion ">
-                                <div class="accrodion-title rounded">
-                                    <h5 class="mb-0"><span>Day 4</span> - Barcelona - Zaragoza - Madrid</h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div class="single-map mb-4">
-                            <h4>Map</h4>
-                            <div class="map rounded overflow-hidden">
-                                <div style="width: 100%">
-                                    <iframe class=" rounded overflow-hidden" height="400" src="https://maps.google.com/maps?q={{ extracted_info.latitude }},{{ extracted_info.longitude }}&z=15&output=embed"></iframe>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -197,51 +147,52 @@
                             <div class="sidebar-item mb-4">
                                 <div class="book-form w-100 bg-white box-shadow p-4 pb-1 z-index1 rounded">
                                     <div class="row d-flex align-items-center justify-content-between">
-                                        <div class="col-lg-12 mb-2 text-center">
-                                            <ul class="pb-2 mb-2 border-b">
-                                                <li class="me-1 p-2 bg-grey d-inline-block rounded">Check Availability</li>
-                                                <!-- <li class="me-1 p-2 bg-grey d-inline-block rounded"><input type="radio"> One-way</li>
-                                                <li class="p-2 bg-grey d-inline-block rounded"><input type="radio"> Multi-city</li> -->
-                                            </ul>
+                                        <div class="col-lg-12">
+                                            <h3>Check Availability</h3>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <div class="input-box">
-                                                    <label>Check In</label>
-                                                    <p class="int">{{ combined_info.hotel_info.check_in_date }}</p>
+                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm333.3 95.9l-28.2-28.4c-4.7-4.7-12.3-4.7-17-.1L194.1 364.7l-46-46.4c-4.7-4.7-12.3-4.7-17-.1l-28.4 28.2c-4.7 4.7-4.7 12.3-.1 17l82.6 83.3c4.7 4.7 12.3 4.7 17 .1l143-141.8c4.7-4.7 4.7-12.3 .1-17z"></path></svg>Check In</label>
+                                                    <p>{{ combined_info.hotel_info.check_in_date }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <div class="input-box">
-                                                    <label>Check Out</label>
-                                                    <p class="int">{{ combined_info.hotel_info.check_out_date }}</p>
+                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm257.3 160l48.1-48.1c4.7-4.7 4.7-12.3 0-17l-28.3-28.3c-4.7-4.7-12.3-4.7-17 0L224 306.7l-48.1-48.1c-4.7-4.7-12.3-4.7-17 0l-28.3 28.3c-4.7 4.7-4.7 12.3 0 17l48.1 48.1-48.1 48.1c-4.7 4.7-4.7 12.3 0 17l28.3 28.3c4.7 4.7 12.3 4.7 17 0l48.1-48.1 48.1 48.1c4.7 4.7 12.3 4.7 17 0l28.3-28.3c4.7-4.7 4.7-12.3 0-17L269.3 352z"></path></svg>Check Out</label>
+                                                    <p>{{ combined_info.hotel_info.check_out_date }}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="mb-2">
                                             <div class="form-group">
                                                 <div class="input-box">
-                                                    <label>No Of Nightst</label>
-                                                    <p class="int">{{ combined_info.hotel_info.No_of_Night }}</p>
+                                                    <label class="black text-uppercase fw-bold border-b"><i class='far fa-clock me-2'></i>No Of Nights</label>
+                                                    <p>{{ combined_info.hotel_info.No_of_Night }}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="mb-2">
                                             <div class="form-group">
                                                 <div class="input-box">
-                                                    <label>Person & Rooms</label>
-                                                    <p class="int">{{ combined_info.hotel_info.guest_details }}</p>
+                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg_icons me-1" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM576 272a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM352 477.1c0 19.3 15.6 34.9 34.9 34.9H605.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"></path></svg>Person & Rooms</label>
+                                                    <p>{{ combined_info.hotel_info.guest_details }}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
                                     </div>
                                 </div>
                             </div>
-                           
+                            <div class="single-map mb-4">
+                                <h3 class="theme text-uppercase">Map</h3>
+                                <div class="map rounded overflow-hidden">
+                                    <div style="width: 100%">
+                                        <iframe class=" rounded overflow-hidden" height="400" src="https://maps.google.com/maps?q={{ extracted_info.latitude }},{{ extracted_info.longitude }}&z=15&output=embed"></iframe>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
