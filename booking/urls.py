@@ -26,6 +26,7 @@ urlpatterns= [
    # TEST
     path('listofhotelx/', views.listofhotelx, name='listofhotelx'),
     path('hotel_home', views.hotel_homex, name='hotel_home'),
+    path('successbook', views.successbook, name='successbook'),
    # path('navbar/',views.navbar,name='navbar')
    # path('review', views.review, name='review'),
 ]

@@ -35,130 +35,162 @@
     <!-- header ends -->
 
     <!-- top Destination starts -->
-    <section class="trending pt-6 pb-0 bg-lgrey">
+    <section class="trending pt-6 pb-0 bg-lgrey" style="z-index: 0;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-xs-12 mb-4">
                     <div class="payment-book">
                         <div class="booking-box">
-                            <div class="booking-box-title d-md-flex align-items-center bg-title p-4 mb-4 rounded text-md-start text-center">
-                                <i class="fa fa-check px-4 py-3 bg-white rounded title fs-5"></i>
-                                <div class="title-content ms-md-3">
-                                    <h3 class="mb-1 white">Thank You. Your booking order is confirmed now.</h3>
-                                    <p class="mb-0 white">A confirmation email has been sent to your provided email address.</p>
-                                </div>
-                            </div>
                             <div class="travellers-info mb-4">
+                                <h3>Contact Details</h3>
                                 <table>
                                     <thead>
-                                        <th>Order Number</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Payment Method</th>
+                                        <tr>
+                                            <th class="text-start">User Name</th>
+                                            <th class="text-start">Mobile Number</th>
+                                            <th class="text-start">Email</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="theme2">1012</td>
-                                            <td class="theme2">11/02/2022</td>
-                                            <td class="theme2">$550.00</td>
-                                            <td class="theme2">Bank Transfer</td>
+                                            <td class="theme2">{{ combined_data.user_name }}</td>
+                                            <td class="theme2">{{ combined_data.phone_number }}</td>
+                                            <td class="theme2">{{ combined_data.email }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="travellers-info mb-4">
-                                <h4>Traveler Information</h4>
-                                <table>
-                                    <tr>
-                                        <td>Booking Number</td>
-                                        <td>5784-BD245</td>
-                                    </tr>
-                                    <tr>
-                                        <td>First Name</td>
-                                        <td>Jessica</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last Name</td>
-                                        <td>Brown</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email Address</td>
-                                        <td>info#jessica.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Street Address and number</td>
-                                        <td>353 Third floor Avenue</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Town/City</td>
-                                        <td>Paris</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ZIP Code</td>
-                                        <td>75800-875</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Country</td>
-                                        <td>France</td>
-                                    </tr>
-                                </table>
+                            <div class="desc-box fs-14 bg-grey p-2 rounded  text_canpol">
+                                <h5 class="mb-2">Cancellation Policy</h5>
+                                <p class="mb-0">{{ combined_data.cancellation_policy|safe }}</p>
                             </div>
-                            <div class="booking-border mb-4">
-                                <h4 class="border-b pb-2 mb-2">Payment</h4>
-                                <p class="mb-0">This is the third time I've used Travelo Website and telling you the truth their services are always reliable and it ony takes few minutes to plan and finalize.</p>
-                                <a href="#">Payment is made by Credit Card via Paypal</a>
+                            <div class="text-end mb-2">
+                                <button class="theme2 fs-14 bg-white" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: underline;">Read More...</button>
                             </div>
-                            <div class="booking-border mb-4">
-                                <h4 class="border-b pb-2 mb-2">View Booking Details</h4>
-                                <p class="mb-0">This is the third time I've used Travelo Website and telling you the truth their services are always reliable and it ony takes few minutes to plan and finalize.</p>
-                                <a href="#">https://www.travel.com/booking-details</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2" style="max-width: 1250px;overflow-y: scroll;scrollbar-width: none;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title theme" id="exampleModalLabel">Cancellation Policy</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body border-t bg-grey p-2" style="font-size: 12px;">
+                                        <p>{{ combined_data.cancellation_policy|safe }}</p>
+                                        </div>
+                                    </div>
+                                </div>  
                             </div>
-                            <div class="booking-border d-flex">
-                                <a href="#" class="nir-btn me-2"><i class="fa fa-print"></i> Print</a>
-                                <a href="#" class="nir-btn-black"><i class="fa fa-envelope-open-text"></i> Send To</a>
+                           
+                            <div class="desc-box bg-grey p-2 mb-2 rounded">
+                                <h5 class="mb-2">Booking Notes</h5>
+                                <p class="mb-0 fs-14">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil dolorum cumque nobis omnis nesciunt, eum quaerat assumenda mollitia reprehenderit fuga exercitationem optio labore, totam deserunt architecto? Aspernatur id at quas rerum ad animi hic reiciendis aut, mollitia assumenda maiores! Enim ab ratione, ea et expedita explicabo sed a perspiciatis accusantium consequatur laudantium voluptatem eum architecto suscipit, officiis exercitationem omnis necessitatibus inventore. Amet soluta sit adipisci provident, odio ex quo eaque, ut unde omnis sed laboriosam aliquam. Natus sed dolor quod ea, dicta rerum rem sit aut. Numquam esse corporis corrupti minus, magni molestias obcaecati beatae ut sequi, voluptate voluptatibus rem!</p>
                             </div>
+                            <div class="desc-box bg-grey p-2 mb-2 rounded">
+                                <h5 class="mb-2">General Terms & Conditions</h5>
+                                <p class="mb-0 fs-14">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore suscipit veniam odio ea quo eum. Excepturi nihil ex corrupti iure voluptates aperiam ab alias ea cupiditate, perspiciatis culpa, exercitationem, magni a tempora magnam in doloribus deleniti commodi expedita ducimus iste odio reprehenderit suscipit. Quos aliquam magnam, nulla voluptas adipisci debitis nobis officiis quidem ducimus id sapiente vel quibusdam, reiciendis reprehenderit praesentium alias fuga aliquid natus sit laudantium. Deserunt, at. Molestiae sit blanditiis harum numquam fugiat earum iusto libero labore facilis, magni quas quasi voluptas maxime omnis natus dolores qui expedita atque soluta culpa ducimus officia dolor, asperiores laborum. Ratione alias, laudantium sunt a enim nulla, neque repellendus quasi maiores magni quae veniam id eveniet beatae. Voluptas in natus possimus perferendis. Sapiente reiciendis ea laborum amet fugiat voluptates sint suscipit numquam unde itaque, nesciunt maiores expedita est delectus sequi dolor beatae. Necessitatibus nobis repudiandae iste, mollitia labore ipsa ut perferendis soluta minima rerum commodi vitae dolorum explicabo id pariatur fugit quis excepturi iusto quo odio eveniet amet quos ducimus cum! Corporis, voluptatem. Totam laborum aspernatur labore quas quae expedita sit dolores eveniet, veritatis dolorem commodi voluptate voluptas quia culpa ducimus ut exercitationem cum illo non delectus, beatae fugiat esse. Asperiores, dicta.</p>
+                            </div>
+                            <form action="">
+                                <div class="form-group mb-2 w-75 d-flex">
+                                    <input type="checkbox"  id="contactCheckbox"><p class="theme2 fs-14 mb-0 ms-2">By continuing, you agree to the Terms and Conditions.</p> 
+                                    <span class="error" id="checkboxError"></span>
+                                </div>
+                                <div class="booking-border d-flex">
+                                    <button type="button"  class="nir-btn me-2" id="pay-btn" onclick="validateCheckbox()">Proceed To Payment</button>
+                                    <!-- <a href="#" class="nir-btn-black"><i class="fa fa-envelope-open-text"></i> Send To</a> -->
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-xs-12 mb-4 ps-4">
+                <div class="col-lg-4 mb-4 ps-ld-4">
                     <div class="sidebar-sticky">
-                        <div class="list-sidebar">
-                            <div class="sidebar-item bordernone bg-white rounded box-shadow overflow-hidden p-3 mb-4">
-                                <h4>Need Booking Help?</h4>
-                                <div class="sidebar-module-inner">
-                                    <p class="mb-2">Paid was hill sir high 24/7. For him precaution any advantages dissimilar.</p>
-                                    <ul class="help-list">
-                                        <li class="border-b pb-1 mb-1"><span class="font-weight-bold">Hotline</span>: +475 15 123 21</li>
-                                        <li class="border-b pb-1 mb-1"><span class="font-weight-bold">Email</span>: support@Yatriiworld.com</li>
-                                        <li><span class="font-weight-bold">Livechat</span>: Yatriiworld (Skype)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
-                                <h4>Why booking with us?</h4>
-                                <div class="sidebar-module-inner">
-                                    <ul class="featured-list-sm">
-                                        <li class="border-b pb-2 mb-2">
-                                            <h6 class="mb-0">No Booking Charges</h6>
-                                            We don't charge you an extra fee for booking a hotel room with us
-                                        </li>
-                                        <li class="border-b pb-2 mb-2">
-                                            <h6 class="mb-0">No Cancellation Sees</h6>
-                                            We don't charge you a cancellation or modification fee in case plans change
-                                        </li>
-                                        <li class="border-b pb-2 mb-2">
-                                            <h6 class="mb-0">Instant Confirmation</h6>
-                                            Instant booking confirmation whether booking online or via the telephone
-                                        </li>
-                                        <li>
-                                            <h6 class="mb-0">Flexible Booking</h6>
-                                            You can book up to a whole year in advance or right up until the moment of your stay
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                            <h4>Pricing Details</h4>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Base Fare ({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</td>
+                                        <td class="theme2 text-end">INR {{ combined_data.published_price }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Taxes and Fees</td>
+                                        <td class="theme2 text-end">INR {{ combined_data.final_tax }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Price</td>
+                                        <td class="theme2 text-end">INR {{ combined_data.total_price }}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                                <tfoot class="bg-title">
+                                    <tr>
+                                        <th class="font-weight-bold white">Your Price</th>
+                                        <th class="font-weight-bold white">INR {{ combined_data.total_price }}</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
+                        <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                            <h4>Hotel Summary</h4>
+                            <div class="trend-full border-b">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="trend-content position-relative">
+                                            <h5 class="mb-1"><a href="grid-leftfilter.html">{{ combined_data.hotel_name }}</a></h5>
+                                            <div class="rating star-view mb-1">
+                                                {% for star in "12345" %}
+                                                <span class="fa fa-star {% if forloop.counter <= details.rating %}checked{% else %}unchecked{% endif %}"></span>
+                                               {% endfor %}
+                                            </div>
+                                            <h6 class="mb-2">{{ combined_data.address }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="trend-check border-b pb-2">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                            <p class="mb-0">Check In</p>
+                                            <h6 class="mb-0">{{ combined_data.check_in_date }}</h6>
+                                            <!-- <small>15:00 - 22:00</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                            <p class="mb-0">Check Out</p>
+                                            <h6 class="mb-0">{{ combined_data.check_out_date }}</h6>
+                                            <!-- <small>1:00 - 10:00</small> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="trend-check border-b pb-2">
+                                <p class="mb-0">Night(s)</p>
+                                <h6 class="mb-0">{{ combined_data.no_of_nights }}</h6>
+                                <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
+                            </div>
+                            <div class="trend-check border-b pb-2">
+                                <p class="mb-0">Room(s)</p>
+                                <h6 class="mb-0">{{ combined_data.total_rooms }}</h6>
+                                <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
+                            </div>
+                            {% for hotel in combined_data.hotel_details %}
+                            <div class="trend-check border-b pb-2">
+                                <p class="mb-0">Room Type</p>
+                                <h6 class="mb-0">{{ hotel.HotelName }}</h6>
+                                <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
+                            </div>
+                            <div class="trend-check border-b pb-2">
+                                <p class="mb-0">INC</p>
+                                <h6 class="mb-0">{{ hotel.OfferedPrice }}</h6>
+                                <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
+                            </div>
+                            {% endfor %}
+                        </div>  
+                        
                     </div>
                 </div>
             </div>
@@ -177,7 +209,71 @@
     </div>
     <!-- Back to top ends -->
 
+   <style>
+    .modal-backdrop {
+        display: none;
+    }
 
+    .navbar-default {
+        background: white !important;
+    }
+
+    footer {
+        z-index: 0;
+    }
+
+    .text_canpol {
+        height: 157px;
+        overflow-y: hidden;
+        font-size: 14px;
+    }
+
+    .fs-14 {
+        font-size: 14px !important;
+    }
+
+   </style>
+
+    <script>
+        function validateCheckbox(e) {
+            var valid = true;
+            document.getElementById('checkboxError').innerText = '';
+            var checkbox = document.getElementById('contactCheckbox').checked;
+            if (!checkbox) {
+            document.getElementById('checkboxError').innerText = 'Please select the checkbox';
+        } else {
+                valid = false;
+                razarpay();
+        } 
+            return valid;
+        }
+    </script>
+    <script> 
+        function razarpay() {
+            var options = {
+                key: "{{ razorpay_merchant_key }}", 
+                currency: "{{ currency }}",
+                name: "Vacation Feast", 
+                order_id: "{{ razorpay_order_id }}",
+                amount: "{{ amount_in_paise }}", 
+                callback_url: "{{ callback_url }}",
+                };
+                var rzp1 = new Razorpay(options);
+                
+                // add event listener to the payment button.
+                
+            
+                document.getElementById("pay-btn").onclick = function (e) {
+                rzp1.open();
+                e.preventDefault();
+                console.log("clicked")
+                } 
+            }
+            
+    </script>
+     {% block content %}
+
+     {% endblock content %} 
 
 
 

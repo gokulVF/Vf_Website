@@ -64,6 +64,9 @@ def logout_view(request):
 def home(request):
     return render(request, "home/flighthomepage.html")
 
+def successbook(request):
+    return render(request, "home/successbook.html")
+
 def hotel_homex(request):
     return render(request, "home/hotelhomeX.html")
 
