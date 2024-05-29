@@ -1028,7 +1028,7 @@ def hotelreview(request):
         footers = homefooter()
         footer_header = footers["footer_header"]
         footer_title = footers["footer_title"]
-        
+
         room_json_list = request.POST.get('roomJsonElement')  # Retrieve roomJsonElement value
         hotel_name = request.POST.get('hotelName')  # Retrieve hotelName value
         hide_123_value = request.POST.get('hide123Value')
@@ -1236,7 +1236,7 @@ def hotelreview(request):
 
                 # Pass the details dictionary to another HTML page
 
-                return render(request, 'home/hotelreview.html', {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username})
+                return render(request, 'home/hotelreview.html', {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 
                 # hotel_review = {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time}
                 # request.session['hotel_review'] = hotel_review
