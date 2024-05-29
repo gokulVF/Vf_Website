@@ -47,23 +47,20 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Timeout</h5>
-              <!-- <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button> -->
+            <div class="modal-header justify-content-center">
+              <h3 class="modal-title theme" id="exampleModalLabel">Timeout</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-2">
                 <div id="customPopup" class="container popup">
                     <div class="popup-content col-md-12 text-center">
-                        <p >Your session has timed out. Please try again.</p>
-                        <!-- <button  class="btn btn-primary ses-btn"></button> -->
+                        <img src="/VFpages/static/image/booking/Timeout.png" alt="">
+                        <p class="mt-2" mt-2="">Your session has timed out. Please try again.</p>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <a href="{% url 'hotel' %}"><button type="button" class="btn btn-secondary">Ok</button></a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -272,7 +269,7 @@
 
     <!-- Discount action Ends -->
 
-    <footer id="footer" class="text-center container-fluid mt-3 mb-1">
+    <footer id="footer" class="text-center container-fluid mt-3 mb-1" style="position: sticky;bottom: 0; z-index: 1;">
         <p class="mb-0 py-2" id="timer">Time remaining: 10:00</p>
     </footer>
   
@@ -614,9 +611,9 @@
                 if (timeRemaining < 0) {
                  $("#timeOutBtn").click();
                     updateTimerDisplay(0); 
-                    // alert("Your session has timed out. Please try again.");
-                    // document.getElementById("paymentForm").reset();
-                    // updateTimerDisplay(0); // Display 00:00 after timeout
+                    setTimeout(function() {
+                        window.location.href = "{% url 'hotel' %}"; // Replace with the desired URL
+                    }, 2000);
                 } else {
                     timeoutTimer = setTimeout(update, 1000);
                 }

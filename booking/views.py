@@ -667,7 +667,7 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                    <div class="item mb-1 border-all p-3 px-4 rounded">
+                                    <div class="item mb-1">
                                         <div class="room-info row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -682,7 +682,7 @@ def your_view(request):
                                                 </div>
                                             </div>
                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;  '}">
-                                                <button class="book-btn nir-btn-black"
+                                                <button class="book-btn nir-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
                                                 </button>
@@ -712,7 +712,7 @@ def your_view(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -917,7 +917,8 @@ def get_room_details(request):
                                         combination_room_indices.append(room_index)
                                 print(combination_room_indices)
                                 
-                                room_html = f"""  <div class="item mb-1 border-all p-3 px-4 rounded">
+                                room_html = f"""  
+                                    <div class="item mb-1">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -932,23 +933,21 @@ def get_room_details(request):
                                                 </div>
                                             </div>
                                              <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
-                                            <button class="nir-btn-black book-btn"
-                                                    onclick="bookRoom()">
-                                                Book Room
-                                            </button>
-                                         </div>
-                                        <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
-                                        <tbody id="cancellationPoliciesTableBody">
-                                        <div class="hide-elements" style="display: none;">
-                                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                            <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                            <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
-                                        </div>
+                                                <button class="nir-btn-black book-btn"
+                                                        onclick="bookRoom()">
+                                                    Book Room
+                                                </button>
+                                            </div>
+                                            <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
+                                            <tbody id="cancellationPoliciesTableBody">
+                                            <div class="hide-elements" style="display: none;">
+                                                <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+                                                <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+                                                <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
+                                            </div>
                                         </div>
                                         <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px;'}"></div>
-                                        </div>
                                     </div>
-
                                 """
                                 combination_html.append(room_html)
 
@@ -964,7 +963,7 @@ def get_room_details(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>

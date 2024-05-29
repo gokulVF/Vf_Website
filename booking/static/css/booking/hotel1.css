@@ -1,6 +1,8 @@
-.car-banner{
-    background-image: url("{% static 'image/images/testimonial.png' %}");
+
+.h-600 {
+ height: 500px;
 }
+
 .list {
     height: 200px;
     overflow-y: scroll !important;
@@ -8,9 +10,16 @@
 
 .pax_form {
     position: relative;
-    top: -520px;
+    margin-top: -60px;
     border-radius: 4px;
+    z-index: 1;
 }
+
+.pax_form_list {
+    margin-top: -20px;
+}
+
+
 
 .room-h {
     font-size: 12px;
@@ -146,3 +155,11 @@ table>tbody tr td, table thead tr th  {
     background-color: #f1f1f1 !important;
 }
 
+
+
+/* Queries */
+@media (max-width: 991px) { 
+    .slide_div {
+        display: none;
+    }
+}
