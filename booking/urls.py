@@ -17,11 +17,11 @@ urlpatterns= [
    path('testpdf/',views.testpdf,name='testpdf'),
    path('mail/',views.mail,name='mail'),
    path('mailsucess/',views.sendemail,name='mailsucess'),
-   path('signups/', views.signups, name='signups'),
-   path('login_views/',views.login_views,name='login_views'),
-   path('logout_view/',views.logout_view,name='logout_view'),
+   # path('signups/', views.signups, name='signups'),
+   # path('login_views/',views.login_views,name='login_views'),
+   # path('logout_view/',views.logout_view,name='logout_view'),
    path('download_pdfview/', views.download_pdfview, name='download_pdfview'),
-   path('change_password/', views.change_password, name='change_password'),
+   # path('change_password/', views.change_password, name='change_password'),
 
    # TEST
     path('listofhotelx/', views.listofhotelx, name='listofhotelx'),

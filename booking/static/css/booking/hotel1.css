@@ -163,3 +163,13 @@ table>tbody tr td, table thead tr th  {
         display: none;
     }
 }
+.fa-star.checked {
+    color: orange;
+}
+
+.fa-star.unchecked {
+    color: #ccc;
+}
+
+
+
