@@ -147,7 +147,7 @@
                 headers: {
                     'X-CSRFToken': csrftoken // Include CSRF token in headers
                 },
-                url: '/desti_add_deatils/', // Replace with your backend URL
+                url: '/desti_add_deatils', // Replace with your backend URL
                 data: formData,
                
                 processData: false,
@@ -155,7 +155,7 @@
                 success: function(response) {
                     document.getElementById("loadingbutton").style.display = "none";
                     document.getElementById("successmsg").style.display = "block";
-                    window.location.href = '/destination_attraction/';
+                    window.location.href = '/destination_attraction';
                 },
                 error: function(xhr, status, error) {
                     // Handle error

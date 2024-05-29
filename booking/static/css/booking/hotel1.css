@@ -146,3 +146,13 @@ table>tbody tr td, table thead tr th  {
     background-color: #f1f1f1 !important;
 }
 
+.fa-star.checked {
+    color: orange;
+}
+
+.fa-star.unchecked {
+    color: #ccc;
+}
+
+
+

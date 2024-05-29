@@ -48,17 +48,19 @@ from django.http import HttpResponse
 import smtplib
 from django.contrib.auth import logout
 
-def logout_view(request):
-    try:
-        del request.session['hidden_email']
-        del request.session['hidden_phone_number']
-        del request.session['hidden_username']
-    except KeyError:
-        pass  
+from VFpages.header_utils import header_fn,homefooter
 
-    logout(request)
+# def logout_view(request):
+#     try:
+#         del request.session['hidden_email']
+#         del request.session['hidden_phone_number']
+#         del request.session['hidden_username']
+#     except KeyError:
+#         pass  
 
-    return redirect(reverse('hotel'))
+#     logout(request)
+
+#     return redirect(reverse('hotel'))
 
 
 def home(request):
@@ -74,10 +76,21 @@ def listofhotelx(request):
     return render(request, "home/listofhotelx.html")
 
 def hotel(request):
+    destinations_data,all_categories = header_fn(request)
+    footers = homefooter()
+    footer_header = footers["footer_header"]
+    footer_title = footers["footer_title"]
+
     hidden_email = request.session.get('hidden_email','')
     hidden_phone_number = request.session.get('hidden_phone_number','')
+    hidden_firstname = request.session.get('hidden_first_name','')
+    hidden_lastname = request.session.get('hidden_last_name','')
+    # hidden_username = f"{hidden_firstname} {hidden_lastname}"
     hidden_username = request.session.get('hidden_username','')
-    return render(request, "home/hotelhome.html",{'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username})
+
+    
+
+    return render(request, "home/hotelhome.html",{'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 def navbar(request):
     return render(request, "home/navbar.html")
 
@@ -113,82 +126,82 @@ def get_client_ip(request):
     client_ip_address = ip_address
     return client_ip_address
 
-def login_views(request):
-    error = None
-    if request.method == 'POST':
-        email_or_phone = request.POST.get('email_or_phone')
-        password = request.POST.get('password')
-        print(email_or_phone)
-        # Check if email_or_phone or password is empty
-        if not email_or_phone or not password:
-           error_message = 'Email/Phone and Password fields cannot be empty.'
+# def login_views(request):
+#     error = None
+#     if request.method == 'POST':
+#         email_or_phone = request.POST.get('email_or_phone')
+#         password = request.POST.get('password')
+#         print(email_or_phone)
+#         # Check if email_or_phone or password is empty
+#         if not email_or_phone or not password:
+#            error_message = 'Email/Phone and Password fields cannot be empty.'
 
-        # Check if the user exists with the given email or phone number
-        user = Userdetails.objects.filter(Q(email=email_or_phone) | Q(phone_number=email_or_phone)).first()
+#         # Check if the user exists with the given email or phone number
+#         user = Userdetails.objects.filter(Q(email=email_or_phone) | Q(phone_number=email_or_phone)).first()
 
-        if user:
-            # Hash the provided password using MD5 hashing for comparison
-            hashed_password = hashlib.md5(password.encode()).hexdigest()
+#         if user:
+#             # Hash the provided password using MD5 hashing for comparison
+#             hashed_password = hashlib.md5(password.encode()).hexdigest()
 
-            # Check if the hashed password matches the one stored in the database
-            if user.password == hashed_password:
-                print(user.email)
-                print(user.password)
-                print(request.session)
-                request.session['hidden_email'] = user.email
-                request.session['hidden_phone_number'] = user.phone_number
-                request.session['hidden_username'] = user.username
-                email = user.email
-                phone_number = user.phone_number
-                username = user.username
-                # template = get_template(template_path)
-                # html = template.render(context)
-                # print(context)
-                return JsonResponse({'success': True, 'email': email,'phone_number':phone_number,'username':username})
-                # client_details = Hotelclientdetails.objects.filter(email=user.email)
-                # # Serialize the queryset to JSON
-                # serialized_data = serialize('json', client_details)
+#             # Check if the hashed password matches the one stored in the database
+#             if user.password == hashed_password:
+#                 print(user.email)
+#                 print(user.password)
+#                 print(request.session)
+#                 request.session['hidden_email'] = user.email
+#                 request.session['hidden_phone_number'] = user.phone_number
+#                 request.session['hidden_username'] = user.username
+#                 email = user.email
+#                 phone_number = user.phone_number
+#                 username = user.username
+#                 # template = get_template(template_path)
+#                 # html = template.render(context)
+#                 # print(context)
+#                 return JsonResponse({'success': True, 'email': email,'phone_number':phone_number,'username':username})
+#                 # client_details = Hotelclientdetails.objects.filter(email=user.email)
+#                 # # Serialize the queryset to JSON
+#                 # serialized_data = serialize('json', client_details)
                 
-                # # Initialize an empty dictionary to store hotel names and booking IDs
-                # # Initialize an empty list to store hotel data
-                # hotel_data = []
+#                 # # Initialize an empty dictionary to store hotel names and booking IDs
+#                 # # Initialize an empty list to store hotel data
+#                 # hotel_data = []
 
-                # # Deserialize the JSON string to a list of dictionaries
-                # deserialized_data = json.loads(serialized_data)
-                # for entry in deserialized_data:
-                #     # Extracting hotel name
-                #     fields = entry['fields']
-                #     user_info = fields.get('booking_information', {})
-                #     datas = json.dumps(user_info)
-                #     pdfs = fields.get('pdf_document', '')
-                #     print(datas)
-                #     hotel_name = user_info.get('hotel_name', {})
-                #     booking_id = user_info.get('booking_id', '')
+#                 # # Deserialize the JSON string to a list of dictionaries
+#                 # deserialized_data = json.loads(serialized_data)
+#                 # for entry in deserialized_data:
+#                 #     # Extracting hotel name
+#                 #     fields = entry['fields']
+#                 #     user_info = fields.get('booking_information', {})
+#                 #     datas = json.dumps(user_info)
+#                 #     pdfs = fields.get('pdf_document', '')
+#                 #     print(datas)
+#                 #     hotel_name = user_info.get('hotel_name', {})
+#                 #     booking_id = user_info.get('booking_id', '')
 
-                #     # Store hotel name and booking ID in a dictionary
-                #     entry_data = {'hotel_name': hotel_name, 'booking_id': booking_id,'datas':user_info}
+#                 #     # Store hotel name and booking ID in a dictionary
+#                 #     entry_data = {'hotel_name': hotel_name, 'booking_id': booking_id,'datas':user_info}
 
-                #     # Append entry data to the list
-                #     hotel_data.append(entry_data)
+#                 #     # Append entry data to the list
+#                 #     hotel_data.append(entry_data)
 
-                # print(hotel_data)
-                # details_dict = json.loads(serialized_data)
-                # print(details_dict)
-                # template_path = "home/hotelreview.html"
-                # # Authenticate user with the provided credentials
-                # context = request.session.get('hotel_review')
-                # return render(request,'signup/success.html',{"email":user.email,"hotel_data":hotel_data})
-            else:
-                # Password doesn't match, render login page with error message
-                 error_message = 'Invalid email/phone number or password.'
+#                 # print(hotel_data)
+#                 # details_dict = json.loads(serialized_data)
+#                 # print(details_dict)
+#                 # template_path = "home/hotelreview.html"
+#                 # # Authenticate user with the provided credentials
+#                 # context = request.session.get('hotel_review')
+#                 # return render(request,'signup/success.html',{"email":user.email,"hotel_data":hotel_data})
+#             else:
+#                 # Password doesn't match, render login page with error message
+#                  error_message = 'Invalid email/phone number or password.'
 
-        else:
-            # User not found, render login page with error message
-           error_message = 'User not found.'
+#         else:
+#             # User not found, render login page with error message
+#            error_message = 'User not found.'
 
-    # If the request method is not POST, render the login page
-    return JsonResponse({'success': False, 'error_message': error_message})
-# Function to get or refresh token
+#     # If the request method is not POST, render the login page
+#     return JsonResponse({'success': False, 'error_message': error_message})
+# # Function to get or refresh token
 
 def get_or_refresh_token(request):
     token_creation_time_str = request.session.get('token_creation_time')
@@ -237,7 +250,14 @@ def get_or_refresh_token(request):
 
 def process_form(request):
 
+
     if request.method == 'GET':
+        destinations_data,all_categories = header_fn(request)
+        footers = homefooter()
+        footer_header = footers["footer_header"]
+        footer_title = footers["footer_title"]
+
+
         token = get_or_refresh_token(request)
         print(token)
         if not token:
@@ -271,14 +291,17 @@ def process_form(request):
 
         print(total_rooms)
         print(guest_details)
-        format_check_in_date = datetime.datetime.strptime(check_in_str, "%d %B %Y").strftime("%d %b %Y")
-        check_in_date = datetime.datetime.strptime(check_in_str, '%d %B %Y')
-        formatted_check_in_date =  check_in_date.strftime('%d/%m/%Y')
+        format_check_in_date = datetime.datetime.strptime(check_in_str, "%Y-%m-%d").strftime("%d %b %Y")
+        check_in_date = datetime.datetime.strptime(check_in_str, "%Y-%m-%d")
+        formatted_check_in_date = check_in_date.strftime('%d/%m/%Y')
         print(formatted_check_in_date)
 
-        format_check_out_date = datetime.datetime.strptime(check_out, "%d %B %Y").strftime("%d %b %Y")
-        check_out_date = datetime.datetime.strptime(check_out, '%d %B %Y')
+        # format_check_out_date = datetime.datetime.strptime(check_out, "%d %B %Y").strftime("%d %b %Y")
+        format_check_out_date = datetime.datetime.strptime(check_out, "%Y-%m-%d").strftime("%d %b %Y")
+        # check_out_date = datetime.datetime.strptime(check_out, '%d %B %Y')
+        check_out_date = datetime.datetime.strptime(check_out, "%Y-%m-%d")
         formatted_check_out_date = check_out_date.strftime('%d/%m/%Y')
+        # formatted_check_out_date = check_out_date.strftime('%d/%m/%Y')
         print(formatted_check_out_date)
 
         request.session['check_in_date'] = format_check_in_date
@@ -367,12 +390,12 @@ def process_form(request):
                     min_price = 0
                     max_price = 1
                     error_message = 'No Hotels Avaliable'
-                    return render(request, 'home/listofhotel.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'countrycode':countrycode, 'nationality': city_name ,'personsdetails':personsdetails, 'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'num_nights':num_nights,'cityid':cityid,'totalroom':totalroom,'personsdetails':personsdetails,'totalroom':totalroom,'cityid':cityid,'countrycode':countrycode,'nationality':nationality, 'citytitle':city_name ,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,'total_adults':total_adults,'total_rooms':total_rooms})
+                    return render(request, 'home/listofhotel.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'countrycode':countrycode, 'nationality': city_name ,'personsdetails':personsdetails, 'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'num_nights':num_nights,'cityid':cityid,'totalroom':totalroom,'personsdetails':personsdetails,'totalroom':totalroom,'cityid':cityid,'countrycode':countrycode,'nationality':nationality, 'citytitle':city_name ,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,'total_adults':total_adults,'total_rooms':total_rooms,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
                 else:
                     # If not empty, calculate min and max prices
                     min_price = min(hotel_prices)
                     max_price = max(hotel_prices)
-                    return render(request, 'home/listofhotel.html', {'hotel_info': hotel_info , 'token_id': token_id,'countrycode':countrycode,'personsdetails':personsdetails, 'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'num_nights':num_nights,'cityid':cityid,'totalroom':totalroom,'no_of_adults':no_of_adults,'no_of_children':no_of_children,'total_adults':total_adults,'total_rooms':total_rooms,'personsdetails':personsdetails,'totalroom':totalroom,'cityid':cityid,'countrycode':countrycode,'nationality':nationality, 'citytitle':city_name ,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username })
+                    return render(request, 'home/listofhotel.html', {'hotel_info': hotel_info , 'token_id': token_id,'countrycode':countrycode,'personsdetails':personsdetails, 'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'num_nights':num_nights,'cityid':cityid,'totalroom':totalroom,'no_of_adults':no_of_adults,'no_of_children':no_of_children,'total_adults':total_adults,'total_rooms':total_rooms,'personsdetails':personsdetails,'totalroom':totalroom,'cityid':cityid,'countrycode':countrycode,'nationality':nationality, 'citytitle':city_name ,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username ,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 
             else:
                 error_message = "Error occurred during the hotel search request."
@@ -554,6 +577,13 @@ def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
         return JsonResponse({'error': f"Error: {ex}"})
         return JsonResponse(response_content)
 def your_view(request):
+    destinations_data,all_categories = header_fn(request)
+    footers = homefooter()
+    footer_header = footers["footer_header"]
+    footer_title = footers["footer_title"]
+    
+
+
     hotel_code = request.GET.get('hotel-code', None)
     trace_id = request.GET.get('trace-id', None)
     result_index = request.GET.get('result-index', None)
@@ -792,7 +822,9 @@ def your_view(request):
         }
         # print(combined_info)
 
-        return render(request, 'home/viewhotels.html', {'combined_info': combined_info,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username})
+    
+
+        return render(request, 'home/viewhotels.html', {'combined_info': combined_info,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 
 
     except requests.exceptions.RequestException as e:
@@ -992,6 +1024,11 @@ from django.utils import timezone
 
 def hotelreview(request):
     if request.method == 'POST':
+        destinations_data,all_categories = header_fn(request)
+        footers = homefooter()
+        footer_header = footers["footer_header"]
+        footer_title = footers["footer_title"]
+        
         room_json_list = request.POST.get('roomJsonElement')  # Retrieve roomJsonElement value
         hotel_name = request.POST.get('hotelName')  # Retrieve hotelName value
         hide_123_value = request.POST.get('hide123Value')
@@ -2172,85 +2209,85 @@ def sendemail(request):
 
 #Login and signup
 
-def signups(request):
-    error_message = None
-      # Initialize error message variable
-    if request.method == 'POST':
-        # Get form data
-        user_name = request.POST.get('user_name')
-        email = request.POST.get('email')
-        phone_number = request.POST.get('phone_number')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-        print(user_name)
+# def signups(request):
+#     error_message = None
+#       # Initialize error message variable
+#     if request.method == 'POST':
+#         # Get form data
+#         user_name = request.POST.get('user_name')
+#         email = request.POST.get('email')
+#         phone_number = request.POST.get('phone_number')
+#         password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
+#         print(user_name)
 
-        if not user_name or not email or not phone_number or not password or not confirm_password:
-            error_message = 'All fields are required.'
+#         if not user_name or not email or not phone_number or not password or not confirm_password:
+#             error_message = 'All fields are required.'
 
-        # Generate and send OTP to the user's phone number
-        # Check if user with provided email or phone number already exists
-        elif Userdetails.objects.filter(email=email).exists() or Userdetails.objects.filter(phone_number=phone_number).exists():
-            error_message = 'User with this email or phone number already exists.'
+#         # Generate and send OTP to the user's phone number
+#         # Check if user with provided email or phone number already exists
+#         elif Userdetails.objects.filter(email=email).exists() or Userdetails.objects.filter(phone_number=phone_number).exists():
+#             error_message = 'User with this email or phone number already exists.'
         
-        elif password != confirm_password:
-            error_message = 'Passwords do not match'
+#         elif password != confirm_password:
+#             error_message = 'Passwords do not match'
 
-        else:
-            # Encrypt the password using MD5 hashing
-            hashed_password = hashlib.md5(password.encode()).hexdigest()
-            print(hashed_password)
+#         else:
+#             # Encrypt the password using MD5 hashing
+#             hashed_password = hashlib.md5(password.encode()).hexdigest()
+#             print(hashed_password)
 
-            # Create and save the user with encrypted password
-            user = Userdetails(
-                username=user_name,
-                email=email,
-                phone_number=phone_number,
-                password=hashed_password
-            )
-            print(user)
-            user.save()
+#             # Create and save the user with encrypted password
+#             user = Userdetails(
+#                 username=user_name,
+#                 email=email,
+#                 phone_number=phone_number,
+#                 password=hashed_password
+#             )
+#             print(user)
+#             user.save()
 
-            # Redirect to a success page or login page
-            return JsonResponse({'success': True, 'success_message': 'Signup successful'})
+#             # Redirect to a success page or login page
+#             return JsonResponse({'success': True, 'success_message': 'Signup successful'})
 
-    return JsonResponse({'success': False, 'error_message': error_message})
+#     return JsonResponse({'success': False, 'error_message': error_message})
 
 # Change Password
-def change_password(request):
-    error_message = None
+# def change_password(request):
+#     error_message = None
 
-    if request.method == 'POST':
-        # Get form data
-        email_or_phone = request.POST.get('user_name')
-        new_password = request.POST.get('password')
-        confirm_new_password = request.POST.get('confirm_password')
+#     if request.method == 'POST':
+#         # Get form data
+#         email_or_phone = request.POST.get('user_name')
+#         new_password = request.POST.get('password')
+#         confirm_new_password = request.POST.get('confirm_password')
 
-        # Retrieve user based on email or phone number
-        user = Userdetails.objects.filter(email=email_or_phone).first() or \
-               Userdetails.objects.filter(phone_number=email_or_phone).first()
+#         # Retrieve user based on email or phone number
+#         user = Userdetails.objects.filter(email=email_or_phone).first() or \
+#                Userdetails.objects.filter(phone_number=email_or_phone).first()
 
-        if not user:
-            error_message = 'User not found.'
-        else:
-            # Retrieve user's current password from the database
-            current_password = user.password
+#         if not user:
+#             error_message = 'User not found.'
+#         else:
+#             # Retrieve user's current password from the database
+#             current_password = user.password
 
-            # Check if new password is the same as the old password
-            if hashlib.md5(new_password.encode()).hexdigest() == current_password:
-                error_message = 'New password cannot be the same as the old password.'
-            elif new_password != confirm_new_password:
-                error_message = 'New passwords do not match.'
-            else:
-                # Encrypt the new password using MD5 hashing
-                hashed_new_password = hashlib.md5(new_password.encode()).hexdigest()
+#             # Check if new password is the same as the old password
+#             if hashlib.md5(new_password.encode()).hexdigest() == current_password:
+#                 error_message = 'New password cannot be the same as the old password.'
+#             elif new_password != confirm_new_password:
+#                 error_message = 'New passwords do not match.'
+#             else:
+#                 # Encrypt the new password using MD5 hashing
+#                 hashed_new_password = hashlib.md5(new_password.encode()).hexdigest()
 
-                # Update the user's password
-                user.password = hashed_new_password
-                user.save()
+#                 # Update the user's password
+#                 user.password = hashed_new_password
+#                 user.save()
 
-                return JsonResponse({'success': True, 'success_message': 'Password changed successfully.'})
+#                 return JsonResponse({'success': True, 'success_message': 'Password changed successfully.'})
 
-    return JsonResponse({'success': False, 'error_message': error_message})
+#     return JsonResponse({'success': False, 'error_message': error_message})
 
 # def login_views(request):
 #     error = None
