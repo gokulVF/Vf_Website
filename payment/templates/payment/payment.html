@@ -90,17 +90,17 @@
                                 <p class="mb-0">{{ combined_data.cancellation_policy|safe }}</p>
                             </div>
                             <div class="text-end mb-2">
-                                <button class="theme2 fs-14 bg-white" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: underline;">Read More...</button>
+                                <button class="theme2 fs-14 py-0 px-3 shadows my-1 rounded-pill fs-14 bg-grey" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Read More...</button>
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2" style="max-width: 1250px;overflow-y: scroll;scrollbar-width: none;">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2" style="max-width: 1250px;">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title theme" id="exampleModalLabel">Cancellation Policy</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body border-t bg-grey p-2" style="font-size: 12px;">
+                                        <div class="modal-body border-t bg-grey p-2" style="font-size: 12px;overflow-y: scroll;height:300px;">
                                         <p>{{ combined_data.cancellation_policy|safe }}</p>
                                         </div>
                                     </div>
@@ -259,6 +259,14 @@
 
     .fs-14 {
         font-size: 14px !important;
+    }
+
+    .fa-star.checked {
+        color: orange;
+    }
+
+    .fa-star.unchecked {
+        color: #ccc;
     }
 
    </style>
