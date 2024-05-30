@@ -67,7 +67,7 @@ def home(request):
     return render(request, "home/flighthomepage.html")
 
 def successbook(request):
-    return render(request, "home/successbook.html")
+    return render(request, "home/success.html")
 
 def hotel_homex(request):
     return render(request, "home/hotelhomeX.html")
@@ -85,7 +85,11 @@ def hotel(request):
     hidden_phone_number = request.session.get('hidden_phone_number','')
     hidden_firstname = request.session.get('hidden_first_name','')
     hidden_lastname = request.session.get('hidden_last_name','')
-    # hidden_username = f"{hidden_firstname} {hidden_lastname}"
+    # Concatenate first name and last name
+    # hidden_username = f"{hidden_firstname} {hidden_lastname}".strip()
+
+    # Store the concatenated username in the session
+    # request.session['hidden_username'] = hidden_username
     hidden_username = request.session.get('hidden_username','')
 
     
@@ -1027,7 +1031,7 @@ def hotelreview(request):
         footers = homefooter()
         footer_header = footers["footer_header"]
         footer_title = footers["footer_title"]
-        
+
         room_json_list = request.POST.get('roomJsonElement')  # Retrieve roomJsonElement value
         hotel_name = request.POST.get('hotelName')  # Retrieve hotelName value
         hide_123_value = request.POST.get('hide123Value')
@@ -1235,7 +1239,7 @@ def hotelreview(request):
 
                 # Pass the details dictionary to another HTML page
 
-                return render(request, 'home/hotelreview.html', {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username})
+                return render(request, 'home/hotelreview.html', {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 
                 # hotel_review = {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time}
                 # request.session['hotel_review'] = hotel_review
@@ -1628,6 +1632,11 @@ def previewpage(request):
         return render(request, 'home/hotelhome.html')  
 
 def hotelbooked(request):
+    destinations_data,all_categories = header_fn(request)
+    footers = homefooter()
+    footer_header = footers["footer_header"]
+    footer_title = footers["footer_title"]
+
     razorpay_client = razorpay.Client(auth=("rzp_test_5bpcghNaRd7Qqg", "AyBHtno3opb2r4D1pVgqpPG5"))
     payment_id = request.session.get('payment_id', '')
     razor_paydetails = razorpay_client.payment.fetch(payment_id)
@@ -1998,7 +2007,7 @@ def hotelbooked(request):
                 pk = hotel_client_details.booking_id  
                 send_pdf_link(customer_phonenumber,customer_name,pk)
                 print("Booking Details:", booking_details)
-                return render(request, 'home/success.html',{'booking_details': booking_details,'booking_details_1':booking_details_1,'record_data':record_data})
+                return render(request, 'home/success.html',{'booking_details': booking_details,'booking_details_1':booking_details_1,'record_data':record_data,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
             elif response_data['BookResult']['HotelBookingStatus'] == 'VerifyPrice':
                 booking_details = {
                     'InvoiceNumber': response_data['BookResult']['InvoiceNumber'],
