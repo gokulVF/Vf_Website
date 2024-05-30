@@ -1142,10 +1142,10 @@ def login_views(request):
                 request.session['hidden_phone_number'] = user.whatsapp_number
                 request.session['hidden_first_name'] = user.first_name
                 request.session['hidden_last_name'] = user.last_name
-                # request.session['hidden_username'] = f"{user.first_name} {user.last_name}"
+                request.session['hidden_username'] = f"{user.first_name} {user.last_name}"
                 email = user.email
                 phone_number = user.phone_number
-                username = user.first_name
+                username = f"{user.first_name} {user.last_name}"
                
                 return JsonResponse({'success': True, 'email': email,'phone_number':phone_number,'username':username})
             else:

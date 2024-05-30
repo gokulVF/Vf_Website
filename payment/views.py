@@ -11,6 +11,7 @@ from django.http import HttpResponseBadRequest
 import razorpay
 import json
 import ast
+from VFpages.header_utils import header_fn,homefooter
 
 # Create your views here.
 def empty(request):
@@ -143,6 +144,11 @@ from django.shortcuts import render
 
 # hotel bookimg 
 def home(request):
+    destinations_data,all_categories = header_fn(request)
+    footers = homefooter()
+    footer_header = footers["footer_header"]
+    footer_title = footers["footer_title"]
+    name=f"{destinations_data.get('hidden_first_name')} {destinations_data.get('hidden_last_name')}"
     try:
         print(key)
         value = request.session.get('total_price', None)
@@ -155,7 +161,7 @@ def home(request):
         total_guests = request.session.get('total_guests',None)
         hidden_email = request.session.get('hidden_email','')
         hidden_phone_number = request.session.get('hidden_phone_number','')
-        hidden_username = request.session.get('hidden_username','')
+        hidden_username = name
         print(total_guests)
         # Extract hotel name and offer price
         hotel_details = []
@@ -272,9 +278,11 @@ def home(request):
         'currency': 'INR',
         'callback_url': callback_url,
         'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,
+        "all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title
+    
         }
     
-        return render(request, 'payment/payment.html', context=context,)
+        return render(request, 'payment/payment.html', context=context)
     except Exception as e:
         # Log the error if needed
         print("An error occurred:", e)

@@ -67,7 +67,7 @@ def home(request):
     return render(request, "home/flighthomepage.html")
 
 def successbook(request):
-    return render(request, "home/successbook.html")
+    return render(request, "home/success.html")
 
 def hotel_homex(request):
     return render(request, "home/hotelhomeX.html")
@@ -85,7 +85,11 @@ def hotel(request):
     hidden_phone_number = request.session.get('hidden_phone_number','')
     hidden_firstname = request.session.get('hidden_first_name','')
     hidden_lastname = request.session.get('hidden_last_name','')
-    # hidden_username = f"{hidden_firstname} {hidden_lastname}"
+    # Concatenate first name and last name
+    # hidden_username = f"{hidden_firstname} {hidden_lastname}".strip()
+
+    # Store the concatenated username in the session
+    # request.session['hidden_username'] = hidden_username
     hidden_username = request.session.get('hidden_username','')
 
     
@@ -697,7 +701,7 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                    <div class="item mb-1 border-all p-3 px-4 rounded">
+                                    <div class="item mb-1">
                                         <div class="room-info row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -712,7 +716,7 @@ def your_view(request):
                                                 </div>
                                             </div>
                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;  '}">
-                                                <button class="book-btn nir-btn-black"
+                                                <button class="book-btn nir-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
                                                 </button>
@@ -742,7 +746,7 @@ def your_view(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -949,7 +953,8 @@ def get_room_details(request):
                                         combination_room_indices.append(room_index)
                                 print(combination_room_indices)
                                 
-                                room_html = f"""  <div class="item mb-1 border-all p-3 px-4 rounded">
+                                room_html = f"""  
+                                    <div class="item mb-1">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -964,23 +969,21 @@ def get_room_details(request):
                                                 </div>
                                             </div>
                                              <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
-                                            <button class="nir-btn-black book-btn"
-                                                    onclick="bookRoom()">
-                                                Book Room
-                                            </button>
-                                         </div>
-                                        <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
-                                        <tbody id="cancellationPoliciesTableBody">
-                                        <div class="hide-elements" style="display: none;">
-                                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                            <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                            <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
-                                        </div>
+                                                <button class="nir-btn-black book-btn"
+                                                        onclick="bookRoom()">
+                                                    Book Room
+                                                </button>
+                                            </div>
+                                            <input type="hidden" id="CancellationPolicies" value="{room.get('CancellationPolicies', [])}">
+                                            <tbody id="cancellationPoliciesTableBody">
+                                            <div class="hide-elements" style="display: none;">
+                                                <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+                                                <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
+                                                <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
+                                            </div>
                                         </div>
                                         <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px;'}"></div>
-                                        </div>
                                     </div>
-
                                 """
                                 combination_html.append(room_html)
 
@@ -996,7 +999,7 @@ def get_room_details(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -1629,6 +1632,11 @@ def previewpage(request):
         return render(request, 'home/hotelhome.html')  
 
 def hotelbooked(request):
+    destinations_data,all_categories = header_fn(request)
+    footers = homefooter()
+    footer_header = footers["footer_header"]
+    footer_title = footers["footer_title"]
+
     razorpay_client = razorpay.Client(auth=("rzp_test_5bpcghNaRd7Qqg", "AyBHtno3opb2r4D1pVgqpPG5"))
     payment_id = request.session.get('payment_id', '')
     razor_paydetails = razorpay_client.payment.fetch(payment_id)
@@ -1999,7 +2007,7 @@ def hotelbooked(request):
                 pk = hotel_client_details.booking_id  
                 send_pdf_link(customer_phonenumber,customer_name,pk)
                 print("Booking Details:", booking_details)
-                return render(request, 'home/success.html',{'booking_details': booking_details,'booking_details_1':booking_details_1,'record_data':record_data})
+                return render(request, 'home/success.html',{'booking_details': booking_details,'booking_details_1':booking_details_1,'record_data':record_data,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
             elif response_data['BookResult']['HotelBookingStatus'] == 'VerifyPrice':
                 booking_details = {
                     'InvoiceNumber': response_data['BookResult']['InvoiceNumber'],
