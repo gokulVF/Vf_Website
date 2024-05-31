@@ -158,11 +158,61 @@ table>tbody tr td, table thead tr th  {
 
 
 /* Queries */
-@media (max-width: 991px) { 
+@media (max-width: 992px) { 
     .slide_div {
         display: none;
     }
+
+    .filter-menu{ 
+        position: static !important;
+    }
+
+   
 }
+
+@media (max-width: 600px) { 
+    .nav-pills .nav-link {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 520px) {
+    .nav-pills .nav-link {
+        padding: .5rem .5rem;
+    }
+}
+
+@media (max-width: 471px) {
+    .nav-pills .nav-link {
+        font-size: 12px;
+    }
+
+    .sort-by {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 433px) {
+    .nav-pills .nav-link {
+        padding: .2rem .4rem;
+    }
+
+    .atoz {
+        width: 12px !important;
+    }
+
+    
+}
+@media (max-width: 400px) {
+    .sort-by {
+        font-size: 10px;
+    }
+
+    .nav-pills .nav-link {
+        font-size: 10px;
+    }
+}
+
 .fa-star.checked {
     color: orange;
 }

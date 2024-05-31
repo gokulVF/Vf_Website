@@ -393,7 +393,7 @@ def process_form(request):
                     # If empty, assign zero as min and max values
                     min_price = 0
                     max_price = 1
-                    error_message = 'No Hotels Avaliable'
+                    error_message = 'No Hotels Available'
                     return render(request, 'home/listofhotel.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'countrycode':countrycode, 'nationality': city_name ,'personsdetails':personsdetails, 'min_price': min_price, 'max_price': max_price,'formatted_check_in_date':check_in_str ,'formatted_check_out_date':check_out,'num_nights':num_nights,'cityid':cityid,'totalroom':totalroom,'personsdetails':personsdetails,'totalroom':totalroom,'cityid':cityid,'countrycode':countrycode,'nationality':nationality, 'citytitle':city_name ,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,'total_adults':total_adults,'total_rooms':total_rooms,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
                 else:
                     # If not empty, calculate min and max prices
@@ -709,7 +709,7 @@ def your_view(request):
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
                                                 </div>
                                             </div>
-                                            <div class="price-info col-lg-4 col-md-4 col-sm-4 col-4">
+                                            <div class="price-info col-lg-4 col-md-4 col-sm-4 col-3">
                                                 <div class="rub-price item-inner flight-time">
                                                     <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
@@ -962,7 +962,7 @@ def get_room_details(request):
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
                                                     <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>

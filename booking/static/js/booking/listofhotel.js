@@ -276,7 +276,7 @@ function hiderooms(hotelCode) {
 
 function handleSelectRoom(hotelCode, traceId, resultIndex, tokenId) {
     // Your existing code for hiding rooms...
-    document.getElementById(hotelCode).innerHTML = "<div id='loading'></div>"
+    document.getElementById(hotelCode).innerHTML = "<div class='w-50 mx-auto d-flex align-items-center'><div id='loading' class='w-50 text-end'></div><p class='mb-0 theme1'>Loading....</p></div>"
     // AJAX request to send data to views.py
     var showButton = document.getElementById(hotelCode+'2');
     var hideButton = document.getElementById(hotelCode+'1');

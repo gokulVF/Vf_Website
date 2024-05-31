@@ -66,7 +66,7 @@
       </div>
 
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered p-2" role="document">
         <div class="modal-content rounded">
             <div class="modal-header">
             <h5 class="modal-title theme2 fs-4" id="exampleModalLongTitle"><img src="{% static 'image/booking/cancel-pic.png' %}" class="me-1" alt="" style="width: 20px;margin-bottom: 4px;"> Cancellation Policy</h5>
@@ -139,15 +139,15 @@
                                             <p class="theme2">Please enter user name and mobile number where you would like to receive your confirmation.</p>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="input-box col-lg-4">
+                                            <div class="input-box col-lg-4 mb-1">
                                                 <input type="text" class="username f-inp" name="user_name" placeholder="Enter Your Name" value="">
                                                 <span class="error" id="nameError"></span>
                                             </div>
-                                            <div class="input-box  col-lg-4">
+                                            <div class="input-box  col-lg-4 mb-1">
                                                 <input type="text" class="phone_number f-inp" name="phone_number" placeholder="Enter Your Number" value="" >
                                                 <span class="error" id="phoneError"></span>
                                             </div>
-                                            <div class="input-box  col-lg-4">
+                                            <div class="input-box  col-lg-4 mb-1">
                                                 <input type="text" class="email f-inp" name="email" placeholder="Enter Your Email" value="" >
                                                 <span class="error" id="emailError"></span>
                                             </div>
@@ -174,7 +174,7 @@
                                         <div id="hiddenGuestData" style="display: none;">{{ personsdetails }}</div>
                                     </div>
                                     <div class="text-end mt-2">
-                                        <button type="submit" id="myButton" onclick="sendit()" class="nir-btn float-lg-end w-25">Proceed To Preview</button>
+                                        <button type="submit" id="myButton" onclick="sendit()" class="nir-btn float-lg-end">Proceed To Preview</button>
                                     </div>
                                 </form>
                             </div>
@@ -487,20 +487,20 @@
                             <h4 class="name_no theme2">Adult ${i + 1}</h4>
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 mb-1">
                                 <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
                                     <option value="Mr">Mr</option>
                                     <option value="Mrs">Mrs</option>
                                     <option value="Miss">Miss</option>
                                 </select>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 mb-1">
                                 <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
                                 <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                             </div>
 
                             
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 mb-1">
                                 <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
                                 <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                             </div>
@@ -519,18 +519,18 @@
                             <h4 class="name_no theme2">Child ${j + 1}</h4>
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 mb-1">
                                 <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
                                     <option value="Mr">Mr</option>
                                     <option value="Mrs">Mrs</option>
                                     <option value="Miss">Miss</option>
                                 </select>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 mb-1">
                                 <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
                                 <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 mb-1">
                                 <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
                                 <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
                             </div>
