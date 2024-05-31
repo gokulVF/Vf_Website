@@ -25,7 +25,7 @@ from django.contrib.auth import logout
 from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.http import Http404
-
+from booking.models import Hotelclientdetails
 
 def careersnew(request):
     return render(request,"home/careersnew.html")
@@ -1225,6 +1225,8 @@ def portalhome(request):
     
     
 from .models import Uploadhotel,UploadFlight,UploadTransfers,UploadUserdetails
+
+from django.core.serializers import serialize
     
 def upcominghotel(request):
     # current_date = datetime.now().date()
@@ -1240,8 +1242,76 @@ def upcominghotel(request):
 
     current_date = timezone.now().date()
     hotel_details = Uploadhotel.objects.filter(phone_number=hidden_phone_number, check_out__gte=current_date)
+
+    # ------------------------- api booking details ----------------------------------------
+
+    client_details = Hotelclientdetails.objects.filter(email=hidden_email, phone_number=hidden_phone_number)
+    # Serialize the queryset to JSON
+    serialized_data = serialize('json', client_details)
+    deserialized_data = json.loads(serialized_data)
+    # print(deserialized_data)
+
+    upcoming_bookings = []
+
+    for entry in deserialized_data:
+        fields = entry['fields']
+        booking_id = fields.get('booking_id', '')
+        changerequestid = fields.get('changerequestid', '')
+        print(booking_id)
+        # print(changerequestid)
+
+        # Skip processing if booking_id is empty
+        if not booking_id or changerequestid is not None:
+            continue
+
+        booking_information = fields.get('booking_information')
+
+        # Skip processing if booking_information is empty
+        if not booking_information:
+            continue
+
+        user_info = booking_information
+        # print(user_info)
+        check_in_date_str = user_info.get('initial_checkin_date', None)
+        if check_in_date_str:
+           # Extracting relevant information
+            check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+            check_out_date = datetime.strptime(user_info['initial_checkout_date'], '%b %d %Y %H:%M:%S').date()
+
+            # Calculate total nights
+            total_nights = (check_out_date - check_in_date).days
+
+            # Extracting relevant information
+            check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+
+            # Testing
+            # dummy_date_string = 'Jan 05 2024 00:00:00'
+            # current_date = datetime.strptime(dummy_date_string, '%b %d %Y %H:%M:%S').date()
+
+            # Check if check-in date is on or after the current date
+            if check_in_date >= current_date:
+                booking_details = {
+                    'booking_id': booking_id,
+                    'hotel_name': user_info['hotel_name'],
+                    'confirmation_no': user_info['confirmation_no'],
+                    'RoomTypeName': user_info["Hotel_Passengers_Details"][0]["RoomTypeName"],
+                    'star_rating': user_info['star_rating'],
+                    'address_line_1': user_info['address_line_1'],
+                    'address_line_2': user_info['address_line_2'],
+                    'check_in_date': check_in_date.strftime('%b %d %Y'),
+                    'check_out_date': check_out_date.strftime('%b %d %Y'),
+                    'total_nights': total_nights
+                }
+
+                # Fetch paid amount using booking_id
+                try:
+                    booking_details['paid_amount'] = Hotelclientdetails.objects.get(booking_id=booking_id).payed_amount
+                except Hotelclientdetails.DoesNotExist:
+                    booking_details['paid_amount'] = None
+
+                upcoming_bookings.append(booking_details)
     
-    return render(request, 'home/user/upcominghotel.html',{'hidden_username': hidden_username,'user':user,"hotel_details":hotel_details})
+    return render(request, 'home/user/upcominghotel.html',{'hidden_username': hidden_username,'user':user,"hotel_details":hotel_details,'upcoming_bookings': upcoming_bookings})
 
 def upcomingflight(request):
     # current_date = datetime.now().date()
@@ -1398,10 +1468,10 @@ def send_whatsapp_message_2(phone_number, download_link,hotelname,username,booki
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.json()
 
-# from cryptography.fernet import Fernet
-# import base64
+from cryptography.fernet import Fernet
+import base64
 from django.conf import settings
-# fernet = Fernet(settings.SECRET_KEY)
+fernet = Fernet(settings.SECRET_KEY)
 from django.contrib.sites.shortcuts import get_current_site
 
 def send_pdf_link(request):
@@ -1677,3 +1747,468 @@ def send_captcha2(request):
 
     
 
+
+
+# ============================================================  api function =======================================================
+def cancel_booking(request):
+    if request.method == 'POST':
+        # Retrieve booking_id and remark from POST data
+        booking_id = request.POST.get('booking_id')
+        remark = request.POST.get('remark')
+        client_ip = request.session.get('client_ip','')
+        print(remark)
+
+        url = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'
+
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        data = {
+            'ClientId': "ApiIntegrationNew",
+            'UserName': "Vacation",
+            'Password': "Feast@123456",
+            'EndUserIp': "192.168.11.120",
+        }
+
+        try:
+            response = requests.post(url, json=data, headers=headers)
+            response.raise_for_status()
+
+            response_data = response.json()
+            if response.status_code == 200:
+                api_data = response.json()
+
+            #     # Construct the file path on the C drive
+            #     c_drive_path = "C:\Response"
+            #     file_name = "auth.txt"
+            #     notepad_file_path = os.path.join(c_drive_path, file_name)
+
+            # # Open the file in write mode ("w") to overwrite existing content
+            # with open(notepad_file_path, "w") as notepad_file:
+            #     notepad_file.write(str(api_data))
+
+            if response_data.get('TokenId', None):
+                token = response_data['TokenId']
+                print("Authentication successful. Token:", token)
+                api_url = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/SendChangeRequest'
+                end_user_ip = "192.168.11.120"
+
+                payload = {
+                    "BookingMode": 5,
+                    "RequestType": 4,
+                    "Remarks": remark,
+                    "BookingId": booking_id,
+                    "EndUserIp": client_ip,
+                    "TokenId": token
+                }
+
+                headers = {
+                    'Content-Type': 'application/json'
+                }
+
+                try:
+                    response = requests.post(api_url, data=json.dumps(payload), headers=headers)
+                    response.raise_for_status()  # Raise an exception for HTTP errors (status codes >= 400)
+                    data = response.json()
+                    Hotelclientdetails.objects.filter(booking_id=booking_id).update(remarks = remark)
+                    change_request_id = data['HotelChangeRequestResult']['ChangeRequestId']
+                    print(change_request_id)
+                    print("Success:", data)
+                    url = "http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetChangeRequestStatus/"
+                    payload = {
+                        "BookingMode": 5,
+                        "ChangeRequestId": change_request_id,
+                        "EndUserIp": "123.1.1.1",
+                        "TokenId": token
+                    }
+                    response = requests.post(url, json=payload)
+                    data2 = response.json()
+                    Hotelclientdetails.objects.filter(booking_id=booking_id).update(changerequestid = change_request_id)
+                    change_request_status = data2['HotelChangeRequestStatusResult']['ChangeRequestStatus']
+                    print("Change Request Status:", change_request_status)
+                    print(data2)
+                    status_mapping = {
+                        0: 'NotSet',
+                        1: 'Pending',
+                        2: 'InProgress',
+                        3: 'Processed',
+                        4: 'Rejected'
+                    }
+
+                    # Access the ChangeRequestStatus from data2
+                    change_request_status = data2['HotelChangeRequestStatusResult']['ChangeRequestStatus']
+
+                    # Assign the content according to the mapping
+                    content = status_mapping.get(change_request_status, 'Unknown')
+                    Hotelclientdetails.objects.filter(booking_id=booking_id).update(cancel_status = content)
+                    print(content)
+                    if change_request_status == 3:
+                        # Extract CancellationCharge and RefundedAmount
+                        cancellation_charge = data2['HotelChangeRequestStatusResult']['CancellationCharge']
+                        refunded_amount = data2['HotelChangeRequestStatusResult']['RefundedAmount']
+                        
+                        # Create a new JSON object
+                        new_json = {
+                            'CancellationCharge': cancellation_charge,
+                            'RefundedAmount': refunded_amount
+                        }
+                        
+                        # Convert to JSON format
+                        new_json_str = json.dumps(new_json)
+                        Hotelclientdetails.objects.filter(booking_id=booking_id).update(cancellation_details = new_json_str)
+                        
+                        print(new_json_str)
+
+                        return JsonResponse({'result': new_json_str})
+
+                    return JsonResponse({'result': content})
+
+                        
+                    # Handle success response if needed
+                except requests.exceptions.RequestException as e:
+                    print("Error:", e)
+                    # Handle error response if needed
+
+        
+        except requests.exceptions.RequestException as ex:
+            print(f"Error: {ex}")
+
+from cryptography.fernet import Fernet
+import base64
+from django.conf import settings
+fernet = Fernet(settings.SECRET_KEY)
+
+def send_pdf_link_mail(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('email')
+        booking_id = request.POST.get('booking_id')
+        print(type(booking_id))
+
+        # Encrypt the booking ID
+        enc_message = fernet.encrypt(booking_id.encode())
+        encrypted_token = base64.urlsafe_b64encode(enc_message).decode()
+
+        # Construct the URL for downloading the PDF
+        download_url = reverse('download_pdf_api')
+
+        # Construct the PDF download link with the URL
+        download_link = f'{download_url}?token={encrypted_token}'
+
+        send_whatsapp_message_api(phone_number, download_link)
+
+       # Construct the email message
+        subject = "Your PDF Download Link"
+        message = f"Subject: {subject}\n\nDear User,\n\nPlease find the link to download your PDF: {download_link}"
+
+        try:
+            # Connect to the SMTP server
+            s = smtplib.SMTP('smtppro.zoho.com', 587)
+            s.starttls()
+
+            # Login to the SMTP server
+            s.login("tharun@vacationfeast.com", "nBvizb5wji94")
+
+            # Send the email
+            s.sendmail("bookings@vacationfeast.com", message.encode('utf-8'))
+            s.quit()
+
+            return JsonResponse({'success': True, 'download_link': download_link})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+def send_whatsapp_message_api(phone_number, download_link):
+    gallabox_api_key = settings.GALLABOX_API_KEY
+    gallabox_api_secret = settings.GALLABOX_API_SECRET
+    gallabox_Channelid = settings.GALLABOX_CHANNELID
+    url = "https://server.gallabox.com/devapi/messages/whatsapp"
+
+    payload = json.dumps({
+      "channelId": gallabox_Channelid,  # Replace with your channelId
+      "channelType": "whatsapp",
+      "recipient": {
+        "name": "test",
+        "phone": f"91{phone_number}"  # Recipient's phone number
+      },
+      "whatsapp": {
+        "type": "template",
+        "template": {
+          "templateName": "website_for_pdf_link",
+          "bodyValues": {
+            "name": 'nAME',
+          },
+          "buttonValues": [
+                {
+                    "index": 0,
+                    "sub_type": "url",
+                    "parameters": {
+                        "type": "text",
+                        "text": download_link
+                    }
+                }
+            ]
+        }
+      }
+    })
+    headers = {
+      'apiSecret': gallabox_api_secret,  # Replace with your apiSecret
+      'apiKey': gallabox_api_key,        # Replace with your apiKey
+      'Content-Type': 'application/json'
+    }
+    print(payload)
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response.json()
+
+
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def download_pdf_api(request):
+    if request.method == 'GET':
+        encrypted_token = request.GET.get('token')
+        print(encrypted_token)
+
+        # Decrypt the encrypted token to get the booking ID
+        enc_message = base64.urlsafe_b64decode(encrypted_token.encode())
+        decrypted_number = fernet.decrypt(enc_message).decode()
+        # decrypted_number = decrypt_number(key, encrypted_token)
+        print("Decrypted number:", decrypted_number)
+        booking_id = decrypted_number
+        print(booking_id)
+        template_path = 'home/pdf.html'
+        hotel_client_details = Hotelclientdetails.objects.get(booking_id=booking_id)
+        context = {
+            'booking_details_1':hotel_client_details.booking_information,
+            'User_Name':hotel_client_details.user_name,
+            'phone_number':hotel_client_details.phone_number
+        }
+        print(context)
+        # Create a Django response object, and specify content_type as pdf
+        template = get_template(template_path)
+        html = template.render(context)
+
+        # Generate PDF
+
+        # # Return a response indicating success
+        # return HttpResponse('PDF successfully generated and saved to the database.')
+        response = HttpResponse(content_type='application/pdf')
+
+        response['Content-Disposition'] = f'filename="{hotel_client_details.booking_id}_payslip.pdf"'
+        # find the template and render it.
+        
+
+        # create a pdf
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
+        # if error then show some funy view
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+            # hotel_client_details.pdf_document.save(f'{hotel_client_details.booking_id}_payslip.pdf', response)
+        return response
+
+
+def download_booking_pdf(request, pk):
+    template_path = 'home/user/downloadpdf.html'
+    hotel_client_details = Hotelclientdetails.objects.get(booking_id=pk)
+    context = {
+        'booking_details_1': hotel_client_details.booking_information,
+        'User_Name': hotel_client_details.user_name,
+        'phone_number': hotel_client_details.phone_number
+    }
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{hotel_client_details.booking_id}_payslip.pdf"'
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+    return response
+
+def cancel_status(request):
+    if request.method == 'POST':
+        # Retrieve booking_id and remark from POST data
+        book_id = request.POST.get('booking_id')
+        hotel_client_details = Hotelclientdetails.objects.get(booking_id=book_id)
+        change_request_id = hotel_client_details.changerequestid
+        print(change_request_id)
+        url = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'
+
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        data = {
+            'ClientId': "ApiIntegrationNew",
+            'UserName': "Vacation",
+            'Password': "Feast@123456",
+            'EndUserIp': "192.168.11.120",
+        }
+
+        try:
+            response = requests.post(url, json=data, headers=headers)
+            response.raise_for_status()
+
+            response_data = response.json()
+            if response.status_code == 200:
+                api_data = response.json()
+
+            if response_data.get('TokenId', None):
+                token = response_data['TokenId']
+                print("Authentication successful. Token:", token)
+            
+                url = "http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetChangeRequestStatus/"
+                payload = {
+                    "BookingMode": 5,
+                    "ChangeRequestId": change_request_id,
+                    "EndUserIp": "123.1.1.1",
+                    "TokenId": token
+                }
+                print(payload)
+                response = requests.post(url, json=payload)
+                data2 = response.json()
+                print(data2)
+                status_mapping = {
+                    0: 'NotSet',
+                    1: 'Pending',
+                    2: 'InProgress',
+                    3: 'Processed',
+                    4: 'Rejected'
+                }
+
+                # Access the ChangeRequestStatus from data2
+                change_request_status = data2['HotelChangeRequestStatusResult']['ChangeRequestStatus']
+
+                # Assign the content according to the mapping
+                content = status_mapping.get(change_request_status, 'Unknown')
+                Hotelclientdetails.objects.filter(booking_id=book_id).update(cancel_status = content)
+                print(content)
+                if change_request_status == 3:
+                    # Extract CancellationCharge and RefundedAmount
+                    cancellation_charge = data2['HotelChangeRequestStatusResult']['CancellationCharge']
+                    refunded_amount = data2['HotelChangeRequestStatusResult']['RefundedAmount']
+                    
+                    # Create a new JSON object
+                    new_json = {
+                        'CancellationCharge': cancellation_charge,
+                        'RefundedAmount': refunded_amount
+                    }
+                    
+                    # Convert to JSON format
+                    new_json_str = json.dumps(new_json)
+                    Hotelclientdetails.objects.filter(booking_id=book_id).update(cancellation_details = new_json_str)
+                    
+                    print(new_json_str)
+
+                    return JsonResponse({'result': new_json_str})
+
+                return JsonResponse({'result': content})
+
+                    
+                # Handle success response if needed
+        except requests.exceptions.RequestException as e:
+            print("Error:", e)
+            # Handle error response if needed
+def check_cancel(request):
+    if request.method == 'POST':
+        # Retrieve booking_id and remark from POST data
+        booking_id = request.POST.get('booking_id')
+    # Get the record with the given booking_id, non-null changerequestid, and non-null remarks
+        booking_details = Hotelclientdetails.objects.filter(booking_id=booking_id, changerequestid__isnull=False, remarks__isnull=False).first()
+        if booking_details:
+            remarks = booking_details.remarks
+            return JsonResponse({'bookingid': booking_id,'remarks':remarks})
+            print(f"Remarks for booking ID {booking_id}: {remarks}")
+        else:
+            return JsonResponse({'bookingid': booking_id,'remarks':"None"})
+            print(f"No change request found with remarks for booking ID: {booking_id}")
+
+def hotelcancelled(request):
+     # Retrieve session variables
+    # Retrieve session variables
+    hidden_email = request.session.get('hidden_email', '')
+    hidden_phone_number = request.session.get('hidden_phone_number', '')
+    hidden_username = request.session.get('hidden_first_name', '')
+
+    print(hidden_email,hidden_phone_number,hidden_username)
+    user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
+
+    if not hidden_phone_number and not hidden_username:
+        return HttpResponse("File not found")
+
+    client_details = Hotelclientdetails.objects.filter(email=hidden_email, phone_number=hidden_phone_number)
+    # Serialize the queryset to JSON
+    serialized_data = serialize('json', client_details)
+    deserialized_data = json.loads(serialized_data)
+
+    Canceled_hotel = []
+    for entry in deserialized_data:
+        fields = entry['fields']
+        booking_id = fields.get('booking_id', '')
+        changerequestid = fields.get('changerequestid', '')
+        print(booking_id)
+
+        # Skip processing if booking_id is empty
+        if not booking_id:
+            continue
+
+        booking_information = fields.get('booking_information')
+
+        # Skip processing if booking_information is empty
+        if not booking_information:
+            continue
+
+        user_info = booking_information
+        print(user_info)
+        if changerequestid:
+           # Extracting relevant information
+            check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+            check_out_date = datetime.strptime(user_info['initial_checkout_date'], '%b %d %Y %H:%M:%S').date()
+
+            # Calculate total nights
+            total_nights = (check_out_date - check_in_date).days
+
+            # Extracting relevant information
+            check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+
+            # Testing
+            dummy_date_string = 'Jan 05 2024 00:00:00'
+            current_date = datetime.strptime(dummy_date_string, '%b %d %Y %H:%M:%S').date()
+
+            # Check if check-in date is on or after the current date
+            if check_in_date >= current_date:
+                booking_details = {
+                    'booking_id': booking_id,
+                    'hotel_name': user_info['hotel_name'],
+                    'star_rating': user_info['star_rating'],
+                    'confirmation_no': user_info['confirmation_no'],
+                    'RoomTypeName': user_info["Hotel_Passengers_Details"][0]["RoomTypeName"],
+                    'address_line_1': user_info['address_line_1'],
+                    'address_line_2': user_info['address_line_2'],
+                    'check_in_date': check_in_date.strftime('%b %d %Y'),
+                    'check_out_date': check_out_date.strftime('%b %d %Y'),
+                    'total_nights': total_nights
+                }
+
+                # Fetch paid amount using booking_id
+                try:
+                    booking_details['paid_amount'] = Hotelclientdetails.objects.get(booking_id=booking_id).payed_amount
+                except Hotelclientdetails.DoesNotExist:
+                    booking_details['paid_amount'] = None
+                # Fetch paid amount using booking_id
+                try:
+                    booking_details['changerequestid'] = Hotelclientdetails.objects.get(booking_id=booking_id).changerequestid
+                except Hotelclientdetails.DoesNotExist:
+                    booking_details['changerequestid'] = None
+
+                Canceled_hotel.append(booking_details)
+
+    print(Canceled_hotel)
+    return render(request, 'home/user/hotelcancel.html', {'upcoming_bookings': Canceled_hotel,'hidden_username': hidden_username,'user':user})
