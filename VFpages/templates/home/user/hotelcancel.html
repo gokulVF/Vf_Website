@@ -82,10 +82,7 @@
       <div class="row ">
         
         <div class="col-lg-10 mx-auto">
-          <div class="canpol text-end mt-2">
-                  <button type="button"  style="font-size: 14px;border: none;font-weight: 600; text-decoration: underline;" data-bs-toggle="modal" data-bs-target="#basicModal{{ booking.booking_id }}" id="basic{{ booking.booking_id }}">Check Cancellation Status</button>
-                  <a href="" style="display: none;"><p></p></a>
-                </div>
+         
                 <script>
                     $(document).ready(function() {
                         // Add click event listener to the button
@@ -140,9 +137,9 @@
         <div class="modal-body text-center">
          <h4  class="card-title mb-0">loading...</h4>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Ok</button>
+        <div class="modal-footer justify-content-center" style="border-top: none;">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="submit" class="cansub_btn py-2 px-4"  data-bs-dismiss="modal">Ok</button>
         </div>
       </div>
     </div>
@@ -152,7 +149,11 @@
 
           <div class="card rounded">
             <div class="card-body px-4 py-2 ">
-              <div class="row bg-blue p-3 rounded">
+              <div class="row bg-blue p-2 rounded">
+                <div class="canpol text-end mt-0">
+                  <button type="button" class="py-1 status-btn" data-bs-toggle="modal" data-bs-target="#basicModal{{ booking.booking_id }}" id="basic{{ booking.booking_id }}"><img src="/VFpages/static/image/booking/cancel-pic.png" class="me-1" alt="" style="width: 20px;margin-bottom: 4px;">Check Cancellation Status</button>
+                  <a href="" style="display: none;"><p></p></a>
+                </div>
                     <div class="col-lg-4">
                       <p class="card-title pb-0 mb-2"><i class='fas fa-building me-2'></i>Hotel Name</p>
                       <p id="hotel_name_{{ booking.id }}"> {{ booking.hotel_name }}</p>
@@ -335,6 +336,22 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <style>
+    .status-btn {
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      background: none ;
+    }
+
+    .cansub_btn {
+      background: #029e9d;
+      color: white;
+      border-radius: 4px;
+      border: none;
+    }
+  </style>
 
     <!-- Vendor JS Files -->
     <script src="{% static 'js/signup/apexcharts.min.js' %}"></script>

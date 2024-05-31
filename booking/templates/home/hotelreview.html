@@ -23,7 +23,6 @@
     <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
 
  
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
     <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 
@@ -65,16 +64,14 @@
         </div>
       </div>
 
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered p-2" role="document">
-        <div class="modal-content rounded">
+      <div class="modal fade" id="exampleModalCenter2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2" style="max-width: 650px;">
+        <div class="modal-content" style="border-radius: 4px;">
             <div class="modal-header">
             <h5 class="modal-title theme2 fs-4" id="exampleModalLongTitle"><img src="{% static 'image/booking/cancel-pic.png' %}" class="me-1" alt="" style="width: 20px;margin-bottom: 4px;"> Cancellation Policy</h5>
-            <button type="button" class="close-btn px-3 py-1 bg-grey box-shadow rounded-pill border-all" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body border-t">
+            <div class="modal-body border-t bg-grey ">
                 <div class="">
                     <p class="cp_refund theme" style="font-size: 14px;">Full Refund Allowed</p>
                     <table class="cancel_table text-start">
@@ -117,10 +114,14 @@
                             </div> -->
                          
                             <!--Cancel Popup Btn-->
-                            <div class="text-end">
-                                <button type="button" class="black mb-2 bg-white can-btn text-decoration-underline" style="font-size: 14px;" data-toggle="modal" data-target="#exampleModalCenter">
+                            <!-- <div class="text-end">
+                                <button type="button" class="black mb-2 bg-white can-btn text-decoration-underline" data-toggle="modal" data-target="#exampleModalCenter">
                                    <img src="{% static 'image/booking/cancel-pic.png' %}" class="me-1" alt="" style="width: 20px;margin-bottom: 4px;"> Cancellation Policy
                                 </button>
+                            </div> -->
+                            <div class="text-end mb-2">
+                                <button class="black mb-2 bg-white can-btn text-decoration-underline" style="font-size: 14px;"  type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalCenter2" >
+                                <img src="{% static 'image/booking/cancel-pic.png' %}" class="me-1" alt="" style="width: 20px;margin-bottom: 4px;"> Cancellation Policy</button>
                             </div>
                             <a href="" style="display: none;"><p>{{ details.cancellation_policy }}</p></a>
                            
@@ -294,6 +295,7 @@
 
     table>thead tr th, table>tbody tr td {
        font-size: 14px;
+       background: white;
     }
 
     .cp_list li{
@@ -321,7 +323,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
     <script>
         // Sample data similar to details.CancellationPolicies
