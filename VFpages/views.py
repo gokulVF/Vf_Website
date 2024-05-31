@@ -1238,7 +1238,8 @@ def upcominghotel(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     current_date = timezone.now().date()
     hotel_details = Uploadhotel.objects.filter(phone_number=hidden_phone_number, check_out__gte=current_date)
@@ -1325,7 +1326,8 @@ def upcomingflight(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     current_date = timezone.now().date()
     hotel_details = UploadFlight.objects.filter(phone_number=hidden_phone_number, returendate__gte=current_date)
@@ -1344,7 +1346,8 @@ def transfersuser(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     hotel_details = UploadTransfers.objects.filter(phone_number=hidden_phone_number)
     
@@ -1362,7 +1365,8 @@ def ticketsuser(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     hotel_details = UploadUserdetails.objects.filter(phone_number=hidden_phone_number)
     
@@ -1380,7 +1384,8 @@ def visauser(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     hotel_details = UploadUserdetails.objects.filter(phone_number=hidden_phone_number)
     
@@ -1398,7 +1403,8 @@ def insuranceuser(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     hotel_details = UploadUserdetails.objects.filter(phone_number=hidden_phone_number)
     
@@ -1416,7 +1422,8 @@ def passportuser(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     hotel_details = UploadUserdetails.objects.filter(phone_number=hidden_phone_number)
     
@@ -1703,7 +1710,8 @@ def download_attachment(request, id, type):
 
         return HttpResponse("File not found", status=404)
     else:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     
 from django.utils import timezone
@@ -1714,12 +1722,85 @@ def hotelcompleted(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
     current_date = timezone.now().date()
     next_date = current_date + timezone.timedelta(days=-1)
     hotel_details = Uploadhotel.objects.filter(phone_number=hidden_phone_number, check_out__lte=next_date)
     print(hotel_details)
-    return render(request , 'home/user/hotelcom.html',{'hidden_username': hidden_username,'user':user,"hotel_details":hotel_details})
+
+    # ==================Api booking hotel ==========================
+
+    client_details = Hotelclientdetails.objects.filter(email=hidden_email, phone_number=hidden_phone_number)
+    # Serialize the queryset to JSON
+    serialized_data = serialize('json', client_details)
+    deserialized_data = json.loads(serialized_data)
+
+    Hotel_history = []
+    for entry in deserialized_data:
+        fields = entry['fields']
+        booking_id = fields.get('booking_id', '')
+        changerequestid = fields.get('changerequestid', '')
+        print(booking_id)
+
+        # Skip processing if booking_id is empty
+        if not booking_id:
+            continue
+
+        booking_information = fields.get('booking_information')
+
+        # Skip processing if booking_information is empty
+        if not booking_information:
+            continue
+
+        user_info = booking_information
+        print(user_info)
+        # Extracting relevant information
+        check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+        check_out_date = datetime.strptime(user_info['initial_checkout_date'], '%b %d %Y %H:%M:%S').date()
+
+        # Calculate total nights
+        total_nights = (check_out_date - check_in_date).days
+
+        # Extracting relevant information
+        check_in_date = datetime.strptime(user_info['initial_checkin_date'], '%b %d %Y %H:%M:%S').date()
+
+        # Testing
+        # current_date = datetime.strptime(current_date, '%b %d %Y %H:%M:%S').date()
+
+        # Check if check-in date is on or after the current date
+        if check_in_date <= current_date:
+            booking_details = {
+                'booking_id': booking_id,
+                'hotel_name': user_info['hotel_name'],
+                'star_rating': user_info['star_rating'],
+                'confirmation_no': user_info['confirmation_no'],
+                'RoomTypeName': user_info["Hotel_Passengers_Details"][0]["RoomTypeName"],
+                'address_line_1': user_info['address_line_1'],
+                'address_line_2': user_info['address_line_2'],
+                'check_in_date': check_in_date.strftime('%b %d %Y'),
+                'check_out_date': check_out_date.strftime('%b %d %Y'),
+                'total_nights': total_nights
+            }
+
+            # Fetch paid amount using booking_id
+            try:
+                booking_details['paid_amount'] = Hotelclientdetails.objects.get(booking_id=booking_id).payed_amount
+            except Hotelclientdetails.DoesNotExist:
+                booking_details['paid_amount'] = None
+            # Fetch paid amount using booking_id
+            try:
+                booking_details['changerequestid'] = Hotelclientdetails.objects.get(booking_id=booking_id).changerequestid
+            except Hotelclientdetails.DoesNotExist:
+                booking_details['changerequestid'] = None
+
+            Hotel_history.append(booking_details)
+
+    print(Hotel_history)
+
+
+
+    return render(request , 'home/user/hotelcom.html',{'hidden_username': hidden_username,'user':user,"hotel_details":hotel_details,"Hotel_history":Hotel_history})
 
 def flightcompleted(request):
     hidden_email = request.session.get('hidden_email', '')
@@ -1728,7 +1809,8 @@ def flightcompleted(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
     current_date = timezone.now().date()
     next_date = current_date + timezone.timedelta(days=-1)
     hotel_details = UploadFlight.objects.filter(phone_number=hidden_phone_number, returendate__lte=next_date)
@@ -1883,6 +1965,7 @@ def send_pdf_link_mail(request):
     if request.method == 'POST':
         phone_number = request.POST.get('email')
         booking_id = request.POST.get('booking_id')
+        user = request.POST.get('user')
         print(type(booking_id))
 
         # Encrypt the booking ID
@@ -1895,7 +1978,7 @@ def send_pdf_link_mail(request):
         # Construct the PDF download link with the URL
         download_link = f'{download_url}?token={encrypted_token}'
 
-        send_whatsapp_message_api(phone_number, download_link)
+        send_whatsapp_message_api(phone_number,user,download_link)
 
        # Construct the email message
         subject = "Your PDF Download Link"
@@ -1919,7 +2002,7 @@ def send_pdf_link_mail(request):
 
     return JsonResponse({'success': False, 'error': 'Method not allowed'})
 
-def send_whatsapp_message_api(phone_number, download_link):
+def send_whatsapp_message_api(phone_number,user,download_link):
     gallabox_api_key = settings.GALLABOX_API_KEY
     gallabox_api_secret = settings.GALLABOX_API_SECRET
     gallabox_Channelid = settings.GALLABOX_CHANNELID
@@ -1937,7 +2020,7 @@ def send_whatsapp_message_api(phone_number, download_link):
         "template": {
           "templateName": "website_for_pdf_link",
           "bodyValues": {
-            "name": 'nAME',
+            "name": user,
           },
           "buttonValues": [
                 {
@@ -1978,7 +2061,7 @@ def download_pdf_api(request):
         print("Decrypted number:", decrypted_number)
         booking_id = decrypted_number
         print(booking_id)
-        template_path = 'home/pdf.html'
+        template_path = 'home/user/downloadpdf.html'
         hotel_client_details = Hotelclientdetails.objects.get(booking_id=booking_id)
         context = {
             'booking_details_1':hotel_client_details.booking_information,
@@ -2141,7 +2224,8 @@ def hotelcancelled(request):
     user = Userdetails.objects.filter(Q(email=hidden_email) | Q(whatsapp_number=hidden_phone_number)).first()
 
     if not hidden_phone_number and not hidden_username:
-        return HttpResponse("File not found")
+        # return HttpResponse("File not found")
+        return redirect('home_page')
 
     client_details = Hotelclientdetails.objects.filter(email=hidden_email, phone_number=hidden_phone_number)
     # Serialize the queryset to JSON

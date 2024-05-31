@@ -1641,15 +1641,15 @@ def hotelbooked(request):
     payment_id = request.session.get('payment_id', '')
     razor_paydetails = razorpay_client.payment.fetch(payment_id)
     inserted_row_id = request.session.get('inserted_row_id', None)
-    # Hotelclientdetails.objects.filter(id=inserted_row_id).update(
-    # payment_information = razor_paydetails
-    # # )
-    # amount = razor_paydetails['amount']
+    Hotelclientdetails.objects.filter(id=inserted_row_id).update(
+    payment_information = razor_paydetails
+    )
+    amount = razor_paydetails['amount']
     client_ip = request.session.get('client_ip','')
 
     value = request.session.get('total_price', None)
-    # check_value = amount / 100
-    if value == value:
+    check_value = amount / 100
+    if value == check_value:
         block_book = request.session.get('block_book')
         data = request.session.get('data_1')
         hide_123_val = request.POST.get('hide_123_val')
