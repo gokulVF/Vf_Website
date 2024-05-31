@@ -66,6 +66,14 @@ urlpatterns= [
     path('send_captcha2',views.send_captcha2,name='send_captcha2'),
     path('careersnew',views.careersnew,name='careersnew'),
 
+    # ==================== api url =================================
+    path('cancel-booking', views.cancel_booking, name='cancel_booking'),
+    path('send_pdf_link_mail', views.send_pdf_link_mail, name='send_pdf_link_mail'),
+    path('download_pdf_api/', views.download_pdf_api, name='download_pdf_api'),
+    path('download_booking_pdf/<int:pk>/', views.download_booking_pdf, name='download_booking_pdf'),
+    path('check_cancel/',views.check_cancel,name='check_cancel'),
+    path('cancel_status/',views.cancel_status,name='cancel_status'),
+    path('hotelcancelled/',views.hotelcancelled,name='hotelcancelled'),
     
 
 ]
