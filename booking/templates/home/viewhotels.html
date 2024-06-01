@@ -560,6 +560,8 @@
             
             if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
                 var form = document.createElement('form');
+                document.getElementById('preloader').style.display = 'block';
+                document.getElementById('status').style.display = 'block';
                 form.method = 'POST';
                 form.action = '/hotelreview/';
                 var roomJsonList = document.getElementById('hide-123').value;

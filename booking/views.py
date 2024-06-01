@@ -67,7 +67,7 @@ def home(request):
     return render(request, "home/flighthomepage.html")
 
 def successbook(request):
-    return render(request, "home/success.html")
+    return render(request, "home/successtest.html")
 
 def hotel_homex(request):
     return render(request, "home/hotelhomeX.html")
@@ -969,7 +969,7 @@ def get_room_details(request):
                                                 </div>
                                             </div>
                                              <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
-                                                <button class="nir-btn-black book-btn"
+                                                <button class="nir-btn-black book-btn" id="hs-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
                                                 </button>

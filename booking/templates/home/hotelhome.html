@@ -512,6 +512,8 @@
                     function test() {
                         if(validateForm()){
                             document.getElementById("input-sec234").submit();
+                            document.getElementById('preloader').style.display = 'block';
+                            document.getElementById('status').style.display = 'block';
                         }
                     }
                 </script>
@@ -846,6 +848,8 @@ $(function () {
         setNextDate();
     });
 </script>
+
+
 
 </body>
 

@@ -398,7 +398,8 @@
             function mod() {
                 if(validateForm()){
                     document.getElementById("modify-sec").submit();
-                    console.log("modified")
+                    document.getElementById('preloader').style.display = 'block';
+                    document.getElementById('status').style.display = 'block';
                 }
             }
         </script>
@@ -559,7 +560,7 @@
                                             <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
                                             <h3 class="mb-2"><a href="#" class="">{{ hotel.HotelName }}</a></h3>
                                             <address class="address">{{ hotel.Address }}</address>
-                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" class="theme view_det"><img src="{% static 'image/booking/bed.png' %}" alt="">View Details</a>
+                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" id="viewDetailsLink" class="theme view_det"><img src="{% static 'image/booking/bed.png' %}" alt="">View Details</a>
                                             <!-- <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p> -->
                                         </div>
                                     </div>
@@ -871,6 +872,8 @@ $('input[name="checklist"]').on("change", function () {
         
     if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
     var form = document.createElement('form');
+    document.getElementById('preloader').style.display = 'block';
+    document.getElementById('status').style.display = 'block';
     form.method = 'POST';
     form.action = '/hotelreview/';
     var roomJsonList = document.getElementById('hide-123').value;
@@ -1182,7 +1185,14 @@ input[type="range"]::-moz-range-thumb{
         setNextDate();
     });
 </script>
-
+<script>
+    document.getElementById('viewDetailsLink').addEventListener('click', function(event) {
+    event.preventDefault();
+        document.getElementById('preloader').style.display = 'block';
+        document.getElementById('status').style.display = 'block';
+        console.log('printed success 787')
+    })
+</script>
 </body>
 </html>
 

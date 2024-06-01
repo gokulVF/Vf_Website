@@ -639,6 +639,7 @@
      <script>
         function sendit() {
             if (validateForm()) {
+              
                 var currentTime = new Date();
                 var currentTimeWithSec = currentTime.toString().slice(4, 24);
 
@@ -685,9 +686,13 @@
                 // ...
                 document.body.appendChild(form);
                 form.submit();
+                document.getElementById('preloader').style.display = 'block';
+                document.getElementById('status').style.display = 'block';
             }
         }
     </script>
+
+       
    
 </body>
 </html>
