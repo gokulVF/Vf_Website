@@ -68,7 +68,7 @@
                             <h4 class="theme mb-0">Explore The World</h4>
                             <h1>Start Planning Your Dream Trip Today!</h1>
                             <div class="book-form position-absolute w-100 bg-white shadows p-4 pb-1 z-index1 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
+                                <div class="align-items-center justify-content-between">
                                     <form id="input-sec234" class="row d-flex align-items-center justify-content-between" method="get" action="{% url 'hotellist' %}">
                                         {% csrf_token %}
                                         <div class="col-lg mb-2">
@@ -515,6 +515,8 @@
                     function test() {
                         if(validateForm()){
                             document.getElementById("input-sec234").submit();
+                            document.getElementById('preloader').style.display = 'block';
+                            document.getElementById('status').style.display = 'block';
                         }
                     }
                 </script>
@@ -864,6 +866,8 @@ $(function () {
     });
 });
 </script>
+
+
 
 </body>
 

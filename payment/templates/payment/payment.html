@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Travelin - Travel Tour Booking HTML Templates</title>
+    <title>Payment Booking</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
     <!-- Bootstrap core CSS -->
@@ -34,7 +34,7 @@
     {% include 'home/header.html' %}
     <!-- header ends -->
 
-    <button type="button" id="timeOutBtn" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModaltimeout">
+    <button type="button" id="timeOutBtn" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModaltimeout">
         Timeout
     </button>
     <div class="modal fade" id="exampleModaltimeout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -116,7 +116,7 @@
                                 <p class="mb-0 fs-14">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore suscipit veniam odio ea quo eum. Excepturi nihil ex corrupti iure voluptates aperiam ab alias ea cupiditate, perspiciatis culpa, exercitationem, magni a tempora magnam in doloribus deleniti commodi expedita ducimus iste odio reprehenderit suscipit. Quos aliquam magnam, nulla voluptas adipisci debitis nobis officiis quidem ducimus id sapiente vel quibusdam, reiciendis reprehenderit praesentium alias fuga aliquid natus sit laudantium. Deserunt, at. Molestiae sit blanditiis harum numquam fugiat earum iusto libero labore facilis, magni quas quasi voluptas maxime omnis natus dolores qui expedita atque soluta culpa ducimus officia dolor, asperiores laborum. Ratione alias, laudantium sunt a enim nulla, neque repellendus quasi maiores magni quae veniam id eveniet beatae. Voluptas in natus possimus perferendis. Sapiente reiciendis ea laborum amet fugiat voluptates sint suscipit numquam unde itaque, nesciunt maiores expedita est delectus sequi dolor beatae. Necessitatibus nobis repudiandae iste, mollitia labore ipsa ut perferendis soluta minima rerum commodi vitae dolorum explicabo id pariatur fugit quis excepturi iusto quo odio eveniet amet quos ducimus cum! Corporis, voluptatem. Totam laborum aspernatur labore quas quae expedita sit dolores eveniet, veritatis dolorem commodi voluptate voluptas quia culpa ducimus ut exercitationem cum illo non delectus, beatae fugiat esse. Asperiores, dicta.</p>
                             </div>
                             <form action="">
-                                <div class="form-group mb-0 w-75 d-flex">
+                                <div class="form-group mb-0 d-flex">
                                     <input type="checkbox"  id="contactCheckbox"><p class="theme2 fs-14 mb-0 ms-2">By continuing, you agree to the Terms and Conditions.</p> 
                                     
                                 </div>
@@ -151,7 +151,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group bg-white p-3 rounded mb-2">
                                             <ul>
-                                                <li class="d-block pb-1">Base Fare <span style="font-size: 12px;"> ({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</span><span class="float-end fw-bold">INR {{ combined_data.published_price }}</span></li>
+                                                <li class="d-block pb-1">Base Fare <span style="font-size: 12px;" class="rn_det"> ({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</span><span class="float-end fw-bold">INR {{ combined_data.published_price }}</span></li>
                                                 <li class="d-block pb-1">Taxes and Fees<span class="float-end  fw-bold">INR {{ combined_data.final_tax }}</span></li>
                                                 <li class="d-block  pb-1">Total Price<span class="float-end   fw-bold">INR {{ combined_data.total_price }}</span></li>
                                                 <li class="d-block border-t">
@@ -270,6 +270,17 @@
         color: #ccc;
         /* color: #25ee29; */
     }
+
+    
+    @media (max-width: 540px)  {
+    table>tbody tr td, table thead tr th {
+       font-size: 12px !important;
+    }
+
+    .rn_det{ 
+        font-size: 10px  !important;
+    }
+}
 
    </style>
 
