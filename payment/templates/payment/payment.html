@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Travelin - Travel Tour Booking HTML Templates</title>
+    <title>Payment Booking</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
     <!-- Bootstrap core CSS -->
@@ -34,7 +34,7 @@
     {% include 'home/header.html' %}
     <!-- header ends -->
 
-    <button type="button" id="timeOutBtn" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModaltimeout">
+    <button type="button" id="timeOutBtn" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModaltimeout">
         Timeout
     </button>
     <div class="modal fade" id="exampleModaltimeout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -269,6 +269,13 @@
     .fa-star.unchecked {
         color: #ccc;
     }
+
+    
+    @media (max-width: 540px)  {
+    table>tbody tr td, table thead tr th {
+       font-size: 12px !important;
+    }
+}
 
    </style>
 

@@ -123,7 +123,7 @@
 
                                                 <ul class="dropdown-menu" id="deslist2">
                                                     {% for destination in destinations.Asia %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                     
                                                 </ul>
@@ -132,7 +132,7 @@
                                                 <a href="{% url 'international-tour-package' 'Europe'%}" id="des4" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Europe<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu"  id="deslist4" style="overflow-y:scroll;height:500px;">
                                                     {% for destination in destinations.Europe %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                   
                                                 </ul>
@@ -141,7 +141,7 @@
                                                 <a href="{% url 'international-tour-package' 'Africa' %}" id="des1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Africa<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="deslist1">
                                                     {% for destination in destinations.Africa %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                 </ul>
                                             </li>
@@ -150,7 +150,7 @@
                                                 <a href="{% url 'international-tour-package' 'Australia_and_New_Zealand'%}" id="des3" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Australia and New Zealand<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu"  id="deslist3" >
                                                     {% for destination in destinations.Australia_and_New_Zealand %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                 </ul>
                                             </li>
@@ -159,7 +159,7 @@
                                                 <a href="{% url 'international-tour-package' 'North_America'%}" id="des5" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">North America<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="deslist5">
                                                     {% for destination in destinations.North_America %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                 </ul>
                                             </li>
@@ -167,7 +167,7 @@
                                                 <a href="{% url 'international-tour-package' 'South_America'%}"  id="des6" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">South America<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="deslist6">
                                                     {% for destination in destinations.South_America %}
-                                                    <li><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'international-tour-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                    {% endfor %}
                                                 </ul>
                                             </li>
@@ -180,7 +180,7 @@
                                                 <a href="{% url 'domestic-package' 'East'%}" id="domdes1"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">East India<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="domdeslist1">
                                                     {% for destination in destinations.East %}
-                                                    <li><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
@@ -188,7 +188,7 @@
                                                 <a href="{% url 'domestic-package' 'North'%}" id="domdes2"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">North India<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="domdeslist2">
                                                     {% for destination in destinations.North %}
-                                                    <li><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
@@ -196,7 +196,7 @@
                                                 <a href="{% url 'domestic-package' 'South'%}" id="domdes3"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">South India<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="domdeslist3">
                                                     {% for destination in destinations.South %}
-                                                    <li><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
@@ -204,7 +204,7 @@
                                                 <a href="{% url 'domestic-package' 'West'%}" id="domdes4"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">West India<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu" id="domdeslist4">
                                                     {% for destination in destinations.West %}
-                                                    <li><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
+                                                    <li class="in_li"><a href="{% url 'domestic-packages' destination.destination_slug %}">{{destination.destination_name}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
@@ -306,6 +306,8 @@
     
     <!--css-->
     <style>
+
+ 
             #back-to-top {
                 bottom: 100px  !important;
             }
