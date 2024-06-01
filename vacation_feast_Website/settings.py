@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'vacationfeast',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '8870082135',
+        'PASSWORD': 'gokulraj',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -109,7 +109,7 @@ DATABASES = {
         'NAME': 'newmain',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '8870082135',
+        'PASSWORD': 'gokulraj',
         'PORT': '3306',
     }
 
@@ -178,8 +178,8 @@ EMAIL_HOST = 'smtppro.zoho.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 25
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'tharun@vacationfeast.com'
-EMAIL_HOST_PASSWORD = 'nBvizb5wji94'
+EMAIL_HOST_USER = 'gokulraj@vacationfeast.com'
+EMAIL_HOST_PASSWORD = 'gokulraj@123'
 
 
 GALLABOX_API_KEY = '63c4f8e4da6a679a061f84e4'

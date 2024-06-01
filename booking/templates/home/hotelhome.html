@@ -48,7 +48,10 @@
         .banner {
             background-image: url("{% static 'image/booking/testimonial.png' %}");
         }
+      
     </style>
+
+    <div id="loader" style="display: none;"></div>
  
 
     <!-- header starts -->
@@ -56,7 +59,7 @@
     <!-- header ends -->
     
 
-    <section class="banner flight-banner pt-5 pb-0 overflow-hidden">
+    <section class="banner flight-banner pt-5 pb-0 overflow-hidden" id="content">
         <div class="container">
             <div class="banner-in mb-8">
                 <div class="row align-items-center">
@@ -843,8 +846,23 @@ $(function () {
         startDateInput.addEventListener('change', setNextDate);
 
         // Set the initial next date
-        setNextDate();
+        setNextDate(); 
     });
+
+
+
+    // ==================function loder
+    document.addEventListener("DOMContentLoaded", function() {
+    // Show the loader when the window starts loading
+    var loader = document.getElementById("loader");
+    var content = document.getElementById("content");
+
+    // Hide the loader and show the content when the window has finished loading
+    window.addEventListener("load", function() {
+        loader.style.display = "none";
+        content.style.display = "block";
+    });
+});
 </script>
 
 </body>

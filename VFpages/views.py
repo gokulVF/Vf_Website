@@ -1506,6 +1506,24 @@ def send_pdf_link(request):
         try:
 
             send_whatsapp_message_2(phone_number,download_link,hotelname,username,booking_id,ids)
+            
+            subject = "Your PDF Download Link"
+            email_message = f"Subject: {subject}\n\nDear {username},\n\nPlease find the link to download your PDF: {download_link}"
+            sender_email = "gokulraj@vacationfeast.com"
+            recipient_email = phone_number  # Assuming `user` has an `email` attribute
+
+            # Connect to the SMTP server
+            s = smtplib.SMTP('smtppro.zoho.com', 587)
+            s.starttls()
+
+            # Login to the SMTP server
+            s.login("gokulraj@vacationfeast.com", "gokulraj@123")
+
+            # Send the email
+            s.sendmail(sender_email, recipient_email, email_message)
+            s.quit()
+
+            # return JsonResponse({'success': True, 'download_link': download_link})
 
        
             return JsonResponse({'success': True, 'download_link': download_link})
@@ -1850,7 +1868,7 @@ def cancel_booking(request):
             'ClientId': "ApiIntegrationNew",
             'UserName': "Vacation",
             'Password': "Feast@123456",
-            'EndUserIp': "192.168.11.120",
+            'EndUserIp':client_ip,
         }
 
         try:
@@ -1901,7 +1919,7 @@ def cancel_booking(request):
                     payload = {
                         "BookingMode": 5,
                         "ChangeRequestId": change_request_id,
-                        "EndUserIp": "123.1.1.1",
+                        "EndUserIp": client_ip,
                         "TokenId": token
                     }
                     response = requests.post(url, json=payload)
@@ -1980,27 +1998,25 @@ def send_pdf_link_mail(request):
 
         send_whatsapp_message_api(phone_number,user,download_link)
 
-       # Construct the email message
         subject = "Your PDF Download Link"
-        message = f"Subject: {subject}\n\nDear User,\n\nPlease find the link to download your PDF: {download_link}"
+        email_message = f"Subject: {subject}\n\nDear {user},\n\nPlease find the link to download your PDF: {download_link}"
+        sender_email = "gokulraj@vacationfeast.com"
+        recipient_email = phone_number  # Assuming `user` has an `email` attribute
 
-        try:
-            # Connect to the SMTP server
-            s = smtplib.SMTP('smtppro.zoho.com', 587)
-            s.starttls()
+        # Connect to the SMTP server
+        s = smtplib.SMTP('smtppro.zoho.com', 587)
+        s.starttls()
 
-            # Login to the SMTP server
-            s.login("tharun@vacationfeast.com", "nBvizb5wji94")
+        # Login to the SMTP server
+        s.login("gokulraj@vacationfeast.com", "gokulraj@123")
 
-            # Send the email
-            s.sendmail("bookings@vacationfeast.com", message.encode('utf-8'))
-            s.quit()
+        # Send the email
+        s.sendmail(sender_email, recipient_email, email_message)
+        s.quit()
 
-            return JsonResponse({'success': True, 'download_link': download_link})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-
-    return JsonResponse({'success': False, 'error': 'Method not allowed'})
+        return JsonResponse({'success': True, 'download_link': download_link})
+    # except Exception as e:
+    return JsonResponse({'success': False, 'error': str()})
 
 def send_whatsapp_message_api(phone_number,user,download_link):
     gallabox_api_key = settings.GALLABOX_API_KEY
@@ -2119,6 +2135,7 @@ def cancel_status(request):
     if request.method == 'POST':
         # Retrieve booking_id and remark from POST data
         book_id = request.POST.get('booking_id')
+        client_ip = request.session.get('client_ip','')
         hotel_client_details = Hotelclientdetails.objects.get(booking_id=book_id)
         change_request_id = hotel_client_details.changerequestid
         print(change_request_id)

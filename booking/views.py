@@ -446,13 +446,13 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         response.raise_for_status()
 
         print("Status Code:", response.status_code)
-        if response.status_code == 200:
-            api_data = response.json()
+        # if response.status_code == 200:
+        #     api_data = response.json()
 
-            # Construct the file path on the C drive
-            c_drive_path = "C:\Response"
-            file_name = "api_response.txt"
-            notepad_file_path = os.path.join(c_drive_path, file_name)
+        #     # Construct the file path on the C drive
+        #     c_drive_path = "C:\Response"
+        #     file_name = "api_response.txt"
+        #     notepad_file_path = os.path.join(c_drive_path, file_name)
 
             # Open the file in write mode ("w") to overwrite existing content
            
@@ -1570,9 +1570,10 @@ def previewpage(request):
         hidden_email = request.session.get('hidden_email','')
         hidden_phone_number = request.session.get('hidden_phone_number','')
         hidden_username = request.session.get('hidden_username','')
-        
+        a_pu = request.POST.get('published_amount')
+        value = request.session.get('total_price', None)
         form = Hotelclientdetails(user_name=hidden_username,email=hidden_email,phone_number=hidden_phone_number,contact_details = {"customer_name":request.POST.get('user_name'),"customer_phonenumber":request.POST.get('phone_number'),"customer_email":request.POST.get('email')} ,user_information={"room_info":request.POST.get('user_information'),"price_info":request.POST.get('room_information')},
-                                 published_amount=request.POST.get('published_amount'),payment_flag=request.POST.get('payment_flag'),payment_id=request.POST.get('payment_id'),payed_amount=request.POST.get('payed_amount'))
+                                 published_amount=value,payment_flag=request.POST.get('payment_flag'),payment_id=request.POST.get('payment_id'),payed_amount=request.POST.get('payed_amount'))
         print(form)
         current_time_extra =request.POST.get('curTime')
         print(current_time_extra)
@@ -1749,7 +1750,7 @@ def hotelbooked(request):
         Hotelclientdetails.objects.filter(id=inserted_row_id).update(
         payment_flag='paid',
         payment_id= payment_id,
-        # payed_amount = check_value,
+        payed_amount = check_value,
         datetime = datetime.datetime.now()
         )
 
@@ -2089,6 +2090,7 @@ def generatePDf(request, pk):
     context = {
         'booking_details_1':hotel_client_details.booking_information,
         'User_Name':hotel_client_details.user_name,
+        'User_details':hotel_client_details.contact_details,
         'phone_number':hotel_client_details.phone_number
     }
     print(context)
@@ -2438,19 +2440,21 @@ def send_pdf_link(phone_number,user,booking_id):
         message = f"Subject: {subject}\n\nDear User,\n\nPlease find the link to download your PDF: {download_link}"
 
         try:
+            print("mailll")
             # Connect to the SMTP server
             s = smtplib.SMTP('smtppro.zoho.com', 587)
             s.starttls()
 
             # Login to the SMTP server
-            s.login("tharun@vacationfeast.com", "nBvizb5wji94")
+            s.login("gokulraj@vacationfeast.com", "gokulraj@123")
 
             # Send the email
-            s.sendmail("bookings@vacationfeast.com", message.encode('utf-8'))
+            s.sendmail(phone_number, message.encode('utf-8'))
             s.quit()
 
             return JsonResponse({'success': True, 'download_link': download_link})
         except Exception as e:
+            print("NOT mailll")
             return JsonResponse({'': False, 'error': str(e)})
         
 def download_pdfview(request):
@@ -2469,7 +2473,7 @@ def download_pdfview(request):
         hotel_client_details = Hotelclientdetails.objects.get(booking_id=booking_id)
         context = {
             'booking_details_1':hotel_client_details.booking_information,
-            'User_Name':hotel_client_details.user_name,
+            'User_details':hotel_client_details.contact_details,
             'phone_number':hotel_client_details.phone_number
         }
         print(context)

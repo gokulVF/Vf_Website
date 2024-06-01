@@ -1011,6 +1011,11 @@
                                                 var confirmPassword = $("#New_confirm_password").val();
 
                                                 var csrftoken = getCookie('csrftoken');
+                                                
+                                                if (password.length < 8) {
+                                                        $("#passwordErrors2").text("Password must be at least 8 characters long.");
+                                                        return;
+                                                    }else{$("#passwordErrors2").text("");}
                 
                                                 // AJAX request
                                                 $.ajax({
@@ -1031,6 +1036,7 @@
                                                             // document.getElementById('Password').innerHTML = " ";
                                                             document.getElementById('Password').innerHTML = "<p style='color:black'>Password Changed</p>";
                                                             document.getElementById('gif').style.display = 'block';
+                                                            window.location.reload();
                                                             // If the response is success, submit the form
                                                         } else {
                                                             console.log("success")
@@ -1081,17 +1087,20 @@
                                                                 
                                                                 // Insert HTML inside 'msg' id
                                                                 document.getElementById('Password').innerHTML = `
+                                                                
                                                                     <div class="input_div mt-2">
                                                                         <input type="hidden" id="checkname" value="${name}">
                                                                         <div style="margin:4px;width: 100%;">
                                                                             <input type="password" class="input_signin password" name="password" id="New_password" placeholder="Enter Password">
+                                                                            <span class="error" id="passwordErrors2" class="passwordErrors"></span>
                                                                         </div>
                                                                         <div style="margin:4px;width: 100%;">
-                                                                            <input type="password" class="input_signin confirm_password" name="confirm_password" id="New_confirm_password" placeholder="Confirm Password">
+                                                                            <input type="password" class="input_signin confirm_password" name="confirm_password" id="New_confirm_password"  placeholder="Confirm Password">
                                                                             <span class="error" id="passwordErrors" class="passwordErrors"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div id="verifyBtn" onclick="submitPassword()" class="sign_btn verify_btn btn btn-primary bg-theme w-100 py-1 mt-2">Submit</div>
+                                                                
                                                                 `;
                                                             } else {
                                                                 console.log(response.message)

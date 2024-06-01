@@ -268,6 +268,7 @@
 
     .fa-star.unchecked {
         color: #ccc;
+        /* color: #25ee29; */
     }
 
    </style>
@@ -291,10 +292,14 @@
             var options = {
                 key: "{{ razorpay_merchant_key }}", 
                 currency: "{{ currency }}",
-                name: "Vacation Feast", 
+                name: "Vacation Feast",
+                image:"{% static 'image/home/Magnet logo.png' %}" ,
                 order_id: "{{ razorpay_order_id }}",
-                amount: "{{ amount_in_paise }}", 
+                amount: "{{ razorpay_amount }}", 
                 callback_url: "{{ callback_url }}",
+                theme : {
+                        "color": "#029e9d"
+                    }
                 };
                 var rzp1 = new Razorpay(options);
                 rzp1.open();
