@@ -1,4 +1,12 @@
+.book-btn{ 
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+}
 
+.select-room-btn {
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+}
 .h-600 {
  height: 500px;
 }
@@ -219,6 +227,7 @@ table>tbody tr td, table thead tr th  {
 
 .fa-star.unchecked {
     color: #ccc;
+    display: none !important;
 }
 
 

@@ -30,6 +30,9 @@ from booking.models import Hotelclientdetails
 def careersnew(request):
     return render(request,"home/careersnew.html")
 
+def honeymoon(request):
+    return render(request,"home/honeymoon.html")
+
 
 
 def terms(request):

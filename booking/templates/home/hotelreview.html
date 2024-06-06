@@ -224,7 +224,7 @@
                                                 <span class="fa fa-star {% if forloop.counter <= details.rating %}checked{% else %}unchecked{% endif %}"></span>
                                                {% endfor %}
                                             </div>
-                                            <h6 class="mb-2">{{ details.address }}</h6>
+                                            <address class="mb-2 black" style="font-size: 14px;">{{ details.address }}</address>
                                         </div>
                                     </div>
                                 </div>
@@ -234,14 +234,14 @@
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check In</p>
-                                            <h6 class="mb-0">{{ details.check_in_date }}</h6>
+                                            <h6 class="mb-0 number">{{ details.check_in_date }}</h6>
                                             <!-- <small>15:00 - 22:00</small> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check Out</p>
-                                            <h6 class="mb-0">{{ details.check_out_date }}</h6>
+                                            <h6 class="mb-0 number">{{ details.check_out_date }}</h6>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
@@ -249,18 +249,22 @@
                             </div>
                             <div class="trend-check border-b pb-2">
                                 <p class="mb-0">Night(s)</p>
-                                <h6 class="mb-0">{{ details.No_of_Night }} </h6>
+                                <h6 class="mb-0 number">{{ details.No_of_Night }} </h6>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
                             </div>
                             <div class="trend-check">
                                 <!-- <p class="mb-0">You Selected:</p> -->
-                                <h6 class="mb-0">Adults <span class="float-end fw-normal">{{ details.adults }}</span> </h6>
-                                <h6 class="mb-0">Children <span class="float-end fw-normal">{{ details.childs }}</span> </h6>
+                                <h6 class="mb-0">Adults <span class="float-end fw-normal number">{{ details.adults }}</span> </h6>
+                                <h6 class="mb-0">Children <span class="float-end fw-normal number">{{ details.childs }}</span> </h6>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">Change your selection</a></small> -->
                             </div>
 
                         </div>  
-                        
+                        <style>
+                            .number {
+                                font-family: "Poppins,sans-serif" !important;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -477,7 +481,7 @@
             guestData.forEach(function (room, roomIndex) {
                 var roomElement = document.createElement('div');
                 roomElement.className = 'mt-2';
-                roomElement.innerHTML = `<h3 class="theme">Room ${roomIndex + 1}</h3>`;
+                roomElement.innerHTML = `<h3 class="theme">Room  <span class="number">${roomIndex + 1}</span></h3>`;
 
 
                 for (var i = 0; i < room.NoOfAdults; i++) {
@@ -486,7 +490,7 @@
                     
                     adultElement.innerHTML = `
                         <div class="">
-                            <h4 class="name_no theme2">Adult ${i + 1}</h4>
+                            <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span></h4>
                         </div>
                         <div class="row">
                             <div class="col-lg-2 mb-1">
@@ -518,7 +522,7 @@
                     childElement.className = 'mt-2';
                     childElement.innerHTML = `
                         <div class="row">
-                            <h4 class="name_no theme2">Child ${j + 1}</h4>
+                            <h4 class="name_no theme2 number">Child ${j + 1}</h4>
                         </div>
                         <div class="row">
                             <div class="col-lg-2 mb-1">

@@ -473,12 +473,12 @@
                             <div class="sidebar-item mb-4">
                                 <h3 class="">Star Ratings</h3>
                                 <ul class="sidebar-category1">
-                                    <li><input type="checkbox"  value="3" name="checklist">
+                                    <li><input type="checkbox"  value="5" name="checklist" >
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
                                     </li>
                                     <li><input type="checkbox"  value="4" name="checklist" >
                                         <span class="fa fa-star checked"></span>
@@ -487,12 +487,12 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star"></span>
                                     </li>
-                                    <li><input type="checkbox"  value="5" name="checklist" >
+                                    <li><input type="checkbox"  value="3" name="checklist">
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -558,7 +558,12 @@
                                         <div class="trend-content position-relative text-md-start text-center">
                                             <!-- <small>Moscow Airport - Premium</small> -->
                                             <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
-                                            <h3 class="mb-2"><a href="#" class="">{{ hotel.HotelName }}</a></h3>
+                                            <div class="rating" id="{{ hotel.HotelCode }}_starRating">
+                                                <h3 class="mb-0" style="font-size: 22px;"><a href="#" class="">{{ hotel.HotelName }}</a></h3>
+                                                {% for star in "12345" %}
+                                                   <span class="fa fa-star {% if forloop.counter <= hotel.Rating %}checked{% else %}unchecked{% endif %}"></span>
+                                                {% endfor %} <span>({{ hotel.Rating }})</span>
+                                            </div>
                                             <address class="address">{{ hotel.Address }}</address>
                                             <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" id="viewDetailsLink" class="theme view_det"><img src="{% static 'image/booking/bed.png' %}" alt="">View Details</a>
                                             <!-- <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p> -->
@@ -567,11 +572,11 @@
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="trend-content text-md-end text-center">
                                             <input type="hidden" id="{{ hotel.HotelCode }}_rating" value="{{ hotel.Rating }}">
-                                            <div class="rating" id="{{ hotel.HotelCode }}_starRating">
+                                            <!-- <div class="rating" id="{{ hotel.HotelCode }}_starRating">
                                                 {% for star in "12345" %}
-                                                    <span class="fa fa-star {% if forloop.counter <= hotel.Rating %}checked{% else %}unchecked{% endif %}"></span>
+                                                   <span class="fa fa-star {% if forloop.counter <= hotel.Rating %}checked{% else %}unchecked{% endif %}"></span>
                                                 {% endfor %}
-                                            </div>
+                                            </div> -->
                                             <!-- <small>200 Reviews</small> -->
                                             <div class="trend-price my-2">
                                                 <p class="mb-0 price theme fs-3 fw-bold">INR {{hotel.Price}}</p>
@@ -585,7 +590,7 @@
                                             
                                         </div>
                                     </div>
-                                    <div id="{{hotel.HotelCode}}" class="col-lg hotel-room" style="display: none;">
+                                    <div id="{{hotel.HotelCode}}" class="col-lg hotel-room mt-1 " style="display: none;">
                                         <div class="hide-room1 mb-1 border-all p-3 px-4 rounded"></div>
                                         
                                     </div>
