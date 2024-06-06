@@ -463,94 +463,102 @@
         return valid;
     }
     </script>
-    <script>
-        var personsdetails = document.getElementById('hiddenGuestData').textContent;
-        var guestData = JSON.parse(personsdetails || "[]");
+<script>
+    var personsdetails = document.getElementById('hiddenGuestData').textContent;
+    var guestData = JSON.parse(personsdetails || "[]");
 
-        console.log(guestData);
+    console.log(guestData);
 
-        function generateRoomDetails() {
-            var container = document.getElementById('guestDetailsContainer');
-            container.innerHTML = ''; // Clear existing content
+    function generateRoomDetails() {
+        var container = document.getElementById('guestDetailsContainer');
+        container.innerHTML = ''; // Clear existing content
 
+        var leadPassengerAssigned = false; // Flag to track lead passenger assignment
 
-            guestData.forEach(function (room, roomIndex) {
-                var roomElement = document.createElement('div');
-                roomElement.className = 'mt-2';
-                roomElement.innerHTML = `<h3 class="theme">Room ${roomIndex + 1}</h3>`;
+        guestData.forEach(function (room, roomIndex) {
+            var roomElement = document.createElement('div');
+            roomElement.className = 'mt-2';
+            roomElement.innerHTML = `<h3 class="theme">Room ${roomIndex + 1}</h3>`;
 
-
-                for (var i = 0; i < room.NoOfAdults; i++) {
-                    var adultElement = document.createElement('div');
-                    adultElement.className = 'my-2';
-                    
-                    adultElement.innerHTML = `
-                        <div class="">
-                            <h4 class="name_no theme2">Adult ${i + 1}</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2 mb-1">
-                                <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
-                                    <option value="Mr">Mr</option>
-                                    <option value="Mrs">Mrs</option>
-                                    <option value="Miss">Miss</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-5 mb-1">
-                                <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
-                                <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
-                            </div>
-
-                            
-                            <div class="col-lg-5 mb-1">
-                                <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
-                                <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
-                            </div>
-                            <input type="hidden" name="room_${roomIndex + 1}_adult_${i + 1}_age" value="0">
-                        </div>`;
-
-                    roomElement.appendChild(adultElement);
-
+            for (var i = 0; i < room.NoOfAdults; i++) {
+                var adultElement = document.createElement('div');
+                adultElement.className = 'my-2';
+                
+                // Assign lead passenger only if it hasn't been assigned yet
+                var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? '- Lead Passenger' : '';
+                var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
+                
+                if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
+                    leadPassengerAssigned = true;
                 }
-
-                for (var j = 0; j < room.NoOfChild; j++) {
-                    var childElement = document.createElement('div');
-                    childElement.className = 'mt-2';
-                    childElement.innerHTML = `
-                        <div class="row">
-                            <h4 class="name_no theme2">Child ${j + 1}</h4>
+                
+                adultElement.innerHTML = `
+                    <div class="">
+                        <h4 class="name_no theme2">Adult ${i + 1} <span style="color: orange;">${leadCustomerText}</span></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 mb-1">
+                            <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-2 mb-1">
-                                <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
-                                    <option value="Mr">Mr</option>
-                                    <option value="Mrs">Mrs</option>
-                                    <option value="Miss">Miss</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-5 mb-1">
-                                <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
-                                <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
-                            </div>
-                            <div class="col-lg-5 mb-1">
-                                <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
-                                <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
-                            </div>
-                            <div class="col-md-0" style="display:none">
-                                <input class="f-inp" type="hidden" name="room_${roomIndex + 1}_child_${j + 1}_ChildAge" value="${room.ChildAge[j]}">
-                            </div>
-                        </div>`;
+                        <div class="col-lg-5 mb-1">
+                            <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                            <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                            <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                        </div>
+                        <input type="hidden" name="room_${roomIndex + 1}_adult_${i + 1}_age" value="0">
+                        <input type="hidden" name="leadpassenger_${roomIndex + 1}_adult_${i + 1}" value="${leadpassenger}">
+                    </div>`;
 
-                    roomElement.appendChild(childElement);
+                roomElement.appendChild(adultElement);
+            }
 
-                }
+            for (var j = 0; j < room.NoOfChild; j++) {
+                var childElement = document.createElement('div');
+                childElement.className = 'mt-2';
+                childElement.innerHTML = `
+                    <div class="row">
+                        <h4 class="name_no theme2">Child ${j + 1}</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 mb-1">
+                            <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
+                            <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
+                            <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                        </div>
+                        <div class="col-md-0" style="display:none">
+                            <input class="f-inp" type="hidden" name="room_${roomIndex + 1}_child_${j + 1}_ChildAge" value="${room.ChildAge[j]}">
+                            <input type="hidden" name="leadpassenger_${roomIndex + 1}_child_${j + 1}" value="1">
+                        </div>
+                    </div>`;
 
+                roomElement.appendChild(childElement);
+            }
 
-                container.appendChild(roomElement);
-            });
-        }
-        generateRoomDetails();
-    </script>
+            container.appendChild(roomElement);
+        });
+    }
+    generateRoomDetails();
+</script>
+
     <script>
         document.getElementById('myButton').addEventListener('click', function () {
             if (validateForm()) {
@@ -568,7 +576,8 @@
                         gender: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_gender"]`).value,
                         firstName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`).value,
                         lastName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`).value,
-                        age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`).value
+                        age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`).value,
+                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`).value
                     };
                     roomDetails.adults.push(adultDetails);
                 }
@@ -578,7 +587,8 @@
                         gender: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_gender"]`).value,
                         firstName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`).value,
                         lastName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`).value,
-                        age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`).value
+                        age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`).value,
+                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`).value
                     };
                     roomDetails.children.push(childDetails);
                 }

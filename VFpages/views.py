@@ -1906,10 +1906,25 @@ def cancel_booking(request):
                 headers = {
                     'Content-Type': 'application/json'
                 }
+                print("cancel data: ",payload)
 
                 try:
                     response = requests.post(api_url, data=json.dumps(payload), headers=headers)
                     response.raise_for_status()  # Raise an exception for HTTP errors (status codes >= 400)
+                    if response.status_code == 200:
+                        api_data = response.json()
+
+                        # Construct the file path on the C drive
+                        c_drive_path = "C:\Response"
+                        file_name = "booking_cancel.txt"
+                        notepad_file_path = os.path.join(c_drive_path, file_name)
+
+                        # Ensure the directory exists
+                        os.makedirs(c_drive_path, exist_ok=True)
+
+                        # Open the file in write mode ("w") to overwrite existing content
+                        with open(notepad_file_path, "w") as file:
+                            file.write(str(api_data))
                     data = response.json()
                     Hotelclientdetails.objects.filter(booking_id=booking_id).update(remarks = remark)
                     change_request_id = data['HotelChangeRequestResult']['ChangeRequestId']
@@ -2171,9 +2186,23 @@ def cancel_status(request):
                     "EndUserIp": "123.1.1.1",
                     "TokenId": token
                 }
-                print(payload)
+                print("cancel status data: ",payload)
                 response = requests.post(url, json=payload)
                 data2 = response.json()
+                if response.status_code == 200:
+                        api_data = response.json()
+
+                        # Construct the file path on the C drive
+                        c_drive_path = "C:\Response"
+                        file_name = "booking_cancel_status.txt"
+                        notepad_file_path = os.path.join(c_drive_path, file_name)
+
+                        # Ensure the directory exists
+                        os.makedirs(c_drive_path, exist_ok=True)
+
+                        # Open the file in write mode ("w") to overwrite existing content
+                        with open(notepad_file_path, "w") as file:
+                            file.write(str(api_data))
                 print(data2)
                 status_mapping = {
                     0: 'NotSet',
