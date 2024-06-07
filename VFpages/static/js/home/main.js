@@ -135,23 +135,6 @@
          }]
      });
 
-     $('.review-slider1').slick({
-         infinite: true,
-         slidesToShow: 2,
-         slidesToScroll: 1,
-         arrows: false,
-         dots: false,
-         rows:0,
-         autoplay: true,
-         speed: 5000,
-         loop:true,
-         responsive: [{
-             breakpoint: 1100,
-             settings: {
-                 slidesToShow: 1
-             }
-         }]
-     });
 
      $('.about-slider').slick({
          infinite: true,

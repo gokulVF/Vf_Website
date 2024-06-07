@@ -701,7 +701,7 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                    <div class="item mb-1">
+                                    <div class="item">
                                         <div class="room-info row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -711,7 +711,7 @@ def your_view(request):
                                             </div>
                                             <div class="price-info col-lg-4 col-md-4 col-sm-4 col-3">
                                                 <div class="rub-price item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;">INR {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
@@ -954,7 +954,7 @@ def get_room_details(request):
                                 print(combination_room_indices)
                                 
                                 room_html = f"""  
-                                    <div class="item mb-1">
+                                    <div class="item">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
@@ -964,11 +964,11 @@ def get_room_details(request):
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
-                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
+                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;'}">
                                                 <button class="nir-btn-black book-btn" id="hs-btn"
                                                         onclick="bookRoom()">
                                                     Book Room

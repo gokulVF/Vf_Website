@@ -137,14 +137,14 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-2">
                                         <div class="form-group">
-                                            <span class="white pb-1">Check In</span>
-                                            <h4 class="choosen-date white mb-0 border-0 number"><i class="fa fa-calendar"></i> {{ combined_data.check_in_date }}</h4>
+                                            <p class="white pb-1 mb-0">Check In</p>
+                                            <span class="choosen-date white mb-0 border-0 "><i class="fa fa-calendar"></i> {{ combined_data.check_in_date }}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-2">
                                         <div class="form-group">
-                                            <span class="white pb-1">Check Out</span>
-                                            <h4 class="choosen-date white mb-0 border-0 number"><i class="fa fa-calendar"></i> {{ combined_data.check_out_date }}</h4>
+                                            <p class="white pb-1 mb-0">Check Out</p>
+                                            <span class="choosen-date white mb-0 border-0 "><i class="fa fa-calendar"></i> {{ combined_data.check_out_date }}</span>
                                         </div>
                                     </div>
                                   
@@ -179,7 +179,7 @@
                                             <div class="rating star-view mb-1">
                                                 {% for star in "12345" %}
                                                 <span class="fa fa-star {% if forloop.counter <= combined_data.rating %}checked{% else %}unchecked{% endif %}"></span>
-                                               {% endfor %}
+                                               {% endfor %}<span>({{ combined_data.rating }} - star)</span>
                                             </div>
                                             <address class="mb-2" style="font-size: 14px;">{{ combined_data.address }}</address>
                                         </div>
@@ -191,14 +191,14 @@
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3">
                                             <p class="mb-0">Night(s)</p>
-                                            <h6 class="mb-0 number">{{ combined_data.no_of_nights }}</h6>
+                                            <span class="mb-0 num black fw-bold">{{ combined_data.no_of_nights }}</span>
                                             <!-- <small>15:00 - 22:00</small> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3">
                                             <p class="mb-0">Room(s)</p>
-                                            <h6 class="mb-0 number">{{ combined_data.total_rooms }}</h6>
+                                            <span class="mb-0 num black fw-bold">{{ combined_data.total_rooms }}</span>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                             </div>
                             <div class="trend-check border-b pb-2">
                                 <p class="mb-0">INC</p>
-                                <h6 class="mb-0 number">{{ hotel.OfferedPrice }}</h6>
+                                <span class="mb-0 num black fw-bold">{{ hotel.OfferedPrice }}</span>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
                             </div>
                             {% endfor %}
@@ -273,7 +273,7 @@
 
     .fa-star.unchecked {
         color: #ccc;
-        /* color: #25ee29; */
+        display: none !important;
     }
 
     
