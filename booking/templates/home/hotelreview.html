@@ -141,15 +141,15 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="input-box col-lg-4 mb-1">
-                                                <input type="text" class="username f-inp" name="user_name" placeholder="Enter Your Name" value="">
+                                                <input type="text" class="username f-inp" name="user_name" placeholder="Enter your name" value="">
                                                 <span class="error" id="nameError"></span>
                                             </div>
                                             <div class="input-box  col-lg-4 mb-1">
-                                                <input type="text" class="phone_number f-inp" name="phone_number" placeholder="Enter Your Number" value="" >
+                                                <input type="text" class="phone_number f-inp" name="phone_number" placeholder="Enter your number" value="" >
                                                 <span class="error" id="phoneError"></span>
                                             </div>
                                             <div class="input-box  col-lg-4 mb-1">
-                                                <input type="text" class="email f-inp" name="email" placeholder="Enter Your Email" value="" >
+                                                <input type="text" class="email f-inp" name="email" placeholder="Enter your email" value="" >
                                                 <span class="error" id="emailError"></span>
                                             </div>
                                         </div>
@@ -192,28 +192,28 @@
                                 <tbody>
                                     <tr>
                                         <td>Base Fare ({{ details.totalrooms }}Room X {{ details.No_of_Night }}Night)</td>
-                                        <td class="theme2 text-end">INR {{ details.published_price }}</td>
+                                        <td class="theme2 text-end">₹ {{ details.published_price }}</td>
                                     </tr>
                                     <tr>
                                         <td>Taxes and Fees</td>
-                                        <td class="theme2 text-end">INR {{ details.final_tax }}</td>
+                                        <td class="theme2 text-end">₹ {{ details.final_tax }}</td>
                                     </tr>
                                     <tr>
                                         <td>Total Price</td>
-                                        <td class="theme2 text-end">INR {{ details.total_price }}</td>
+                                        <td class="theme2 text-end">₹ {{ details.total_price }}</td>
                                     </tr>
                                    
                                 </tbody>
                                 <tfoot class="bg-title">
                                     <tr>
                                         <th class="font-weight-bold white">Your Price</th>
-                                        <th class="font-weight-bold white">INR {{ details.total_price }}</th>
+                                        <th class="font-weight-bold white">₹ {{ details.total_price }}</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                         <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
-                            <h4>Hotel Summary</h4>
+                            <!-- <h4>Hotel Summary</h4> -->
                             <div class="trend-full border-b">
                                 <div class="row">
                                     <div class="">
@@ -224,7 +224,7 @@
                                                 <span class="fa fa-star {% if forloop.counter <= details.rating %}checked{% else %}unchecked{% endif %}"></span>
                                                {% endfor %}<span>({{ details.rating }} - star)</span>
                                             </div>
-                                            <address class="mb-2 black" style="font-size: 14px;">{{ details.address }}</address>
+                                            <address class="mb-2 black" style="font-size: 14px;"><i class="icon-directions theme me-2" style="font-size: 18px;"></i>{{ details.address }}</address>
                                         </div>
                                     </div>
                                 </div>
@@ -232,14 +232,14 @@
                             <div class="trend-check border-b pb-2">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                        <div class="trend-check-item bg-grey rounded p-2">
                                             <p class="mb-0">Check In</p>
                                             <span class="mb-0 fw-bold black">{{ details.check_in_date }}</span>
                                             <!-- <small>15:00 - 22:00</small> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                        <div class="trend-check-item bg-grey rounded p-2">
                                             <p class="mb-0">Check Out</p>
                                             <span class="mb-0 fw-bold black">{{ details.check_out_date }}</span>
                                             <!-- <small>1:00 - 10:00</small> -->
@@ -248,7 +248,7 @@
                                 </div>
                             </div>
                             <div class="trend-check border-b pb-2">
-                                <p class="mb-0">Night(s)</p>
+                                <p class="mb-0">Nights</p>
                                 <span class="mb-0 fw-bold black">{{ details.No_of_Night }} </span>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
                             </div>
@@ -557,7 +557,7 @@ function generateRoomDetails() {
             adultElement.className = 'my-2';
 
             // Assign lead passenger only if it hasn't been assigned yet
-            var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? '- Lead Passenger' : '';
+            var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? ' - Lead Passenger' : '';
             var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
 
             if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
@@ -573,15 +573,15 @@ function generateRoomDetails() {
             adultElement.innerHTML = `
                 ${pancard ? `
                 <div class="">
-                    <h4 class="name_no theme2">Adult <span class="num">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
+                    <h4 class="name_no theme2">Adult <span class="num">${i + 1}</span><span class="theme">${leadCustomerText}</span></h4>
                 </div>
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-0">
-                        <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard">
+                        <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter your PAN number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard">
                         <span class="error" id="${resultDivId}"></span>
                     </div>
                     <div class="col-lg-3">
-                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}','${firstnameId}','${lastnameId}','${checkboxId}')" class="px-3 py-1 m-2 white bg-theme" style="border-radius: 4px;">Verify PAN</button>
+                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}','${firstnameId}','${lastnameId}','${checkboxId}')" class="nir-btn" style="border-radius: 4px;">Verify PAN</button>
                     </div>
                     ${leadCustomerText ? `
                 <div class="col-lg-3 mt-2" style="color:red; display:none;" id="${checkboxId}">
@@ -599,11 +599,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" id="${firstnameId}" placeholder="Enter First Name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <input type="text" class="f-inp" id="${firstnameId}" placeholder="Enter first name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
                         <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter last name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
                         <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                 </div>` : `
@@ -620,11 +620,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <input type="text" class="f-inp" placeholder="Enter your first name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
                         <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <input type="text" class="f-inp" placeholder="Enter your last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
                         <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                 </div>`}
@@ -653,7 +653,7 @@ function generateRoomDetails() {
                         <span class="error" id="${resultDivId}"></span>
                     </div>
                     <div class="col-lg-4">
-                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}')" class="px-3 py-1 m-2 white bg-theme" style="border-radius: 4px;">Verify PAN</button>
+                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}')" class="nir-btn" style="border-radius: 4px;">Verify PAN</button>
                     </div>
                     </form>
                 <div class="row">
