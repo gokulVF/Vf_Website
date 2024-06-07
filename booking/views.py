@@ -63,17 +63,10 @@ from VFpages.header_utils import header_fn,homefooter
 #     return redirect(reverse('hotel'))
 
 
-def home(request):
-    return render(request, "home/flighthomepage.html")
+# def home(request):
+#     return render(request, "home/flighthomepage.html")
 
-def successbook(request):
-    return render(request, "home/successtest.html")
 
-def hotel_homex(request):
-    return render(request, "home/hotelhomeX.html")
-
-def listofhotelx(request):
-    return render(request, "home/listofhotelx.html")
 
 def hotel(request):
     destinations_data,all_categories = header_fn(request)
@@ -130,82 +123,7 @@ def get_client_ip(request):
     client_ip_address = ip_address
     return client_ip_address
 
-# def login_views(request):
-#     error = None
-#     if request.method == 'POST':
-#         email_or_phone = request.POST.get('email_or_phone')
-#         password = request.POST.get('password')
-#         print(email_or_phone)
-#         # Check if email_or_phone or password is empty
-#         if not email_or_phone or not password:
-#            error_message = 'Email/Phone and Password fields cannot be empty.'
 
-#         # Check if the user exists with the given email or phone number
-#         user = Userdetails.objects.filter(Q(email=email_or_phone) | Q(phone_number=email_or_phone)).first()
-
-#         if user:
-#             # Hash the provided password using MD5 hashing for comparison
-#             hashed_password = hashlib.md5(password.encode()).hexdigest()
-
-#             # Check if the hashed password matches the one stored in the database
-#             if user.password == hashed_password:
-#                 print(user.email)
-#                 print(user.password)
-#                 print(request.session)
-#                 request.session['hidden_email'] = user.email
-#                 request.session['hidden_phone_number'] = user.phone_number
-#                 request.session['hidden_username'] = user.username
-#                 email = user.email
-#                 phone_number = user.phone_number
-#                 username = user.username
-#                 # template = get_template(template_path)
-#                 # html = template.render(context)
-#                 # print(context)
-#                 return JsonResponse({'success': True, 'email': email,'phone_number':phone_number,'username':username})
-#                 # client_details = Hotelclientdetails.objects.filter(email=user.email)
-#                 # # Serialize the queryset to JSON
-#                 # serialized_data = serialize('json', client_details)
-                
-#                 # # Initialize an empty dictionary to store hotel names and booking IDs
-#                 # # Initialize an empty list to store hotel data
-#                 # hotel_data = []
-
-#                 # # Deserialize the JSON string to a list of dictionaries
-#                 # deserialized_data = json.loads(serialized_data)
-#                 # for entry in deserialized_data:
-#                 #     # Extracting hotel name
-#                 #     fields = entry['fields']
-#                 #     user_info = fields.get('booking_information', {})
-#                 #     datas = json.dumps(user_info)
-#                 #     pdfs = fields.get('pdf_document', '')
-#                 #     print(datas)
-#                 #     hotel_name = user_info.get('hotel_name', {})
-#                 #     booking_id = user_info.get('booking_id', '')
-
-#                 #     # Store hotel name and booking ID in a dictionary
-#                 #     entry_data = {'hotel_name': hotel_name, 'booking_id': booking_id,'datas':user_info}
-
-#                 #     # Append entry data to the list
-#                 #     hotel_data.append(entry_data)
-
-#                 # print(hotel_data)
-#                 # details_dict = json.loads(serialized_data)
-#                 # print(details_dict)
-#                 # template_path = "home/hotelreview.html"
-#                 # # Authenticate user with the provided credentials
-#                 # context = request.session.get('hotel_review')
-#                 # return render(request,'signup/success.html',{"email":user.email,"hotel_data":hotel_data})
-#             else:
-#                 # Password doesn't match, render login page with error message
-#                  error_message = 'Invalid email/phone number or password.'
-
-#         else:
-#             # User not found, render login page with error message
-#            error_message = 'User not found.'
-
-#     # If the request method is not POST, render the login page
-#     return JsonResponse({'success': False, 'error_message': error_message})
-# # Function to get or refresh token
 
 def get_or_refresh_token(request):
     token_creation_time_str = request.session.get('token_creation_time')
@@ -233,11 +151,14 @@ def get_or_refresh_token(request):
         'EndUserIp': client_ip,
     }
 
+    print("Authenticate Request Data :",data )
+
     try:
         response = requests.post(url, json=data, headers=headers)
         response.raise_for_status()
 
         response_data = response.json()
+        print("Authenticate Response data :",response_data)
         if response.status_code == 200:
             token = response_data.get('TokenId')
             if token:
@@ -446,18 +367,23 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         response.raise_for_status()
 
         print("Status Code:", response.status_code)
-        # if response.status_code == 200:
-        #     api_data = response.json()
+        if response.status_code == 200:
+            api_data = response.json()
 
-        #     # Construct the file path on the C drive
-        #     c_drive_path = "C:\Response"
-        #     file_name = "api_response.txt"
-        #     notepad_file_path = os.path.join(c_drive_path, file_name)
+            # Construct the file path on the C drive
+            c_drive_path = "C:\Response"
+            file_name = "api_response.txt"
+            notepad_file_path = os.path.join(c_drive_path, file_name)
+
+            # Ensure the directory exists
+            os.makedirs(c_drive_path, exist_ok=True)
 
             # Open the file in write mode ("w") to overwrite existing content
+            with open(notepad_file_path, "w") as file:
+                file.write(str(api_data))
            
         response_data = response.json()
-        print(response_data)
+        # print(response_data)
 
         trace_id = response_data.get('HotelSearchResult', {}).get('TraceId', '')
         print("TraceId:", trace_id)
@@ -625,10 +551,25 @@ def your_view(request):
         'TokenId': token_id,
         'TraceId': trace_id,
     }
+    print("data2 romm",data2)
 
     try:
         response = requests.post(api_url2, json=data2, headers=headers2)
         response.raise_for_status()
+        if response.status_code == 200:
+            api_data = response.json()
+
+            # Construct the file path on the C drive
+            c_drive_path = "C:\Response"
+            file_name = "room_details.txt"
+            notepad_file_path = os.path.join(c_drive_path, file_name)
+
+            # Ensure the directory exists
+            os.makedirs(c_drive_path, exist_ok=True)
+
+            # Open the file in write mode ("w") to overwrite existing content
+            with open(notepad_file_path, "w") as file:
+                file.write(str(api_data))
 
         response_data = response.json().get('GetHotelRoomResult', {})
         # print("kkk")
@@ -782,12 +723,27 @@ def your_view(request):
         'TokenId': token_id,
         'TraceId': trace_id,
     }
+    print("hotel details info ",data1)
     if category_id is not None:
            data1['CategoryId'] = category_id
 
     try:
         response1 = requests.post(api_url1, json=data1, headers=headers1)
         response1.raise_for_status()
+        if response1.status_code == 200:
+            api_data2 = response1.json()
+
+            # Construct the file path on the C drive
+            c_drive_path2 = "C:\Response"
+            file_name2 = "hotel_details.txt"
+            notepad_file_path2 = os.path.join(c_drive_path2, file_name2)
+
+            # Ensure the directory exists
+            os.makedirs(c_drive_path2, exist_ok=True)
+
+            # Open the file in write mode ("w") to overwrite existing content
+            with open(notepad_file_path2, "w") as file1:
+                file1.write(str(api_data2))
 
         response_data1 = response1.json().get('HotelInfoResult', {}).get('HotelDetails', {})
         # print("check")
@@ -862,21 +818,12 @@ def get_room_details(request):
         'TraceId': trace_id,
     }
     print("test2")
-    print(data)
+    print("room details request",data)
     try:
         response = requests.post(api_url, json=data, headers=headers)
         response.raise_for_status()
-        # if response.status_code == 200:
-        #     api_data = response.json()
+        
 
-        #     # Construct the file path on the C drive
-        #     c_drive_path = "C:\Response"
-        #     file_name = "Room response.txt"
-        #     notepad_file_path = os.path.join(c_drive_path, file_name)
-
-        #     # Open the file in write mode ("w") to overwrite existing content
-        #     with open(notepad_file_path, "w") as notepad_file:
-        #         notepad_file.write(str(api_data))
         response_data = response.json().get('GetHotelRoomResult', {})
         print("categroyid")
         print(response_data)
@@ -1139,6 +1086,7 @@ def hotelreview(request):
 
         print("test3")
         print(payload)
+        print("block room",payload)
         request.session['payload_str'] = payload
 
         api_url = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/BlockRoom'
@@ -1146,6 +1094,21 @@ def hotelreview(request):
         try:
             response = requests.post(api_url, json=payload, headers=headers)
             response.raise_for_status()
+
+            if response.status_code == 200:
+                api_data = response.json()
+
+                # Construct the file path on the C drive
+                c_drive_path = "C:\Response"
+                file_name = "block_room.txt"
+                notepad_file_path = os.path.join(c_drive_path, file_name)
+
+                # Ensure the directory exists
+                os.makedirs(c_drive_path, exist_ok=True)
+
+                # Open the file in write mode ("w") to overwrite existing content
+                with open(notepad_file_path, "w") as file:
+                    file.write(str(api_data))
 
             # Handle the API response as needed
             api_response = response.json()
@@ -1571,9 +1534,9 @@ def previewpage(request):
         hidden_phone_number = request.session.get('hidden_phone_number','')
         hidden_username = request.session.get('hidden_username','')
         a_pu = request.POST.get('published_amount')
-        value = request.session.get('total_price', None)
+        values = request.session.get('total_price', None)
         form = Hotelclientdetails(user_name=hidden_username,email=hidden_email,phone_number=hidden_phone_number,contact_details = {"customer_name":request.POST.get('user_name'),"customer_phonenumber":request.POST.get('phone_number'),"customer_email":request.POST.get('email')} ,user_information={"room_info":request.POST.get('user_information'),"price_info":request.POST.get('room_information')},
-                                 published_amount=value,payment_flag=request.POST.get('payment_flag'),payment_id=request.POST.get('payment_id'),payed_amount=request.POST.get('payed_amount'))
+                                 published_amount=values,payment_flag=request.POST.get('payment_flag'),payment_id=request.POST.get('payment_id'),payed_amount=request.POST.get('payed_amount'))
         print(form)
         current_time_extra =request.POST.get('curTime')
         print(current_time_extra)
@@ -1771,6 +1734,8 @@ def hotelbooked(request):
                     # Convert age to integer, handling the case where age is a string
                     age = int(passenger["age"]) if passenger["age"].isdigit() else 0
 
+                    leadpassenger = True if passenger["leadpassenger"] == "0" else False
+
                     pax_type = 1 if age == 0 else 2
 
 
@@ -1782,12 +1747,12 @@ def hotelbooked(request):
                         "Phoneno": None,
                         "Email": None,
                         "PaxType": pax_type,  # Assuming a default value for PaxType
-                        "LeadPassenger": True,  # Assuming LeadPassenger is always false for non-lead passengers
+                        "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
                         "PassportNo": None,
                         "PassportIssueDate": None,
                         "PassportExpDate": None,
-                        "PAN":'ABCTY1234D'
+                        "PAN":'EXAPR2885D'
                     }
                     hotel_passenger_list.append(hotel_passenger)
 
@@ -1852,11 +1817,25 @@ def hotelbooked(request):
         # Updating the data dictionary with values from the payload
         data = modified_payload_data
         print("test4")
-        print(data)
+        print("booking data :",data)
         # print(success)
         try:
             response = requests.post(api_url, json=data, headers=headers, params={'apiKey': 'Feast@123456'})
             response.raise_for_status()
+            if response.status_code == 200:
+                api_data = response.json()
+
+                # Construct the file path on the C drive
+                c_drive_path = "C:\Response"
+                file_name = "book_room.txt"
+                notepad_file_path = os.path.join(c_drive_path, file_name)
+
+                # Ensure the directory exists
+                os.makedirs(c_drive_path, exist_ok=True)
+
+                # Open the file in write mode ("w") to overwrite existing content
+                with open(notepad_file_path, "w") as file:
+                    file.write(str(api_data))
 
             print("Status Code:", response.status_code)
 
@@ -1920,15 +1899,30 @@ def hotelbooked(request):
                     "EndUserIp": end_user_ip,
                     "TokenId": token_id
                 }
+                print("get_details data :",data)
                 
                 response = requests.post(api_url, json=data, headers=headers, params={'apiKey': 'Feast@123456'})
                 response.raise_for_status()
 
                 print("Status Code:", response.status_code)
+                if response.status_code == 200:
+                    api_data = response.json()
+
+                    # Construct the file path on the C drive
+                    c_drive_path = "C:\Response"
+                    file_name = "get_details.txt"
+                    notepad_file_path = os.path.join(c_drive_path, file_name)
+
+                    # Ensure the directory exists
+                    os.makedirs(c_drive_path, exist_ok=True)
+
+                    # Open the file in write mode ("w") to overwrite existing content
+                    with open(notepad_file_path, "w") as file:
+                        file.write(str(api_data))
 
                 response_data_1 = response.json() 
                 response_data = response_data_1.get('GetBookingDetailResult', {})
-                print(response_data)
+                # print(response_data)
                 def format_datetime(datetime_str):
                     # Parse the datetime string
                     parsed_datetime = datetime.datetime.fromisoformat(datetime_str)
@@ -2217,189 +2211,7 @@ def sendemail(request):
         return HttpResponse('Email sent successfully!')
     return render(request, 'home/hotelhome.html')
 
-#Login and signup
 
-# def signups(request):
-#     error_message = None
-#       # Initialize error message variable
-#     if request.method == 'POST':
-#         # Get form data
-#         user_name = request.POST.get('user_name')
-#         email = request.POST.get('email')
-#         phone_number = request.POST.get('phone_number')
-#         password = request.POST.get('password')
-#         confirm_password = request.POST.get('confirm_password')
-#         print(user_name)
-
-#         if not user_name or not email or not phone_number or not password or not confirm_password:
-#             error_message = 'All fields are required.'
-
-#         # Generate and send OTP to the user's phone number
-#         # Check if user with provided email or phone number already exists
-#         elif Userdetails.objects.filter(email=email).exists() or Userdetails.objects.filter(phone_number=phone_number).exists():
-#             error_message = 'User with this email or phone number already exists.'
-        
-#         elif password != confirm_password:
-#             error_message = 'Passwords do not match'
-
-#         else:
-#             # Encrypt the password using MD5 hashing
-#             hashed_password = hashlib.md5(password.encode()).hexdigest()
-#             print(hashed_password)
-
-#             # Create and save the user with encrypted password
-#             user = Userdetails(
-#                 username=user_name,
-#                 email=email,
-#                 phone_number=phone_number,
-#                 password=hashed_password
-#             )
-#             print(user)
-#             user.save()
-
-#             # Redirect to a success page or login page
-#             return JsonResponse({'success': True, 'success_message': 'Signup successful'})
-
-#     return JsonResponse({'success': False, 'error_message': error_message})
-
-# Change Password
-# def change_password(request):
-#     error_message = None
-
-#     if request.method == 'POST':
-#         # Get form data
-#         email_or_phone = request.POST.get('user_name')
-#         new_password = request.POST.get('password')
-#         confirm_new_password = request.POST.get('confirm_password')
-
-#         # Retrieve user based on email or phone number
-#         user = Userdetails.objects.filter(email=email_or_phone).first() or \
-#                Userdetails.objects.filter(phone_number=email_or_phone).first()
-
-#         if not user:
-#             error_message = 'User not found.'
-#         else:
-#             # Retrieve user's current password from the database
-#             current_password = user.password
-
-#             # Check if new password is the same as the old password
-#             if hashlib.md5(new_password.encode()).hexdigest() == current_password:
-#                 error_message = 'New password cannot be the same as the old password.'
-#             elif new_password != confirm_new_password:
-#                 error_message = 'New passwords do not match.'
-#             else:
-#                 # Encrypt the new password using MD5 hashing
-#                 hashed_new_password = hashlib.md5(new_password.encode()).hexdigest()
-
-#                 # Update the user's password
-#                 user.password = hashed_new_password
-#                 user.save()
-
-#                 return JsonResponse({'success': True, 'success_message': 'Password changed successfully.'})
-
-#     return JsonResponse({'success': False, 'error_message': error_message})
-
-# def login_views(request):
-#     error = None
-#     if request.method == 'POST':
-#         email_or_phone = request.POST.get('email_or_phone')
-#         password = request.POST.get('password')
-#         print(email_or_phone)
-#         # Check if email_or_phone or password is empty
-#         if not email_or_phone or not password:
-#            error_message = 'Email/Phone and Password fields cannot be empty.'
-
-#         # Check if the user exists with the given email or phone number
-#         user = Userdetails.objects.filter(Q(email=email_or_phone) | Q(phone_number=email_or_phone)).first()
-
-#         if user:
-#             # Hash the provided password using MD5 hashing for comparison
-#             hashed_password = hashlib.md5(password.encode()).hexdigest()
-
-#             # Check if the hashed password matches the one stored in the database
-#             if user.password == hashed_password:
-#                 print(user.email)
-#                 print(user.password)
-#                 # client_details = Hotelclientdetails.objects.filter(email=user.email)
-#                 # # Serialize the queryset to JSON
-#                 # serialized_data = serialize('json', client_details)
-                
-#                 # # Initialize an empty dictionary to store hotel names and booking IDs
-#                 # # Initialize an empty list to store hotel data
-#                 # hotel_data = []
-
-#                 # # Deserialize the JSON string to a list of dictionaries
-#                 # deserialized_data = json.loads(serialized_data)
-#                 # for entry in deserialized_data:
-#                 #     # Extracting hotel name
-#                 #     fields = entry['fields']
-#                 #     user_info = fields.get('booking_information', {})
-#                 #     datas = json.dumps(user_info)
-#                 #     pdfs = fields.get('pdf_document', '')
-#                 #     print(datas)
-#                 #     hotel_name = user_info.get('hotel_name', {})
-#                 #     booking_id = user_info.get('booking_id', '')
-
-#                 #     # Store hotel name and booking ID in a dictionary
-#                 #     entry_data = {'hotel_name': hotel_name, 'booking_id': booking_id,'datas':user_info}
-
-#                 #     # Append entry data to the list
-#                 #     hotel_data.append(entry_data)
-
-#                 # print(hotel_data)
-#                 # details_dict = json.loads(serialized_data)
-#                 # print(details_dict)
-#                 # template_path = "home/hotelreview.html"
-#                 # # Authenticate user with the provided credentials
-#                 # context = request.session.get('hotel_review')
-#                 email = user.email
-#                 phone_number = user.phone_number
-#                 username = user.username
-#                 # template = get_template(template_path)
-#                 # html = template.render(context)
-#                 # print(context)
-#                 return JsonResponse({'success': True, 'email': email,'phone_number':phone_number,'username':username})
-#                 # return render(request,'signup/success.html',{"email":user.email,"hotel_data":hotel_data})
-#             else:
-#                 # Password doesn't match, render login page with error message
-#                  error_message = 'Invalid email/phone number or password.'
-
-#         else:
-#             # User not found, render login page with error message
-#            error_message = 'User not found.'
-
-#     # If the request method is not POST, render the login page
-#     return JsonResponse({'success': False, 'error_message': error_message})
-
-
-# def login_views(request):
-#     error_message = None
-
-#     if request.method == 'POST':
-#         email_or_phone = request.POST.get('email_or_phone')
-#         password = request.POST.get('password')
-
-#         if not email_or_phone or not password:
-#             error_message = 'Email/Phone and Password fields cannot be empty.'
-
-#         else:
-#             user = Userdetails.objects.filter(Q(email=email_or_phone) | Q(phone_number=email_or_phone)).first()
-
-#             if user:
-#                 hashed_password = hashlib.md5(password.encode()).hexdigest()
-
-#                 if user.password == hashed_password:
-#                     # Authentication successful
-#                     # Proceed with your logic
-#                     return HttpResponse('Authentication successful')
-
-#                 else:
-#                     error_message = 'Invalid email/phone number or password.'
-
-#             else:
-#                 error_message = 'User not found.'
-
-#     return render(request, 'signup/signupsample.html', {'error': error_message})
 
 # Link to the mail
 from django.core.mail import send_mail
@@ -2606,3 +2418,55 @@ def send_whatsapp_message_3(phone_number,user, download_link):
 #         </button>
 # </div>
 # </div>
+
+
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+@csrf_exempt
+@require_POST
+
+def verify_pan(request):
+    try:
+        data = json.loads(request.body)
+        pan = data.get('pan')
+        print("pan",pan)
+   
+        # Step 1: Get access token
+        auth_url = "https://production.deepvue.tech/v1/authorize"
+        auth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        auth_payload = {'client_id': "free_tier_thirumurugan_e9f4e3e3b7", 'client_secret': "dafd332361784a5498518facb268da7a"}
+        
+        auth_response = requests.post(auth_url, headers=auth_headers, data=auth_payload)
+        if auth_response.status_code != 200:
+            return JsonResponse({'success': False, 'message': 'Authorization failed'}, status=auth_response.status_code)
+
+        access_token = auth_response.json().get('access_token')
+        
+        if not access_token:
+            return JsonResponse({'success': False, 'message': 'Failed to retrieve access token'})
+
+        # Step 2: Verify PAN
+        verify_url = f"https://production.deepvue.tech/v1/verification/panbasic?pan_number={pan}"
+        payload = {}
+        verify_headers = {
+            'Authorization': f'Bearer {access_token}',
+            'x-api-key': 'dafd332361784a5498518facb268da7a',
+        }
+        
+        verify_response = requests.request("GET", verify_url, headers=verify_headers, data=payload)
+        print(verify_response)
+        if verify_response.status_code == 200:
+            verify_data = verify_response.json()
+            print(verify_data)
+            status = verify_data['data']['status']
+            name = verify_data['data']['full_name']
+            split_name = name.split(" ")
+            result={"status":status,"firstname":split_name[0],"secondname":split_name[1]}
+            return JsonResponse({'success': True, 'message': 'PAN verified successfully', 'data': result})
+        else:
+            return JsonResponse({'success': False, 'message': 'PAN verification failed'}, status=verify_response.status_code)
+    except:
+        print("function work but value not work")
