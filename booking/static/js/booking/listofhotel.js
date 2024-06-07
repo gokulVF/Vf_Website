@@ -303,7 +303,7 @@ function handleSelectRoom(hotelCode, traceId, resultIndex, tokenId) {
             // console.log(roomDetailsData);
         },
         error: function(error) {
-            document.getElementById(hotelCode).innerHTML = "<a>No Room Available</a>"
+            document.getElementById(hotelCode).innerHTML = "<div class='w-50 mx-auto d-flex align-items-center'><img src='/booking/static/image/booking/no-room-img.webp' alt=''><a>No Room Available</a></div>"
             console.error(error);
         }
     });

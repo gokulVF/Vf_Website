@@ -642,17 +642,17 @@ def your_view(request):
                                 # print(combination_room_indices)
                                 
                                 room_html = f"""
-                                    <div class="item mb-1">
+                                    <div class="item py-1">
                                         <div class="room-info row d-flex align-items-center">
-                                            <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                            <div class="col-lg-6 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
                                                     <h5 class="mb-0">{Roomtypename}</h5>
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
                                                 </div>
                                             </div>
-                                            <div class="price-info col-lg-4 col-md-4 col-sm-4 col-3">
+                                            <div class="price-info col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="rub-price item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;">₹ {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
@@ -901,21 +901,21 @@ def get_room_details(request):
                                 print(combination_room_indices)
                                 
                                 room_html = f"""  
-                                    <div class="item mb-1">
+                                    <div class="item py-1">
                                         <div class="row d-flex align-items-center">
-                                            <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                            <div class="col-lg-6 col-md-5 col-sm-5 col-5">
                                                 <div class="item-inner-image text-start">
                                                     <h5 class="mb-0">{Roomtypename}</h5>
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-md-4 col-sm-4 col-3">
+                                            <div class="col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fs-4 fw-bold">INR {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;">₹ {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
-                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end mt-2" style="{'' if not button_added else 'display: none;'}">
+                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;'}">
                                                 <button class="nir-btn-black book-btn" id="hs-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
@@ -2429,41 +2429,44 @@ from django.views.decorators.http import require_POST
 @require_POST
 
 def verify_pan(request):
-    data = json.loads(request.body)
-    pan = data.get('pan')
-    print("pan",pan)
+    try:
+        data = json.loads(request.body)
+        pan = data.get('pan')
+        print("pan",pan)
+   
+        # Step 1: Get access token
+        auth_url = "https://production.deepvue.tech/v1/authorize"
+        auth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        auth_payload = {'client_id': "free_tier_thirumurugan_e9f4e3e3b7", 'client_secret': "dafd332361784a5498518facb268da7a"}
+        
+        auth_response = requests.post(auth_url, headers=auth_headers, data=auth_payload)
+        if auth_response.status_code != 200:
+            return JsonResponse({'success': False, 'message': 'Authorization failed'}, status=auth_response.status_code)
 
-    # Step 1: Get access token
-    auth_url = "https://production.deepvue.tech/v1/authorize"
-    auth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    auth_payload = {'client_id': "free_tier_thirumurugan_e9f4e3e3b7", 'client_secret': "dafd332361784a5498518facb268da7a"}
-    
-    auth_response = requests.post(auth_url, headers=auth_headers, data=auth_payload)
-    if auth_response.status_code != 200:
-        return JsonResponse({'success': False, 'message': 'Authorization failed'}, status=auth_response.status_code)
+        access_token = auth_response.json().get('access_token')
+        
+        if not access_token:
+            return JsonResponse({'success': False, 'message': 'Failed to retrieve access token'})
 
-    access_token = auth_response.json().get('access_token')
-    
-    if not access_token:
-        return JsonResponse({'success': False, 'message': 'Failed to retrieve access token'})
-
-    # Step 2: Verify PAN
-    verify_url = f"https://production.deepvue.tech/v1/verification/panbasic?pan_number={pan}"
-    payload = {}
-    verify_headers = {
-        'Authorization': f'Bearer {access_token}',
-        'x-api-key': 'dafd332361784a5498518facb268da7a',
-    }
-    
-    verify_response = requests.request("GET", verify_url, headers=verify_headers, data=payload)
-    print(verify_response)
-    if verify_response.status_code == 200:
-        verify_data = verify_response.json()
-        print(verify_data)
-        status = verify_data['data']['status']
-        name = verify_data['data']['full_name']
-        split_name = name.split(" ")
-        result={"status":status,"firstname":split_name[0],"secondname":split_name[1]}
-        return JsonResponse({'success': True, 'message': 'PAN verified successfully', 'data': result})
-    else:
-        return JsonResponse({'success': False, 'message': 'PAN verification failed'}, status=verify_response.status_code)
+        # Step 2: Verify PAN
+        verify_url = f"https://production.deepvue.tech/v1/verification/panbasic?pan_number={pan}"
+        payload = {}
+        verify_headers = {
+            'Authorization': f'Bearer {access_token}',
+            'x-api-key': 'dafd332361784a5498518facb268da7a',
+        }
+        
+        verify_response = requests.request("GET", verify_url, headers=verify_headers, data=payload)
+        print(verify_response)
+        if verify_response.status_code == 200:
+            verify_data = verify_response.json()
+            print(verify_data)
+            status = verify_data['data']['status']
+            name = verify_data['data']['full_name']
+            split_name = name.split(" ")
+            result={"status":status,"firstname":split_name[0],"secondname":split_name[1]}
+            return JsonResponse({'success': True, 'message': 'PAN verified successfully', 'data': result})
+        else:
+            return JsonResponse({'success': False, 'message': 'PAN verification failed'}, status=verify_response.status_code)
+    except:
+        print("function work but value not work")

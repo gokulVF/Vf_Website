@@ -441,7 +441,7 @@
                 <div class="col-lg-3 ps-lg-4 bg-white rounded box-shadow overflow-hidden p-3 mb-3 filter-menu" style="height: 400px;position: sticky;top: 20px;">
                     <div class="sidebar-sticky">
                         <div class="list-sidebar">
-                            <div class="sidebar-item mb-4 wrapper">
+                            <div class="sidebar-item mb-4 wrapper" style="border-bottom: none;">
                                <h3 class="">Price Range</h3>
                                  <!-- <div class="range-slider mt-0">
                                     <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
@@ -485,14 +485,14 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
+                                        <!-- <span class="fa fa-star"></span> -->
                                     </li>
                                     <li><input type="checkbox"  value="3" name="checklist">
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        <!-- <span class="fa fa-star"></span> -->
+                                        <!-- <span class="fa fa-star"></span> -->
                                     </li>
                                 </ul>
                             </div>
@@ -518,13 +518,13 @@
                             </div> -->
                             <ul class="nav nav-pills gap-2" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="sortHotels('Name')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="me-2 atoz" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32H480c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H352c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352H352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224H371.8l-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176h40.4L416 135.6 395.8 176z"/></svg>Hotel Name</button>
+                                  <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="sortHotels('Name')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="me-2 atoz" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32H480c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H352c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352H352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224H371.8l-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176h40.4L416 135.6 395.8 176z"/></svg>Hotel Name</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortHotels('Rating')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Customer Rating</button>
+                                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortHotels('Rating')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Star Rating</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortHotels('Price')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Price</button>
+                                  <button class="nav-link active" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortHotels('Price')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Price</button>
                                 </li>
                               </ul>
                               <!-- <div class="tab-content" id="pills-tabContent">
@@ -558,14 +558,15 @@
                                         <div class="trend-content position-relative text-md-start text-center">
                                             <!-- <small>Moscow Airport - Premium</small> -->
                                             <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
-                                            <div class="rating" id="{{ hotel.HotelCode }}_starRating">
-                                                <h3 class="mb-0" style="font-size: 22px;"><a href="#" class="">{{ hotel.HotelName }}</a></h3>
+                                            <div class="rating mb-1" id="{{ hotel.HotelCode }}_starRating">
+                                                <h3 class="mb-0" style="font-size: 22px;">{{ hotel.HotelName }}</h3>
                                                 {% for star in "12345" %}
                                                    <span class="fa fa-star {% if forloop.counter <= hotel.Rating %}checked{% else %}unchecked{% endif %}"></span>
-                                                {% endfor %} <span>({{ hotel.Rating }})</span>
+                                                {% endfor %} <span>({{ hotel.Rating }} - star)</span>
                                             </div>
-                                            <address class="address">{{ hotel.Address }}</address>
-                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" id="viewDetailsLink" class="theme view_det"><img src="{% static 'image/booking/bed.png' %}" alt="">View Details</a>
+                                            <address class="address mb-1"><i class="icon-directions theme me-2" style="font-size: 18px;"></i><span class="address">{{ hotel.Address }}</span><span>.....</span></address>
+                                            <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" id="viewDetailsLink" target="_blank" class="theme view_det" >
+                                                <i class="fa fa-key me-2" aria-hidden="true"></i>View Details</a>
                                             <!-- <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p> -->
                                         </div>
                                     </div>
@@ -579,7 +580,7 @@
                                             </div> -->
                                             <!-- <small>200 Reviews</small> -->
                                             <div class="trend-price my-2">
-                                                <p class="mb-0 price theme fs-3 fw-bold">INR {{hotel.Price}}</p>
+                                                <p class="mb-0 price theme1 fw-bold" style="font-size: 22px;">₹ {{hotel.Price}}</p>
                                                 <small>Per Night</small>
                                                 <div class="hotel-btn mt-1">
                                                     <button class="nir-btn shadows select-room-btn ms-auto" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
@@ -1032,6 +1033,11 @@ function sortHotels(criteria) {
     align-items: center !important;
     justify-content: end !important;
     text-align: center;
+}
+
+.address {
+    height: 20px;
+    overflow-y: hidden;
 }
 
 

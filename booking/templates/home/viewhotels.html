@@ -52,7 +52,7 @@
                                     <div class="rating me-2 text-start" id="{{ combined_info.hotel_info.hotel_name }}_starRating">
                                         {% for star in "12345" %}
                                             <span class="fa fa-star {% if forloop.counter <= combined_info.hotel_info.star_rating %}checked{% else %}unchecked{% endif %}"></span>
-                                        {% endfor %}
+                                        {% endfor %}<span>({{ combined_info.hotel_info.star_rating }} - star)</span>
                                     </div>
                                     
                                 </div>

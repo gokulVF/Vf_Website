@@ -73,7 +73,7 @@
             </div>
             <div class="modal-body border-t bg-grey ">
                 <div class="">
-                    <p class="cp_refund theme" style="font-size: 14px;">Full Refund Allowed</p>
+                    <!-- <p class="cp_refund theme" style="font-size: 14px;">Full Refund Allowed</p> -->
                     <table class="cancel_table text-start">
                         <thead>
                             <tr class="t_head">
@@ -85,9 +85,9 @@
                         <input type="hidden" id="CancellationPolicies" value="{{ details.CancellationPolicies }}">
                         <tbody id="cancellationPoliciesTableBody">
                             <tr>
-                                <td>16-Dec-2023 00:00:00</td>
-                                <td>18-Dec-2023 23:59:59</td>
-                                <td>4029 Amount Charges.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -218,11 +218,11 @@
                                 <div class="row">
                                     <div class="">
                                         <div class="trend-content position-relative">
-                                            <h5 class="mb-1"><a href="grid-leftfilter.html">{{ details.hotel_name }}</a></h5>
+                                            <h5 class="mb-1">{{ details.hotel_name }}</h5>
                                             <div class="rating star-view mb-1">
                                                 {% for star in "12345" %}
                                                 <span class="fa fa-star {% if forloop.counter <= details.rating %}checked{% else %}unchecked{% endif %}"></span>
-                                               {% endfor %}
+                                               {% endfor %}<span>({{ details.rating }} - star)</span>
                                             </div>
                                             <address class="mb-2 black" style="font-size: 14px;">{{ details.address }}</address>
                                         </div>
@@ -234,14 +234,14 @@
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check In</p>
-                                            <h6 class="mb-0 number">{{ details.check_in_date }}</h6>
+                                            <span class="mb-0 fw-bold black">{{ details.check_in_date }}</span>
                                             <!-- <small>15:00 - 22:00</small> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check Out</p>
-                                            <h6 class="mb-0 number">{{ details.check_out_date }}</h6>
+                                            <span class="mb-0 fw-bold black">{{ details.check_out_date }}</span>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
@@ -249,20 +249,20 @@
                             </div>
                             <div class="trend-check border-b pb-2">
                                 <p class="mb-0">Night(s)</p>
-                                <h6 class="mb-0 number">{{ details.No_of_Night }} </h6>
+                                <span class="mb-0 fw-bold black">{{ details.No_of_Night }} </span>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
                             </div>
                             <div class="trend-check">
                                 <!-- <p class="mb-0">You Selected:</p> -->
-                                <h6 class="mb-0">Adults <span class="float-end fw-normal number">{{ details.adults }}</span> </h6>
-                                <h6 class="mb-0">Children <span class="float-end fw-normal number">{{ details.childs }}</span> </h6>
+                                <p class="mb-0">Adults <span class="float-end fw-bold black">{{ details.adults }}</span> </p>
+                                <p class="mb-0">Children <span class="float-end fw-bold black">{{ details.childs }}</span> </p>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">Change your selection</a></small> -->
                             </div>
 
                         </div>  
                         <style>
-                            .number {
-                                font-family: "Poppins,sans-serif" !important;
+                            .num {
+                                font-family: 'Poppins' !important;
                             }
                             .upercase{
                                 text-transform: uppercase;
@@ -310,12 +310,12 @@
     }
 
     .fa-star.checked {
-            color: orange;
-        }
-
-        .fa-star.unchecked {
-            color: #ccc;
-        }
+        color: orange;
+    }
+    .fa-star.unchecked {
+        color: #ccc;
+        display: none !important;
+    }
    </style>
 
     <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
@@ -550,7 +550,7 @@ function generateRoomDetails() {
     guestData.forEach(function (room, roomIndex) {
         var roomElement = document.createElement('div');
         roomElement.className = 'mt-2';
-        roomElement.innerHTML = `<h3 class="theme">Room <span class="number">${roomIndex + 1}</span></h3>`;
+        roomElement.innerHTML = `<h3 class="theme">Room <span class="num">${roomIndex + 1}</span></h3>`;
 
         for (var i = 0; i < room.NoOfAdults; i++) {
             var adultElement = document.createElement('div');
@@ -573,7 +573,7 @@ function generateRoomDetails() {
             adultElement.innerHTML = `
                 ${pancard ? `
                 <div class="">
-                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
+                    <h4 class="name_no theme2">Adult <span class="num">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
                 </div>
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-0">
@@ -645,7 +645,7 @@ function generateRoomDetails() {
             childElement.innerHTML = `
                 ${pancard ? `
                 <div class="row">
-                    <h4 class="name_no theme2">Child <span class="number">${j + 1}</span></h4>
+                    <h4 class="name_no theme2">Child <span class="num">${j + 1}</span></h4>
                 </div>
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-1">
@@ -725,7 +725,7 @@ function togglePanFields(panFieldId, checkbox) {
 }
 
 function verifyPAN(panFieldId, resultDivId, firstnameId, lastnameId, checkboxId) {
-    const panSW = document.getElementById(panFieldId).value;
+    const pan = document.getElementById(panFieldId).value;
 
     if (!validationpan(pan, resultDivId)) {
         return; // Stop if the PAN format is invalid
