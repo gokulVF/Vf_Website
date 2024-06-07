@@ -579,8 +579,9 @@
                                                 {% endfor %}
                                             </div> -->
                                             <!-- <small>200 Reviews</small> -->
-                                            <div class="trend-price my-2">
-                                                <p class="mb-0 price theme1 fw-bold" style="font-size: 22px;">₹ {{hotel.Price}}</p>
+                                            <div class="trend-price">
+                                                <p class="mb-0 price theme fw-bold" style="font-size: 22px;">₹ {{hotel.Price}}</p>
+                                                <p class="mb-0 price theme2 fw-bold" style="font-size: 14px;text-decoration: line-through;">₹ {{hotel.publicprice}}</p>
                                                 <small>Per Night</small>
                                                 <div class="hotel-btn mt-1">
                                                     <button class="nir-btn shadows select-room-btn ms-auto" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
