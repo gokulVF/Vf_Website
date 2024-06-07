@@ -2431,6 +2431,7 @@ from django.views.decorators.http import require_POST
 def verify_pan(request):
     data = json.loads(request.body)
     pan = data.get('pan')
+    print("pan",pan)
 
     # Step 1: Get access token
     auth_url = "https://production.deepvue.tech/v1/authorize"
@@ -2447,7 +2448,7 @@ def verify_pan(request):
         return JsonResponse({'success': False, 'message': 'Failed to retrieve access token'})
 
     # Step 2: Verify PAN
-    verify_url = f"https://production.deepvue.tech/v1/verification/pan-plus?pan_number={pan}"
+    verify_url = f"https://production.deepvue.tech/v1/verification/panbasic?pan_number={pan}"
     payload = {}
     verify_headers = {
         'Authorization': f'Bearer {access_token}',
@@ -2459,6 +2460,10 @@ def verify_pan(request):
     if verify_response.status_code == 200:
         verify_data = verify_response.json()
         print(verify_data)
-        return JsonResponse({'success': True, 'message': 'PAN verified successfully', 'data': verify_data})
+        status = verify_data['data']['status']
+        name = verify_data['data']['full_name']
+        split_name = name.split(" ")
+        result={"status":status,"firstname":split_name[0],"secondname":split_name[1]}
+        return JsonResponse({'success': True, 'message': 'PAN verified successfully', 'data': result})
     else:
         return JsonResponse({'success': False, 'message': 'PAN verification failed'}, status=verify_response.status_code)

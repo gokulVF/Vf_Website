@@ -224,7 +224,7 @@
                                                 <span class="fa fa-star {% if forloop.counter <= details.rating %}checked{% else %}unchecked{% endif %}"></span>
                                                {% endfor %}
                                             </div>
-                                            <h6 class="mb-2">{{ details.address }}</h6>
+                                            <address class="mb-2 black" style="font-size: 14px;">{{ details.address }}</address>
                                         </div>
                                     </div>
                                 </div>
@@ -234,14 +234,14 @@
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check In</p>
-                                            <h6 class="mb-0">{{ details.check_in_date }}</h6>
+                                            <h6 class="mb-0 number">{{ details.check_in_date }}</h6>
                                             <!-- <small>15:00 - 22:00</small> -->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Check Out</p>
-                                            <h6 class="mb-0">{{ details.check_out_date }}</h6>
+                                            <h6 class="mb-0 number">{{ details.check_out_date }}</h6>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
@@ -249,18 +249,25 @@
                             </div>
                             <div class="trend-check border-b pb-2">
                                 <p class="mb-0">Night(s)</p>
-                                <h6 class="mb-0">{{ details.No_of_Night }} </h6>
+                                <h6 class="mb-0 number">{{ details.No_of_Night }} </h6>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">travelling on different dates?</a></small> -->
                             </div>
                             <div class="trend-check">
                                 <!-- <p class="mb-0">You Selected:</p> -->
-                                <h6 class="mb-0">Adults <span class="float-end fw-normal">{{ details.adults }}</span> </h6>
-                                <h6 class="mb-0">Children <span class="float-end fw-normal">{{ details.childs }}</span> </h6>
+                                <h6 class="mb-0">Adults <span class="float-end fw-normal number">{{ details.adults }}</span> </h6>
+                                <h6 class="mb-0">Children <span class="float-end fw-normal number">{{ details.childs }}</span> </h6>
                                 <!-- <small><a href="#" class="theme text-decoration-underline">Change your selection</a></small> -->
                             </div>
 
                         </div>  
-                        
+                        <style>
+                            .number {
+                                font-family: "Poppins,sans-serif" !important;
+                            }
+                            .upercase{
+                                text-transform: uppercase;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -359,7 +366,8 @@
         // Call the function to generate rows
         generateCancellationPolicyRows();
     </script>
-       <script>
+    
+    <script>
         function validateForm() {
         var valid = true;
 
@@ -413,6 +421,7 @@
         for (var i = 0; i < room.NoOfAdults; i++) {
             var adultFirstName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`);
             var adultLastName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`);
+            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
 
             if (adultFirstName.value.trim() === '') {
                 document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the first name';
@@ -431,11 +440,21 @@
                 adultLastName.style.border = ''; // Reset border style if valid
                 document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' ';
             }
+
+           
+            if (pannumber.value.trim() === '') {
+                document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+                phoneInput.style.border = '1px solid red';
+                valid = false;
+            }else {
+                phoneInput.style.border = ''; // Reset border style if valid
+            }
         }
 
         for (var j = 0; j < room.NoOfChild; j++) {
             var childFirstName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`);
             var childLastName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`);
+            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${i + 1}_pancard"]`);
 
             if (childFirstName.value.trim() === '') {
                 document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the first name';
@@ -454,6 +473,16 @@
                 childLastName.style.border = ''; // Reset border style if valid
                 document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
             }
+
+            
+            if (pannumber.value.trim() === '') {
+                document.getElementById(`pancardError_${roomIndex + 1}_adult_${j + 1}`).innerText = 'Please Enter the PAN number';
+                phoneInput.style.border = '1px solid red';
+                valid = false;
+            } 
+            else {
+                phoneInput.style.border = ''; // Reset border style if valid
+            }
         }
     });
 
@@ -462,102 +491,319 @@
 
         return valid;
     }
+
+    // function panvalidation(){
+    //     guestData.forEach(function (room, roomIndex) {
+    //     for (var i = 0; i < room.NoOfAdults; i++) {
+            
+    //         var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
+
+    //         var panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    //         if (pannumber.value.trim() === '') {
+    //             document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+    //             phoneInput.style.border = '1px solid red';
+    //             valid = false;
+    //         } else if (!panPattern.test(pannumber.value)) {
+    //             document.getElementById('phoneError').innerText = 'Invalid Pan number';
+    //             phoneInput.style.border = '1px solid red';
+    //             valid = false;
+    //         } else {
+    //             phoneInput.style.border = ''; // Reset border style if valid
+    //         }
+    //     }
+
+    //     for (var j = 0; j < room.NoOfChild; j++) {
+    //         var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`);
+
+    //         var panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    //         if (pannumber.value.trim() === '') {
+    //             document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
+    //             phoneInput.style.border = '1px solid red';
+    //             valid = false;
+    //         } else if (!panPattern.test(pannumber.value)) {
+    //             document.getElementById('phoneError').innerText = 'Invalid Pan number';
+    //             phoneInput.style.border = '1px solid red';
+    //             valid = false;
+    //         } else {
+    //             phoneInput.style.border = ''; // Reset border style if valid
+    //         }
+            
+    //     }
+    // });
+    // }
     </script>
+
+
 <script>
-    var personsdetails = document.getElementById('hiddenGuestData').textContent;
-    var guestData = JSON.parse(personsdetails || "[]");
+var personsdetails = document.getElementById('hiddenGuestData').textContent;
+var guestData = JSON.parse(personsdetails || "[]");
 
-    console.log(guestData);
+console.log(guestData);
 
-    function generateRoomDetails() {
-        var container = document.getElementById('guestDetailsContainer');
-        container.innerHTML = ''; // Clear existing content
+function generateRoomDetails() {
+    var container = document.getElementById('guestDetailsContainer');
+    container.innerHTML = ''; // Clear existing content
 
-        var leadPassengerAssigned = false; // Flag to track lead passenger assignment
+    var leadPassengerAssigned = false; // Flag to track lead passenger assignment
+    var pancard = true; // Assuming pancard is true
 
-        guestData.forEach(function (room, roomIndex) {
-            var roomElement = document.createElement('div');
-            roomElement.className = 'mt-2';
-            roomElement.innerHTML = `<h3 class="theme">Room ${roomIndex + 1}</h3>`;
+    guestData.forEach(function (room, roomIndex) {
+        var roomElement = document.createElement('div');
+        roomElement.className = 'mt-2';
+        roomElement.innerHTML = `<h3 class="theme">Room <span class="number">${roomIndex + 1}</span></h3>`;
 
-            for (var i = 0; i < room.NoOfAdults; i++) {
-                var adultElement = document.createElement('div');
-                adultElement.className = 'my-2';
-                
-                // Assign lead passenger only if it hasn't been assigned yet
-                var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? '- Lead Passenger' : '';
-                var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
-                
-                if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
-                    leadPassengerAssigned = true;
-                }
-                
-                adultElement.innerHTML = `
-                    <div class="">
-                        <h4 class="name_no theme2">Adult ${i + 1} <span style="color: orange;">${leadCustomerText}</span></h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2 mb-1">
-                            <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Ms">Ms</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
-                            <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
-                            <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
-                        </div>
-                        <input type="hidden" name="room_${roomIndex + 1}_adult_${i + 1}_age" value="0">
-                        <input type="hidden" name="leadpassenger_${roomIndex + 1}_adult_${i + 1}" value="${leadpassenger}">
-                    </div>`;
+        for (var i = 0; i < room.NoOfAdults; i++) {
+            var adultElement = document.createElement('div');
+            adultElement.className = 'my-2';
 
-                roomElement.appendChild(adultElement);
+            // Assign lead passenger only if it hasn't been assigned yet
+            var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? '- Lead Passenger' : '';
+            var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
+
+            if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
+                leadPassengerAssigned = true;
             }
 
-            for (var j = 0; j < room.NoOfChild; j++) {
-                var childElement = document.createElement('div');
-                childElement.className = 'mt-2';
-                childElement.innerHTML = `
-                    <div class="row">
-                        <h4 class="name_no theme2">Child ${j + 1}</h4>
+            const panFieldId = `pan_${roomIndex + 1}_${i + 1}`;
+            const resultDivId = `pancardError_${roomIndex + 1}_adult_${i + 1}`;
+            const firstnameId = `firstName_${roomIndex + 1}_adult_${i + 1}`;
+            const lastnameId = `lastName_${roomIndex + 1}_adult_${i + 1}`;
+            const checkboxId = `checkboxId_${roomIndex + 1}_adult_${i + 1}`;
+
+            adultElement.innerHTML = `
+                ${pancard ? `
+                <div class="">
+                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
+                </div>
+                <form class="row pb-2">
+                    <div class="col-lg-4 mb-0">
+                        <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard">
+                        <span class="error" id="${resultDivId}"></span>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-2 mb-1">
-                            <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Ms">Ms</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
-                            <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
-                            <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
-                        </div>
-                        <div class="col-md-0" style="display:none">
-                            <input class="f-inp" type="hidden" name="room_${roomIndex + 1}_child_${j + 1}_ChildAge" value="${room.ChildAge[j]}">
-                            <input type="hidden" name="leadpassenger_${roomIndex + 1}_child_${j + 1}" value="1">
-                        </div>
-                    </div>`;
+                    <div class="col-lg-3">
+                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}','${firstnameId}','${lastnameId}','${checkboxId}')" class="px-3 py-1 m-2 white bg-theme" style="border-radius: 4px;">Verify PAN</button>
+                    </div>
+                    ${leadCustomerText ? `
+                <div class="col-lg-3 mt-2" style="color:red; display:none;" id="${checkboxId}">
+                    <input type="checkbox" id="applyPanToAll" onclick="togglePanFields('pan_${roomIndex + 1}_${i + 1}', this)" > Apply to all Pax
+                </div>` : ''}
+                </form>
+                
+                <div class="row">
+                    <div class="col-lg-2 mb-1">
+                        <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input type="text" class="f-inp" id="${firstnameId}" placeholder="Enter First Name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                    </div>
+                </div>` : `
+                <div class="">
+                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 mb-1">
+                        <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_adult_${i + 1}_gender">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input type="text" class="f-inp" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input type="text" class="f-inp" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
+                    </div>
+                </div>`}
+                <input type="hidden" name="room_${roomIndex + 1}_adult_${i + 1}_age" value="0">
+                <input type="hidden" name="leadpassenger_${roomIndex + 1}_adult_${i + 1}" value="${leadpassenger}">
+            `;
 
-                roomElement.appendChild(childElement);
+            roomElement.appendChild(adultElement);
+        }
+
+        for (var j = 0; j < room.NoOfChild; j++) {
+            var childElement = document.createElement('div');
+            childElement.className = 'mt-2';
+
+            const panFieldId = `pan_${roomIndex + 1}_child_${j + 1}`;
+            const resultDivId = `pancardError_${roomIndex + 1}_child_${j + 1}`;
+
+            childElement.innerHTML = `
+                ${pancard ? `
+                <div class="row">
+                    <h4 class="name_no theme2">Child <span class="number">${j + 1}</span></h4>
+                </div>
+                <form class="row pb-2">
+                    <div class="col-lg-4 mb-1">
+                        <input type="text" id="${panFieldId}" class="f-inp upercase pan_first_input" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_child_${j + 1}_pancard" >
+                        <span class="error" id="${resultDivId}"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}')" class="px-3 py-1 m-2 white bg-theme" style="border-radius: 4px;">Verify PAN</button>
+                    </div>
+                    </form>
+                <div class="row">
+                    <div class="col-lg-2 mb-1">
+                        <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input class="f-inp" type="text" placeholder="Enter First Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
+                        <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input class="f-inp" type="text" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
+                        <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                    </div>
+                </div>` : `
+                <div class="row">
+                    <h4 class="name_no theme2">Child <span class="number">${j + 1}</span></h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 mb-1">
+                        <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
+                        <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                    </div>
+                    <div class="col-lg-5 mb-1">
+                        <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
+                        <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
+                    </div>
+                </div>`}
+                <div class="col-md-0" style="display:none">
+                    <input class="f-inp" type="hidden" name="room_${roomIndex + 1}_child_${j + 1}_ChildAge" value="${room.ChildAge[j]}">
+                    <input type="hidden" name="leadpassenger_${roomIndex + 1}_child_${j + 1}" value="1">
+                </div>
+            `;
+
+            roomElement.appendChild(childElement);
+        }
+
+        container.appendChild(roomElement);
+    });
+}
+
+function togglePanFields(panFieldId, checkbox) {
+    var panValue = document.getElementById(panFieldId).value;
+    var panFields = document.querySelectorAll('input[name*="pancard"]');
+
+    panFields.forEach(function (field) {
+        if (checkbox.checked) {
+            field.value = panValue;
+        } else {
+            // Only clear non-lead passenger fields
+            if (field.id !== panFieldId) {
+                field.value = '';
             }
+        }
+    });
+}
 
-            container.appendChild(roomElement);
-        });
+function verifyPAN(panFieldId, resultDivId, firstnameId, lastnameId, checkboxId) {
+    const panSW = document.getElementById(panFieldId).value;
+
+    if (!validationpan(pan, resultDivId)) {
+        return; // Stop if the PAN format is invalid
     }
-    generateRoomDetails();
+
+    const csrftoken = getCookie('csrftoken');
+
+    fetch('/verify_pan/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({ pan: pan })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultDiv = document.getElementById(resultDivId);
+        const firstname = document.getElementById(firstnameId);
+        const lastname = document.getElementById(lastnameId);
+        const checkbox = document.getElementById(checkboxId);
+
+        if (data.data['status'] === 'VALID') {
+            // resultDiv.innerHTML = `<p>${data.data['status']}</p>`;
+            checkbox.style.display = 'block';
+            firstname.value = `${data.data['firstname']}`;
+            lastname.value = `${data.data['secondname']}`;
+            firstname.setAttribute('readonly', 'readonly');
+            lastname.setAttribute('readonly', 'readonly');
+        } else {
+            resultDiv.innerHTML = `<p>Error: ${data.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function validationpan(pan, resultDivId) {
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    const resultDiv = document.getElementById(resultDivId);
+
+    // Trim the PAN input to remove any leading/trailing spaces
+    const trimmedPan = pan.trim();
+
+    console.log(`PAN being validated: '${trimmedPan}'`);
+
+    if (!panRegex.test(trimmedPan)) {
+        resultDiv.innerHTML = '<p>Invalid PAN format. Please enter a valid PAN number.</p>';
+        return false;
+    } else {
+        resultDiv.innerHTML = '';
+        return true;
+    }
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+generateRoomDetails();
+
+
 </script>
+
+
+
 
     <script>
         document.getElementById('myButton').addEventListener('click', function () {
@@ -577,7 +823,8 @@
                         firstName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`).value,
                         lastName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`).value,
                         age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`).value,
-                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`).value
+                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`).value,
+                        pancardnumber :document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`).value
                     };
                     roomDetails.adults.push(adultDetails);
                 }
@@ -588,7 +835,8 @@
                         firstName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`).value,
                         lastName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`).value,
                         age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`).value,
-                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`).value
+                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`).value,
+                        pancardnumber :document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`).value
                     };
                     roomDetails.children.push(childDetails);
                 }
