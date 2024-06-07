@@ -1999,42 +1999,52 @@ fernet = Fernet(settings.SECRET_KEY)
 
 def send_pdf_link_mail(request):
     if request.method == 'POST':
-        phone_number = request.POST.get('email')
-        booking_id = request.POST.get('booking_id')
-        user = request.POST.get('user')
-        print(type(booking_id))
+        try:
+            # Retrieve data from POST request
+            phone_number = request.POST.get('email')
+            booking_id = request.POST.get('booking_id')
+            user = request.POST.get('user')
 
-        # Encrypt the booking ID
-        enc_message = fernet.encrypt(booking_id.encode())
-        encrypted_token = base64.urlsafe_b64encode(enc_message).decode()
+            # Print the type of booking_id (for debugging purposes)
+            print(type(booking_id))
 
-        # Construct the URL for downloading the PDF
-        download_url = reverse('download_pdf_api')
+            # Encrypt the booking ID
+            enc_message = fernet.encrypt(booking_id.encode())
+            encrypted_token = base64.urlsafe_b64encode(enc_message).decode()
 
-        # Construct the PDF download link with the URL
-        download_link = f'{download_url}?token={encrypted_token}'
+            # Construct the URL for downloading the PDF
+            download_url = reverse('download_pdf_api')
 
-        send_whatsapp_message_api(phone_number,user,download_link)
+            # Construct the PDF download link with the URL
+            download_link = f'{download_url}?token={encrypted_token}'
 
-        subject = "Your PDF Download Link"
-        email_message = f"Subject: {subject}\n\nDear {user},\n\nPlease find the link to download your PDF: {download_link}"
-        sender_email = "gokulraj@vacationfeast.com"
-        recipient_email = phone_number  # Assuming `user` has an `email` attribute
+            # Send WhatsApp message with the download link
+            send_whatsapp_message_api(phone_number, user, download_link)
 
-        # Connect to the SMTP server
-        s = smtplib.SMTP('smtppro.zoho.com', 587)
-        s.starttls()
+            # Prepare email details
+            subject = "Your PDF Download Link"
+            email_message = f"Subject: {subject}\n\nDear {user},\n\nPlease find the link to download your PDF: {download_link}"
+            sender_email = "gokulraj@vacationfeast.com"
+            recipient_email = phone_number  # Assuming `phone_number` is used as the recipient email
 
-        # Login to the SMTP server
-        s.login("gokulraj@vacationfeast.com", "gokulraj@123")
+            # Connect to the SMTP server
+            s = smtplib.SMTP('smtppro.zoho.com', 587)
+            s.starttls()
 
-        # Send the email
-        s.sendmail(sender_email, recipient_email, email_message)
-        s.quit()
+            # Login to the SMTP server
+            s.login("gokulraj@vacationfeast.com", "gokulraj@123")
 
-        return JsonResponse({'success': True, 'download_link': download_link})
-    # except Exception as e:
-    return JsonResponse({'success': False, 'error': str()})
+            # Send the email
+            s.sendmail(sender_email, recipient_email, email_message)
+            s.quit()
+            
+
+            return JsonResponse({'success': True, 'download_link': download_link})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 def send_whatsapp_message_api(phone_number,user,download_link):
     gallabox_api_key = settings.GALLABOX_API_KEY

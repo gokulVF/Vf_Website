@@ -401,6 +401,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
             image_url = hotel.get('HotelPicture', '')
             address = hotel.get('HotelAddress', '')
             price = hotel.get('Price', {}).get('OfferedPriceRoundedOff', 0)
+            publicprice = hotel.get('Price', {}).get('PublishedPriceRoundedOff', 0)
             hotel_code = hotel.get('HotelCode', '')
             hotel_category = hotel.get('HotelCategory', '')
             result_index = hotel.get('ResultIndex', None)
@@ -415,6 +416,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
                 'ImageURL': image_url,
                 'Address': address,
                 'Price': price,
+                "publicprice":publicprice,
                 'TraceId': trace_id,
                 'HotelCode': hotel_code,
                 'HotelCategory': hotel_category,
