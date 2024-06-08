@@ -346,7 +346,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": True,
+        "IsTBOMapped": False,
         'ResultCount': result_count,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
@@ -654,7 +654,7 @@ def your_view(request):
                                             </div>
                                             <div class="price-info col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="rub-price item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;">₹ {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
@@ -913,7 +913,7 @@ def get_room_details(request):
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;">₹ {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
