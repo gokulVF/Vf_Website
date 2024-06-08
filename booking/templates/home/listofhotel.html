@@ -550,7 +550,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-3 col-sm-12 col-12">
                                        <div class="trend-item2 rounded">
-                                            <a href="#" style="background-image: url('{{ hotel.ImageURL }}');"></a>
+                                                <img src="{{ hotel.ImageURL }}" alt="" class="hotel-image">
                                              <!-- <div class="color-overlay"></div> -->
                                         </div> 
                                     </div>
@@ -1039,6 +1039,11 @@ function sortHotels(criteria) {
 .address {
     height: 20px;
     overflow-y: hidden;
+}
+
+.hotel-image{ 
+    height: 130px;
+    width: 100%;
 }
 
 
