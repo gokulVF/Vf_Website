@@ -385,7 +385,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         response_data = response.json()
         # print(response_data)
 
-        trace_id = response_data.get('HotelSearchResult', {}).get('TraceId', '')
+        trace_id = response_data.get(' ', {}).get('TraceId', '')
         print("TraceId:", trace_id)
 
         hotel_results = response_data.get('HotelSearchResult', {}).get('HotelResults', [])
@@ -1075,7 +1075,7 @@ def hotelreview(request):
             'HotelName': hotel_name,
             'GuestNationality': nationality,
             'NoOfRooms': totalrooms,
-            'ClientReferenceNo': 0,
+            'ClientReferenceNo': None,
             'IsVoucherBooking': 'true',
             'EndUserIp': client_ip,
             'TokenId': token_id,
@@ -1694,7 +1694,7 @@ def hotelbooked(request):
                 'HotelName': hotel_name,
                 'GuestNationality': nationality,
                 'NoOfRooms': totalrooms,
-                'ClientReferenceNo': 0,
+                'ClientReferenceNo':None,
                 'IsVoucherBooking': 'true',
                 'EndUserIp': client_ip,
                 'TokenId': token_id,
@@ -1752,9 +1752,9 @@ def hotelbooked(request):
                         "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
                         "PassportNo": None,
-                        "PassportIssueDate": None,
-                        "PassportExpDate": None,
-                        "PAN":'EXAPR2885D'
+                        "PassportIssueDate": "0001-01-  01T00:00:00:00",
+                        "PassportExpDate": "0001-01-  01T00:00:00:00",
+                        "PAN":passenger["pancardnumber"],
                     }
                     hotel_passenger_list.append(hotel_passenger)
 
