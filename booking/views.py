@@ -346,7 +346,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": True,
+        "IsTBOMapped": False,
         'ResultCount': result_count,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
@@ -385,7 +385,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         response_data = response.json()
         # print(response_data)
 
-        trace_id = response_data.get(' ', {}).get('TraceId', '')
+        trace_id = response_data.get('HotelSearchResult', {}).get('TraceId', '')
         print("TraceId:", trace_id)
 
         hotel_results = response_data.get('HotelSearchResult', {}).get('HotelResults', [])
@@ -441,6 +441,7 @@ def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
     trace_id = traceId
     result_index = resultIndex
     token_id = tokenId
+    client_ip = request.session.get('client_ip','')
 
     api_url = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom'
 
@@ -451,7 +452,7 @@ def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
     data = {
         'ResultIndex': result_index,
         'HotelCode': hotel_code,
-        'EndUserIp': '123.1.1.1',  # Replace with actual end user IP
+        'EndUserIp': client_ip,  # Replace with actual end user IP
         'TokenId': token_id,
         'TraceId': trace_id,
     }
@@ -1075,7 +1076,7 @@ def hotelreview(request):
             'HotelName': hotel_name,
             'GuestNationality': nationality,
             'NoOfRooms': totalrooms,
-            'ClientReferenceNo': None,
+            'ClientReferenceNo': 0,
             'IsVoucherBooking': 'true',
             'EndUserIp': client_ip,
             'TokenId': token_id,

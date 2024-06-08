@@ -445,20 +445,20 @@
                                <h3 class="">Price Range</h3>
                                  <!-- <div class="range-slider mt-0">
                                     <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                                        <span class="min-value">₹ {{ min_price }}</span> 
-                                        <span class="max-value">₹ {{ max_price }}</span>
+                                        <span class="min-value"><span style="font-family:'Poppins',"><span style="font-family:'Poppins,'">₹</span></span> {{ min_price }}</span> 
+                                        <span class="max-value"><span style="font-family:'Poppins',"><span style="font-family:'Poppins,'">₹</span></span> {{ max_price }}</span>
                                         <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%;"></div>
                                     <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
                                     <div class="clearfix"></div>
                                 </div> -->
                                 <div class="price-input">
                                     <div class="field">
-                                        <label for="" class="mb-0">₹</label>
+                                        <label for="" class="mb-0"><span style="font-family:'Poppins,'">₹</span></label>
                                         <input type="number" readonly class="input-min" value="{{ min_price }}">
                                     </div>
                                     <div class="separator">-</div>
                                     <div class="field">
-                                        <label for="" class="mb-0">₹</label>
+                                        <label for="" class="mb-0"><span style="font-family:'Poppins,'">₹</span></label>
                                         <input type="number" readonly class="input-max" value="{{ max_price }}">
                                     </div>
                                 </div>
@@ -580,9 +580,9 @@
                                             </div> -->
                                             <!-- <small>200 Reviews</small> -->
                                             <div class="trend-price">
-                                                <p class="mb-0 price theme fw-bold" style="font-size: 22px;">₹ {{hotel.Price}}</p>
-                                                <p class="mb-0 price theme2 fw-bold" style="font-size: 14px;text-decoration: line-through;">₹ {{hotel.publicprice}}</p>
-                                                <small>Per Night</small>
+                                                <p class="mb-0 price theme2 fw-bold" style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span>{{hotel.publicprice}}</p>
+                                                <p class="mb-0 price theme fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {{hotel.Price}}</p>
+                                                <small style="font-size: 12px;">Per Night</small>
                                                 <div class="hotel-btn mt-1">
                                                     <button class="nir-btn shadows select-room-btn ms-auto" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
                                                     onclick="handleSelectRoom('{{ hotel.HotelCode }}', '{{ hotel.TraceId }}', '{{ hotel.ResultIndex }}','{{ token_id }}')">SELECT ROOM</button>
