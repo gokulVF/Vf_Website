@@ -26,9 +26,28 @@
     Launch demo modal
 </button>
 
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModalsuccess1" id="logSuccess">
+    Success login
+</button>
+
 <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModalCenter2" id="forgotpassword">
     SIGN IN
 </button>
+
+<div class="modal fade" id="exampleModalsuccess1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered px-2" role="document">
+  
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 4px !important;">
+        <div class="page-body p-4">
+            <div class="head p-4 text-center justify-content-center">  
+                <img src="{% static 'image/booking/LogSuccess.gif' %}" style=" width: 200px;">
+                <h4 class="head_modal theme mt-2">Login Successful</h4>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
 
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2" id="forgotpassword" style="display: none;">
     SIGN IN
@@ -245,6 +264,8 @@
                                     if (response.success === true) {
                                         // If the response is success, submit the form
                                         $("#SignClose").click();
+                                        $("#logSuccess").click();
+                                        console.log("logged")
                                        console.log(response.email)
                                        console.log(response.phone_number)
                                        console.log(response.username)
@@ -255,6 +276,7 @@
                                     //     document.getElementById('hiddenPhoneNumber').value = response.phone_number;
                                     //     document.getElementById('hiddenUsername').value = response.username;
                                         window.location.reload();
+
                                     } else {
                                         // console.log("success")
                                         // $("#SignClose").click();
@@ -975,8 +997,7 @@
                                 <span class="error" id="email_or_phone_number"></span>
                             </div>
                             <div class="input_div mt-0" id="Password"></div>
-                            <div id="gif" style="display: none;width: 100%;align-items: center;justify-content: center;text-align: center;"><img src="{% static 'image/signup/Successtick.gif' %}"  alt="Success GIF" style="
-                                background: none !important;
+                            <div id="gif" style="display: none;width: 100%;align-items: center;justify-content: center;text-align: center;"><img src="{% static 'image/booking/LogSuccess.gif' %}"  alt="Success GIF" style="
                                 width: 250px;
                             "></div>
                             <!-- <div class="mt-2" id="checkbox_div">
@@ -1034,7 +1055,7 @@
                                                         console.log(response);
                                                         if (response.success === true) {
                                                             // document.getElementById('Password').innerHTML = " ";
-                                                            document.getElementById('Password').innerHTML = "<p style='color:black'>Password Changed</p>";
+                                                            document.getElementById('Password').innerHTML = "<p style='color:black;text-align:center;'>Password Changed</p>";
                                                             document.getElementById('gif').style.display = 'block';
                                                             window.location.reload();
                                                             // If the response is success, submit the form
@@ -1402,6 +1423,12 @@
                         box-shadow: 5px 5px 5px 0.5 gray;
                         padding: 4px;
                        }
+
+                       .lab_blue {
+                            color: #029e9d;
+                            /* text-transform: uppercase; */
+                            font-size: 14px;
+                        }
                        
                       @media only screen and (max-width: 768px) {
                         #main_container {
@@ -1641,176 +1668,20 @@
       <!-- Modal content-->
       <div class="modal-content" style="border-radius: 6px !important;">
         <div class="text-end px-3 pt-2">
-            <a class="btn_close btn_close1 mt-0" href="#" data-bs-dismiss="modal" aria-label="Close">X</a>
+            <button class="btn_close btn_close1 mt-0" href="#" data-bs-dismiss="modal" aria-label="Close">X</button>
         </div>
         <div class="page-body">
-            <div class="head">  
-                <h4 class="head_modal">Account Successfully Created</h4>
+            <div class="head text-center justify-content-center">  
+                <img src="{% static 'image/booking/LogSuccess.gif' %}" style=" width: 200px;">
+                <h4 class="head_modal mt-2">Account Successfully Created</h4>
             </div>
-            <h2 style="text-align:center;font-size:58px">
-                <div class="checkmark-circle">
-                    <div class="background"></div>
-                    <div class="checkmark draw"></div>
-                </div>
-             </h2>
         </div>
       </div>
     </div>
 </div>
 <!-- End Success Page -->
 
-<!-- CSS -->
-<style>
-    .lab_blue {
-        color: #029e9d;
-        /* text-transform: uppercase; */
-        font-size: 14px;
-    }
-    
-    #success_tic .page-body{
-      max-width:300px;
-      background-color:#FFFFFF;
-      margin:10px auto;
-    }
-     #success_tic .page-body .head{
-      text-align:center;
-    }
-    /* #success_tic .tic{
-      font-size:186px;
-    } */
-    #success_tic .close{
-          /* opacity: 1; */
-        position: absolute;
-        right: 0px;
-        font-size: 30px;
-        padding: 3px 15px;
-      margin-bottom: 10px;
-    }
-    #success_tic .checkmark-circle {
-      width: 150px;
-      height: 150px;
-      position: relative;
-      display: inline-block;
-      vertical-align: top;
-    }
-    .checkmark-circle .background {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: #1ab394;
-      position: absolute;
-    }
-    #success_tic .checkmark-circle .checkmark {
-      border-radius: 5px;
-    }
-    #success_tic .checkmark-circle .checkmark.draw:after {
-      -webkit-animation-delay: 300ms;
-      -moz-animation-delay: 300ms;
-      animation-delay: 300ms;
-      -webkit-animation-duration: 1s;
-      -moz-animation-duration: 1s;
-      animation-duration: 1s;
-      -webkit-animation-timing-function: ease;
-      -moz-animation-timing-function: ease;
-      animation-timing-function: ease;
-      -webkit-animation-name: checkmark;
-      -moz-animation-name: checkmark;
-      animation-name: checkmark;
-      -webkit-transform: scaleX(-1) rotate(135deg);
-      -moz-transform: scaleX(-1) rotate(135deg);
-      -ms-transform: scaleX(-1) rotate(135deg);
-      -o-transform: scaleX(-1) rotate(135deg);
-      transform: scaleX(-1) rotate(135deg);
-      -webkit-animation-fill-mode: forwards;
-      -moz-animation-fill-mode: forwards;
-      animation-fill-mode: forwards;
-    }
-    #success_tic .checkmark-circle .checkmark:after {
-      opacity: 1;
-      height: 75px;
-      width: 37.5px;
-      -webkit-transform-origin: left top;
-      -moz-transform-origin: left top;
-      -ms-transform-origin: left top;
-      -o-transform-origin: left top;
-      transform-origin: left top;
-      border-right: 15px solid #fff;
-      border-top: 15px solid #fff;
-      border-radius: 2.5px !important;
-      content: '';
-      left: 35px;
-      top: 80px;
-      position: absolute;
-    }
-    
-    @-webkit-keyframes checkmark {
-      0% {
-        height: 0;
-        width: 0;
-        opacity: 1;
-      }
-      20% {
-        height: 0;
-        width: 37.5px;
-        opacity: 1;
-      }
-      40% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-      100% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-    }
-    @-moz-keyframes checkmark {
-      0% {
-        height: 0;
-        width: 0;
-        opacity: 1;
-      }
-      20% {
-        height: 0;
-        width: 37.5px;
-        opacity: 1;
-      }
-      40% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-      100% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-    }
-    @keyframes checkmark {
-      0% {
-        height: 0;
-        width: 0;
-        opacity: 1;
-      }
-      20% {
-        height: 0;
-        width: 37.5px;
-        opacity: 1;
-      }
-      40% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-      100% {
-        height: 75px;
-        width: 37.5px;
-        opacity: 1;
-      }
-    }
-</style>
-<!-- CSS -->
+
 
 <!-- Media queries -->
 <style>
