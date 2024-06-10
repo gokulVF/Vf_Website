@@ -689,7 +689,7 @@ def your_view(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded ">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -948,7 +948,7 @@ def get_room_details(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all room_opt p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>

@@ -230,5 +230,13 @@ table>tbody tr td, table thead tr th  {
     display: none !important;
 }
 
+.room_opt {
+    border-left: 6px solid #f1f1f1 !important;
+}
+
+.room_opt:hover {
+    border-left: 6px solid #17233e !important;
+}
+
 
 
