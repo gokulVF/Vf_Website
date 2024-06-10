@@ -151,12 +151,12 @@
                                     <div class="col-lg-12">
                                         <div class="form-group bg-white p-3 rounded mb-2">
                                             <ul>
-                                                <li class="d-block pb-1">Base Fare <span style="font-size: 12px;" class="rn_det"> ({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</span><span class="float-end fw-bold black">₹ {{ combined_data.published_price }}</span></li>
-                                                <li class="d-block pb-1">Taxes and Fees<span class="float-end fw-bold black">₹ {{ combined_data.final_tax }}</span></li>
-                                                <li class="d-block  pb-1">Total Price<span class="float-end fw-bold black">₹ {{ combined_data.total_price }}</span></li>
+                                                <li class="d-block pb-1">Base Fare <span style="font-size: 12px;" class="rn_det"> ({{ combined_data.total_rooms }} Room X {{ combined_data.no_of_nights }} Night)</span><span class="float-end fw-bold black"><span style="font-family:'Poppins,'">₹</span> {{ combined_data.published_price }}</span></li>
+                                                <li class="d-block pb-1">Taxes and Fees<span class="float-end fw-bold black"><span style="font-family:'Poppins,'">₹</span> {{ combined_data.final_tax }}</span></li>
+                                                <li class="d-block  pb-1">Total Price<span class="float-end fw-bold black"><span style="font-family:'Poppins,'">₹</span> {{ combined_data.total_price }}</span></li>
                                                 <li class="d-block border-t">
                                                     <div class="pt-1">
-                                                        <span class="fw-bold">Your Price</span><span class="float-end fw-bold black">₹ {{ combined_data.total_price }}</span>
+                                                        <span class="fw-bold">Your Price</span><span class="float-end fw-bold black"><span style="font-family:'Poppins,'">₹</span> {{ combined_data.total_price }}</span>
                                                     </div>
                                                 </li>
                                             </ul>

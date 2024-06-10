@@ -548,13 +548,13 @@
                             {% for hotel in hotel_info %}
                             <div class="hotel trend-full bg-white rounded box-shadow overflow-hidden p-3 mb-3" data-rating="{{ hotel.Rating }}" data-price="{{ hotel.Price }}" data-name="{{ hotel.HotelName }}">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-3 col-sm-12 col-12">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                                        <div class="trend-item2 rounded">
                                                 <img src="{{ hotel.ImageURL }}" alt="" class="hotel-image">
-                                             <!-- <div class="color-overlay"></div> -->
+                                                <!-- <div class="color-overlay"></div> -->
                                         </div> 
                                     </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-9 col-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-9 col-12">
                                         <div class="trend-content position-relative text-md-start text-center">
                                             <!-- <small>Moscow Airport - Premium</small> -->
                                             <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
