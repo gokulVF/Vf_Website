@@ -584,8 +584,26 @@
                                             <div class="trend-content position-relative text-md-start text-center">
                                                 <!-- <small>Moscow Airport - Premium</small> -->
                                                 <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
+                                                <h3 class="mb-0" id="{{ hotel.HotelName }}" style="font-size: 22px;">{{ hotel.HotelName }}</h3>
+                                                <style>
+                                                    .number {
+                                                        font-family: 'Poppins,';
+                                                    }
+                                                </style>
+                                                <script>
+                                                    // Get the title element
+                                                    var titleElement = document.getElementById('{{ hotel.HotelName }}');
+                                                    var titleText = titleElement.textContent;
+                                                
+                                                    // Replace numbers with spans having a specific class
+                                                    var replacedText = titleText.replace(/[\d&]+/g, function(match) {
+                                                        return "<span class='number'>" + match + "</span>";
+                                                    });
+                                                
+                                                    // Set the modified HTML back to the element
+                                                    titleElement.innerHTML = replacedText;
+                                                </script>
                                                 <div class="rating mb-1" id="{{ hotel.HotelCode }}_starRating">
-                                                    <h3 class="mb-0" style="font-size: 22px;">{{ hotel.HotelName }}</h3>
                                                     {% for star in "12345" %}
                                                     <span class="fa fa-star {% if forloop.counter <= hotel.Rating %}checked{% else %}unchecked{% endif %}"></span>
                                                     {% endfor %} <span>({{ hotel.Rating }} - star)</span>
@@ -593,6 +611,8 @@
                                                 <address class="address mb-1"><i class="icon-directions theme me-2" style="font-size: 18px;"></i><span class="address">{{ hotel.Address }}</span><span>.....</span></address>
                                                 <a href="{% url 'your_view' %}?hotel-code={{ hotel.HotelCode }}&trace-id={{ hotel.TraceId }}&result-index={{ hotel.ResultIndex }}&token-id={{ token_id }}&total_rooms={{ total_rooms }}&CategoryId={{ hotel.CategoryId }}" id="viewDetailsLink" target="_blank" class="theme view_det" >
                                                     <i class="fa fa-key me-2" aria-hidden="true"></i>View Details</a>
+                                                    <p id="" target="" class="mb-0 mt-1" style="font-size: 13px;color: #33a533;font-weight: 600;">
+                                                    <i class="fa fa-check me-2"></i>Free Cancellation</p>
                                                 <!-- <p class="mt-4 mb-0">Taking Safety Measures<br><a href="#"><span class="theme"> Free cancellation</span></a></p> -->
                                             </div>
                                         </div>
@@ -621,7 +641,6 @@
                                         </div>
                                         <div id="{{hotel.HotelCode}}" class="col-lg hotel-room mt-1 " style="display: none;">
                                             <div class="hide-room1 mb-1 border-all p-3 px-4 rounded"></div>
-                                            
                                         </div>
                                     </div>
                                 </div>
