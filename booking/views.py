@@ -346,7 +346,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": False,
+        "IsTBOMapped": True,
         'ResultCount': result_count,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
@@ -1702,8 +1702,8 @@ def hotelbooked(request):
                 'TraceId': trace_id,
                 'HotelRoomsDetails': formatted_hotel_room_details_1
             }
-        if category_id_1 is not None:
-            payload_data['CategoryId'] = category_id_1
+        # if category_id_1 is not None:
+        #     payload_data['CategoryId'] = category_id_1
         # trace_id = request.session.get('trace_id', '')
         # print(trace_id)
         # token_id = request.session.get('token_id', '')
@@ -1753,8 +1753,8 @@ def hotelbooked(request):
                         "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
                         "PassportNo": None,
-                        "PassportIssueDate": "0001-01-  01T00:00:00:00",
-                        "PassportExpDate": "0001-01-  01T00:00:00:00",
+                        "PassportIssueDate": None,
+                        "PassportExpDate": None,
                         "PAN":passenger["pancardnumber"],
                     }
                     hotel_passenger_list.append(hotel_passenger)
@@ -1790,24 +1790,24 @@ def hotelbooked(request):
 
             # Adding HotelPassenger data to payload_data
         # Adding HotelPassenger data to payload_data
-        modified_payload_data['AgencyId'] = 57456 
+        modified_payload_data['AgencyId'] = 0 
         #  <---PACKAGEFARE--->
         modified_payload_data['IsPackageFare'] = True 
         modified_payload_data['IsPackageDetailsMandatory'] = True
-        modified_payload_data["ArrivalTransport"] = {
-            "ArrivalTransportType": 0,
-            "TransportInfoId": "Ab 777",
-            "Time": "2019-05-21T18:18:00"
-        }
+        # modified_payload_data["ArrivalTransport"] = {
+        #     "ArrivalTransportType": 0,
+        #     "TransportInfoId": "Ab 777",
+        #     "Time": "2019-05-21T18:18:00"
+        # }
         category_id_1 = request.session.get('category_id_1')
-        if category_id_1 is not None:
-            payload_data['CategoryId'] = category_id_1
+        # if category_id_1 is not None:
+        #     payload_data['CategoryId'] = category_id_1
 
-        modified_payload_data["DepartureTransport"] = {
-            "DepartureTransportType": 0,
-            "TransportInfoId": "Ab 777",
-            "Time": "2023-10-21T12:43:45"
-        }
+        # modified_payload_data["DepartureTransport"] = {
+        #     "DepartureTransportType": 0,
+        #     "TransportInfoId": "Ab 777",
+        #     "Time": "2023-10-21T12:43:45"
+        # }
 
 
 
