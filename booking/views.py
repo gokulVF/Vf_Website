@@ -408,6 +408,24 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
             supplier_hotel_codes = hotel.get('SupplierHotelCodes')
             print(supplier_hotel_codes)
 
+            
+            discount_amount = 0.05 * price
+            print("discount_amount",discount_amount)
+
+            # Calculate GST on the discounted price
+            gst_amount = 0.18 * discount_amount
+
+            print("gst_amount",gst_amount)
+
+            # Calculate the final price after applying GST
+            formatted_final_tax = math.ceil(gst_amount + discount_amount)
+            final_tax = "{:.2f}".format(formatted_final_tax)
+
+            # total price of the room
+            total_price_not = formatted_final_tax + price
+          
+            print("totalprice",total_price_not)
+
             if supplier_hotel_codes is not None:
                 second_category_id = supplier_hotel_codes[1]['CategoryId'] if len(supplier_hotel_codes) > 1 else None
             hotel_info.append({
@@ -418,6 +436,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
                 'Price': price,
                 "publicprice":publicprice,
                 'TraceId': trace_id,
+                'tax':formatted_final_tax,
                 'HotelCode': hotel_code,
                 'HotelCategory': hotel_category,
                 'ResultIndex': result_index,
@@ -690,7 +709,7 @@ def your_view(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded ">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -949,7 +968,7 @@ def get_room_details(request):
 
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
+                            <div class="hide-room1 mb-1 border-all room_opt p-2 px-3 rounded">{combination_html_joined}<div class="hide-123">
                                 <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
@@ -1159,12 +1178,15 @@ def hotelreview(request):
             print("Total Offered Price for all hotels:", total_offered_price)
             print("end")
             total_offered_price_main =  "{:.2f}".format(total_offered_price)
-
+            print("total_offered_price_main",total_offered_price_main)
             # Print the entire 'Price' dictionary to inspect its structure
             discount_amount = 0.05 * total_offered_price
+            print("discount_amount",discount_amount)
 
             # Calculate GST on the discounted price
             gst_amount = 0.18 * discount_amount
+
+            print("gst_amount",gst_amount)
 
             # Calculate the final price after applying GST
             formatted_final_tax = math.ceil(gst_amount + discount_amount)
@@ -1173,6 +1195,8 @@ def hotelreview(request):
             # total price of the room
             total_price_not = formatted_final_tax + total_offered_price
             total_price = "{:.2f}".format(total_price_not)
+            print("totalprice",total_price_not)
+
             request.session['total_price'] = total_price_not
 
             check_in_date = request.session.get('check_in_date', '')
