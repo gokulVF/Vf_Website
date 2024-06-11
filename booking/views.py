@@ -913,7 +913,7 @@ def get_room_details(request):
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
