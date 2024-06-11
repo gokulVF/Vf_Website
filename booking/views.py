@@ -341,23 +341,23 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
     }
 
     data = {
-        'apiKey': api_key,
+        # 'apiKey': api_key,
         'CheckInDate': check_in_date,
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
         "IsTBOMapped": True,
-        'ResultCount': result_count,
+        'ResultCount': 0,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
         'NoOfRooms': no_of_rooms,
-        'RoomGuests': room_guests,
         'MaxRating': max_rating,
         'MinRating': min_rating,
         'ReviewScore': 0,
         'IsNearBySearchAllowed': is_nearby_search_allowed,
         'EndUserIp': end_user_ip,
         'TokenId': token_id,
+        'RoomGuests': room_guests,
     }
     print("step1")
     print(data)
@@ -455,79 +455,81 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         print(f"Error: {ex}")
         # Handle other exceptions if needed
         return None
-def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
-    hotel_code = hotelCode
-    trace_id = traceId
-    result_index = resultIndex
-    token_id = tokenId
-    client_ip = request.session.get('client_ip','')
+    
+# def roomdetails(request,hotelCode,traceId,resultIndex,tokenId):
+#     hotel_code = hotelCode
+#     trace_id = traceId
+#     result_index = resultIndex
+#     token_id = tokenId
+#     client_ip = request.session.get('client_ip','')
 
-    api_url = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom'
+#     api_url = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom'
 
-    headers = {
-        'Content-Type': 'application/json',
-    }
+#     headers = {
+#         'Content-Type': 'application/json',
+#     }
 
-    data = {
-        'ResultIndex': result_index,
-        'HotelCode': hotel_code,
-        'EndUserIp': client_ip,  # Replace with actual end user IP
-        'TokenId': token_id,
-        'TraceId': trace_id,
-    }
-    print("test2")
-    print(data)
+#     data = {
+#         'ResultIndex': result_index,
+#         'HotelCode': hotel_code,
+#         'EndUserIp': client_ip,  # Replace with actual end user IP
+#         'TokenId': token_id,
+#         'TraceId': trace_id,
+#     }
+#     print("test2")
+#     print(data)
 
-    try:
-        response = requests.post(api_url, json=data, headers=headers)
-        response.raise_for_status()
+#     try:
+#         response = requests.post(api_url, json=data, headers=headers)
+#         response.raise_for_status()
 
-        response_data = response.json().get('GetHotelRoomResult', {})
+#         response_data = response.json().get('GetHotelRoomResult', {})
 
-        totalrooms = request.GET.get('totalrooms', None)
+#         totalrooms = request.GET.get('totalrooms', None)
 
-        if response_data.get('ResponseStatus') == 1:
-            room_details = response_data.get('HotelRoomsDetails', [])
+#         if response_data.get('ResponseStatus') == 1:
+#             room_details = response_data.get('HotelRoomsDetails', [])
 
-            # Create a list to store formatted room details HTML
-            formatted_rooms_html = []
+#             # Create a list to store formatted room details HTML
+#             formatted_rooms_html = []
 
-            for room in room_details:
-                room_html = f"""
-                    <div class="hide-room1">
-                        <div class="book-room">
-                            <h3 style="width:200px">{room.get('RoomTypeName', '')}</h3>
-                            <p>{room.get('Breakfast', '')}</p>
-                        </div>
-                        <div class="book-room-price">
-                            <p class="price">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
-                            <p>Per Room/Night</p>
-                        </div>
-                        <div class="hide-elements" style="display: none;">
-                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                        </div>
-                        <div class="book-room-btn">
-                            <button class="btn theme rounded-pill shadows px-3 book-btn" onclick="bookRoom()">Book Room</button>
-                        </div>
-                    </div>
-                """
+#             for room in room_details:
+#                 room_html = f"""
+#                     <div class="hide-room1">
+#                         <div class="book-room">
+#                             <h3 style="width:200px">{room.get('RoomTypeName', '')}</h3>
+#                             <p>{room.get('Breakfast', '')}</p>
+#                         </div>
+#                         <div class="book-room-price">
+#                             <p class="price">{room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+#                             <p>Per Room/Night</p>
+#                         </div>
+#                         <div class="hide-elements" style="display: none;">
+#                             <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
+#                         </div>
+#                         <div class="book-room-btn">
+#                             <button class="btn theme rounded-pill shadows px-3 book-btn" onclick="bookRoom()">Book Room</button>
+#                         </div>
+#                     </div>
+#                 """
 
-                formatted_rooms_html.append(room_html)
+#                 formatted_rooms_html.append(room_html)
 
-            # Join the formatted HTML for all rooms
-            all_rooms_html = ''.join(formatted_rooms_html)
+#             # Join the formatted HTML for all rooms
+#             all_rooms_html = ''.join(formatted_rooms_html)
 
-            response_content = {'html': all_rooms_html}
-            return JsonResponse(response_content)
+#             response_content = {'html': all_rooms_html}
+#             return JsonResponse(response_content)
 
-        else:
-            error_message = response_data.get('Error', {}).get('ErrorMessage', '')
-            return JsonResponse({'error': error_message})
-            return JsonResponse(response_content)
+#         else:
+#             error_message = response_data.get('Error', {}).get('ErrorMessage', '')
+#             return JsonResponse({'error': error_message})
+#             return JsonResponse(response_content)
 
-    except requests.exceptions.RequestException as ex:
-        return JsonResponse({'error': f"Error: {ex}"})
-        return JsonResponse(response_content)
+#     except requests.exceptions.RequestException as ex:
+#         return JsonResponse({'error': f"Error: {ex}"})
+#         return JsonResponse(response_content)
+
 def your_view(request):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -567,11 +569,11 @@ def your_view(request):
         'Content-Type': 'application/json',
     }
     data2 = {
-        'ResultIndex': result_index,
-        'HotelCode': hotel_code,
         'EndUserIp': client_ip,  # Replace with actual end user IP
         'TokenId': token_id,
         'TraceId': trace_id,
+        'ResultIndex': result_index,
+        'HotelCode': hotel_code,
     }
     print("data2 romm",data2)
 
@@ -662,6 +664,22 @@ def your_view(request):
                                         room_index = room["RoomIndex"]
                                         combination_room_indices.append(room_index)
                                 # print(combination_room_indices)
+
+                                LastCancellationDate = room["LastCancellationDate"]
+                                date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
+                                date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+
+                                current_date_time = datetime.datetime.now()
+                                if current_date_time > date_time_obj:
+                                    formatted_date_LastCancellationDate = F"""
+                                        <p style="color:red;"> Not Free cancellation</p>
+                                    """
+                                else:
+                                    formatted_date_LastCancellationDate = f"""
+                                        <p style="color:green;">Free cancellation till : {date_LastCancellationDate}</p>
+                                    """
+
+                                LastVoucherDate = room["LastVoucherDate"]
                                 
                                 room_html = f"""
                                     <div class="item py-1">
@@ -670,11 +688,12 @@ def your_view(request):
                                                 <div class="item-inner-image text-start">
                                                     <h5 class="mb-0">{Roomtypename}</h5>
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
+                                                    {formatted_date_LastCancellationDate}
                                                 </div>
                                             </div>
                                             <div class="price-info col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="rub-price item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('PublishedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
@@ -739,11 +758,11 @@ def your_view(request):
         'Content-Type': 'application/json',
     }
     data1 = {
-        'ResultIndex': result_index,
-        'HotelCode': hotel_code,
         'EndUserIp': client_ip,  # Replace with actual end user IP
         'TokenId': token_id,
         'TraceId': trace_id,
+        'ResultIndex': result_index,
+        'HotelCode': hotel_code,
     }
     print("hotel details info ",data1)
     if category_id is not None:
@@ -833,11 +852,11 @@ def get_room_details(request):
     }
 
     data = {
-        'ResultIndex': result_index,
-        'HotelCode': hotel_code,
         'EndUserIp': client_ip,  # Replace with actual end user IP
         'TokenId': token_id,
         'TraceId': trace_id,
+        'ResultIndex': result_index,
+        'HotelCode': hotel_code,
     }
     print("test2")
     print("room details request",data)
@@ -921,6 +940,22 @@ def get_room_details(request):
                                         room_index = room["RoomIndex"]
                                         combination_room_indices.append(room_index)
                                 print(combination_room_indices)
+
+                                LastCancellationDate = room["LastCancellationDate"]
+                                date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
+                                date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+
+                                current_date_time = datetime.datetime.now()
+                                if current_date_time > date_time_obj:
+                                    formatted_date_LastCancellationDate = F"""
+                                        <p style="color:red;"> Not Free cancellation</p>
+                                    """
+                                else:
+                                    formatted_date_LastCancellationDate = f"""
+                                        <p style="color:green;">Free cancellation till : {date_LastCancellationDate}</p>
+                                    """
+
+                                LastVoucherDate = room["LastVoucherDate"]
                                 
                                 room_html = f"""  
                                     <div class="item py-1">
@@ -929,6 +964,7 @@ def get_room_details(request):
                                                 <div class="item-inner-image text-start">
                                                     <h5 class="mb-0">{Roomtypename}</h5>
                                                     <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
+                                                    {formatted_date_LastCancellationDate}
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-sm-4 col-3">
@@ -937,7 +973,7 @@ def get_room_details(request):
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
-                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;'}">
+                                            <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;'}">
                                                 <button class="nir-btn-black book-btn" id="hs-btn"
                                                         onclick="bookRoom()">
                                                     Book Room
