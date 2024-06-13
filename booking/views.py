@@ -1791,7 +1791,7 @@ def hotelbooked(request):
                 'AgencyId':0,
                 'ResultIndex': result_index,
                 'HotelCode': hotel_code,
-                'CategoryId':category_id,
+                'CategoryId':category_id_1,
                 'HotelName': hotel_name,
                 'GuestNationality': nationality,
                 'NoOfRooms': totalrooms,
@@ -1838,7 +1838,7 @@ def hotelbooked(request):
 
                     pax_type = 1 if age == 0 else 2
 
-
+                    PANvalue = None if passenger["pancardnumber"] == 'none' else passenger["pancardnumber"]
                     hotel_passenger = {
                         "Title": passenger["gender"],
                         "FirstName": passenger["firstName"],
@@ -1852,7 +1852,7 @@ def hotelbooked(request):
                         "PassportNo": None,
                         "PassportIssueDate": "0001-01-01T00: 00: 00",
                         "PassportExpDate": "0001-01-01T00: 00: 00",
-                        "PAN":passenger["pancardnumber"],
+                        "PAN":PANvalue,
                     }
                     hotel_passenger_list.append(hotel_passenger)
 
@@ -1887,7 +1887,7 @@ def hotelbooked(request):
 
             # Adding HotelPassenger data to payload_data
         # Adding HotelPassenger data to payload_data
-        modified_payload_data['AgencyId'] = 0 
+        # modified_payload_data['AgencyId'] = 0 
         #  <---PACKAGEFARE--->
         modified_payload_data['IsPackageFare'] = True 
         modified_payload_data['IsPackageDetailsMandatory'] = True

@@ -127,12 +127,12 @@
                             <a href="" style="display: none;"><p>{{ details.cancellation_policy }}</p></a>
                            
 
-                            <input type="hidden" class="block_book" name="block_book" placeholder="block_book" value="{{ current_time }}">
-                            <input type="hidden" class="hide_123_val" name="hide_123_val" placeholder="block_book" value="{{ future_time }}">
+                            <input type="hidden" class="block_book" name="block_book"  value="{{ current_time }}">
+                            <input type="hidden" class="hide_123_val" name="hide_123_val"  value="{{ future_time }}">
                             <input type="hidden" class="category_id" name="category_id" placeholder="category_id" value="{{ category_id }}">
                             <div class="customer-information mb-4">
                                
-                                <form class="mb-2"  method="POST" action="{% url 'previewpage' %}" id="paymentForm" onsubmit="return validateForm()">
+                                <form class="mb-2"  method="post" action="{% url 'previewpage' %}" id="paymentForm" onsubmit="return validateForm()">
                                     {% csrf_token %}
                                     <div class="bg-white rounded box-shadow  p-4" >
                                     <h3 class=" theme mb-1">Traveller Information</h3>
@@ -419,7 +419,11 @@
         } else {
             emailInput.style.border = ''; // Reset border style if valid
         }
-        var pancard = true
+
+        // var validation_data = document.getElementById('validationidforbooking').value;
+        // var parsedNewData = JSON.parse(validation_data)
+        // var pancard = parsedNewData.is_pan_mandatory_confirm;
+
         guestData.forEach(function (room, roomIndex) {
         for (var i = 0; i < room.NoOfAdults; i++) {
             var adultFirstName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`);
@@ -445,13 +449,13 @@
             }
 
            
-            if (pannumber.value.trim() === '') {
-                document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
-                phoneInput.style.border = '1px solid red';
-                valid = false;
-            }else {
-                phoneInput.style.border = ''; // Reset border style if valid
-            }
+            // if (pancard && pannumber.value.trim() === '') {
+            //     document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+            //     phoneInput.style.border = '1px solid red';
+            //     valid = false;
+            // }else {
+            //     phoneInput.style.border = ''; // Reset border style if valid
+            // }
         }
 
         for (var j = 0; j < room.NoOfChild; j++) {
@@ -478,14 +482,14 @@
             }
 
             
-            if (pannumber.value.trim() === '') {
-                document.getElementById(`pancardError_${roomIndex + 1}_adult_${j + 1}`).innerText = 'Please Enter the PAN number';
-                phoneInput.style.border = '1px solid red';
-                valid = false;
-            } 
-            else {
-                phoneInput.style.border = ''; // Reset border style if valid
-            }
+            // if (pancard && pannumber.value.trim() === '') {
+            //     document.getElementById(`pancardError_${roomIndex + 1}_adult_${j + 1}`).innerText = 'Please Enter the PAN number';
+            //     phoneInput.style.border = '1px solid red';
+            //     valid = false;
+            // } 
+            // else {
+            //     phoneInput.style.border = ''; // Reset border style if valid
+            // }
         }
     });
 
@@ -786,28 +790,28 @@ generateRoomDetails();
                 };
 
                 for (var i = 0; i < room.NoOfAdults; i++) {
-                    var adultDetails = {
-                        gender: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_gender"]`).value,
-                        firstName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`).value,
-                        lastName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`).value,
-                        age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`).value,
-                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`).value,
-                        pancardnumber :document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`).value
-                    };
-                    roomDetails.adults.push(adultDetails);
-                }
+                var adultDetails = {
+                    gender: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_gender"]`)?.value || '',
+                    firstName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`)?.value || '',
+                    lastName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`)?.value || '',
+                    age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`)?.value || '',
+                    leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`)?.value || '',
+                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`)?.value || 'none'
+                };
+                roomDetails.adults.push(adultDetails);
+            }
 
-                for (var j = 0; j < room.NoOfChild; j++) {
-                    var childDetails = {
-                        gender: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_gender"]`).value,
-                        firstName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`).value,
-                        lastName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`).value,
-                        age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`).value,
-                        leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`).value,
-                        pancardnumber :document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`).value
-                    };
-                    roomDetails.children.push(childDetails);
-                }
+            for (var j = 0; j < room.NoOfChild; j++) {
+                var childDetails = {
+                    gender: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_gender"]`)?.value || '',
+                    firstName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`)?.value || '',
+                    lastName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`)?.value || '',
+                    age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`)?.value || '',
+                    leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`)?.value || '',
+                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`)?.value || 'none'
+                };
+                roomDetails.children.push(childDetails);
+            }
 
                 // Add room details to the array
                 adultChildDetails.push({
@@ -862,61 +866,64 @@ generateRoomDetails();
 
         
     </script> 
-     <script>
-        function sendit() {
-            if (validateForm()) {
-              
-                var currentTime = new Date();
-                var currentTimeWithSec = currentTime.toString().slice(4, 24);
+   <script>
+    function sendit() {
+        if (validateForm()) {
+            var currentTime = new Date();
+            var currentTimeWithSec = currentTime.toString().slice(4, 24);
 
-                var contime = currentTimeWithSec;
+            var contime = currentTimeWithSec;
 
-                document.getElementById('curTime').value = contime;
+            document.getElementById('curTime').value = contime;
 
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '/hotelbooked/';
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/hotelbooked/';
 
-                // Get values of hidden inputs
-                var blockBook = document.querySelector('.block_book').value;
-                var hide123Val = document.querySelector('.hide_123_val').value;
-                var categoryId = document.querySelector('.category_id').value;
+            // Get values of hidden inputs
+            var blockBook = document.querySelector('.block_book').value;
+            var hide123Val = document.querySelector('.hide_123_val').value;
+            var categoryId = document.querySelector('.category_id').value;
 
-                // Append hidden input fields to the form
-                var blockBookField = document.createElement('input');
-                blockBookField.type = 'hidden';
-                blockBookField.name = 'block_book';
-                blockBookField.value = blockBook;
-                form.appendChild(blockBookField);
+            // Append hidden input fields to the form
+            var blockBookField = document.createElement('input');
+            blockBookField.type = 'hidden';
+            blockBookField.name = 'block_book';
+            blockBookField.value = blockBook;
+            form.appendChild(blockBookField);
 
-                var hide123ValField = document.createElement('input');
-                hide123ValField.type = 'hidden';
-                hide123ValField.name = 'hide_123_val';
-                hide123ValField.value = hide123Val;
-                form.appendChild(hide123ValField);
+            var hide123ValField = document.createElement('input');
+            hide123ValField.type = 'hidden';
+            hide123ValField.name = 'hide_123_val';
+            hide123ValField.value = hide123Val;
+            form.appendChild(hide123ValField);
 
-                var categoryIdField = document.createElement('input');
-                categoryIdField.type = 'hidden';
-                categoryIdField.name = 'category_id';
-                categoryIdField.value = categoryId;
-                form.appendChild(categoryIdField);
+            var categoryIdField = document.createElement('input');
+            categoryIdField.type = 'hidden';
+            categoryIdField.name = 'category_id';
+            categoryIdField.value = categoryId;
+            form.appendChild(categoryIdField);
 
-                // // Add hidden input field for current time with seconds
-                // var currentTimeField = document.createElement('input');
-                // currentTimeField.type = 'hidden';
-                // currentTimeField.name = 'current_time';
-                // currentTimeField.value = currentTimeWithSec;
-                // form.appendChild(currentTimeField);
-                
-                // Rest of your existing code
-                // ...
-                document.body.appendChild(form);
-                form.submit();
-                document.getElementById('preloader').style.display = 'block';
-                document.getElementById('status').style.display = 'block';
-            }
+            // // Retrieve CSRF token from original form
+            // var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            // // Add CSRF token to the new form
+            // var csrfField = document.createElement('input');
+            // csrfField.type = 'hidden';
+            // csrfField.name = 'csrfmiddlewaretoken';
+            // csrfField.value = csrfToken;
+            // form.appendChild(csrfField);
+
+            // Rest of your existing code
+            document.body.appendChild(form);
+            form.submit();
+            document.getElementById('preloader').style.display = 'block';
+            document.getElementById('status').style.display = 'block';
+        } else {
+            console.log("validation failed");
         }
-    </script>
+    }
+</script>
 
        
    

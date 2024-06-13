@@ -66,6 +66,7 @@ urlpatterns= [
     path('send_captcha2',views.send_captcha2,name='send_captcha2'),
     path('careersnew',views.careersnew,name='careersnew'),
     path('honeymoon',views.honeymoon,name='honeymoon'),
+    path('thankyouvf',views.thankyou,name='thankyouvf'),
 
     # ==================== api url =================================
     path('cancel-booking', views.cancel_booking, name='cancel_booking'),

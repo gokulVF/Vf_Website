@@ -265,29 +265,57 @@
 
 
      $('.item-slider1').slick({
-         infinite: true,
-         slidesToShow: 3,
-         slidesToScroll: 1,
-         arrows: true,
-         dots: false,
-         autoplay: true,
-         speed: 2000,
-         rows:0,
-         loop:true,
-         responsive: [{
-             breakpoint: 1000,
-             settings: {
-                 slidesToShow: 2,
-                 arrows: false,
-             }
-         }, {
-             breakpoint: 750,
-             settings: {
-                 slidesToShow: 1,
-                 arrows: false,
-             }
-         }]
-     });
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        autoplay: true,
+        speed: 2000,
+        rows: 0,
+        loop: true,
+        responsive: [{
+            breakpoint: 1000,
+            settings: {
+                slidesToShow: 2,
+                arrows: false,
+            }
+        }, {
+            breakpoint: 750,
+            settings: {
+                slidesToShow: 1,
+                arrows: false,
+            }
+        }]
+    });
+
+    $('.item-slider4').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        autoplay: true,
+        speed: 2000,
+        rows: 0,
+        loop: true,
+        rtl: true,
+        responsive: [{
+            breakpoint: 1000,
+            settings: {
+                slidesToShow: 2,
+                arrows: false,
+            }
+        }, {
+            breakpoint: 750,
+            settings: {
+                slidesToShow: 1,
+                arrows: false,
+            }
+        }]
+    });
+    
+    
 
      $('.banner-slider').slick({
          infinite: true,

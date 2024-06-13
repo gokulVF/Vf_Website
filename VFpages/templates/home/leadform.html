@@ -51,7 +51,7 @@
                 <input type='hidden' name='zc_gad' id='zc_gad' value=''></input>
                 <input type='text' style='display:none;' name='xmIwtLD' value='e33fff330b924d6fbd37a2bdcf7dea957fffd2fdf4bd2aa9083ae363b65436b87d4c3edae9c7c540d3aec32ea907cd61'></input> 
                 <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
-                <input type='text' style='display:none;' name='returnURL' value='https&#x3a;&#x2f;&#x2f;vacationfeast.com&#x2f;tour-packages&#x2f;{{package_url}}' > </input>
+                <input type='text' style='display:none;' name='returnURL' value='http&#x3a;&#x2f;&#x2f;127.0.0.1:8000&#x2f;thankyouvf' > </input>
                 <!-- Hidden Values -->
                 <!-- Do not remove this code. -->
                 <input type='text' style='display:none;' id='ldeskuid' name='ldeskuid'></input>
@@ -149,11 +149,7 @@
             </form>
         </div>
         <!-- Captcha form -->
-        <div id="suc_div" class="py-5 py-5 px-3 border rounded box-shadow text-center" style="display: none;">
-            <img class="w-75 rounded" src="{% static 'image/home/Loadersuc.gif' %}" alt="">
-            <h4 class="theme fs-3">Form successfully submitted!</h4>
-            <span class="fs-6">Expect a call from our travel experts shortly to help plan your perfect trip.</span>
-        </div>
+       
     </div>
 
 <!-- Leadform CRM -->
@@ -247,9 +243,6 @@
     
                         if (response.success === true) {
                             var clickbtn = document.getElementById('formsubmit');
-                             document.getElementById("formdiv").style.display = "none";
-                             document.getElementById("formhead").style.display = "none"
-                             document.getElementById("suc_div").style.display="block";
     
                             setTimeout(function() {
                                 // Submit the form associated with the element stored in the variable 'clickbtn'
