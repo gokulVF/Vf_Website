@@ -70,7 +70,7 @@
                                         <div class="rating me-2 text-start">
                                         {% for star in "12345" %}
                                             <span class="fa fa-star {% if forloop.counter <= booking_details_1.star_rating %}checked{% else %}unchecked{% endif %}"></span>
-                                        {% endfor %}<span>({{ details.rating }} - star)</span>
+                                        {% endfor %}<span>({{ booking_details_1.star_rating }} - star)</span>
                                         </div>
                                         
                                     </div>
@@ -86,23 +86,23 @@
                                     <tbody>
                                         <tr>
                                             <td>No Of Room</td>
-                                            <td>{{ booking_details_1.number_of_rooms }} Rooms</td>
+                                            <td class="black">{{ booking_details_1.number_of_rooms }} Rooms</td>
                                         </tr>
                                         <tr>
                                             <td>Accomdation</td>
-                                            <td id="nights"></td>
+                                            <td class="black" id="nights"></td>
                                         </tr>
                                         <tr>
                                             <td>Confirmaion No</td>
-                                            <td>{{ booking_details_1.confirmation_no }}</td>
+                                            <td class="black">{{ booking_details_1.confirmation_no }}</td>
                                         </tr>
                                         <tr>
                                             <td>Check In</td>
-                                            <td>{{ booking_details_1.initial_checkin_date }} <span id="check_in_day">WED</span></td>
+                                            <td class="black">{{ booking_details_1.initial_checkin_date }} <span id="check_in_day">WED</span></td>
                                         </tr>
                                         <tr>
                                             <td>Check Out</td>
-                                            <td>{{ booking_details_1.initial_checkout_date }} <span id="check_out_day">THU</span></td>
+                                            <td class="black">{{ booking_details_1.initial_checkout_date }} <span id="check_out_day">THU</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,7 +128,7 @@
                                     <div class="">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Contact Number</p>
-                                            <span class="mb-0 num">{{ record_data.phone_number }}</span>
+                                            <span class="mb-0 num black fw-bold">{{ record_data.phone_number }}</span>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
@@ -138,6 +138,14 @@
                                 .num {
                                 font-family: 'Poppins' !important;
                             }
+
+                            .fa-star.checked {
+                                    color: orange;
+                                }
+                                .fa-star.unchecked {
+                                    color: #ccc;
+                                    display: none !important;
+                                }
                             </style>
                             <div class="travellers-info mb-4">
                                 <table>
@@ -179,39 +187,39 @@
                                         <tbody>
                                             <tr>
                                                 <td>No Of Nights</td>
-                                                <td id="night"></td>
+                                                <td class="black" id="night"></td>
                                             </tr>
                                             <tr>
                                                 <td>Booking Date</td>
-                                                <td>{{ booking_details_1.Booking_Date }}</td>
+                                                <td class="black">{{ booking_details_1.Booking_Date }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Hotel Confirmation Number</td>
-                                                <td>{{ booking_details_1.hotel_confirmation_number }}</td>
+                                                <td class="black">{{ booking_details_1.hotel_confirmation_number }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Reference No</td>
-                                                <td>{{ booking_details_1.booking_ref_number }}</td>
+                                                <td class="black">{{ booking_details_1.booking_ref_number }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Invoice Number</td>
-                                                <td>{{ booking_details_1.invoice_number }}</td>
+                                                <td class="black">{{ booking_details_1.invoice_number }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Guest Contact Number</td>
-                                                <td>{{ record_data.phone_number }}</td>
+                                                <td class="black">{{ record_data.phone_number }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Payment ID</td>
-                                                <td>{{ record_data.payment_id }}</td>
+                                                <td class="black">{{ record_data.payment_id }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Payment Flag</td>
-                                                <td>{{ record_data.payment_flag }}</td>
+                                                <td class="black">{{ record_data.payment_flag }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Accommodation Charges</td>
-                                                <td>{{ booking_details_1.invoice_amount }}</td>
+                                                <td class="black">{{ booking_details_1.invoice_amount }}</td>
                                             </tr>
                                             <!-- <tr>
                                                 <td>Convenience Fees</td>
@@ -219,7 +227,7 @@
                                             </tr> -->
                                             <tr>
                                                 <td>Net Amount Paid</td>
-                                                <td>{{ record_data.payed_amount }}</td>
+                                                <td class="black">{{ record_data.payed_amount }}</td>
                                             </tr>
 
                                         </tbody>
