@@ -3360,6 +3360,31 @@ def update_packages_home_state(request):
 
     return JsonResponse({'success': False})
 
+def update_packages_fixed_state(request):
+
+     # Check if user is authenticated
+    if not request.session.get('username') or not request.session.get('role'):
+        # Redirect to login page if session data is not found
+        return redirect('login')
+
+    # Check if the user has the appropriate role to access this page
+    role = request.session.get('role')
+    userdetails = adminheader(request)
+    if role != 'admin' and role != 'superadmin' and role != 'employee':
+        # Redirect to appropriate page if the role is not admin
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        blog_id = request.POST.get('blog_id')
+        new_state = request.POST.get('new_state') == 'on'
+
+        blog = Packages.objects.get(id=blog_id)
+        blog.fixedpack = int(not new_state)  # Convert new_state to int (0 or 1)
+        blog.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False})
 
 # def Destination_meta(request):
 

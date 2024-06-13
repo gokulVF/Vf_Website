@@ -341,7 +341,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
     }
 
     data = {
-        # 'apiKey': api_key,
+        'apiKey': api_key,
         'CheckInDate': check_in_date,
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
@@ -426,8 +426,10 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
           
             print("totalprice",total_price_not)
 
-            if supplier_hotel_codes is not None:
-                second_category_id = supplier_hotel_codes[1]['CategoryId'] if len(supplier_hotel_codes) > 1 else None
+            # if supplier_hotel_codes is not None:
+            #     second_category_id = supplier_hotel_codes[1]['CategoryId'] if len(supplier_hotel_codes) > 1 else None
+            category_id = supplier_hotel_codes[0]['CategoryId'] if supplier_hotel_codes else None
+            # print("category_idlist",category_id)
             hotel_info.append({
                 'HotelName': hotel_name,
                 'Rating': rating,
@@ -440,6 +442,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
                 'HotelCode': hotel_code,
                 'HotelCategory': hotel_category,
                 'ResultIndex': result_index,
+                'CategoryId':category_id
             })
 
             hotel_prices.append(price)
@@ -542,12 +545,13 @@ def your_view(request):
     trace_id = request.GET.get('trace-id', None)
     result_index = request.GET.get('result-index', None)
     token_id = request.GET.get('token-id', None)
-    CategoryId_1 = request.GET.get('CategoryId', None)
+   
     totalrooms = request.GET.get('total_rooms', None)
     client_ip = request.session.get('client_ip','')
     hidden_email = request.session.get('hidden_email','')
     hidden_phone_number = request.session.get('hidden_phone_number','')
     hidden_username = request.session.get('hidden_username','')
+    CategoryIdNew = request.GET.get('CategoryId', None)
     print(totalrooms)
     request.session['hotel_code'] = hotel_code
     request.session['trace_id'] = trace_id
@@ -557,7 +561,7 @@ def your_view(request):
     print(totalrooms)
     print(hotel_code)
     # msg = request.GET.get('par', None)
-
+    print('CategoryId_1',CategoryIdNew)
     check_in_date = request.session.get('check_in_date', '')
     check_out_date = request.session.get('check_out_date', '')
     guest_details = request.session.get('guestdetails', '')
@@ -576,6 +580,7 @@ def your_view(request):
         'HotelCode': hotel_code,
     }
     print("data2 romm",data2)
+
 
     try:
         response = requests.post(api_url2, json=data2, headers=headers2)
@@ -628,8 +633,9 @@ def your_view(request):
             formatted_rooms_html = []
 
             button_added = False
+            print("fixed commination",fixed_combination)
 
-            for combination in fixed_combination:
+            for count, combination in enumerate(fixed_combination, start=1):
                 if 'RoomIndex' in combination:
                     combination_indices = combination['RoomIndex']
                     # Check if the combination indices match the totalrooms
@@ -639,7 +645,8 @@ def your_view(request):
                         room_json_list = [] 
                         # print("sss")
                         # print(room_json_list)
-
+                        # combination_id = combination.get('combination_id', '')  # Replace with the actual key for the unique identifier
+                        unique_id = f"hideto-{count}"
                         for index in combination_indices:
                             room = room_index_mapping.get(index)
                             print(room)
@@ -650,6 +657,8 @@ def your_view(request):
                                 # print(room_json)
                                 # data_json = json.dumps(data2)
                                 room_index = room["RoomIndex"]
+                                
+                                # room_json_array_string = json.dumps(room_json_list)
                                 print(room_index)
                                 request.session[f'payload_{index}'] = room_json
                                 Hoteltype = {room.get('RoomTypeName', '')}
@@ -699,7 +708,7 @@ def your_view(request):
                                             </div>
                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;  '}">
                                                 <button class="book-btn nir-btn"
-                                                        onclick="bookRoom()">
+                                                        onclick="bookRoom('{unique_id}')">
                                                     Book Room
                                                 </button>
                                             </div>
@@ -707,8 +716,9 @@ def your_view(request):
                                         <div class="hide-elements" style="display: none;">
                                             <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
                                             <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                            <input type="hidden" class="room-index" value="{room_json}">
+                                            
                                             <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
+                                            <input type="hidden" class="room-index" id="VoucherDate" value='{LastVoucherDate}'>
                                         </div>
                                         <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px; width: 23%;'}"></div>
                                     </div>
@@ -729,7 +739,7 @@ def your_view(request):
                         # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
                             <div class="hide-room1 mb-1 border-all p-2 px-3 rounded ">{combination_html_joined}<div class="hide-123">
-                                <input type="hidden" class="room-index" id="hide-123" value='{room_json_array_string}'>
+                                <input type="hidden" class="room-index" id="{unique_id}" value='{room_json_array_string}'>
                                 <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
                                 <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
                             </div>
@@ -763,6 +773,7 @@ def your_view(request):
         'TraceId': trace_id,
         'ResultIndex': result_index,
         'HotelCode': hotel_code,
+        
     }
     print("hotel details info ",data1)
     if category_id is not None:
@@ -927,6 +938,7 @@ def get_room_details(request):
                                 data_json = json.dumps(data)
                                 print("gff")
                                 print(data_json)
+                                unique_id = f"hideto-{index + 1}"
                                 request.session[f'payload_{index}'] = room_json
                                 Hoteltype = {room.get('RoomTypeName', '')}
                                 info_string = Hoteltype.pop()
@@ -969,13 +981,13 @@ def get_room_details(request):
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-sm-4 col-3">
                                                 <div class="item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold"  style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
+                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
                                                     <p class="mb-0 per_day ms-2">Per Room/Night</p>
                                                 </div>
                                             </div>
                                             <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;'}">
                                                 <button class="nir-btn-black book-btn" id="hs-btn"
-                                                        onclick="bookRoom()">
+                                                        onclick="bookRoom('{unique_id}')">
                                                     Book Room
                                                 </button>
                                             </div>
@@ -983,8 +995,9 @@ def get_room_details(request):
                                             <tbody id="cancellationPoliciesTableBody">
                                             <div class="hide-elements" style="display: none;">
                                                 <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                                <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                                <input type="hidden" class="room-index" value="{json.dumps(room_json_list)}">
+                                                <input type="hidden" class="room-index" value="">
+                                                <input type="hidden" class="room-index" id="{unique_id}" value="{json.dumps(room_json_list)}">
+                                                
                                             </div>
                                         </div>
                                         <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px;'}"></div>
@@ -1040,6 +1053,7 @@ def hotelreview(request):
         room_json_list = request.POST.get('roomJsonElement')  # Retrieve roomJsonElement value
         hotel_name = request.POST.get('hotelName')  # Retrieve hotelName value
         hide_123_value = request.POST.get('hide123Value')
+        # lastVoucherDate = request.POST.get('lastVoucherDate')
         category_id_1 = request.POST.get('categoryid1')  # Retrieve hide123Value value
         client_ip = request.session.get('client_ip','')
         hidden_email = request.session.get('hidden_email','')
@@ -1053,6 +1067,7 @@ def hotelreview(request):
         # print("Hotel Name:", hotel_name)
         # print("Hide 123 Value:", hide_123_value)
         # Get the current time
+        print("category_id_1",category_id_1)
         current_time_1 = datetime.datetime.now()
 
         # Add 10 minutes to the current time
@@ -1063,7 +1078,7 @@ def hotelreview(request):
         request.session['future_time'] = future_time
 
         formatted_hotel_room_details = []
-
+        # print("lastVoucherDate",lastVoucherDate)
         # Iterate over each data entry
         for entry in Hoteldetails_1:
             room_details = json.loads(entry)
@@ -1110,7 +1125,7 @@ def hotelreview(request):
                 formatted_hotel_room_details.append(formatted_room)
 
         # Display the resulting formatted hotel room details
-        # print(formatted_hotel_room_details)
+        print("formatted_hotel_room_details",formatted_hotel_room_details)
 
         request.session['formatted_hotel_room_details'] = formatted_hotel_room_details
 
@@ -1133,14 +1148,15 @@ def hotelreview(request):
             'NoOfRooms': totalrooms,
             'ClientReferenceNo': 0,
             'IsVoucherBooking': 'true',
+            'CategoryId':category_id_1,
             'EndUserIp': client_ip,
             'TokenId': token_id,
             'TraceId': trace_id,
             'HotelRoomsDetails': formatted_hotel_room_details
         }
 
-        if category_id_1 is not None:
-           payload['CategoryId'] = category_id_1
+        # if category_id_1 is not None:
+        #    payload['CategoryId'] = category_id_1
 
         print("test3")
         print(payload)
@@ -1186,10 +1202,10 @@ def hotelreview(request):
             availability_type = block_room_result.get('AvailabilityType', '')
             Is_cancellation_policy_changed = block_room_result.get('IsCancellationPolicyChanged','')
             Is_Price_Changed = block_room_result.get('IsPriceChanged','')
-            print(Is_cancellation_policy_changed)
-            print(Is_Price_Changed)
-            print(Is_cancellation_policy_changed)
-            print(Is_Price_Changed)
+            # print(Is_cancellation_policy_changed)
+            # print(Is_Price_Changed)
+            # print(Is_cancellation_policy_changed)
+            # print(Is_Price_Changed)
             if Is_cancellation_policy_changed or Is_Price_Changed:
                 return redirect('hotel')
             # Continue with the rest of your code if the conditions are not met
@@ -1197,18 +1213,36 @@ def hotelreview(request):
             LastCancellationDate = hotel_rooms_details[0]['LastCancellationDate']
             cancellation_policies_str = hotel_rooms_details[0]['CancellationPolicies']
             cancellation_policies = json.dumps(cancellation_policies_str)
-            print(cancellation_policies)
-            print(LastCancellationDate)
-            hotel_rooms_details = block_room_result.get('HotelRoomsDetails', [])
-            LastCancellationDate = hotel_rooms_details[0]['LastCancellationDate']
-            cancellation_policies_str = hotel_rooms_details[0]['CancellationPolicies']
-            cancellation_policies = json.dumps(cancellation_policies_str)
-            print(cancellation_policies)
-            print(LastCancellationDate)
-            # Initialize a variable to store the total OfferedPriceRoundedOff
+            validation = block_room_result.get('ValidationInfo', '')
+            print("validation_in_book",validation)
+            is_passport_mandatory_confirm = validation['ValidationAtConfirm']['IsPassportMandatory']
+            is_passport_mandatory_voucher = validation['ValidationAtVoucher']['IsPassportMandatory']
+            is_pan_mandatory_confirm = validation['ValidationAtConfirm']['IsPANMandatory']
+            is_pan_mandatory_voucher = validation['ValidationAtVoucher']['IsPANMandatory']
+            validation_in_book = {"is_passport_mandatory_confirm":is_passport_mandatory_confirm,
+                                 "is_passport_mandatory_voucher":is_passport_mandatory_voucher,
+                                 "is_pan_mandatory_confirm":is_pan_mandatory_confirm,
+                                 "is_pan_mandatory_voucher":is_pan_mandatory_voucher}
+            book_validation = json.dumps(validation_in_book)
+            # print(cancellation_policies)
+            # print(LastCancellationDate)
+            # hotel_rooms_details = block_room_result.get('HotelRoomsDetails', [])
+            # LastCancellationDate = hotel_rooms_details[0]['LastCancellationDate']
+            # cancellation_policies_str = hotel_rooms_details[0]['CancellationPolicies']
+            # cancellation_policies = json.dumps(cancellation_policies_str)
+            # print(cancellation_policies)
+            # print(LastCancellationDate)
+            # Initialize a variable to store the total OfferedPriceRoundedOffggg
+            
+            date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
+            date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+            current_date_time = datetime.datetime.now()
+            if current_date_time > date_time_obj:
+                formatted_date_LastCancellationDate =  "Not Free cancellation"
+            else:
+                formatted_date_LastCancellationDate = f"Free cancellation till:{date_LastCancellationDate}"
+               
             total_offered_price = 0
-
-            # Loop through each hotel room and add the OfferedPriceRoundedOff to the total
             for room_details in hotel_rooms_details:
                 total_offered_price += room_details['Price']['OfferedPriceRoundedOff']
             print("Total Offered Price for all hotels:", total_offered_price)
@@ -1258,14 +1292,15 @@ def hotelreview(request):
                     'No_of_Night':No_of_nights,
                     'published_price':total_offered_price_main,
                     'final_tax':final_tax,
-                    'total_price':total_price
+                    'total_price':total_price,
+                    'validation_in_book':book_validation
                 }
                 request.session['details_dict'] = details_dict
                 print(details_dict)
 
                 # Pass the details dictionary to another HTML page
 
-                return render(request, 'home/hotelreview.html', {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
+                return render(request, 'home/hotelreview.html', {"formatted_date_LastCancellationDate":formatted_date_LastCancellationDate,'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time,'hidden_email':hidden_email,'hidden_phone_number':hidden_phone_number,'hidden_username':hidden_username,"all_categories":all_categories,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title})
 
                 # hotel_review = {'details': details_dict, 'personsdetails': personsdetails , 'block_book_string':block_book_string ,'hide_123_value_str':hide_123_value_str , 'category_id':category_id_1,'current_time':current_time,'future_time':future_time}
                 # request.session['hotel_review'] = hotel_review
@@ -1750,16 +1785,18 @@ def hotelbooked(request):
         totalrooms = request.session.get('totalrooms', '')
         hotel_name = request.session.get('hotel_name')
         payload_data = {
-                'ResultIndex': result_index,
-                'HotelCode': hotel_code,
-                'HotelName': hotel_name,
-                'GuestNationality': nationality,
-                'NoOfRooms': totalrooms,
-                'ClientReferenceNo':None,
-                'IsVoucherBooking': 'true',
                 'EndUserIp': client_ip,
                 'TokenId': token_id,
                 'TraceId': trace_id,
+                'AgencyId':0,
+                'ResultIndex': result_index,
+                'HotelCode': hotel_code,
+                'CategoryId':category_id,
+                'HotelName': hotel_name,
+                'GuestNationality': nationality,
+                'NoOfRooms': totalrooms,
+                # 'ClientReferenceNo':None,
+                'IsVoucherBooking': 'true',
                 'HotelRoomsDetails': formatted_hotel_room_details_1
             }
         # if category_id_1 is not None:
@@ -1813,8 +1850,8 @@ def hotelbooked(request):
                         "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
                         "PassportNo": None,
-                        "PassportIssueDate": None,
-                        "PassportExpDate": None,
+                        "PassportIssueDate": "0001-01-01T00: 00: 00",
+                        "PassportExpDate": "0001-01-01T00: 00: 00",
                         "PAN":passenger["pancardnumber"],
                     }
                     hotel_passenger_list.append(hotel_passenger)

@@ -89,6 +89,7 @@ urlpatterns= [
     path('update_packages_hidden_state',views.update_packages_hidden_state,name="update_packages_hidden_state"),
     path('update_packages_home_state',views.update_packages_home_state,name="update_packages_home_state"),
     path('update_destination_category', views.update_destination_category, name='update_destination_category'),
+    path('update_packages_fixed_state', views.update_packages_fixed_state, name='update_packages_fixed_state'),
     
     
     path('contact_us_admin',views.contact_us_admin,name="contact_us_admin"),

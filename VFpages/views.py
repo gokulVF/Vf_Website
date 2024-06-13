@@ -525,7 +525,7 @@ def main_DestinationAttraction(request,city_name):
         attraction_dict[str(city_id)] = attractions_list
     print(attraction_dict)
 
-    packages_entry = Packages.objects.filter(packages_id=new)
+    packages_entry = Packages.objects.filter(Q(packages_id=new) & Q(fixedpack=True) & Q(hidden=False))
     packages_entrys = sorted(packages_entry, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
     other_city = Destination.objects.filter(destination_slug=city_name)
     
