@@ -681,11 +681,11 @@ def your_view(request):
                                 current_date_time = datetime.datetime.now()
                                 if current_date_time > date_time_obj:
                                     formatted_date_LastCancellationDate = F"""
-                                        <p style="color:red;"> Not Free cancellation</p>
+                                        <p style="color:red;font-size: 13px;font-weight: 500;" class="mb-0"> Not Free cancellation</p>
                                     """
                                 else:
                                     formatted_date_LastCancellationDate = f"""
-                                        <p style="color:green;">Free cancellation till : {date_LastCancellationDate}</p>
+                                        <p style="color: #33a533;font-size: 13px;font-weight: 500;" class="mb-0"><i class="fa fa-check me-2"></i>Free cancellation till : {date_LastCancellationDate}</p>
                                     """
 
                                 LastVoucherDate = room["LastVoucherDate"]
@@ -960,11 +960,11 @@ def get_room_details(request):
                                 current_date_time = datetime.datetime.now()
                                 if current_date_time > date_time_obj:
                                     formatted_date_LastCancellationDate = F"""
-                                        <p style="color:red;"> Not Free cancellation</p>
+                                        <p style="color:red;font-size: 13px;font-weight: 500;" class="mb-0"> Not Free cancellation</p>
                                     """
                                 else:
                                     formatted_date_LastCancellationDate = f"""
-                                        <p style="color:green;">Free cancellation till : {date_LastCancellationDate}</p>
+                                        <p style="color: #33a533;font-size: 13px;font-weight: 500;" class="mb-0"><i class="fa fa-check me-2"></i>Free cancellation till : {date_LastCancellationDate}</p>
                                     """
 
                                 LastVoucherDate = room["LastVoucherDate"]

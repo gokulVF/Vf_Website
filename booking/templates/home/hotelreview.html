@@ -529,12 +529,14 @@ function generateRoomDetails() {
             adultElement.className = 'my-2';
 
             // Assign lead passenger only if it hasn't been assigned yet
-            var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? ' - Lead Passenger' : '';
-            var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
+            // var leadCustomerText = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? ' - Lead Passenger' : '';
+            // var leadpassenger = (!leadPassengerAssigned && i === 0 && roomIndex === 0) ? 0 : 1;
+            var leadCustomerText = (i === 0) ? ' - Lead Passenger' : '';
+            var leadpassenger = (i === 0) ? 0 : 1;
 
-            if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
-                leadPassengerAssigned = true;
-            }
+            // if (!leadPassengerAssigned && i === 0 && roomIndex === 0) {
+            //     leadPassengerAssigned = true;
+            // }
 
             const panFieldId = `pan_${roomIndex + 1}_${i + 1}`;
             const resultDivId = `pancardError_${roomIndex + 1}_adult_${i + 1}`;
@@ -580,7 +582,7 @@ function generateRoomDetails() {
                     </div>
                 </div>` : `
                 <div class="">
-                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span style="color: orange;">${leadCustomerText}</span></h4>
+                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span class="theme">${leadCustomerText}</span></h4>
                 </div>
                 <div class="row">
                     <div class="col-lg-2 mb-1">
