@@ -25,6 +25,7 @@
          loop:true,
      });
 
+   
      $('.slider-store').slick({
         slidesToShow: 1,
         slidesToScroll: 1,

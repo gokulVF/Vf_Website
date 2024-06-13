@@ -13,7 +13,7 @@
          rows:0,
          loop:true,
      });
-
+     
 
      $('.slider-store').slick({
         slidesToShow: 1,
