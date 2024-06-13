@@ -1849,7 +1849,7 @@ def hotelbooked(request):
                         "PaxType": pax_type,  # Assuming a default value for PaxType
                         "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
-                        "PassportNo": None,
+                        "PassportNo": "G76565434",
                         "PassportIssueDate": "0001-01-01T00: 00: 00",
                         "PassportExpDate": "0001-01-01T00: 00: 00",
                         "PAN":PANvalue,
