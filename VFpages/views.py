@@ -33,6 +33,9 @@ def careersnew(request):
 def honeymoon(request):
     return render(request,"home/honeymoon.html")
 
+def thankyou(request):
+    return render(request,"home/thankyou.html")
+
 
 
 def terms(request):

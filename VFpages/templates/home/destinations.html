@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
     
+    <!-- Slick -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DBNBM9PB85"></script>
     <script>
@@ -369,16 +370,6 @@
                                         // Set the modified HTML back to the element
                                         placeElement.innerHTML = replacedText;
                                     </script>
-                                    <!--<div class="rating-main d-flex align-items-center pb-2">-->
-                                    <!--    <div class="rating">-->
-                                    <!--        <span class="fa fa-star checked"></span>-->
-                                    <!--        <span class="fa fa-star checked"></span>-->
-                                    <!--        <span class="fa fa-star checked"></span>-->
-                                    <!--        <span class="fa fa-star checked"></span>-->
-                                    <!--        <span class="fa fa-star checked"></span>-->
-                                    <!--    </div>-->
-                                    <!--    <span class="ms-2">(12)</span>-->
-                                    <!--</div>-->
                                     <p class="pb-1 mb-0" style="font-size:14.5px;">{{ packages.description.descriptions }}</p>
                                 </div>
                                  <div class="entry-meta">
@@ -400,6 +391,87 @@
         </div>
     </section>
     <!-- best tour Ends -->
+
+    <!-- best tour 2 Starts -->
+    <section class="trending bg-grey pt-5 pb-5">
+        <!--<div class="section-shape top-0" style="background-image: url(images/shape8.png);"></div>-->
+        <div class="container overflow-hidden">
+            <div class="row align-items-center justify-content-between mb-1">
+                  <div class="">
+                    <input type="hidden" id="name_int" value="{{ destination_metatitle }}">
+                    <div class="section-title row text-center text-lg-start">
+                        <div class="col-lg-9">
+                            <!--<h4 class="mb-1 theme1">Top Pick</h4>-->
+                            <h1 class="mb-0 tour_h" style="font-size: 46px;">Best <span class="theme name tour_h" style="font-size: 46px;">Kerala Tour Packages</span></h1>
+                            <p style="font-size: 14px;">Breathtaking Destinations to Personalized Experiences, Discover Hassle-free Travel Solutions Tailored just for you.</p>
+                        </div>
+                        <div class="col-lg-2 text-center align-items-center">
+                            <!-- Button to trigger lead form-->
+                                <!-- <button type="button"  data-toggle="modal" data-target="#exampleModal5" class="morepac_btn">More Packages<i class="fa fa-long-arrow-right ms-2" style="font-family: 'FontAwesome';"></i></button>  -->
+                                <button  data-bs-toggle="modal" data-bs-target="#exampleModal5" class="me-3 morepac_btn" id="popupButton2">More Packages<i class="fa fa-long-arrow-right ms-2" style="font-family: 'FontAwesome';"></i>
+                                    
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">  
+                </div>
+            </div>
+            <div class="trend-box">
+                <div class="row item-slider4">
+                    {% for packages in packages_entry %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                         <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
+                        <div class="trend-item rounded box-shadow bg-white">
+                           
+                            <div class="trend-image position-relative">
+                                <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
+                                <!--<div class="color-overlay"></div>-->
+                            </div>
+                            <div class="trend-content px-4 py-2 position-relative" style="height:247px">
+                                <div class="trend-meta bg-theme white px-2 py-1 rounded">
+                                    <div class="entry-author">
+                                        <i class="icon-calendar pe-1 nod_cal"></i>
+                                        <span class="fw-bold nod_tour">{{ packages.description.Noofdays }}</span>
+                                    </div>
+                                </div>
+                                <div style="height:155px">
+                                    <h5 class="theme mb-0"><i class="flaticon-location-pin"></i> {{ packages.description.place1 }}</h5>
+                                    <h3 class="mb-1" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</h3>
+                                     <script>
+                                        // Get the place2 element
+                                        var placeElement = document.getElementById('tag-link{{ packages.id }}');
+                                        var placeText = placeElement.textContent;
+                                    
+                                        // Replace '&' with a span having a specific class
+                                        var replacedText = placeText.replace(/&/g, function(match) {
+                                            return "<span class='number'>" + match + "</span>";
+                                        });
+                                    
+                                        // Set the modified HTML back to the element
+                                        placeElement.innerHTML = replacedText;
+                                    </script>
+                                    <p class="pb-1 mb-0" style="font-size:14.5px;">{{ packages.description.descriptions }}</p>
+                                </div>
+                                 <div class="entry-meta">
+                                        <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end">
+                                            <span class="theme1 mb-0 mt-0 me-2 starts_from">Starts from</span>
+                                          <span class="theme fw-bold fs-5 p-1 px-2 stay_price"> {{ packages.description.price }}</span><br>
+                                          <span class="mb-1 mt-1" style="font-size:14px;">{{ packages.description.person }}</span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                            </a>
+                    </div>
+               
+                    {% endfor %}
+                   
+                </div>
+            </div>  
+        </div>
+    </section>
+    <!-- best tour 2 Ends -->
     
     <!--other suggestion starts-->
     <section class="trending pt-3 pb-3" style="background-image: url(images/shape4.png);">
@@ -488,6 +560,12 @@
        <!--Css-->
     <style>
 
+       .item-slider4 .slick-track {
+            margin-left: -2200px !important;
+            display: flex !important;
+            flex-direction: row !important;
+        }
+
         .morepac_btn {
             color: #029e9d;font-size: 17px;
             box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
@@ -518,7 +596,8 @@
             top: -60px;
             box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
         }
-        
+
+                    
          .item-slider1 .slick-prev::before, .item-slider1 .slick-next::before {
             color: #029e9d;
             font-size: 28px;
@@ -539,6 +618,36 @@
         }
         
         .item-slider1 .slick-next:focus { 
+            border:1px solid #029e9d  !important;
+        }
+
+        .item-slider4 .slick-prev, .item-slider4 .slick-next {
+            top: -60px;
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
+            background: #ffffff;
+        }
+
+                    
+         .item-slider4 .slick-prev::before, .item-slider4 .slick-next::before {
+            color: #029e9d;
+            font-size: 28px;
+            line-height: 1.5;
+        }
+        
+        .item-slider4 .slick-prev:hover {
+            /* border:1px solid #029e9d  !important; */
+            background: #029e9d !important;
+        }
+        
+        .item-slider4 .slick-next:hover { 
+            background: #029e9d !important;
+        }
+        
+        .item-slider4 .slick-prev:focus {
+            border:1px solid #029e9d  !important;
+        }
+        
+        .item-slider4 .slick-next:focus { 
             border:1px solid #029e9d  !important;
         }
 

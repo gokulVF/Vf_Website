@@ -547,11 +547,19 @@
 
                 <!-- Hotel Details -->
                 <div class="col-lg-9">
-                    <div class="loader4 mt-2">
-                        <ul class="o-vertical-spacing o-vertical-spacing--l mt-2">
+                    {% block content %}
+                    {% if error_message %}
+                    <div class="justify-content-center align-items-center text-center  pt-5">
+                        <img src="/VFpages/static/image/booking/No-Hotel-Avail2.jpg" alt="" style="height: 200px;">
+                        <p class="no_hotel_error fw-bold mt-2">Sorry, {{ error_message }}!!</p>
+                        <p class="theme2" style="font-size: 14px;">Modify Search & Try Again</p>
+                    </div>
+                    {% else %}
+                    <div class="loader4 mt-0">
+                        <ul class="o-vertical-spacing o-vertical-spacing--l mt-1">
                             <li class="blog-post o-media" style="display: flex;flex-direction: column;">
                               <div class="o-media__figure" style="width: 100%;">
-                                <div class="d-flex gap-2 mt-4 justify-content-end text-end">
+                                <div class="d-flex gap-2 mt-0 justify-content-end text-end">
                                     <span class="skeleton-box" style="width:10%;height: 30px;"></span>
                                     <span class="skeleton-box" style="width:10%;height: 30px;"></span>
                                     <span class="skeleton-box" style="width:10%;height: 30px;"></span>
@@ -561,6 +569,7 @@
                             </li>
                           </ul>
                     </div>
+                    
                     <div class="list-results mb-1 py-1 d-flex align-items-center justify-content-end">
                             <div class="click-menu" style="display: none;">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -593,16 +602,11 @@
                             });
                         </script>
                     </div>
-                    {% block content %}
+                  
                     
                     <div class="car-list" id="hotel-details">
                         <div class="car-full" id="hotelList">
-                            {% if error_message %}
-                            <div class="justify-content-center align-items-center text-center  pt-5">
-                                <img src="/VFpages/static/image/booking/overbooked.png" alt="" style="height: 200px;">
-                                <p class="no_hotel_error fw-bold mt-2">{{ error_message }} !!!</p>
-                            </div>
-                            {% else %}
+                          
                             {% for hotel in hotel_info %}
                             <div class="hotel trend-full bg-white rounded box-shadow overflow-hidden p-3 mb-3" data-rating="{{ hotel.Rating }}" data-price="{{ hotel.Price }}" data-name="{{ hotel.HotelName }}">
                                  <div class="loader container" id="loader-{{ hotel.HotelCode }}">
