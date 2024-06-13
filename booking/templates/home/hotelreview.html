@@ -142,15 +142,15 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="input-box col-lg-4 mb-1">
-                                                <input type="text" class="username f-inp" name="user_name" placeholder="Enter your name" value="">
+                                                <input type="text" class="username f-inp" name="user_name" placeholder="Enter your name" value="" required>
                                                 <span class="error" id="nameError"></span>
                                             </div>
                                             <div class="input-box  col-lg-4 mb-1">
-                                                <input type="text" class="phone_number f-inp" name="phone_number" placeholder="Enter your number" value="" >
+                                                <input type="text" class="phone_number f-inp" name="phone_number" placeholder="Enter your number" value="" required >
                                                 <span class="error" id="phoneError"></span>
                                             </div>
                                             <div class="input-box  col-lg-4 mb-1">
-                                                <input type="text" class="email f-inp" name="email" placeholder="Enter your email" value="" >
+                                                <input type="text" class="email f-inp" name="email" placeholder="Enter your email" value="" required>
                                                 <span class="error" id="emailError"></span>
                                             </div>
                                         </div>
@@ -549,7 +549,7 @@ function generateRoomDetails() {
                 </div>
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-0">
-                        <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter your PAN number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard">
+                        <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter your PAN number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard" required>
                         <span class="error" id="${resultDivId}"></span>
                     </div>
                     <div class="col-lg-3">
@@ -571,11 +571,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" id="${firstnameId}" placeholder="Enter first name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <input type="text" class="f-inp" id="${firstnameId}" placeholder="Enter first name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_first_name" required>
                         <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter last name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter last name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name" required>
                         <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                 </div>` : `
@@ -592,11 +592,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" placeholder="Enter your first name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name">
+                        <input type="text" class="f-inp" placeholder="Enter your first name" name="room_${roomIndex + 1}_adult_${i + 1}_first_name" required>
                         <span class="error" id="firstNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input type="text" class="f-inp" placeholder="Enter your last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name">
+                        <input type="text" class="f-inp" placeholder="Enter your last Name" name="room_${roomIndex + 1}_adult_${i + 1}_last_name" required>
                         <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
                 </div>`}
@@ -621,7 +621,7 @@ function generateRoomDetails() {
                 </div>
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-1">
-                        <input type="text" id="${panFieldId}" class="f-inp upercase pan_first_input" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_child_${j + 1}_pancard" >
+                        <input type="text" id="${panFieldId}" class="f-inp upercase pan_first_input" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_child_${j + 1}_pancard" required>
                         <span class="error" id="${resultDivId}"></span>
                     </div>
                     <div class="col-lg-4">
@@ -638,11 +638,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input class="f-inp" type="text" placeholder="Enter First Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
+                        <input class="f-inp" type="text" placeholder="Enter First Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_first_name" required>
                         <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input class="f-inp" type="text" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
+                        <input class="f-inp" type="text" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_last_name" required>
                         <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
                     </div>
                 </div>` : `
@@ -659,11 +659,11 @@ function generateRoomDetails() {
                         </select>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name">
+                        <input class="f-inp" type="text" placeholder="Enter Your First Name" name="room_${roomIndex + 1}_child_${j + 1}_first_name" required>
                         <span class="error" id="cfirstNameError_${roomIndex + 1}_child_${j + 1}"></span>
                     </div>
                     <div class="col-lg-5 mb-1">
-                        <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name">
+                        <input class="f-inp" type="text" placeholder="Enter Your Last Name" name="room_${roomIndex + 1}_child_${j + 1}_last_name" required>
                         <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
                     </div>
                 </div>`}
