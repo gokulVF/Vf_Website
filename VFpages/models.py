@@ -116,6 +116,7 @@ class Packages(models.Model):
     destination_category = models.CharField(max_length=200, blank=True, null=True)
     itinaries_id = models.IntegerField()
     category_button = models.BooleanField(default=True)
+    fixedpack = models.BooleanField(default=True)
     created_date = models.DateField(blank=True, null=True)
     updated_date = models.DateField(blank=True, null=True)
 

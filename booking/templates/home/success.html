@@ -70,7 +70,7 @@
                                         <div class="rating me-2 text-start">
                                         {% for star in "12345" %}
                                             <span class="fa fa-star {% if forloop.counter <= booking_details_1.star_rating %}checked{% else %}unchecked{% endif %}"></span>
-                                        {% endfor %}
+                                        {% endfor %}<span>({{ details.rating }} - star)</span>
                                         </div>
                                         
                                     </div>
@@ -128,12 +128,17 @@
                                     <div class="">
                                         <div class="trend-check-item bg-grey rounded p-3 mb-2">
                                             <p class="mb-0">Contact Number</p>
-                                            <h6 class="mb-0">{{ record_data.phone_number }}</h6>
+                                            <span class="mb-0 num">{{ record_data.phone_number }}</span>
                                             <!-- <small>1:00 - 10:00</small> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <style>
+                                .num {
+                                font-family: 'Poppins' !important;
+                            }
+                            </style>
                             <div class="travellers-info mb-4">
                                 <table>
                                     <thead>

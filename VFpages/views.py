@@ -445,6 +445,11 @@ def main_DestinationCity(request,continent_name):
     # print(destinations_list)
     return render(request, "home/destinationCities.html",{'Cities_list':destinations_list,"destinations": destinations_data,"footer_header":footer_header,"footer_title":footer_title,"new_details":new_details,"all_categories":all_categories})
 
+def get_numeric_price(price_str):
+    # Extract numeric part from the price string, e.g., "INR 17,199 /-" -> 17199.0
+    numeric_part = ''.join(filter(str.isdigit, price_str.replace(',', '')))
+    return float(numeric_part) if numeric_part else 0.0
+
 def main_DestinationAttraction(request,city_name):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -523,7 +528,13 @@ def main_DestinationAttraction(request,city_name):
         attraction_dict[str(city_id)] = attractions_list
     print(attraction_dict)
 
-    packages_entry = Packages.objects.filter(packages_id=new)
+    packages_entry = Packages.objects.filter(Q(packages_id=new) & Q(hidden=False) & Q(fixedpack=True))
+    packages_entrys = sorted(packages_entry, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
+
+    packages_entry_fixed = Packages.objects.filter(Q(packages_id=new) & Q(hidden=False) & Q(fixedpack=False))
+    packages_entrys_fixed = sorted(packages_entry_fixed, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
+
+
     other_city = Destination.objects.filter(destination_slug=city_name)
     
     if other_city.exists():
@@ -541,8 +552,8 @@ def main_DestinationAttraction(request,city_name):
     else:
         all_other_city = None
     
-    return render(request, "home/destinations.html",{"form":form,'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
-    "packages_entry":packages_entry,"destination_name":destination_name,"footer_header":footer_header,"footer_title":footer_title,"destination_metakeyword":destination_metakeyword,"destination_metadestination":destination_metadestination,"destination_metatitle":destination_metatitle,"canonical":canonical})
+    return render(request, "home/destinations.html",{"packages_entrys_fixed":packages_entrys_fixed,"form":form,'city_list':city_list,'attraction_place':attraction_dict,"destinations": destinations_data,"image":image,"image2":image2,"image3":image3,"destination_category":destination_category,"all_categories":all_categories,"all_other_city":all_other_city,"city_name":city_name,
+    "packages_entry":packages_entrys,"destination_name":destination_name,"footer_header":footer_header,"footer_title":footer_title,"destination_metakeyword":destination_metakeyword,"destination_metadestination":destination_metadestination,"destination_metatitle":destination_metatitle,"canonical":canonical})
 
 
     
@@ -717,8 +728,9 @@ def lead_itinerary(request,lead):
     packageCityname =package_city["cities"] 
     if page_id == "html":
         packages_view = Packages.objects.filter(packages_id=all_package)
+        packages_entry = sorted(packages_view, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
         single_des = Destination.objects.filter(destination_name=packageCityname).first()
-        return render(request, f"home/static pages/{page_name}.html",{"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_view,"package_city":package_city,"packages_lead":packages_t0_lead})
+        return render(request, f"home/static pages/{page_name}.html",{"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"all_categories":all_categories,"package_url":package_url,"packages_view":packages_entry,"package_city":package_city,"packages_lead":packages_t0_lead})
     else:
         Lead_details = Lead.objects.using('second_database').filter(id=new)
         
@@ -807,11 +819,19 @@ def lead_itinerary(request,lead):
             hotel_all.append(hotel_details)
     
         # print(hotel_all)
-        packages_view = Packages.objects.filter(packages_id=all_package)
+        packages_view = Packages.objects.filter(Q(packages_id=all_package) & Q(hidden=False) & Q(fixedpack=True))
+        packages_entry = sorted(packages_view, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
+
+        # packages_entry = Packages.objects.filter(Q(packages_id=new) & Q(hidden=False) & Q(fixedpack=True))
+        # packages_entrys = sorted(packages_entry, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
+
+        packages_entry_fixed = Packages.objects.filter(Q(packages_id=all_package) & Q(hidden=False) & Q(fixedpack=False))
+        packages_entrys_fixed = sorted(packages_entry_fixed, key=lambda pkg: get_numeric_price(pkg.description.get('price')))
+
         single_des = Destination.objects.filter(destination_name=packageCityname).first()
         
         
-        return render(request, "home/lead_itinerary.html",{"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_view,"package_url":package_url})
+        return render(request, "home/lead_itinerary.html",{"packages_entrys_fixed":packages_entrys_fixed,"single_des":single_des,"form":form,"footer_header":footer_header,"footer_title":footer_title,"destinations": destinations_data,"Lead_details":Lead_details,"packages":in_ex,"packages_lead":packages_t0_lead,"data":days_activities,"hotel_all":hotel_all,"all_categories":all_categories,"package_city":package_city,"packages_view":packages_entry,"package_url":package_url})
 
 def catagories_city(request,city_name):
     destinations_data,all_categories = header_fn(request)

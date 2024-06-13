@@ -307,11 +307,12 @@
             
            
         </div>
-        <div class="white-overlay"></div>
+        <!-- <div class="white-overlay"></div> -->
     </section>
     <!--Attractions ends -->
     
     <!-- best tour Starts -->
+     {% if packages_entry %}
     <section class="trending bg-grey pt-5 pb-5">
         <!--<div class="section-shape top-0" style="background-image: url(images/shape8.png);"></div>-->
         <div class="container overflow-hidden">
@@ -390,25 +391,25 @@
             </div>  
         </div>
     </section>
+    {% endif %}
     <!-- best tour Ends -->
 
     <!-- best tour 2 Starts -->
-    <section class="trending bg-grey pt-5 pb-5">
-        <!--<div class="section-shape top-0" style="background-image: url(images/shape8.png);"></div>-->
+    {% if packages_entrys_fixed %} 
+    <section class="trending pt-5 pb-5">
+       
         <div class="container overflow-hidden">
             <div class="row align-items-center justify-content-between mb-1">
                   <div class="">
                     <input type="hidden" id="name_int" value="{{ destination_metatitle }}">
                     <div class="section-title row text-center text-lg-start">
                         <div class="col-lg-9">
-                            <!--<h4 class="mb-1 theme1">Top Pick</h4>-->
+                            
                             <h1 class="mb-0 tour_h" style="font-size: 46px;">Best <span class="theme name tour_h" style="font-size: 46px;">Kerala Tour Packages</span></h1>
                             <p style="font-size: 14px;">Breathtaking Destinations to Personalized Experiences, Discover Hassle-free Travel Solutions Tailored just for you.</p>
                         </div>
                         <div class="col-lg-2 text-center align-items-center">
-                            <!-- Button to trigger lead form-->
-                                <!-- <button type="button"  data-toggle="modal" data-target="#exampleModal5" class="morepac_btn">More Packages<i class="fa fa-long-arrow-right ms-2" style="font-family: 'FontAwesome';"></i></button>  -->
-                                <button  data-bs-toggle="modal" data-bs-target="#exampleModal5" class="me-3 morepac_btn" id="popupButton2">More Packages<i class="fa fa-long-arrow-right ms-2" style="font-family: 'FontAwesome';"></i>
+                            <button  data-bs-toggle="modal" data-bs-target="#exampleModal5" class="me-3 morepac_btn" id="popupButton2">More Packages<i class="fa fa-long-arrow-right ms-2" style="font-family: 'FontAwesome';"></i>
                                     
                                 </button>
                         </div>
@@ -418,15 +419,15 @@
                 </div>
             </div>
             <div class="trend-box">
-                <div class="row item-slider4">
-                    {% for packages in packages_entry %}
+                <div class="row item-slider1">
+                    {% for packages in packages_entrys_fixed %}
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                          <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
                         <div class="trend-item rounded box-shadow bg-white">
                            
                             <div class="trend-image position-relative">
                                 <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
-                                <!--<div class="color-overlay"></div>-->
+                               
                             </div>
                             <div class="trend-content px-4 py-2 position-relative" style="height:247px">
                                 <div class="trend-meta bg-theme white px-2 py-1 rounded">
@@ -471,10 +472,11 @@
             </div>  
         </div>
     </section>
+    {% endif %}
     <!-- best tour 2 Ends -->
     
     <!--other suggestion starts-->
-    <section class="trending pt-3 pb-3" style="background-image: url(images/shape4.png);">
+    <section class="trending bg-grey pt-3 pb-3" style="background-image: url(images/shape4.png);">
             <div class="container">
                 <div class="row align-items-center justify-content-between mb-6 ">
                     <div class="col-lg-7">

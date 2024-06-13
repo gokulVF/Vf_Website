@@ -121,6 +121,7 @@
                             <th class="text-center">Published</th>
                             <th class="text-center">Tour Packages</th>
                             <th class="text-center">Bucket Lists</th>
+                            <th class="text-center">fixed package</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -150,7 +151,7 @@
                                       <option value="{{ category.categeory_slug }}">{{ category.categoriesname }}</option>
                                       {% endfor %}
                                     </select>
-                                  </td>
+                                </td>
                                   <script>
                                     function getCSRFToken() {
                                         var cookieValue = null;
@@ -346,6 +347,55 @@
                           });
                       });
                   </script>
+                  <td class="text-center">
+                    <span class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input fixed-switch" id="fixedSwitch{{ destination.id }}" {% if not destination.fixedpack %} checked{% endif %} data-blogid="{{ destination.id }}" data-switchtype="hidden">
+                    </span>
+                </td>
+                <script>
+                  $(document).ready(function() {
+                      // Function to get CSRF token from cookie
+                      function getCSRFToken() {
+                          var cookieValue = null;
+                          if (document.cookie && document.cookie !== '') {
+                              var cookies = document.cookie.split(';');
+                              for (var i = 0; i < cookies.length; i++) {
+                                  var cookie = cookies[i].trim();
+                                  // Extract the CSRF token from the cookie
+                                  if (cookie.substring(0, 'csrftoken'.length + 1) === 'csrftoken=') {
+                                      cookieValue = decodeURIComponent(cookie.substring('csrftoken'.length + 1));
+                                      break;
+                                  }
+                              }
+                          }
+                          return cookieValue;
+                      }
+              
+                      // Handle hidden switch toggle
+                      $('.fixed-switch').change(function() {
+                          var blogId = $(this).data('blogid');
+                          var newState = $(this).prop('checked');
+              
+                          $.ajax({
+                              url: '/update_packages_fixed_state',
+                              method: 'POST',
+                              data: {
+                                  'blog_id': blogId,
+                                  'new_state': newState ? 'on' : 'off'
+                              },
+                              headers: {
+                                  'X-CSRFToken': getCSRFToken()  // Include CSRF token in headers
+                              },
+                              success: function(response) {
+                                  // Handle success response if needed
+                              },
+                              error: function(xhr, status, error) {
+                                  console.error(error);
+                              }
+                          });
+                      });
+                  });
+              </script>
                                 <td class="text-center">
                                   <ul class="d-flex list-unstyled mb-0 justify-content-center">
                                       <!-- <li class="me-2"><a href="#"><i class="link-icon" data-feather="eye"></i></a></li> -->

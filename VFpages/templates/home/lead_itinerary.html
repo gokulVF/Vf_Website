@@ -798,6 +798,7 @@
      <!--Inside package-->      
   
      <!-- Packages ends -->
+      {% if packages_view %}
      <section class="trending bg-grey pt-5 pb-5">
         <!--<div class="section-shape top-0" style="background-image: url(images/shape8.png);"></div>-->
         <div class="container overflow-hidden">
@@ -866,7 +867,81 @@
             </div>  
         </div>
     </section>
+    {% endif %}
     <!--Packages Ends-->
+
+<!-- fixed Packages ends -->
+ {% if packages_entrys_fixed %}
+<section class="trending bg-grey pt-5 pb-5">
+<!--<div class="section-shape top-0" style="background-image: url(images/shape8.png);"></div>-->
+<div class="container overflow-hidden">
+    <div class="row align-items-center justify-content-between mb-1">
+        <div class="col-lg-7">
+            <div class="section-title text-center text-lg-start">
+                <!--<h4 class="mb-1 theme1">Top Pick</h4>-->
+                <h2 class="mb-1">Other <span class="theme">Tour Packages</span></h2>
+                <p>Breathtaking Destinations to Personalized Experiences, Discover Hassle-free Travel Solutions Tailored just for you.</p>
+            </div>
+        </div>
+        <div class="col-lg-5">  
+        </div>
+    </div>
+    <div class="trend-box">
+        <div class="row item-slider1">
+            {% for packages in packages_entrys_fixed %}
+            {% if packages.description.place2 != package_city.place2 %}
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                <div class="trend-item rounded box-shadow bg-white">
+                    <a href="{% url 'tour-packages' packages.description.Url_in_lead %}" >
+                    <div class="trend-image position-relative">
+                        <img src="{% static packages.description.grid_image_url %}" alt="image" class="">
+                        <!--<div class="color-overlay"></div>-->
+                    </div>
+                    </a>
+                    <div class="trend-content px-4 py-2 position-relative" style="height:247px">
+                        <div class="trend-meta bg-theme white px-2 py-1 rounded">
+                            <div class="entry-author">
+                                <i class="icon-calendar pe-1 nod_cal"></i>
+                                <span class="fw-bold nod_tour">{{ packages.description.Noofdays }}</span>
+                            </div>
+                        </div>
+                        <div style="height:155px">
+                            <h5 class="theme mb-0"><i class="flaticon-location-pin"></i> {{ packages.description.place1 }}</h5>
+                            <h3 class="mb-1"><a href="{% url 'tour-packages' packages.description.Url_in_lead %}" id="tag-link{{ packages.id }}">{{ packages.description.place2 }}</a></h3>
+                                <script>
+                                // Get the place2 element
+                                var placeElement = document.getElementById('tag-link{{ packages.id }}');
+                                var placeText = placeElement.textContent;
+                            
+                                // Replace '&' with a span having a specific class
+                                var replacedText = placeText.replace(/&/g, function(match) {
+                                    return "<span class='number'>" + match + "</span>";
+                                });
+                            
+                                // Set the modified HTML back to the element
+                                placeElement.innerHTML = replacedText;
+                            </script>
+                            <p class="pb-1 mb-0" style="font-size:14.5px;">{{ packages.description.descriptions }}</p>
+                        </div>
+                            <div class="entry-meta">
+                                <div class="entry-author align-items-center pt-1 border-t justify-content-end text-end">
+                                    <span class="theme1 mb-0 mt-0 me-2 starts_from">Starts from</span>
+                                    <span class="theme fw-bold fs-5 p-1 px-2 stay_price"> {{ packages.description.price }}</span><br>
+                                    <span class="mb-1 mt-1" style="font-size:14px;">{{ packages.description.person }}</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            
+        </div>
+    </div>  
+</div>
+</section>
+{% endif %}
+<!--fixed Packages Ends-->
    
 
 
