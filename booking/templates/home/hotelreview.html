@@ -420,15 +420,19 @@
             emailInput.style.border = ''; // Reset border style if valid
         }
 
-        // var validation_data = document.getElementById('validationidforbooking').value;
-        // var parsedNewData = JSON.parse(validation_data)
-        // var pancard = parsedNewData.is_pan_mandatory_confirm;
+        var validation_data = document.getElementById('validationidforbooking').value;
+        var parsedNewData = JSON.parse(validation_data)
+        var pancard = parsedNewData.is_pan_mandatory_voucher;
+        var passportv = parsedNewData.is_passport_mandatory_voucher;
+        var pancard_book = parsedNewData.is_pan_mandatory_confirm;
+        var passport_book = parsedNewData.is_passport_mandatory_confirm;
 
         guestData.forEach(function (room, roomIndex) {
         for (var i = 0; i < room.NoOfAdults; i++) {
             var adultFirstName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`);
             var adultLastName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`);
             var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
+            var passportnumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_passport"]`);
 
             if (adultFirstName.value.trim() === '') {
                 document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the first name';
@@ -448,20 +452,30 @@
                 document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' ';
             }
 
-           
-            // if (pancard && pannumber.value.trim() === '') {
-            //     document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
-            //     phoneInput.style.border = '1px solid red';
-            //     valid = false;
-            // }else {
-            //     phoneInput.style.border = ''; // Reset border style if valid
+           if(pancard || pancard_book ){
+            if (pannumber.value.trim() === '') {
+                document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+                 phoneInput.style.border = '1px solid red';
+                 valid = false;
+             }else {
+                 phoneInput.style.border = ''; // Reset border style if valid
+             }
+            }
+            // if(passport_book || passportv ){
+            // if (passportnumber.value.trim() === '') {
+            //     document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the passport number';
+            //      passport.style.border = '1px solid red';
+            //      valid = false;
+            //  }else {
+            //     passport.style.border = ''; // Reset border style if valid
+            //  }
             // }
         }
 
         for (var j = 0; j < room.NoOfChild; j++) {
             var childFirstName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`);
             var childLastName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`);
-            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${i + 1}_pancard"]`);
+            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`);
 
             if (childFirstName.value.trim() === '') {
                 document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the first name';
@@ -481,15 +495,27 @@
                 document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
             }
 
-            
-            // if (pancard && pannumber.value.trim() === '') {
-            //     document.getElementById(`pancardError_${roomIndex + 1}_adult_${j + 1}`).innerText = 'Please Enter the PAN number';
-            //     phoneInput.style.border = '1px solid red';
-            //     valid = false;
-            // } 
-            // else {
-            //     phoneInput.style.border = ''; // Reset border style if valid
-            // }
+            if(pancard || pancard_book ){
+            if (pannumber.value.trim() === '') {
+                document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
+                phoneInput.style.border = '1px solid red';
+                valid = false;
+            } 
+            else {
+                phoneInput.style.border = ''; // Reset border style if valid
+            }
+        }
+        // const passportNumberPattern = /^[A-Z0-9]{6,9}$/;
+        // if(pancard || pancard_book ){
+        //     if (pannumber.value.trim() === '') {
+        //         document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
+        //         phoneInput.style.border = '1px solid red';
+        //         valid = false;
+        //     } 
+        //     else {
+        //         phoneInput.style.border = ''; // Reset border style if valid
+        //     }
+        // }
         }
     });
 
@@ -514,10 +540,11 @@ function generateRoomDetails() {
     container.innerHTML = ''; // Clear existing content
 
     var leadPassengerAssigned = false; // Flag to track lead passenger assignment
-    var pancard = parsedNewData.is_pan_mandatory_confirm;
-    console.log("pancard",pancard); // Assuming pancard is true
-    var passport = parsedNewData.is_passport_mandatory_confirm;
-    console.log("passport",passport); // Assuming pancard is true
+    var pancard = parsedNewData.is_pan_mandatory_voucher;
+    var passportv = parsedNewData.is_passport_mandatory_voucher;
+    var pancard_book = parsedNewData.is_pan_mandatory_confirm;
+    var passport_book = parsedNewData.is_passport_mandatory_confirm;
+    
 
     guestData.forEach(function (room, roomIndex) {
         var roomElement = document.createElement('div');
@@ -538,17 +565,20 @@ function generateRoomDetails() {
             //     leadPassengerAssigned = true;
             // }
 
-            const panFieldId = `pan_${roomIndex + 1}_${i + 1}`;
+            const panFieldId = `pan_${roomIndex + 1}_adult_${i + 1}`;
             const resultDivId = `pancardError_${roomIndex + 1}_adult_${i + 1}`;
             const firstnameId = `firstName_${roomIndex + 1}_adult_${i + 1}`;
             const lastnameId = `lastName_${roomIndex + 1}_adult_${i + 1}`;
             const checkboxId = `checkboxId_${roomIndex + 1}_adult_${i + 1}`;
+            const passport = `passport_${roomIndex + 1}_adult_${i + 1}`
+            const passportDivId = `passportError_${roomIndex + 1}_adult_${i + 1}`;
 
             adultElement.innerHTML = `
-                ${pancard ? `
+                ${pancard || passportv || pancard_book || passport_book ? `
                 <div class="">
                     <h4 class="name_no theme2">Adult <span class="num">${i + 1}</span><span class="theme">${leadCustomerText}</span></h4>
                 </div>
+                ${pancard || pancard_book ? `
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-0">
                         <input type="text" id="${panFieldId}" class="f-inp upercase" placeholder="Enter your PAN number" name="room_${roomIndex + 1}_adult_${i + 1}_pancard" required>
@@ -558,10 +588,12 @@ function generateRoomDetails() {
                         <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}','${firstnameId}','${lastnameId}','${checkboxId}')" class="nir-btn" style="border-radius: 4px;">Verify PAN</button>
                     </div>
                     ${leadCustomerText ? `
-                <div class="col-lg-3 mt-2" style="color:red; display:none;" id="${checkboxId}">
+                    <div class="col-lg-3 mt-2" style="color:red; " id="${checkboxId}">
                     <input type="checkbox" id="applyPanToAll" onclick="togglePanFields('pan_${roomIndex + 1}_${i + 1}', this)" > Apply to all Pax
                 </div>` : ''}
                 </form>
+                ` :''}
+                
                 
                 <div class="row">
                     <div class="col-lg-2 mb-1">
@@ -580,9 +612,17 @@ function generateRoomDetails() {
                         <input type="text" class="f-inp" id="${lastnameId}" placeholder="Enter last name as per PAN" name="room_${roomIndex + 1}_adult_${i + 1}_last_name" required>
                         <span class="error" id="lastNameError_${roomIndex + 1}_adult_${i + 1}"></span>
                     </div>
-                </div>` : `
+                </div>
+                ${passportv || passport_book ? `
+                <div class="row">
+                    <div class="col-lg-5 mb-1">
+                    <input type="text" class="f-inp" id="${passport}" name="room_${roomIndex + 1}_adult_${i + 1}_pancard" placeholder="Enter passport Number" required>
+                    <span id="${passportDivId}" style="color: red;"></span>
+                    </div>
+                </div>
+                ` : ''}` : `
                 <div class="">
-                    <h4 class="name_no theme2">Adult <span class="number">${i + 1}</span><span class="theme">${leadCustomerText}</span></h4>
+                    <h4 class="name_no theme2">Adult <span class="num">${i + 1}</span><span class="theme">${leadCustomerText}</span></h4>
                 </div>
                 <div class="row">
                     <div class="col-lg-2 mb-1">
@@ -615,12 +655,15 @@ function generateRoomDetails() {
 
             const panFieldId = `pan_${roomIndex + 1}_child_${j + 1}`;
             const resultDivId = `pancardError_${roomIndex + 1}_child_${j + 1}`;
+            const passport = `passport_${roomIndex + 1}_child_${j + 1}`
+            const passportDivId = `passportError_${roomIndex + 1}_child_${j + 1}`;
 
             childElement.innerHTML = `
-                ${pancard ? `
+                ${pancard || passportv || pancard_book || passport_book ? `
                 <div class="row">
                     <h4 class="name_no theme2">Child <span class="num">${j + 1}</span></h4>
                 </div>
+                ${pancard || pancard_book ? `
                 <form class="row pb-2">
                     <div class="col-lg-4 mb-1">
                         <input type="text" id="${panFieldId}" class="f-inp upercase pan_first_input" placeholder="Enter Your PAN Card Number" name="room_${roomIndex + 1}_child_${j + 1}_pancard" required>
@@ -629,7 +672,9 @@ function generateRoomDetails() {
                     <div class="col-lg-4">
                         <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}')" class="nir-btn" style="border-radius: 4px;">Verify PAN</button>
                     </div>
-                    </form>
+                </form>
+                ` : ''}
+                
                 <div class="row">
                     <div class="col-lg-2 mb-1">
                         <select class="f-inp" style="height:50px;" name="room_${roomIndex + 1}_child_${j + 1}_gender">
@@ -647,9 +692,17 @@ function generateRoomDetails() {
                         <input class="f-inp" type="text" placeholder="Enter Last Name as per PAN" name="room_${roomIndex + 1}_child_${j + 1}_last_name" required>
                         <span class="error" id="clastNameError_${roomIndex + 1}_child_${j + 1}"></span>
                     </div>
-                </div>` : `
+                </div>
+                ${passportv || passport_book ? `
+                  <div class="row">
+                    <div class="col-lg-5 mb-1">
+                    <input type="text" class="f-inp" id="${passport}" name="${passport}" placeholder="Enter Passport Number" required>
+                    <span id="${passportDivId}" style="color: red;"></span>
+                    </div>
+                </div>
+                ` : ''}` : `
                 <div class="row">
-                    <h4 class="name_no theme2">Child <span class="number">${j + 1}</span></h4>
+                    <h4 class="name_no theme2">Child <span class="num">${j + 1}</span></h4>
                 </div>
                 <div class="row">
                     <div class="col-lg-2 mb-1">

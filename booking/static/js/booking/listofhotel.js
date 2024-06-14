@@ -37,21 +37,21 @@ function getAdultCount() {
         // var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
         
         // Handle the first row separately
-        var childrenCountFirstRow = parseInt($("#child_1").val());
-        var childAgeFirstRow = [];
+        // var childrenCountFirstRow = parseInt($("#child_1").val());
+        // var childAgeFirstRow = [];
 
-        for (var k = 1; k <= childrenCountFirstRow; k++) {
-            var ageFirstRow = parseInt($("#childage_" + k).val());
-            if (!isNaN(ageFirstRow)) {
-                childAgeFirstRow.push(ageFirstRow);
-            }
-        }
+        // for (var k = 1; k <= childrenCountFirstRow; k++) {
+        //     var ageFirstRow = parseInt($("#childage_" + k).val());
+        //     if (!isNaN(ageFirstRow)) {
+        //         childAgeFirstRow.push(ageFirstRow);
+        //     }
+        // }
 
-        roominfo[0] = {
-            "NoOfAdults": parseInt($("#adult_1").val()),
-            "NoOfChild": parseInt($("#child_1").val()),
-            "ChildAge": childAgeFirstRow
-        };
+        // roominfo[0] = {
+        //     "NoOfAdults": parseInt($("#adult_1").val()),
+        //     "NoOfChild": parseInt($("#child_1").val()),
+        //     "ChildAge": childAgeFirstRow
+        // };
         
 
         var childrenCount = parseInt($("#child_" + i).val());

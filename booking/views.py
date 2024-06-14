@@ -1833,7 +1833,6 @@ def hotelbooked(request):
                 for passenger in room_value['adults'] + room_value['children']:
                     # Convert age to integer, handling the case where age is a string
                     age = int(passenger["age"]) if passenger["age"].isdigit() else 0
-
                     leadpassenger = True if passenger["leadpassenger"] == "0" else False
 
                     pax_type = 1 if age == 0 else 2
