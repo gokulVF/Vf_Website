@@ -90,35 +90,35 @@ function getAdultCount() {
     //     "TotalRooms": $rowno,
 
 
-    };
+};
 
-    function showChildAgeSelectors() {
-        // Hide all child age selectors first
-        $("[id^=childage_]").hide();
-        $("[id^=age_]").hide();
+function showChildAgeSelectors() {
+    // Hide all child age selectors first
+    $("[id^=childage_]").hide();
+    $("[id^=age_]").hide();
 
-        // Get the number of children selected in the first row
-        var childrenCountFirstRow = parseInt($("#child_1").val());
+    // Get the number of children selected in the first row
+    var childrenCountFirstRow = parseInt($("#child_1").val());
 
-        // Show the corresponding child age selectors in the first row
-        for (var i = 1; i <= childrenCountFirstRow; i++) {
-            $("#childage_" + i).show();
+    // Show the corresponding child age selectors in the first row
+    for (var i = 1; i <= childrenCountFirstRow; i++) {
+        $("#childage_" + i).show();
+        $("#age_" + i).show();
+    }
+
+    // Iterate through each dynamically added row
+    $("#attribute_table tr").each(function(index, row) {
+        var rowNumber = index + 1;
+        var childrenCount = parseInt($("#child_" + rowNumber).val());
+
+        // Show the corresponding child age selectors for each dynamically added row
+        for (var i = 1; i <= childrenCount; i++) {
+            $("#childage_" + rowNumber + "_" + i).show();
+            document.getElementById("age_"+i).innerHTML = "Age "+ i;
             $("#age_" + i).show();
         }
-
-        // Iterate through each dynamically added row
-        $("#attribute_table tr").each(function(index, row) {
-            var rowNumber = index + 1;
-            var childrenCount = parseInt($("#child_" + rowNumber).val());
-
-            // Show the corresponding child age selectors for each dynamically added row
-            for (var i = 1; i <= childrenCount; i++) {
-                $("#childage_" + rowNumber + "_" + i).show();
-                document.getElementById("age_"+i).innerHTML = "Age "+ i;
-                $("#age_" + i).show();
-            }
-        });
-    }
+    });
+}
 
 
 function add_attribute_row() {
@@ -162,22 +162,22 @@ function add_attribute_row() {
     }
 }
 
- // Function to validate the selects of the previous row
- function validatePreviousRow(prevRowNo) {
-    // Check if the previous row's selects have valid values
-    var adultValue = $("#adult_" + prevRowNo).val();
-    // var childValue = $("#child_" + prevRowNo).val();
+// Function to validate the selects of the previous row
+function validatePreviousRow(prevRowNo) {
+// Check if the previous row's selects have valid values
+var adultValue = $("#adult_" + prevRowNo).val();
+// var childValue = $("#child_" + prevRowNo).val();
 
-    // Return true if both selects have valid values, otherwise false
-    return adultValue !== "0" ;
-    }
+// Return true if both selects have valid values, otherwise false
+return adultValue !== "0" ;
+}
 
 function del_att_row() {
-        rowno = $("#attribute_table tr").length-2 ;
-        if(rowno > 1)
-        $('#row' + rowno).remove();
-        getAdultCount()
-    }
+    rowno = $("#attribute_table tr").length-2 ;
+    if(rowno > 1)
+    $('#row' + rowno).remove();
+    getAdultCount()
+}
 
 // FILTER HOTEL NAME ------------------------------
 

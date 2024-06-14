@@ -21,4 +21,5 @@ urlpatterns= [
    path('download_pdfview/', views.download_pdfview, name='download_pdfview'),
 
    path('verify_pan/', views.verify_pan, name='verify_pan'),
+   path('successtest/', views.successtest, name='successtest'),
 ]
