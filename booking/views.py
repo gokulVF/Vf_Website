@@ -91,6 +91,9 @@ def hotel(request):
 def navbar(request):
     return render(request, "home/navbar.html")
 
+def successtest(request):
+    return render(request, "home/successtest.html")
+
 def search_destinations(request):
     query = request.GET.get('query', '')
     results = NewCityListHotelCSV.objects.filter(
