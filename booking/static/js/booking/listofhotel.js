@@ -12,13 +12,8 @@ function showForm() {
 function hideForm() {
     var x = document.getElementById("form");
     if (x.style.display === "block") {
-        // If the form is being hidden, validate the previous row before hiding
-        var prevRowNo = $("#attribute_table tr").length - 2; // Get the previous row number
-        if (!validatePreviousRow(prevRowNo)) {
-            alert("Please select valid options for the Adults.");
-            return; // Do not hide the form if validation fails
-        }
         x.style.display = "none";
+        mod()
     } else {
         x.style.display = "none";
     }

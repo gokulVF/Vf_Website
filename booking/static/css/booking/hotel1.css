@@ -174,8 +174,12 @@ table>tbody tr td, table thead tr th  {
     .filter-menu{ 
         position: static !important;
     }
+}
 
-   
+@media (max-width: 768px) { 
+    #wrapper {
+        width: auto !important;
+    }
 }
 
 @media (max-width: 600px) { 

@@ -370,162 +370,181 @@
         generateCancellationPolicyRows();
     </script>
     
-    <script>
-        function validateForm() {
-        var valid = true;
+<script>
+    function validateForm() {
+    var valid = true;
 
-        document.getElementById('nameError').innerText = '';
-        document.getElementById('phoneError').innerText = '';
-        document.getElementById('emailError').innerText = '';
+    // Reset all error messages and border styles
+    document.getElementById('nameError').innerText = '';
+    document.getElementById('phoneError').innerText = '';
+    document.getElementById('emailError').innerText = '';
 
-        var nameInput = document.querySelector('.username');
-        var phoneInput = document.querySelector('.phone_number');
-        var emailInput = document.querySelector('.email');
+    var nameInput = document.querySelector('.username');
+    var phoneInput = document.querySelector('.phone_number');
+    var emailInput = document.querySelector('.email');
 
-        var name = nameInput.value;
-        var phone = phoneInput.value;
-        var email = emailInput.value;
+    var name = nameInput.value;
+    var phone = phoneInput.value;
+    var email = emailInput.value;
 
-        if (name.trim() === '') {
-            document.getElementById('nameError').innerText = 'Name is required';
-            nameInput.style.border = '1px solid red';
-            valid = false;
-        } else {
-            nameInput.style.border = ''; // Reset border style if valid
-        }
+    // Validate name
+    if (name.trim() === '') {
+        document.getElementById('nameError').innerText = 'Name is required';
+        nameInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        nameInput.style.border = ''; // Reset border style if valid
+    }
 
-        var phonePattern = /^\d{10}$/;
-        if (phone.trim() === '') {
-            document.getElementById('phoneError').innerText = 'Phone number is required';
-            phoneInput.style.border = '1px solid red';
-            valid = false;
-        } else if (!phonePattern.test(phone)) {
-            document.getElementById('phoneError').innerText = 'Invalid phone number';
-            phoneInput.style.border = '1px solid red';
-            valid = false;
-        } else {
-            phoneInput.style.border = ''; // Reset border style if valid
-        }
+    // Validate phone
+    var phonePattern = /^\d{10}$/;
+    if (phone.trim() === '') {
+        document.getElementById('phoneError').innerText = 'Phone number is required';
+        phoneInput.style.border = '1px solid red';
+        valid = false;
+    } else if (!phonePattern.test(phone)) {
+        document.getElementById('phoneError').innerText = 'Invalid phone number';
+        phoneInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        phoneInput.style.border = ''; // Reset border style if valid
+    }
 
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email.trim() === '') {
-            document.getElementById('emailError').innerText = 'Email is required';
-            emailInput.style.border = '1px solid red';
-            valid = false;
-        } else if (!emailPattern.test(email)) {
-            document.getElementById('emailError').innerText = 'Invalid email address';
-            emailInput.style.border = '1px solid red';
-            valid = false;
-        } else {
-            emailInput.style.border = ''; // Reset border style if valid
-        }
+    // Validate email
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.trim() === '') {
+        document.getElementById('emailError').innerText = 'Email is required';
+        emailInput.style.border = '1px solid red';
+        valid = false;
+    } else if (!emailPattern.test(email)) {
+        document.getElementById('emailError').innerText = 'Invalid email address';
+        emailInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        emailInput.style.border = ''; // Reset border style if valid
+    }
 
-        var validation_data = document.getElementById('validationidforbooking').value;
-        var parsedNewData = JSON.parse(validation_data)
-        var pancard = parsedNewData.is_pan_mandatory_voucher;
-        var passportv = parsedNewData.is_passport_mandatory_voucher;
-        var pancard_book = parsedNewData.is_pan_mandatory_confirm;
-        var passport_book = parsedNewData.is_passport_mandatory_confirm;
+    // Retrieve validation data
+    var validation_data = document.getElementById('validationidforbooking').value;
+    var parsedNewData = JSON.parse(validation_data);
+    var pancard = parsedNewData.is_pan_mandatory_voucher;
+    var passportv = parsedNewData.is_passport_mandatory_voucher;
+    var pancard_book = parsedNewData.is_pan_mandatory_confirm;
+    var passport_book = parsedNewData.is_passport_mandatory_confirm;
 
-        guestData.forEach(function (room, roomIndex) {
+    guestData.forEach(function (room, roomIndex) {
+        // Validate adults
         for (var i = 0; i < room.NoOfAdults; i++) {
             var adultFirstName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`);
             var adultLastName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`);
-            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
-            var passportnumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_passport"]`);
+            var adultPannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
+            var adultPassportnumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_passport"]`);
 
+            // Validate adult first name
             if (adultFirstName.value.trim() === '') {
                 document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the first name';
                 adultFirstName.style.border = '1px solid red';
                 valid = false;
             } else {
                 adultFirstName.style.border = '';
-                document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' '; // Reset border style if valid
+                document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ''; // Reset error message if valid
             }
 
+            // Validate adult last name
             if (adultLastName.value.trim() === '') {
                 document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the last name';
                 adultLastName.style.border = '1px solid red';
                 valid = false;
             } else {
                 adultLastName.style.border = ''; // Reset border style if valid
-                document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' ';
+                document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = '';
             }
 
-           if(pancard || pancard_book ){
-            if (pannumber.value.trim() === '') {
-                document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
-                 phoneInput.style.border = '1px solid red';
-                 valid = false;
-             }else {
-                 phoneInput.style.border = ''; // Reset border style if valid
-             }
+            // Validate PAN number for adults
+            if (pancard || pancard_book) {
+                if (adultPannumber.value.trim() === '') {
+                    document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+                    adultPannumber.style.border = '1px solid red';
+                    valid = false;
+                } else {
+                    adultPannumber.style.border = ''; // Reset border style if valid
+                    document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = '';
+                }
             }
-            // if(passport_book || passportv ){
-            // if (passportnumber.value.trim() === '') {
-            //     document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the passport number';
-            //      passport.style.border = '1px solid red';
-            //      valid = false;
-            //  }else {
-            //     passport.style.border = ''; // Reset border style if valid
-            //  }
-            // }
+
+            // Validate passport number for adults
+            if (passport_book || passportv) {
+                if (adultPassportnumber.value.trim() === '') {
+                    document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the passport number';
+                    adultPassportnumber.style.border = '1px solid red';
+                    valid = false;
+                } else {
+                    adultPassportnumber.style.border = ''; // Reset border style if valid
+                    document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = '';
+                }
+            }
         }
 
+        // Validate children
         for (var j = 0; j < room.NoOfChild; j++) {
             var childFirstName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`);
             var childLastName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`);
-            var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`);
+            var childPannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`);
+            var childPassportnumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_passport"]`);
 
+            // Validate child first name
             if (childFirstName.value.trim() === '') {
                 document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the first name';
                 childFirstName.style.border = '1px solid red';
                 valid = false;
             } else {
                 childFirstName.style.border = ''; // Reset border style if valid
-                document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
+                document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ''; // Reset error message if valid
             }
 
+            // Validate child last name
             if (childLastName.value.trim() === '') {
                 document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the last name';
                 childLastName.style.border = '1px solid red';
                 valid = false;
             } else {
                 childLastName.style.border = ''; // Reset border style if valid
-                document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
+                document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = '';
             }
 
-            if(pancard || pancard_book ){
-            if (pannumber.value.trim() === '') {
-                document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
-                phoneInput.style.border = '1px solid red';
-                valid = false;
-            } 
-            else {
-                phoneInput.style.border = ''; // Reset border style if valid
+            // Validate PAN number for children
+            if (pancard || pancard_book) {
+                if (childPannumber.value.trim() === '') {
+                    document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
+                    childPannumber.style.border = '1px solid red';
+                    valid = false;
+                } else {
+                    childPannumber.style.border = ''; // Reset border style if valid
+                    document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = '';
+                }
             }
-        }
-        // const passportNumberPattern = /^[A-Z0-9]{6,9}$/;
-        // if(pancard || pancard_book ){
-        //     if (pannumber.value.trim() === '') {
-        //         document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
-        //         phoneInput.style.border = '1px solid red';
-        //         valid = false;
-        //     } 
-        //     else {
-        //         phoneInput.style.border = ''; // Reset border style if valid
-        //     }
-        // }
+
+            // Validate passport number for children
+            if (passport_book || passportv) {
+                if (childPassportnumber.value.trim() === '') {
+                    document.getElementById(`passportError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the passport number';
+                    childPassportnumber.style.border = '1px solid red';
+                    valid = false;
+                } else {
+                    childPassportnumber.style.border = ''; // Reset border style if valid
+                    document.getElementById(`passportError_${roomIndex + 1}_child_${j + 1}`).innerText = '';
+                }
+            }
         }
     });
 
+    var specialRequest = document.getElementById('req').value;
 
-        var specialRequest = document.getElementById('req').value;
+    return valid;
+}
+</script>
 
-        return valid;
-    }
- </script>
-
+</script>
 
 <script>
 var personsdetails = document.getElementById('hiddenGuestData').textContent;
@@ -588,7 +607,7 @@ function generateRoomDetails() {
                         <button type="button" onclick="verifyPAN('${panFieldId}', '${resultDivId}','${firstnameId}','${lastnameId}','${checkboxId}')" class="nir-btn" style="border-radius: 4px;">Verify PAN</button>
                     </div>
                     ${leadCustomerText ? `
-                    <div class="col-lg-3 mt-2" style="color:red; " id="${checkboxId}">
+                    <div class="col-lg-3 mt-2 theme2 fw-bold" style="font-size:15px;" id="${checkboxId}">
                     <input type="checkbox" id="applyPanToAll" onclick="togglePanFields('pan_${roomIndex + 1}_${i + 1}', this)" > Apply to all Pax
                 </div>` : ''}
                 </form>
@@ -616,8 +635,8 @@ function generateRoomDetails() {
                 ${passportv || passport_book ? `
                 <div class="row">
                     <div class="col-lg-5 mb-1">
-                    <input type="text" class="f-inp" id="${passport}" name="room_${roomIndex + 1}_adult_${i + 1}_pancard" placeholder="Enter passport Number" required>
-                    <span id="${passportDivId}" style="color: red;"></span>
+                    <input type="text" class="f-inp" id="${passport}" name="room_${roomIndex + 1}_adult_${i + 1}_passport" placeholder="Enter passport Number" required>
+                    <span id="${passportDivId}" class="error"></span>
                     </div>
                 </div>
                 ` : ''}` : `
@@ -696,8 +715,8 @@ function generateRoomDetails() {
                 ${passportv || passport_book ? `
                   <div class="row">
                     <div class="col-lg-5 mb-1">
-                    <input type="text" class="f-inp" id="${passport}" name="${passport}" placeholder="Enter Passport Number" required>
-                    <span id="${passportDivId}" style="color: red;"></span>
+                    <input type="text" class="f-inp" id="${passport}" name="room_${roomIndex + 1}_child_${j + 1}_passport" placeholder="Enter Passport Number" required>
+                    <span id="${passportDivId}" class="error"></span>
                     </div>
                 </div>
                 ` : ''}` : `
@@ -751,7 +770,7 @@ function togglePanFields(panFieldId, checkbox) {
     });
 }
 
-function verifyPAN(panFieldId, resultDivId, firstnameId, lastnameId, checkboxId) {
+function verifyPAN(panFieldId, resultDivId, firstnameId, lastnameId, checkboxId,) {
     const pan = document.getElementById(panFieldId).value;
 
     if (!validationpan(pan, resultDivId)) {
@@ -828,10 +847,6 @@ generateRoomDetails();
 
 
 </script>
-
-
-
-
     <script>
         document.getElementById('myButton').addEventListener('click', function () {
             if (validateForm()) {
@@ -851,7 +866,7 @@ generateRoomDetails();
                     lastName: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`)?.value || '',
                     age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`)?.value || '',
                     leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`)?.value || '',
-                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`)?.value || 'none'
+                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`)?.value || 'none',
                 };
                 roomDetails.adults.push(adultDetails);
             }
@@ -863,7 +878,7 @@ generateRoomDetails();
                     lastName: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`)?.value || '',
                     age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`)?.value || '',
                     leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`)?.value || '',
-                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`)?.value || 'none'
+                    pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`)?.value || 'none',
                 };
                 roomDetails.children.push(childDetails);
             }
@@ -984,3 +999,166 @@ generateRoomDetails();
    
 </body>
 </html>
+
+
+
+<!-- Validate Form -->
+<!-- <script>
+    function validateForm() {
+    var valid = true;
+
+    document.getElementById('nameError').innerText = '';
+    document.getElementById('phoneError').innerText = '';
+    document.getElementById('emailError').innerText = '';
+
+    var nameInput = document.querySelector('.username');
+    var phoneInput = document.querySelector('.phone_number');
+    var emailInput = document.querySelector('.email');
+
+    var name = nameInput.value;
+    var phone = phoneInput.value;
+    var email = emailInput.value;
+
+    if (name.trim() === '') {
+        document.getElementById('nameError').innerText = 'Name is required';
+        nameInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        nameInput.style.border = ''; // Reset border style if valid
+    }
+
+    var phonePattern = /^\d{10}$/;
+    if (phone.trim() === '') {
+        document.getElementById('phoneError').innerText = 'Phone number is required';
+        phoneInput.style.border = '1px solid red';
+        valid = false;
+    } else if (!phonePattern.test(phone)) {
+        document.getElementById('phoneError').innerText = 'Invalid phone number';
+        phoneInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        phoneInput.style.border = ''; // Reset border style if valid
+    }
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.trim() === '') {
+        document.getElementById('emailError').innerText = 'Email is required';
+        emailInput.style.border = '1px solid red';
+        valid = false;
+    } else if (!emailPattern.test(email)) {
+        document.getElementById('emailError').innerText = 'Invalid email address';
+        emailInput.style.border = '1px solid red';
+        valid = false;
+    } else {
+        emailInput.style.border = ''; // Reset border style if valid
+    }
+
+    var validation_data = document.getElementById('validationidforbooking').value;
+    var parsedNewData = JSON.parse(validation_data)
+    var pancard = parsedNewData.is_pan_mandatory_voucher;
+    var passportv = parsedNewData.is_passport_mandatory_voucher;
+    var pancard_book = parsedNewData.is_pan_mandatory_confirm;
+    var passport_book = parsedNewData.is_passport_mandatory_confirm;
+
+    guestData.forEach(function (room, roomIndex) {
+    for (var i = 0; i < room.NoOfAdults; i++) {
+        var adultFirstName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_first_name"]`);
+        var adultLastName = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_last_name"]`);
+        var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`);
+        var passportnumber = document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_passport"]`);
+
+        if (adultFirstName.value.trim() === '') {
+            document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the first name';
+            adultFirstName.style.border = '1px solid red';
+            valid = false;
+        } else {
+            adultFirstName.style.border = '';
+            document.getElementById(`firstNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' '; // Reset border style if valid
+        }
+
+        if (adultLastName.value.trim() === '') {
+            document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the last name';
+            adultLastName.style.border = '1px solid red';
+            valid = false;
+        } else {
+            adultLastName.style.border = ''; // Reset border style if valid
+            document.getElementById(`lastNameError_${roomIndex + 1}_adult_${i + 1}`).innerText = ' ';
+        }
+
+       if(pancard || pancard_book ){
+        if (pannumber.value.trim() === '') {
+            document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the PAN number';
+             phoneInput.style.border = '1px solid red';
+             valid = false;
+         }else {
+             phoneInput.style.border = ''; // Reset border style if valid
+             document.getElementById(`pancardError_${roomIndex + 1}_adult_${i + 1}`).innerText = '';
+         }
+        }
+      
+        if(passport_book || passportv ){
+        if (passportnumber.value.trim() === '') {
+            document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = 'Please Enter the passport number';
+             passport.style.border = '1px solid red';
+             console.log("pp error")
+             valid = false;
+         }else {
+            passport.style.border = ''; // Reset border style if valid
+            document.getElementById(`passportError_${roomIndex + 1}_adult_${i + 1}`).innerText = '';
+         }
+        }
+    }
+
+    for (var j = 0; j < room.NoOfChild; j++) {
+        var childFirstName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_first_name"]`);
+        var childLastName = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_last_name"]`);
+        var pannumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`);
+        var passportnumber = document.querySelector(`[name="room_${roomIndex + 1}_child_${i + 1}_passport"]`);
+
+        if (childFirstName.value.trim() === '') {
+            document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the first name';
+            childFirstName.style.border = '1px solid red';
+            valid = false;
+        } else {
+            childFirstName.style.border = ''; // Reset border style if valid
+            document.getElementById(`cfirstNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
+        }
+
+        if (childLastName.value.trim() === '') {
+            document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the last name';
+            childLastName.style.border = '1px solid red';
+            valid = false;
+        } else {
+            childLastName.style.border = ''; // Reset border style if valid
+            document.getElementById(`clastNameError_${roomIndex + 1}_child_${j + 1}`).innerText = ' ';
+        }
+
+        if(pancard || pancard_book ){
+        if (pannumber.value.trim() === '') {
+            document.getElementById(`pancardError_${roomIndex + 1}_child_${j + 1}`).innerText = 'Please Enter the PAN number';
+            phoneInput.style.border = '1px solid red';
+            valid = false;
+        } 
+        else {
+            phoneInput.style.border = ''; // Reset border style if valid
+        }
+    }
+    if(passport_book || passportv ){
+        if (passportnumber.value.trim() === '') {
+            document.getElementById(`passportError_${roomIndex + 1}_child_${i + 1}`).innerText = 'Please Enter the passport number';
+             passport.style.border = '1px solid red';
+             console.log("pp error")
+             valid = false;
+         }else {
+            passport.style.border = ''; // Reset border style if valid
+         }
+        }
+    }
+});
+
+
+    var specialRequest = document.getElementById('req').value;
+
+    return valid;
+}
+</script> -->

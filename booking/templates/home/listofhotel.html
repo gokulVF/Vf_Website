@@ -84,7 +84,8 @@
                             <div class="form-group">
                                 <div class="input-box">
                                     <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>WHERE</label>
-                                    <input type="text" id="autocompleteInput" class="f-inp des" placeholder="Enter The Name, City, Landmark" value= "{{ citytitle }}" name="cityname">
+                                    <input type="text" id="autocompleteInput" class="f-inp des" placeholder="Enter The Name, City, Landmark" value= "{{ citytitle }}" name="cityname" required>
+                                    <span class="error" id="des_error"></span>
                                     <input type="hidden" id="cityIdInput" name="city_id" value="{{cityid}}">
                                     <input type="hidden" id="countryCodeInput" name="country_code" value="{{countrycode}}">
                                 </div>
@@ -698,9 +699,9 @@
                                                 </div> -->
                                                 <!-- <small>200 Reviews</small> -->
                                                 <div class="trend-price">
-                                                    <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span>{{hotel.publicprice}}</p>
+                                                    <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span> {{hotel.publicprice}}</p>
                                                     <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {{hotel.Price}}</p>
-                                                    <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span>{{hotel.tax}} taxes &amp; fees</p>
+                                                    <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span> {{hotel.tax}} taxes &amp; fees</p>
                                                     <small style="font-size: 12px;">Per Night</small>
                                                     <div class="hotel-btn mt-1">
                                                         <button class="nir-btn shadows select-room-btn ms-auto" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
@@ -904,7 +905,7 @@
             var des = document.getElementsByClassName("des")[0].value.trim();
             var room = document.getElementById("room").value.trim();
             if (des === "") {
-                alert("Please Enter Your Destination");
+                document.getElementById("des_error").innerHTML="Please Enter Your Destination";
                 return false; // Prevent form submission
             } 
                 if (room === "") {
