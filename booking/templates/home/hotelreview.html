@@ -717,7 +717,7 @@ function generateRoomDetails() {
                     <div class="col-lg-5 mb-1">
                     <input type="text" class="f-inp" id="${passport}" name="room_${roomIndex + 1}_child_${j + 1}_passport" placeholder="Enter Passport Number" required>
                     <span id="${passportDivId}" class="error"></span>
-                    </div>
+                </div>
                 </div>
                 ` : ''}` : `
                 <div class="row">
@@ -867,6 +867,7 @@ generateRoomDetails();
                     age: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_age"]`)?.value || '',
                     leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_adult_${i + 1}"]`)?.value || '',
                     pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_pancard"]`)?.value || 'none',
+                    passportnumber: document.querySelector(`[name="room_${roomIndex + 1}_adult_${i + 1}_passport"]`)?.value || 'none'
                 };
                 roomDetails.adults.push(adultDetails);
             }
@@ -879,6 +880,7 @@ generateRoomDetails();
                     age: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_ChildAge"]`)?.value || '',
                     leadpassenger: document.querySelector(`[name="leadpassenger_${roomIndex + 1}_child_${j + 1}"]`)?.value || '',
                     pancardnumber: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_pancard"]`)?.value || 'none',
+                    passportnumber: document.querySelector(`[name="room_${roomIndex + 1}_child_${j + 1}_passport"]`)?.value || 'none'
                 };
                 roomDetails.children.push(childDetails);
             }
