@@ -1,4 +1,4 @@
-// FORM --------------------------------------------------------------------------------------------
+// FORM ---------------------------------
 
 function showForm() {
     var x = document.getElementById("form")
@@ -150,7 +150,7 @@ function add_attribute_row() {
     }
 }
 
-// Function to validate the selects of the previous row--------------------------------------------
+// Function to validate the selects of the previous row
 function validatePreviousRow(prevRowNo) {
 // Check if the previous row's selects have valid values
 var adultValue = $("#adult_" + prevRowNo).val();
@@ -167,7 +167,7 @@ function del_att_row() {
     getAdultCount()
 }
 
-// FILTER HOTEL NAME --------------------------------------------------------------------------------------
+// FILTER HOTEL NAME ------------------------------
 
 function sortHotels(criteria) {
     var hotelList = document.getElementById('hotelList');
@@ -199,7 +199,7 @@ function sortHotels(criteria) {
     hotelList.setAttribute('data-sort-order', sortOrder === 'asc' ? 'desc' : 'asc');
 }
 
-// FILTER HOTEL PRICE ---------------------------------------------------------------------------
+// FILTER HOTEL PRICE ---------------------------- 
 
 function filterHotelsByPrice(minPrice,maxPrice) {
     // priceInput = document.querySelectorAll(".price-input input")
@@ -219,8 +219,13 @@ function filterHotelsByPrice(minPrice,maxPrice) {
              $(this).hide();
          }
      });
-}
+ }
  
+ // Attach the filter function to the input change event
+ // $(".input-min, .input-max").on("input", function () {
+ //     filterHotelsByPrice();
+ // });
+
 //  FILTER HOTEL STARS  -----------------------------------------------------
 function filterHotelsByRating() {
     var selectedRatings = [];
@@ -246,16 +251,7 @@ $('input[name="checklist"]').on("change", function () {
     filterHotelsByRating();
 });
 
-// Submit Functions-----------------------------------------------------------
-function mod() {
-    if(validateForm()){
-        document.getElementById("modify-sec").submit();
-        document.getElementById('preloader').style.display = 'block';
-        document.getElementById('status').style.display = 'block';
-    }
-}
-
-// HOTEL ROOM FUNCTIONS -----------------------------------------------------------
+// HOTEL ROOM FUNCTIONS --------------------------------------------
 
 function hiderooms(hotelCode) {
     document.getElementById(hotelCode).style.display = 'none';
@@ -301,7 +297,172 @@ function handleSelectRoom(hotelCode, traceId, resultIndex, tokenId) {
     });
 }
 
-// STAR FUNCTIONS ----------------------------------------------------------------
+function sortHotels(criteria) {
+    var hotelList = document.getElementById('hotelList');
+    var hotels = Array.from(hotelList.getElementsByClassName('hotel'));
+
+    var sortOrder = hotelList.getAttribute('data-sort-order') || 'asc';
+
+    hotels.sort(function(a, b) {
+        var aValue = a.getAttribute('data-' + criteria);
+        var bValue = b.getAttribute('data-' + criteria);
+
+        // Handle numeric or string comparisons based on the criteria
+        if (criteria === 'Price' || criteria === 'Rating') {
+            return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+        } else if (criteria === 'Name') {
+            return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        }
+    });
+
+    // Clear the existing hotel list
+    hotelList.innerHTML = '';
+
+    // Append the sorted hotels to the list
+    hotels.forEach(function(hotel) {
+        hotelList.appendChild(hotel);
+    });
+
+    // Toggle sort order for the next click
+    hotelList.setAttribute('data-sort-order', sortOrder === 'asc' ? 'desc' : 'asc');
+}
+
+
+//  Function Bookroom ---------------------------------------------------
+
+function bookRoom() {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/hotelreview/';
+    var roomJsonList = document.getElementById('hide-123').value;
+    var datalist = document.getElementById('data-123').value;
+    var unescapedValue = datalist.replace(/&quot;/g, '"');
+    var parsedJSON = JSON.parse(unescapedValue);
+    var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
+    var parsedJSON1 = JSON.parse(unescapedValue1);
+    var hotelCode = parsedJSON.HotelCode; 
+    var hotelId = hotelCode + 'A';
+    var hotelNameInputElement = document.getElementById(hotelId);
+    if (hotelNameInputElement) {
+        var hotelName = hotelNameInputElement.value;
+        var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+        var csrfTokenField = document.createElement('input');
+        csrfTokenField.type = 'hidden';
+        csrfTokenField.name = 'csrfmiddlewaretoken';
+        csrfTokenField.value = csrfToken;
+        form.appendChild(csrfTokenField);
+        var roomJsonElement = document.createElement('input');
+        roomJsonElement.type = 'hidden';
+        roomJsonElement.name = 'roomJsonElement';
+        roomJsonElement.value = JSON.stringify(parsedJSON1);
+        form.appendChild(roomJsonElement);
+        var hotelNameField = document.createElement('input');
+        hotelNameField.type = 'hidden';
+        hotelNameField.name = 'hotelName';
+        hotelNameField.value = hotelName;
+        form.appendChild(hotelNameField);
+        var hide123Value = document.createElement('input');
+        hide123Value.type = 'hidden';
+        hide123Value.name = 'hide123Value';
+        hide123Value.value = JSON.stringify(parsedJSON);
+        form.appendChild(hide123Value);
+        var categoryid1 = document.getElementById('categoryid').value;
+        var categoryidField = document.createElement('input');
+        categoryidField.type = 'hidden';
+        categoryidField.name = 'categoryid1';
+        categoryidField.value = categoryid1;
+        form.appendChild(categoryidField);
+        document.body.appendChild(form);
+        form.submit();
+    } else {
+        console.error('Hotel name input element not found.');
+    }
+}
+
+
+function bookRoom1() {
+    var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
+        
+    if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
+        var roomJsonElement = document.querySelector('.hide-elements .room-json');
+        var dataJsonElement = document.querySelector('.hide-elements .data-json');
+        var hotelName = document.querySelector('.h-name p').innerText;
+        console.log(hotelName)
+
+        if (roomJsonElement && dataJsonElement) {
+            var currentRoomJson = JSON.parse(roomJsonElement.innerText);
+            var currentDataJson = JSON.parse(dataJsonElement.innerText);
+            console.log(currentRoomJson);
+            console.log(currentDataJson);
+
+            var payload = {
+                ResultIndex: currentDataJson.ResultIndex,
+                HotelCode: currentDataJson.HotelCode,
+                HotelName: hotelName,
+                GuestNationality:"IN",
+                NoOfRooms: "1",
+                ClientReferenceNo: "0",
+                IsVoucherBooking: "true",
+                HotelRoomsDetails: [
+                    {
+                        RoomIndex: currentRoomJson.RoomIndex,
+                        RoomTypeCode: currentRoomJson.RoomTypeCode,
+                        RoomTypeName: currentRoomJson.RoomTypeName,
+                        RatePlanCode:currentRoomJson.RatePlanCode,
+                        BedTypeCode:null,
+                        SmokingPreference:0,
+                        Supplements:null,
+                        Price:currentRoomJson.Price
+                    }
+                ],
+                EndUserIp: '123.1.1.1',  // Replace with actual end user IP
+                TokenId: currentDataJson.TokenId,
+                TraceId: currentDataJson.TraceId,
+            };
+            var csrftoken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+            // Assuming you have jQuery available
+            $.ajax({
+                url: '/hotelreview/',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(payload),
+                headers: {
+                    'X-CSRFToken': csrftoken  // Include the CSRF token in the headers
+                },
+                success: function(response) {
+                    console.log(response);
+                    var newWindow = window.open();
+                    newWindow.document.write(response.html);
+                    // Handle the response as needed
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+    } else {
+        $("#log-btn").click();
+    }
+}
+
+
+// HANDLECLICK FOR LABEL ---------------------------------------------
+
+function handleClickEvent() {
+    var labels = document.querySelectorAll('.form-check-label');
+    
+    // Remove 'active' class from all labels
+    labels.forEach(function(label) {
+        label.classList.remove('active');
+    });
+
+    // Add 'active' class to the clicked label
+    if (event.target.tagName === 'LABEL') {
+        event.target.classList.add('active');
+    }
+}
+
+// STAR FUNCTIONS ----------------------------------
 
 function updateStars() {
     var starInput = document.getElementById('starInput');
@@ -325,304 +486,6 @@ function markStars(starView, count) {
         stars[i].classList.add('checked');
     }
 }
-
-// Validate form Functions---------------------------------------------------------------------------
-function validateForm() {
-    var des = document.getElementsByClassName("des")[0].value.trim();
-    var room = document.getElementById("room").value.trim();
-    if (des === "") {
-        document.getElementById("des_error").innerHTML="Please Enter Your Destination";
-        return false; // Prevent form submission
-    } 
-        if (room === "") {
-        alert("Please Enter Room Information");
-        return false; // Prevent form submission
-    }
-
-    return true; // Allow form submission
-}
-
-// Search Functions---------------------------------------------------------------------------
-$(function () {
-    $("#autocompleteInput").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "/search_destinations",
-                dataType: "json",
-                data: {
-                    query: request.term
-                },
-                success: function (data) {
-                    response(data.data);
-                }
-            });
-        },
-        minLength: 2,
-        select: function (event, ui) {
-            // Update the hidden input fields with selected values
-            $("#cityIdInput").val(ui.item.cityID);
-            $("#countryCodeInput").val(ui.item.countryCode);
-        }
-    });
-});
-
-// FORM ROOM VALUE FUNCTIONS -----------------------------------------------------------
-$(document).ready(function() {
-    var roomDetails = JSON.parse($("#roomDetails").val());
-    var roomsCount = roomDetails.length;
-    var html = "";
-
-    for (var i = 1; i <= roomsCount; i++) { 
-        html += "<tr id='row" + i + "' class='room-info'>";
-        html += "<td class='room_no'>Room" + i + "</td>"; 
-        html += "<td>";
-        html += "<select name='attribute_name' class='selectbox_form attribute_name' id='adult_" + i + "' onchange='getAdultCount()'>";
-        html += "<option value='1'>1</option>";
-        html += "<option value='2'>2</option>";
-        html += "<option value='3'>3</option>";
-        html += "<option value='4'>4</option>";
-        html += "<option value='5'>5</option>";
-        html += "<option value='6'>6</option>";
-        html += "</select>";
-        html += "</td>";
-        html += "<td>";
-        html += "<select name='attribute_id' id='child_" + i + "' class='selectbox_form attribute_value' onchange='updateChildAges(" + i + ");getAdultCount()'>";
-        html += "<option data-parent='0' value='0'>Select</option>";
-        html += "<option value='1'>1</option>";
-        html += "<option value='2'>2</option>";
-        html += "<option value='3'>3</option>";
-        html += "<option value='4'>4</option>";
-        html += "</select>";
-        html += "</td>";
-
-        // Initially hide all child age select tags
-        for (var j = 1; j <= 4; j++) {
-            html += "<td>";
-            html += "<select name='attribute_child' id='childage_" + i + "_" + j + "' class='selectbox_form attribute_value' style='display: none' onchange='getAdultCount()'>";
-            // html += "<option data-parent='0'>Select</option>";
-            for (var age = 1; age <= 12; age++) {
-                html += "<option value='" + age + "'>" + age + "</option>";
-            }
-            html += "</select>";
-            html += "</td>";
-        }
-
-        html += "</tr>";
-    }
-
-    $("#attribute_table").append(html);
-
-    // Set values for adult and child selects
-    $.each(roomDetails, function(i, item) {
-        $("#adult_" + (i + 1)).val(item.NoOfAdults);
-        $("#child_" + (i + 1)).val(item.NoOfChild);
-        
-        var childAges = item.ChildAge;
-        for (var j = 0; j < childAges.length; j++) {
-            $("#childage_" + (i + 1) + "_" + (j + 1)).val(childAges[j]);
-        }
-
-        // Show child age select tags up to the selected child count
-        for (var k = 1; k <= item.NoOfChild; k++) {
-            $("#childage_" + (i + 1) + "_" + k).show();
-            document.getElementById("age_"+k).innerHTML = "Age "+ k;
-        }
-    });
-});
-
-// Update child age Functions------------------------------------------------------
-function updateChildAges(roomIndex) {
-    var childCount = $("#child_" + roomIndex).val();
-    for (var i = 1; i <= 4; i++) {
-        if (i <= childCount) {
-            $("#childage_" + roomIndex + "_" + i).show();
-        } else {
-            $("#childage_" + roomIndex + "_" + i).hide();
-        }
-    }
-}
-
-
-// Room Booking Functions------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", function() {
-    var hiddenInput = document.getElementById('select-5');
-    var selectElement = document.getElementById('nation');
-    var selectedValue = hiddenInput.value;
-
-    for (var i = 0; i < selectElement.options.length; i++) {
-        if (selectElement.options[i].value === selectedValue) {
-            selectElement.options[i].selected = true;
-            break;
-        }
-    }
-});
-
-function bookRoom() {
-var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
-    
-if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
-var form = document.createElement('form');
-document.getElementById('preloader').style.display = 'block';
-document.getElementById('status').style.display = 'block';
-form.method = 'POST';
-form.action = '/hotelreview/';
-var roomJsonList = document.getElementById('hide-123').value;
-var datalist = document.getElementById('data-123').value;
-var unescapedValue = datalist.replace(/&quot;/g, '"');
-var parsedJSON = JSON.parse(unescapedValue);
-var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
-var parsedJSON1 = JSON.parse(unescapedValue1);
-var hotelCode = parsedJSON.HotelCode; 
-var hotelId = hotelCode + 'A';
-var hotelNameInputElement = document.getElementById(hotelId);
-if (hotelNameInputElement) {
-    var hotelName = hotelNameInputElement.value;
-    var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-    var csrfTokenField = document.createElement('input');
-    csrfTokenField.type = 'hidden';
-    csrfTokenField.name = 'csrfmiddlewaretoken';
-    csrfTokenField.value = csrfToken;
-    form.appendChild(csrfTokenField);
-    var roomJsonElement = document.createElement('input');
-    roomJsonElement.type = 'hidden';
-    roomJsonElement.name = 'roomJsonElement';
-    roomJsonElement.value = JSON.stringify(parsedJSON1);
-    form.appendChild(roomJsonElement);
-    var hotelNameField = document.createElement('input');
-    hotelNameField.type = 'hidden';
-    hotelNameField.name = 'hotelName';
-    hotelNameField.value = hotelName;
-    form.appendChild(hotelNameField);
-    var hide123Value = document.createElement('input');
-    hide123Value.type = 'hidden';
-    hide123Value.name = 'hide123Value';
-    hide123Value.value = JSON.stringify(parsedJSON);
-    form.appendChild(hide123Value);
-    var categoryid1 = document.getElementById('categoryid').value;
-    var categoryidField = document.createElement('input');
-    categoryidField.type = 'hidden';
-    categoryidField.name = 'categoryid1';
-    categoryidField.value = categoryid1;
-    form.appendChild(categoryidField);
-    document.body.appendChild(form);
-    form.submit();
-} else {
-    console.error('Hotel name input element not found.');
-}
-} else {
-    console.log("noo result")
-    $("#log-btn-switch").click();
-}
-}
-
-// SLIDER RANGE FUNCTION ---------------------------------------------------------
-const rangeInput = document.querySelectorAll(".range-input input"),
-priceInput = document.querySelectorAll(".price-input input"),
-range = document.querySelector(".slider .progress");
-let priceGap = 1000;
-
-priceInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
-        
-        if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-            if(e.target.className === "input-min"){
-                rangeInput[0].value = minPrice;
-                range.style.left = ((minPrice - rangeInput[0].min) / (rangeInput[0].max - rangeInput[0].min)) * 100 + "%";
-            }else{
-                rangeInput[1].value = maxPrice;
-                range.style.right = ((rangeInput[1].max - maxPrice) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
-            }
-        }
-    });
-});
-
-rangeInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        RangeSlider()
-        
-    });
-});
-
-$( document ).ready(function() {
-    RangeSlider()
-});
-
-function RangeSlider() {
-    let minVal = parseInt(rangeInput[0].value),
-    maxVal = parseInt(rangeInput[1].value);
-    filterHotelsByPrice(minVal,maxVal)
-    console.log(minVal,maxVal)
-    if((maxVal - minVal) < priceGap){
-        if(e.target.className === "range-min"){
-            rangeInput[0].value = Math.min(maxVal - priceGap, rangeInput[0].max);
-        }else{
-            rangeInput[1].value = Math.max(minVal + priceGap, rangeInput[1].min);
-        }
-    }else{
-        priceInput[0].value = minVal;
-        priceInput[1].value = maxVal;
-        range.style.left = ((minVal - rangeInput[0].min) / (rangeInput[0].max - rangeInput[0].min)) * 100 + "%";
-        range.style.right = ((rangeInput[1].max - maxVal) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
-    }
-}
-
-// Date Functions-----------------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the initial formatted dates from hidden inputs
-    var formattedCheckin = document.getElementById('checkin').value;
-    var formattedCheckout = document.getElementById('checkout').value;
-
-    // Get references to the date input fields
-    var startDateInput = document.getElementById('check-in');
-    var endDateInput = document.getElementById('check-out');
-
-    // Set the initial values from the hidden inputs
-    startDateInput.value = formattedCheckin;
-    endDateInput.value = formattedCheckout;
-
-    // Set the minimum date for check-in to today
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
-    var todayString = year + '-' + month + '-' + day;
-    startDateInput.min = todayString;
-
-    // Function to set the next day for check-out based on the selected check-in date
-    function setNextDate() {
-        var startDate = new Date(startDateInput.value);
-        if (!isNaN(startDate.getTime())) {
-            var nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + 1);
-
-            var nextYear = nextDate.getFullYear();
-            var nextMonth = ('0' + (nextDate.getMonth() + 1)).slice(-2);
-            var nextDay = ('0' + nextDate.getDate()).slice(-2);
-            var nextDateString = nextYear + '-' + nextMonth + '-' + nextDay;
-
-            endDateInput.value = nextDateString;
-            endDateInput.min = nextDateString;
-        }
-    }
-
-    // Attach event listener to the check-in date input
-    startDateInput.addEventListener('change', setNextDate);
-
-    // Set the initial next date for check-out based on the initial check-in date
-    setNextDate();
-});
-
-// View Details click functions----------------------------------------------------------------------------
-document.getElementById('viewDetailsLink').addEventListener('click', function(event) {
-    event.preventDefault();
-        document.getElementById('preloader').style.display = 'block';
-        document.getElementById('status').style.display = 'block';
-        console.log('printed success 787')
-    })
-
-
 
 
 
@@ -648,10 +511,6 @@ document.getElementById('viewDetailsLink').addEventListener('click', function(ev
 
 // COMMENTS____________________________________
 
- // Attach the filter function to the input change event
- // $(".input-min, .input-max").on("input", function () {
- //     filterHotelsByPrice();
- // });
 
 // function bookRoom(roomIndices) {
 //     var roomJsonElement = roomIndices;
