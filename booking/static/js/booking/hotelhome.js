@@ -1,387 +1,350 @@
-// SLIDER -----------------------------------------------------
-
-let slideIndex = 1;
-const slides = document.getElementsByClassName("slide");
-const dots = document.getElementsByClassName("dot");
-
-function showSlides(n) {
-  if (n > slides.length) {
-    slideIndex = 1;
-  }
-  if (n < 1) {
-    slideIndex = slides.length;
-  }
-
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-}
-
-function plusSlides(n) {
-  showSlides((slideIndex += n));
-}
-
-function currentSlide(n) {
-  showSlides((slideIndex = n));
-}
-
-setInterval(function () {
-  plusSlides(1);
-}, 5000);
-
-showSlides(slideIndex);
-
-// FORM FUNCTIONS ----------------------------------------
 
 function showForm() {
-    var x = document.getElementById("form")
-    if (x.style.display === "none") {
-        x.style.display = "block" ;
-    } else {
-        x.style.display = "none" ;
-    }
+  var x = document.getElementById("form")
+  if (x.style.display === "none") {
+      x.style.display = "block" ;
+  } else {
+      x.style.display = "none" ;
+  }
 }
 
-
-
-// function getAdultCount() {
-//   var $rowno = $("#attribute_table tr.room-info").length; // Get the total number of room rows
-//   var totaladult = 0;
-//   var totalchild = 0;
-//   var roominfo = [];
-
-//   for (var i = 1; i <= $rowno; i++) {
-//       var adults = parseInt($("#adult_" + i).val());
-//       var children = parseInt($("#child_" + i).val());
-//       var childAge = [];
-
-//       for (var j = 1; j <= children; j++) {
-//           var age = parseInt($("#childage_" + j).val());
-//           childAge.push(age);
-//       }
-
-//       totaladult += adults;
-//       totalchild += children;
-
-//       roominfo.push({
-//           "NoOfAdults": adults,
-//           "NoOfChild": children,
-//           "ChildAge": childAge
-//       });
-//   }
-
-//   var roomCount = $rowno + " Room & " + totaladult + " Adults";
-//   document.getElementById('room').value = roomCount;
-
-//   var totalroominfo = {
-//       "TotalRooms": $rowno,
-//       "NoOfAdults": totaladult,
-//       "NoOfChild": totalchild
-//   };
-
-//   console.log(roominfo, totalroominfo);
-
-//   document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
-//   document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominfo);
-//   document.getElementById('totalNoOfRooms').value = $rowno;
-// }
-// function add_attribute_row() {
-//   // Get the current number of rows
-//   var $rowno = $("#attribute_table tr.room-info").length;
-
-//   // Check if the limit of 6 rows has been reached
-//   if ($rowno < 6) {
-//       // Add a new row
-//       $("#attribute_table tr:last").after("<tr id='row" + ($rowno + 1) + "' class='room-info'>" +
-//           "<td>Room" + ($rowno + 1) + "</td>" +
-//           "<td><select name='attribute_name' onchange='getAdultCount()' id='adult_" + ($rowno + 1) + "' class='form-control attribute_name'>" +
-//           "<option value='0'>Select</option><option value='1' selected>1</option><option value='2'>2</option><option value='3'>3</option>" +
-//           "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select></td>" +
-//           "<td><select name='attribute_id' id='child_" + ($rowno + 1) + "' onchange='updateChildAgeSelectors()' class='form-control attribute_value'>" +
-//           "<option data-parent='0' value='0'>Select</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></td>" +
-//           "<td id='childAgeSelectors_" + ($rowno + 1) + "'>" +
-//           "<select name='attribute_id' id='childage_" + ($rowno + 1) + "' class='form-control attribute_value' style='display: none;'>" +
-//           "<option value='1'>1</option><option value='2'>2</option><option value='3'>3</option>" +
-//           "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option>" +
-//           "<option value='7'>7</option><option value='8'>8</option><option value='9'>9</option>" +
-//           "<option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>" +
-//           "</select></td></tr>");
-
-//       // Call the updateChildAgeSelectors function
-//       updateChildAgeSelectors();
-//   } else {
-//       // Alert the user or handle the case where the limit is reached
-//       alert("Only 6 rooms are allowed.");
-//   }
-// }
-
-
-// function del_att_row() {
-//         rowno = $("#attribute_table tr").length-2 ;
-//         if(rowno > 1)
-//         $('#row' + rowno).remove();
-//         getAdultCount()
-//     }
-
-// $(document).ready(function() {
-//     $("#adult_1").val("2");
-//     getAdultCount();
-//     });
-// function getAdultCount() {
-//   var $rowno = $("#attribute_table tr.room-info").length; // Get the total number of room rows
-//   var totaladult = 0;
-//   var totalchild = 0;
-//   var roominfo = [];
-
-//   for (var i = 1; i <= $rowno; i++) {
-//     var adults = parseInt($("#adult_" + i).val());
-//     var children = parseInt($("#child_" + i).val());
-//     var childAge = [];
-
-//     for (var j = 1; j <= children; j++) {
-//       var age = parseInt($("#childage_" + j + "_" + i).val());
-//       childAge.push(age);
-//     }
-
-//     totaladult += adults;
-//     totalchild += children;
-
-//     roominfo.push({
-//       "NoOfAdults": adults,
-//       "NoOfChild": children,
-//       "ChildAge": childAge
-//     });
-//   }
-
-//   var roomCount = $rowno + " Room & " + totaladult + " Adults";
-//   document.getElementById('room').value = roomCount;
-
-//   var totalroominfo = {
-//     "TotalRooms": $rowno,
-//     "NoOfAdults": totaladult,
-//     "NoOfChild": totalchild
-//   };
-
-//   console.log(roominfo, totalroominfo);
-
-//   document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
-//   document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominfo);
-//   document.getElementById('totalNoOfRooms').value = $rowno;
-// }
-
-// function add_attribute_row() {
-//   // Get the current number of rows
-//   var $rowno = $("#attribute_table tr.room-info").length;
-
-//   // Check if the limit of 6 rows has been reached
-//   if ($rowno < 6) {
-//     // Add a new row
-//     var newRow = "<tr id='row" + ($rowno + 1) + "' class='room-info'>" +
-//       "<td>Room" + ($rowno + 1) + "</td>" +
-//       "<td><select name='attribute_name' onchange='getAdultCount()' id='adult_" + ($rowno + 1) + "' class='form-control attribute_name'>" +
-//       "<option value='0'>Select</option><option value='1' selected>1</option><option value='2'>2</option><option value='3'>3</option>" +
-//       "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select></td>" +
-//       "<td><select name='attribute_id' id='child_" + ($rowno + 1) + "' onchange='updateChildAgeSelectors(this)' class='form-control attribute_value'>" +
-//       "<option data-parent='0' value='0'>Select</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></td>" +
-//       "<td id='childAgeSelectors_" + ($rowno + 1) + "'></td></tr>";
-
-//     $("#attribute_table tr:last").after(newRow);
-
-//     // Update the child age selectors for the newly added row
-//     updateChildAgeSelectors($("#child_" + ($rowno + 1)));
-//   } else {
-//     // Alert the user or handle the case where the limit is reached
-//     alert("Only 6 rooms are allowed.");
-//   }
-// }
-
-// function add_attribute_row() {
-//   var table = document.getElementById("attribute_table");
-//   var rowCount = table.rows.length - 1;
-//   var row = table.insertRow(rowCount);
-  
-//   var cell1 = row.insertCell(0);
-//   var cell2 = row.insertCell(1);
-//   var cell3 = row.insertCell(2);
-//   var cell4 = row.insertCell(3);
-  
-//   cell1.innerHTML = "Room" + rowCount;
-//   cell2.innerHTML = `<select name='attribute_name' class='form-control attribute_name' id='adult_${rowCount}' onchange='getAdultCount()'>
-//                           <option value='0'>Select</option>
-//                           <option value='1'>1</option>
-//                           <option value='2'>2</option>
-//                           <option value='3'>3</option>
-//                           <option value='4'>4</option>
-//                           <option value='5'>5</option>
-//                           <option value='6'>6</option>
-//                       </select>`;
-//   cell3.innerHTML = `<select name='attribute_id' id='child_${rowCount}' class='form-control attribute_value' onchange='updateChildAgeSelectors(${rowCount}); getAdultCount();'>
-//                           <option data-parent='0' value='0'>Select</option>
-//                           <option value='1'>1</option>
-//                           <option value='2'>2</option>
-//                           <option value='3'>3</option>
-//                           <option value='4'>4</option>
-//                       </select>`;
-//   cell4.innerHTML = `<div id='child_age_selectors_${rowCount}' style="display: flex;flex-direction: row;"></div>`;
-//   getAdultCount();
-// }
-
-
-// function updateChildAgeSelectors(roomNumber) {
-//   var childCountSelect = document.getElementById("child_" + roomNumber);
-//   var childAgeSelectorsContainer = document.getElementById("child_age_selectors_" + roomNumber);
-//   var childlabel =  document.getElementById("childage_label")
-//   childAgeSelectorsContainer.innerHTML = ""; // Clear existing child age selectors
-  
-//   var childCount = parseInt(childCountSelect.value);
-//   if (childCount > 0) {
-//       for (var i = 1; i <= childCount; i++) {
-//           var childAgeSelect = document.createElement("select");
-//           childAgeSelect.name = "child_age_" + roomNumber + "_" + i;
-//           childAgeSelect.id = "child_age_" + roomNumber + "_" + i;
-//           childAgeSelect.className = "form-control child_age";
-//           childAgeSelect.innerHTML = `
-//               <option value='1'>1</option>
-//               <option value='2'>2</option>
-//               <option value='3'>3</option>
-//               <option value='4'>4</option>
-//               <option value='5'>5</option>
-//               <option value='6'>6</option>
-//               <option value='7'>7</option>
-//               <option value='8'>8</option>
-//               <option value='9'>9</option>
-//               <option value='10'>10</option>
-//               <option value='11'>11</option>
-//               <option value='12'>12</option>
-//           `;
-//           childAgeSelectorsContainer.appendChild(childAgeSelect);
-//           childlabel.style.display = "block";
-//       }
-//   }
-//   childAgeSelectorsContainer.addEventListener('change', function(event) {
-//       if (event.target && event.target.classList.contains('child_age')) {
-//           getAdultCount();
-//       }
-//   });
-// }
-
-// function getAdultCount() {
-//   var roomRows = $("#attribute_table tr.room-info"); // Get all room rows
-//   var roominfo = [];
-
-//   // Loop through each room row to collect information
-//   roomRows.each(function(index, row) {
-//       var adults = parseInt($(row).find(".attribute_name").val());
-//       var children = parseInt($(row).find(".attribute_value").val());
-//       var childAges = []; // Array to store child ages
-
-//       // Loop through child age selectors and collect ages
-//       $(row).find(".child_age").each(function(index, select) {
-//           var age = parseInt($(select).val());
-//           if (!isNaN(age)) {
-//               childAges.push(age);
-//           }
-//       });
-
-//       roominfo.push({
-//           "NoOfAdults": adults,
-//           "NoOfChild": children,
-//           "ChildAges": childAges
-//       });
-//   });
-
-//   // Update the roomInfoInput with the room information
-//   $("#roomInfoInput").val(JSON.stringify(roominfo));
-
-//   // Calculate total rooms, adults, children, and their ages
-//   var totalRooms = roomRows.length;
-//   var totalAdults = roominfo.reduce((acc, room) => acc + room.NoOfAdults, 0);
-//   var totalChildren = roominfo.reduce((acc, room) => acc + room.NoOfChild, 0);
-//   var totalChildAges = roominfo.reduce((acc, room) => acc.concat(room.ChildAges), []);
-
-//   // Update the totalRoomInfoInput with the total room information
-//   var totalRoomInfo = {
-//       "TotalRooms": totalRooms,
-//       "NoOfAdults": totalAdults,
-//       "NoOfChild": totalChildren,
-//       "ChildAges": totalChildAges
-//   };
-//   $("#totalRoomInfoInput").val(JSON.stringify(totalRoomInfo));
-
-//   // Additional logic to update other fields if needed
-// }
-
-
-
-
-
-
-// function del_att_row() {
-//   // Get the current number of rows
-//   var table = document.getElementById("attribute_table");
-//   var rowCount = table.rows.length - 1;
-//   if (rowCount > 2) {
-//       table.deleteRow(rowCount - 1); // Remove the last row (room)
-//   } else {
-//       alert("Cannot remove the last room.");
-//   }
-//   // Recalculate the counts
-//   getAdultCount();
-// }
-// DATE FUNCTIONS -----------------------------------------------------
-
-$(function () {
-    // Initialize Datepicker for the first date
-    $("#check-in").datepicker({
-      minDate: 0, // Minimum date is today
-      dateFormat: 'dd MM yy', // Set the date format
-      onSelect: function (dateText, inst) {
-        // Update the data-date attribute using moment.js
-        $(this).attr("data-date", moment(dateText, "DD MMMM YYYY").format($(this).attr("data-date-format")));
-
-        // Calculate the next date using moment.js
-        var nextDate = moment(dateText, "DD MMMM YYYY").add(1, 'days').format("DD MMMM YYYY");
-
-        // Set the default date for the second datepicker to one day after the selected date
-        $("#check-out").datepicker("option", "minDate", nextDate);
-        $("#check-out").datepicker("setDate", nextDate);
-      }
-    });
-
-    // Initialize Datepicker for the second date
-    $("#check-out").datepicker({
-      minDate: 1, // Minimum date is one day after today
-      dateFormat: 'dd MM yy', // Set the date format
-    });
-
-    // Set the default date to today for the first datepicker
-    $("#check-in").datepicker("setDate", new Date());
-
-    // Set the default date for the second datepicker to one day after today
-    var nextDefaultDate = moment().add(1, 'days').format("DD MMMM YYYY");
-    $("#check-out").val(nextDefaultDate);
-  });
-
-//   VALIDATION FUNCTIONS -------------------------------
+function test() {
+    if(validateForm()){
+        document.getElementById("input-sec234").submit();
+        document.getElementById('preloader').style.display = 'block';
+        document.getElementById('status').style.display = 'block';
+    }
+}
 
 function validateForm() {
-    var des = document.getElementsByClassName("des")[0].value.trim();
-    var room = document.getElementById("room").value.trim();
-    if (des === "") {
-        alert("Please Enter Your Destination");
-        return false; // Prevent form submission
-    } 
-        if (room === "") {
-        alert("Please Enter Room Information");
-        return false; // Prevent form submission
+  var des = document.getElementsByClassName("des")[0].value.trim();
+  var room = document.getElementById("room").value.trim();
+  if (des === "") {
+     document.getElementById("des_error").innerHTML="Please Enter Your Destination";
+      return false; // Prevent form submission
+  } 
+      if (room === "") {
+      alert("Please Enter Room Information");
+      return false; // Prevent form submission
+  }
+
+  return true; // Allow form submission
+}
+
+
+
+$(function () {
+    $("#autocompleteInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    response(data.data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            // Update the hidden input fields with selected values
+            $("#cityIdInput").val(ui.item.cityID);
+            $("#countryCodeInput").val(ui.item.countryCode);
+        }
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+    var day = ('0' + today.getDate()).slice(-2);
+
+    var todayString = year + '-' + month + '-' + day;
+
+    // Set the default value and minimum date to today for the start date input
+    var startDateInput = document.getElementById('check-in');
+    startDateInput.value = todayString;
+    startDateInput.min = todayString;
+
+    // Set the next date input based on the start date
+    function setNextDate() {
+        var startDate = new Date(startDateInput.value);
+        if (!isNaN(startDate.getTime())) {
+            var nextDate = new Date(startDate);
+            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+
+            var year = nextDate.getFullYear();
+            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+            var day = ('0' + nextDate.getDate()).slice(-2);
+
+            var nextDateString = year + '-' + month + '-' + day;
+            document.getElementById('check-out').value = nextDateString;
+            document.getElementById('check-out').min = nextDateString;
+        }
     }
 
-    return true; // Allow form submission
+    startDateInput.addEventListener('change', setNextDate);
+
+    // Set the initial next date
+    setNextDate(); 
+});
+
+
+
+// ==================function loder
+document.addEventListener("DOMContentLoaded", function() {
+// Show the loader when the window starts loading
+var loader = document.getElementById("loader");
+var content = document.getElementById("content");
+
+// Hide the loader and show the content when the window has finished loading
+window.addEventListener("load", function() {
+    loader.style.display = "none";
+    content.style.display = "block";
+});
+});
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
+
+function verifyPAN() {
+    const pan = document.getElementById('pan').value;
+    const csrftoken = getCookie('csrftoken');
+
+    fetch('/verify_pan/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({ pan: pan })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultDiv = document.getElementById('result');
+        if (data.success) {
+            resultDiv.innerHTML = `<p>${data.message}</p>`;
+        } else {
+            resultDiv.innerHTML = `<p>Error: ${data.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+    //   DEFAULT ADULT FUNCTIONS
+    $(document).ready(function() {
+        $("#adult_1").val("2");
+        getAdultCount();
+        });
+
+
+    function getAdultCount() {
+        $rowno = $("#attribute_table tr").length-2
+        totaladult=0
+        totalchild=0
+        roominfo=[]
+        totalroominf0=[]
+
+        for(i=1;i<=$rowno;i++) {
+            totaladult=parseInt(totaladult) + parseInt($("#adult_"+i).val())
+            totalchild=parseInt(totalchild) + parseInt($("#child_"+i).val())
+            var childAge = parseInt($("#child_"+i).val()) !== 0 ? [parseInt($("#childage_"+i).val())] : null;
+            
+            // Handle the first row separately
+            // var childrenCountFirstRow = parseInt($("#child_1").val());
+            // var childAgeFirstRow = [];
+
+            // for (var k = 1; k <= childrenCountFirstRow; k++) {
+            //     var ageFirstRow = parseInt($("#childage_" + k).val());
+            //     if (!isNaN(ageFirstRow)) {
+            //         childAgeFirstRow.push(ageFirstRow);
+            //     }
+            // }
+
+            // roominfo[0] = {
+            //     "NoOfAdults": parseInt($("#adult_1").val()),
+            //     "NoOfChild": parseInt($("#child_1").val()),
+            //     "ChildAge": childAgeFirstRow
+            // };
+            
+
+            var childrenCount = parseInt($("#child_" + i).val());
+            var childAge = [];
+
+            for (var j = 1; j <= childrenCount; j++) {
+            var age = parseInt($("#childage_" + i + "_" + j).val());
+            if (!isNaN(age)) {
+                childAge.push(age);
+            }
+        
+        }
+
+            roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild":parseInt($("#child_"+i).val()),"ChildAge":childAge }
+            
+
+            // roominfo[i-1]={"NoOfAdults":parseInt($("#adult_"+i).val()) ,"NoOfChild": parseInt($("#child_"+i).val()),"ChildAge": childAge }
+        }
+
+        var roomCount = $rowno + " " + "Room" +" " + "&" + " " + totaladult +" " + "Adults";
+        document.getElementById('room').value = roomCount;
+        
+        showChildAgeSelectors()
+
+        // console.log($rowno,totaladult,totalchild)
+        totalroominf0={"TotalRooms":$rowno,"NoOfAdults":totaladult,"NoOfChild":totalchild}
+        console.log(roominfo,totalroominf0)
+        console.log(totalroominf0)
+
+        document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
+        document.getElementById('totalRoomInfoInput').value = JSON.stringify(totalroominf0);
+        document.getElementById('totalNoOfRooms').value = $rowno;
+
+        // document.getElementById('roomInfoInput').value = JSON.stringify(roominfo);
+        // document.getElementById('totalRoomInfoInput').value = JSON.stringify({
+        //     "TotalRooms": $rowno,
+
+
+        };
+
+    function showChildAgeSelectors() {
+        // Hide all child age selectors first
+        $("[id^=childage_]").hide();
+        $("[id^=age_]").hide();
+
+        // Get the number of children selected in the first row
+        var childrenCountFirstRow = parseInt($("#child_1").val());
+
+        // Show the corresponding child age selectors in the first row
+        for (var i = 1; i <= childrenCountFirstRow; i++) {
+            $("#childage_" + i).show();
+            $("#age_" + i).show();
+        }
+        
+
+        // Iterate through each dynamically added row
+        $("#attribute_table tr").each(function(index, row) {
+            var rowNumber = index + 1;
+            var childrenCount = parseInt($("#child_" + rowNumber).val());
+
+            // Show the corresponding child age selectors for each dynamically added row
+            for (var i = 1; i <= childrenCount; i++) {
+                $("#childage_" + rowNumber + "_" + i).show();
+                $("#age_" + i).show();
+            }
+        });
+
+        
+    }
+
+
+    function hideForm() {
+    var x = document.getElementById("form");
+    if (x.style.display === "block") {
+        // If the form is being hidden, validate the previous row before hiding
+        var prevRowNo = $("#attribute_table tr").length - 2; // Get the previous row number
+        if (!validatePreviousRow(prevRowNo)) {
+            alert("Please select valid options for the Adults.");
+            return; // Do not hide the form if validation fails
+        }
+        x.style.display = "none";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+    function add_attribute_row() {
+// Get the current number of rows
+var $rowno = $("#attribute_table tr").length - 1;
+
+// Check if the limit of 6 rows has been reached
+if ($rowno <= 6) {
+    // Check if the previous row's selects have valid values
+    var prevRowIsValid = validatePreviousRow($rowno - 1);
+
+    if (prevRowIsValid) {
+        // Add a new row
+        $("#attribute_table tr:last").after("<tr  id='row" + $rowno + "'>" +
+            "<td class='room_no'>Room" + $rowno + "</td>" +
+            "<td><select name='attribute_name' onchange='getAdultCount()' id='adult_" + $rowno + "' class='selectbox_form  attribute_name'>" +
+            "<option value='1' selected>1</option><option value='2'>2</option><option value='3'>3</option>" +
+            "<option value='4'>4</option><option value='5'>5</option><option value='6'>6</option></select></td>" +
+            "<td><select name='attribute_id' id='child_" + $rowno + "' onchange='getAdultCount()' class='selectbox_form  attribute_value'>" +
+            "<option data-parent='0' value='0'>Select</option><option data-parent='Colour' value='1'>1</option><option data-parent='Colour' value='2'>2</option>" +
+            "<option data-parent='Colour' value='3'>3</option><option data-parent='Colour' value='4'>4</option></select></td></tr>");
+
+        for (var i = 1; i <= 4; i++) {
+            $("#row" + $rowno).append("<td><select id='childage_" + $rowno + "_" + i + "' onchange='getAdultCount()' class='selectbox_form  attribute_value'>" +
+                "<option data-parent='Colour' value='1'>1</option><option data-parent='Colour' value='2'>2</option>" +
+                "<option data-parent='Colour' value='3'>3</option><option data-parent='Colour' value='4'>4</option><option data-parent='Colour' value='5'>5</option>" +
+                "<option data-parent='Colour' value='6'>6</option><option data-parent='Colour' value='7'>7</option><option data-parent='Colour' value='8'>8</option>" +
+                "<option data-parent='Colour' value='9'>9</option><option data-parent='Colour' value='10'>10</option><option data-parent='Colour' value='11'>11</option>" +
+                "<option data-parent='Colour' value='12'>12</option></select></td>");
+        }
+
+        // Call the getAdultCount function
+        showChildAgeSelectors();
+        getAdultCount();
+    } else {
+        // Alert the user or handle the case where the previous row's selects are not valid
+        alert("Please select valid options for the Adults.");
+    }
+} else {
+    // Alert the user or handle the case where the limit is reached
+    alert("Only 6 rooms are allowed.");
+    }
+}
+
+// Function to validate the selects of the previous row
+    function validatePreviousRow(prevRowNo) {
+// Check if the previous row's selects have valid values
+var adultValue = $("#adult_" + prevRowNo).val();
+// var childValue = $("#child_" + prevRowNo).val();
+
+// Return true if both selects have valid values, otherwise false
+return adultValue !== "0" ;
+}
+
+
+function del_att_row() {
+    rowno = $("#attribute_table tr").length-2 ;
+    if(rowno > 1)
+    $('#row' + rowno).remove();
+    showChildAgeSelectors();
+    getAdultCount()
+}
+
+
+
+
+window.addEventListener('pageshow', function(event) {
+    var historyTraversal = event.persisted || (typeof window.performance != 'undefined' && window.performance.navigation.type === 2);
+    if (historyTraversal) {
+        // Reload the page if navigating back
+        window.location.reload();
+    }
+});

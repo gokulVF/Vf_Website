@@ -1,28 +1,19 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>List of Hotels</title>
-
     <meta name="og:title" content="{{homepage_meta.meta_title }}">
-    
     <meta name="description" content="{{homepage_meta.meta_description }}" />
-    
     <meta name="og:description" content="{{homepage_meta.meta_description }}">
     <meta name="keywords" content="{{homepage_meta.meta_keyword }}" />
-    
     <!--canonical-->
     <link  href="https://vacationfeast.com/" rel="canonical" />
-    
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
-    
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <!--Custom CSS-->
@@ -30,12 +21,12 @@
     <link href="{% static 'css/home/stylemedia.css' %}" rel="stylesheet" type="text/css">
     <!-- Hotel css -->
     <link href="{% static 'css/booking/hotel1.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/booking/hotel2.css' %}" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-
     <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DBNBM9PB85"></script>
@@ -55,6 +46,7 @@
         })(window,document,'script','dataLayer','GTM-59RZR3T6');</script>
     <!-- End Google Tag Manager -->
 </head>
+
 <body>
      <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59RZR3T6"
@@ -72,7 +64,6 @@
     <!-- header ends -->
     <h1 style="display:none">Leading travel agency in Chennai</h1>
 
-
     <!-- Modify Hotels -->
     <section class="pt-4 pb-4 bg-grey">
         <div class="container">
@@ -84,13 +75,13 @@
                             <div class="form-group">
                                 <div class="input-box">
                                     <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>WHERE</label>
-                                    <input type="text" id="autocompleteInput" class="f-inp des" placeholder="Enter The Name, City, Landmark" value= "{{ citytitle }}" name="cityname">
+                                    <input type="text" id="autocompleteInput" class="f-inp des" placeholder="Enter The Name, City, Landmark" value= "{{ citytitle }}" name="cityname" required>
+                                    <span class="error" id="des_error"></span>
                                     <input type="hidden" id="cityIdInput" name="city_id" value="{{cityid}}">
                                     <input type="hidden" id="countryCodeInput" name="country_code" value="{{countrycode}}">
                                 </div>
                             </div>
                         </div>
-                    
                         <div class="col-lg mb-2">
                             <div class="form-group">
                                 <div class="input-box">
@@ -116,7 +107,6 @@
                         <input type="hidden" value="{{nationality}}" id="select-5">
                         <div class="col-lg mb-2">
                             <div class="form-group">
-                                
                                 <div class="input-box">
                                     <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg_icons me-1" style="width: 18px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#029e9d" d="M349.6 98.8C296 98.8 251.7 64 184.3 64c-25 0-47.3 4.4-68 12a55.9 55.9 0 0 0 3.6-23.6C118.1 24 94.8 1.2 66.3 0 34.3-1.3 8 24.3 8 56c0 19 9.5 35.8 24 45.9V488c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24v-94.4c28.3-12.1 63.6-22.1 114.4-22.1 53.6 0 97.8 34.8 165.2 34.8 48.2 0 86.7-16.3 122.5-40.9C506.8 359.5 512 349.6 512 339v-243.1c0-23.4-24.3-38.9-45.5-29-34.3 15.9-76.5 31.9-117 31.9z"/></svg>NATIONALITY</label>
                                     <select class="f-inp show-5" name="nation" id="nation">
@@ -364,7 +354,6 @@
                                             <option value="ZM">Zambia</option>
                                             <option value="ZW">Zimbabwe</option>
                                     </select>
-                                    <!-- <i class="icon-time"></i> -->
                                 </div>
                             </div>
                         </div>
@@ -394,15 +383,6 @@
                 </div>
             </form>
         </div>
-        <script>
-            function mod() {
-                if(validateForm()){
-                    document.getElementById("modify-sec").submit();
-                    document.getElementById('preloader').style.display = 'block';
-                    document.getElementById('status').style.display = 'block';
-                }
-            }
-        </script>
          <!-- FORM SECTION -->
         <div id="form" style="display: none; position: absolute; z-index: 9;" class="container">
             <div id="wrapper" class="col-lg-5 col-md-7 col-sm-8 col-12 pax_form_list  bg-white shadows p-2 ms-auto" style="top: -20px;width: 400px;">
@@ -428,9 +408,9 @@
                     <button class="btn btn_apply mt-1 py-1 shadows w-25 bg-theme white rounded-pill" id="app-btn" onclick="hideForm()">Apply</button>
                 </div>
             </div>
-        </div> 
+        </div>
+         <!-- FORM SECTION --> 
     </section>
-   
     <!-- Modify Hotels -->
 
     <!-- Hotel Results -->
@@ -569,24 +549,23 @@
                             </li>
                           </ul>
                     </div>
-                    
                     <div class="list-results mb-1 py-1 d-flex align-items-center justify-content-end">
-                            <div class="click-menu" style="display: none;">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mb-0 me-3 sort-by">SORT BY : </p>
-                                    <ul class="nav nav-pills gap-2" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                        <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="sortHotels('Name')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="me-2 atoz" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32H480c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H352c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352H352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224H371.8l-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176h40.4L416 135.6 395.8 176z"/></svg>Hotel Name</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortHotels('Rating')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Star Rating</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortHotels('Price')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Price</button>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="click-menu" style="display: none;">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <p class="mb-0 me-3 sort-by">SORT BY : </p>
+                                <ul class="nav nav-pills gap-2" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                    <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="sortHotels('Name')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="me-2 atoz" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32H480c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H352c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352H352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224H371.8l-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176h40.4L416 135.6 395.8 176z"/></svg>Hotel Name</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortHotels('Rating')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Star Rating</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortHotels('Price')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Price</button>
+                                    </li>
+                                </ul>
                             </div>
+                        </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
                                 // Simulate data fetching
@@ -602,13 +581,10 @@
                             });
                         </script>
                     </div>
-                  
-                    
+                    <!-- Hotel List REsults -->
                     <div class="car-list" id="hotel-details">
                         <div class="car-full" id="hotelList">
-                          
                             {% for hotel in hotel_info %}
-                            
                             <div class="hotel trend-full bg-white rounded box-shadow overflow-hidden p-3 mb-3" data-rating="{{ hotel.Rating }}" data-price="{{ hotel.Price }}" data-name="{{ hotel.HotelName }}">
                                  <div class="loader container" id="loader-{{ hotel.HotelCode }}">
                                     <ul class="o-vertical-spacing o-vertical-spacing--l">
@@ -651,12 +627,10 @@
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                                             <div class="trend-item2 rounded">
                                                         <img src="{{ hotel.ImageURL }}" alt="" class="hotel-image">
-                                                        <!-- <div class="color-overlay"></div> -->
                                                 </div> 
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-9 col-12">
                                                 <div class="trend-content position-relative text-md-start text-center">
-                                                    <!-- <small>Moscow Airport - Premium</small> -->
                                                     <input type="hidden" id="{{ hotel.HotelCode }}A" value="{{ hotel.HotelName }}">
                                                     <h3 class="mb-0" id="{{ hotel.HotelName }}" style="font-size: 22px;">{{ hotel.HotelName }}</h3>
                                                     <style>
@@ -700,9 +674,9 @@
                                                     </div> -->
                                                     <!-- <small>200 Reviews</small> -->
                                                     <div class="trend-price">
-                                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span>{{hotel.publicprice}}</p>
+                                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹ </span>{{hotel.publicprice}}</p>
                                                         <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {{hotel.Price}}</p>
-                                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span>{{hotel.tax}} taxes &amp; fees</p>
+                                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹ </span>{{hotel.tax}} taxes &amp; fees</p>
                                                         <small style="font-size: 12px;">Per Night</small>
                                                         <!-- <div class="hotel-btn mt-1">
                                                             <button class="nir-btn shadows select-room-btn ms-auto" id="{{ hotel.HotelCode }}2" data-hotel-code="{{ hotel.HotelCode }}" data-trace-id="{{ hotel.TraceId }}" data-result-index="{{ hotel.ResultIndex }}" 
@@ -723,7 +697,6 @@
                                     </a>
                                 </div>
                             </div>
-                       
                             <script>
                                 document.addEventListener("DOMContentLoaded", function() {
                                     // Simulate data fetching
@@ -741,93 +714,19 @@
                                     }, 3000); // Simulate a 2-second delay for fetching data
                                 });
             
-                              </script>
-                              
+                            </script>
                             {% endfor %}
                             {% endif %}
-                    </div> 
+                        </div> 
                     </div>
                     {% endblock %}
                 </div>
                  <!-- Hotel Details -->
-                
             </div>
         </div>
     </section>
     <!-- Hotel Results -->
-     <style>
-
-    .skeleton-box {
-        display: inline-block;
-        height: .8em;
-        position: relative;
-        overflow: hidden;
-        background-color: #dddbdd;
-        border-radius: 4px;
-
-        &::after {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            transform: translateX(-100%);
-            background-image: linear-gradient(
-            90deg,
-            rgba(#fff, 0) 0,
-            rgba(#fff, 0.2) 20%,
-            rgba(#fff, 0.5) 60%,
-            rgba(#fff, 0)
-            );
-            animation: shimmer 5s infinite;
-            content: "";
-        }
-
-        @keyframes shimmer {
-            100% {
-            transform: translateX(100%);
-            }
-        }
-        }
-
-        .blog-post {
-        &__headline {
-            font-size: 1.25em;
-            font-weight: bold;
-        }
-
-        &__meta {
-            font-size: 0.85em;
-            color: #6b6b6b;
-        }
-        }
-
-        /* // OBJECTS */
-
-        .o-media {
-        display: flex;
-
-        &__body {
-            flex-grow: 1;
-            margin-left: 1em;
-        }
-    }
-
-    .o-vertical-spacing {
-    > * + * {
-        margin-top: 0.75em;
-    }
-
-    &--l {
-        > * + * {
-        margin-top: 2em;
-        }
-    }
-}
-</style>
-    
-    
-   
+ 
      <!-- footer starts -->
      {% include 'home/footer.html' %}
      <!-- footer ends -->
@@ -849,599 +748,30 @@
     <script src="{% static 'js/home/custom-swiper.js' %}"></script>
     <script src="{% static 'js/home/custom-nav.js' %}"></script>
     <script src="{% static 'js/booking/listofhotel.js' %}"></script>
-
-    <!-- SCRIPT -->
-    <!-- //FOR DATE FUNCTION --------------------------------- -->
-
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- <script>
-    $(function () {
-        // Initialize Datepicker for the first date
-        $("#check-in").datepicker({
-        minDate: 0, // Minimum date is today
-        dateFormat: 'dd MM yy', // Set the date format
-        onSelect: function (dateText, inst) {
-            // Update the data-date attribute using moment.js
-            $(this).attr("data-date", moment(dateText, "DD MMMM YYYY").format($(this).attr("data-date-format")));
 
-            // Calculate the next date using moment.js
-            var nextDate = moment(dateText, "DD MMMM YYYY").add(1, 'days').format("DD MMMM YYYY");
-
-            // Set the default date for the second datepicker to one day after the selected date
-            $("#check-out").datepicker("option", "minDate", nextDate);
-            $("#check-out").datepicker("setDate", nextDate);
-        }
-        });
-
-        // Initialize Datepicker for the second date
-        $("#check-out").datepicker({
-        minDate: 1, // Minimum date is one day after today
-        dateFormat: 'dd MM yy', // Set the date format
-        });
-
-        // Set the default date to today for the first datepicker
-        $("#check-in").datepicker("setDate", new Date());
-
-        // Set the default date for the second datepicker to one day after today
-        var nextDefaultDate = moment().add(1, 'days').format("DD MMMM YYYY");
-        $("#check-out").val(nextDefaultDate);
-
-        var $datepicker = $('#check-in');
-        $datepicker.datepicker();
-        var checkinValue = $("#checkin").val();
-        console.log(checkinValue)
-
-        // Set the datepicker's date using the retrieved value
-        $datepicker.datepicker('setDate', checkinValue);
-
-        var $datepicker = $('#check-out');
-        $datepicker.datepicker();
-        var checkOutValue = $("#checkout").val();
-        console.log(checkOutValue)
-
-        // Set the datepicker's date using the retrieved value
-        $datepicker.datepicker('setDate', checkOutValue);
-
-    });
-    </script> -->
- <!-- //FOR DATE FUNCTION --------------------------------- -->
-
- <!-- Validate Functions -->
- <script>
-    function validateForm() {
-            var des = document.getElementsByClassName("des")[0].value.trim();
-            var room = document.getElementById("room").value.trim();
-            if (des === "") {
-                alert("Please Enter Your Destination");
-                return false; // Prevent form submission
-            } 
-                if (room === "") {
-                alert("Please Enter Room Information");
-                return false; // Prevent form submission
-            }
-
-            return true; // Allow form submission
-        }
-</script>
-
-<!-- Search Functions -->
-<script>
-    $(function () {
-        $("#autocompleteInput").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/search_destinations",
-                    dataType: "json",
-                    data: {
-                        query: request.term
-                    },
-                    success: function (data) {
-                        response(data.data);
-                    }
-                });
-            },
-            minLength: 2,
-            select: function (event, ui) {
-                // Update the hidden input fields with selected values
-                $("#cityIdInput").val(ui.item.cityID);
-                $("#countryCodeInput").val(ui.item.countryCode);
-            }
-        });
-    });
-</script>
-
-
-<script>
-    // FORM ROOM VALUE FUNCTIONS -----------------------
-
-    $(document).ready(function() {
-        var roomDetails = JSON.parse($("#roomDetails").val());
-        var roomsCount = roomDetails.length;
-        var html = "";
-
-        for (var i = 1; i <= roomsCount; i++) { 
-            html += "<tr id='row" + i + "' class='room-info'>";
-            html += "<td class='room_no'>Room" + i + "</td>"; 
-            html += "<td>";
-            html += "<select name='attribute_name' class='selectbox_form attribute_name' id='adult_" + i + "' onchange='getAdultCount()'>";
-            html += "<option value='1'>1</option>";
-            html += "<option value='2'>2</option>";
-            html += "<option value='3'>3</option>";
-            html += "<option value='4'>4</option>";
-            html += "<option value='5'>5</option>";
-            html += "<option value='6'>6</option>";
-            html += "</select>";
-            html += "</td>";
-            html += "<td>";
-            html += "<select name='attribute_id' id='child_" + i + "' class='selectbox_form attribute_value' onchange='updateChildAges(" + i + ");getAdultCount()'>";
-            html += "<option data-parent='0' value='0'>Select</option>";
-            html += "<option value='1'>1</option>";
-            html += "<option value='2'>2</option>";
-            html += "<option value='3'>3</option>";
-            html += "<option value='4'>4</option>";
-            html += "</select>";
-            html += "</td>";
-
-            // Initially hide all child age select tags
-            for (var j = 1; j <= 4; j++) {
-                html += "<td>";
-                html += "<select name='attribute_child' id='childage_" + i + "_" + j + "' class='selectbox_form attribute_value' style='display: none' onchange='getAdultCount()'>";
-                // html += "<option data-parent='0'>Select</option>";
-                for (var age = 1; age <= 12; age++) {
-                    html += "<option value='" + age + "'>" + age + "</option>";
-                }
-                html += "</select>";
-                html += "</td>";
-            }
-
-            html += "</tr>";
-        }
-
-        $("#attribute_table").append(html);
-
-        // Set values for adult and child selects
-        $.each(roomDetails, function(i, item) {
-            $("#adult_" + (i + 1)).val(item.NoOfAdults);
-            $("#child_" + (i + 1)).val(item.NoOfChild);
-            
-            var childAges = item.ChildAge;
-            for (var j = 0; j < childAges.length; j++) {
-                $("#childage_" + (i + 1) + "_" + (j + 1)).val(childAges[j]);
-            }
-
-            // Show child age select tags up to the selected child count
-            for (var k = 1; k <= item.NoOfChild; k++) {
-                $("#childage_" + (i + 1) + "_" + k).show();
-                document.getElementById("age_"+k).innerHTML = "Age "+ k;
-            }
-        });
-    });
-
-    function updateChildAges(roomIndex) {
-        var childCount = $("#child_" + roomIndex).val();
-        for (var i = 1; i <= 4; i++) {
-            if (i <= childCount) {
-                $("#childage_" + roomIndex + "_" + i).show();
-            } else {
-                $("#childage_" + roomIndex + "_" + i).hide();
-            }
-        }
-    }
-
-
-    //  ROOM INPUT SHOW VALUE FUNCTIONS
-
-    //  let searchParams = new URLSearchParams(window.location.search)
+    <script>
+        //  ROOM INPUT SHOW VALUE FUNCTIONS-----------------------------------------------------------
+        //  let searchParams = new URLSearchParams(window.location.search)
         // let param = searchParams.get('totalNoOfRooms');
-    var jsonData2 = {"TotalRooms": `{{ total_rooms }}`};
-    var jsonData = {"TotalAdults": `{{ total_adults }}`};
-    
-    var totalRoomsValue = jsonData2.TotalRooms;
-    var totalAdultsValue = jsonData.TotalAdults;
+        var jsonData2 = {"TotalRooms": `{{ total_rooms }}`};
+        var jsonData = {"TotalAdults": `{{ total_adults }}`};
 
-    var roomElement = document.getElementById('totalRooms');
-    var adultElement = document.getElementById('noOfAdults');
-    var roomInput = document.getElementById('room');
+        var totalRoomsValue = jsonData2.TotalRooms;
+        var totalAdultsValue = jsonData.TotalAdults;
 
-    if (roomElement && adultElement && roomInput) {
-        roomInput.value = totalRoomsValue + " Room " + " " + "&" +" " + totalAdultsValue + " Adults";
-    }
+        var roomElement = document.getElementById('totalRooms');
+        var adultElement = document.getElementById('noOfAdults');
+        var roomInput = document.getElementById('room');
 
-       //  FILTER HOTEL STARS  -----------------------------------------------------
-function filterHotelsByRating() {
-    var selectedRatings = [];
-    // Iterate over checked star rating checkboxes
-    $('input[name="checklist"]:checked').each(function () {
-        selectedRatings.push($(this).val());
-    });
-
-    $(".hotel").each(function () {
-        var hotelRating = parseInt($(this).data("rating"));
-
-        // Show the hotel if it matches any of the selected ratings, or if no ratings are selected
-        if (selectedRatings.length === 0 || selectedRatings.includes(hotelRating.toString())) {
-            $(this).show();
-        } else {
-            $(this).hide();
+        if (roomElement && adultElement && roomInput) {
+            roomInput.value = totalRoomsValue + " Room " + " " + "&" +" " + totalAdultsValue + " Adults";
         }
-    });
-}
+    </script>
+  
 
-// Attach the filter function to the checkbox change event
-$('input[name="checklist"]').on("change", function () {
-    filterHotelsByRating();
-});
-
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var hiddenInput = document.getElementById('select-5');
-        var selectElement = document.getElementById('nation');
-        var selectedValue = hiddenInput.value;
-
-        for (var i = 0; i < selectElement.options.length; i++) {
-            if (selectElement.options[i].value === selectedValue) {
-                selectElement.options[i].selected = true;
-                break;
-            }
-        }
-    });
-
-    function bookRoom() {
-    var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
-        
-    if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
-    var form = document.createElement('form');
-    document.getElementById('preloader').style.display = 'block';
-    document.getElementById('status').style.display = 'block';
-    form.method = 'POST';
-    form.action = '/hotelreview/';
-    var roomJsonList = document.getElementById('hide-123').value;
-    var datalist = document.getElementById('data-123').value;
-    var unescapedValue = datalist.replace(/&quot;/g, '"');
-    var parsedJSON = JSON.parse(unescapedValue);
-    var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
-    var parsedJSON1 = JSON.parse(unescapedValue1);
-    var hotelCode = parsedJSON.HotelCode; 
-    var hotelId = hotelCode + 'A';
-    var hotelNameInputElement = document.getElementById(hotelId);
-    if (hotelNameInputElement) {
-        var hotelName = hotelNameInputElement.value;
-        var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-        var csrfTokenField = document.createElement('input');
-        csrfTokenField.type = 'hidden';
-        csrfTokenField.name = 'csrfmiddlewaretoken';
-        csrfTokenField.value = csrfToken;
-        form.appendChild(csrfTokenField);
-        var roomJsonElement = document.createElement('input');
-        roomJsonElement.type = 'hidden';
-        roomJsonElement.name = 'roomJsonElement';
-        roomJsonElement.value = JSON.stringify(parsedJSON1);
-        form.appendChild(roomJsonElement);
-        var hotelNameField = document.createElement('input');
-        hotelNameField.type = 'hidden';
-        hotelNameField.name = 'hotelName';
-        hotelNameField.value = hotelName;
-        form.appendChild(hotelNameField);
-        var hide123Value = document.createElement('input');
-        hide123Value.type = 'hidden';
-        hide123Value.name = 'hide123Value';
-        hide123Value.value = JSON.stringify(parsedJSON);
-        form.appendChild(hide123Value);
-        var categoryid1 = document.getElementById('categoryid').value;
-        var categoryidField = document.createElement('input');
-        categoryidField.type = 'hidden';
-        categoryidField.name = 'categoryid1';
-        categoryidField.value = categoryid1;
-        form.appendChild(categoryidField);
-        document.body.appendChild(form);
-        form.submit();
-    } else {
-        console.error('Hotel name input element not found.');
-    }
-    } else {
-        console.log("noo result")
-        $("#log-btn-switch").click();
-}
-}
-</script>
-<script>
- 
-
-
-function sortHotels(criteria) {
-    var hotelList = document.getElementById('hotelList');
-    var hotels = Array.from(hotelList.getElementsByClassName('hotel'));
-
-    var sortOrder = hotelList.getAttribute('data-sort-order') || 'asc';
-
-    hotels.sort(function(a, b) {
-        var aValue = a.getAttribute('data-' + criteria);
-        var bValue = b.getAttribute('data-' + criteria);
-
-        // Handle numeric or string comparisons based on the criteria
-        if (criteria === 'Price' || criteria === 'Rating') {
-            return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-        } else if (criteria === 'Name') {
-            return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        }
-    });
-
-    // Clear the existing hotel list
-    hotelList.innerHTML = '';
-
-    // Append the sorted hotels to the list
-    hotels.forEach(function(hotel) {
-        hotelList.appendChild(hotel);
-    });
-
-    // Toggle sort order for the next click
-    hotelList.setAttribute('data-sort-order', sortOrder === 'asc' ? 'desc' : 'asc');
-}
-
-
-  // SLIDER RANGE FUNCTION --------------
-  const rangeInput = document.querySelectorAll(".range-input input"),
-        priceInput = document.querySelectorAll(".price-input input"),
-        range = document.querySelector(".slider .progress");
-        let priceGap = 1000;
-     
-        priceInput.forEach(input =>{
-            input.addEventListener("input", e =>{
-                let minPrice = parseInt(priceInput[0].value),
-                maxPrice = parseInt(priceInput[1].value);
-                
-                if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-                    if(e.target.className === "input-min"){
-                        rangeInput[0].value = minPrice;
-                        range.style.left = ((minPrice - rangeInput[0].min) / (rangeInput[0].max - rangeInput[0].min)) * 100 + "%";
-                    }else{
-                        rangeInput[1].value = maxPrice;
-                        range.style.right = ((rangeInput[1].max - maxPrice) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
-                    }
-                }
-            });
-        });
-    
-        rangeInput.forEach(input =>{
-            input.addEventListener("input", e =>{
-                RangeSlider()
-               
-            });
-        });
-
-    $( document ).ready(function() {
-        RangeSlider()
-    });
-
-    function RangeSlider() {
-        let minVal = parseInt(rangeInput[0].value),
-                maxVal = parseInt(rangeInput[1].value);
-                filterHotelsByPrice(minVal,maxVal)
-                console.log(minVal,maxVal)
-                if((maxVal - minVal) < priceGap){
-                    if(e.target.className === "range-min"){
-                        rangeInput[0].value = Math.min(maxVal - priceGap, rangeInput[0].max);
-                    }else{
-                        rangeInput[1].value = Math.max(minVal + priceGap, rangeInput[1].min);
-                    }
-                }else{
-                    priceInput[0].value = minVal;
-                    priceInput[1].value = maxVal;
-                    range.style.left = ((minVal - rangeInput[0].min) / (rangeInput[0].max - rangeInput[0].min)) * 100 + "%";
-                    range.style.right = ((rangeInput[1].max - maxVal) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
-                }
-
-    }
-
-</script>
-
-<!-- /* LOADER   ////////// */ -->
-<style>
- 
-    #loading {
-    background: url("{% static 'image/booking/hotel-loader1.gif'%}") no-repeat center center;
-    background-size: 100px;
-    border-radius: 50%;
-    height: 50px;
-    align-items: center !important;
-    justify-content: end !important;
-    text-align: center;
-}
-
-.address {
-    height: 20px;
-    overflow-y: hidden;
-}
-
-.hotel-image{ 
-    height: 150px;
-    width: 100%;
-}
-
-
-/* --------------------- - range slider ---------------- */
-.wrapper{
-    width: 100%;
-    height: 140px;
-    padding: 6px;
-    margin: 4px;
-    margin-left: -6px;
-}
-
-
-
-.box-1 {
-    margin: 8px 4px;
-    font-size: 20px;
-}
-
-.price-input{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-}
-
-.field {
-    margin: 2px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.field input {
-    border: none;
-    width: 70px;
-    outline: none;
-    padding: 0 4px;
-}
-
-.slider {
-    height: 11px;
-    position: relative;
-    background: #f1f1f1;
-    border-radius: 5px;
-    margin-top: 11px;
-    height: 10px !important;
-}
-
-.slider .progress {
-    height: 100%;
-    left: 0%;
-    right: 0%;
-    position: absolute;
-    border-radius: 5px;
-    background: #029e9d !important;
-    margin-top: 0px;
-}
-
-.range-input{
-    position: relative;
-}
-    
-.range-input input{
-    position: absolute;
-    width: 100%;
-    height: 7px;
-    top: 0px;
-    background: none;
-    margin-bottom: 3px;
-    pointer-events: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-} 
-
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-.price-input .separator{
-    width: 100px;
-    display: flex;
-    font-size: 19px;
-    align-items: center;
-    justify-content: center;
-}
-
-input[type="range"]::-webkit-slider-thumb{
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    background: white;
-    border: 1px solid #029e9d;
-    pointer-events: auto;
-    -webkit-appearance: none;
-    box-shadow: 0 0 6px rgba(0,0,0,0.05);
-    margin-top: -16px;
-}
-
-input[type="range"]::-moz-range-thumb{
-    height: 15px;
-    width: 17px;
-    border: none;
-    border-radius: 50%;
-    background: white;
-    pointer-events: auto;
-    -moz-appearance: none;
-    box-shadow: #029e9d;
-}
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the initial formatted dates from hidden inputs
-        var formattedCheckin = document.getElementById('checkin').value;
-        var formattedCheckout = document.getElementById('checkout').value;
-
-        // Get references to the date input fields
-        var startDateInput = document.getElementById('check-in');
-        var endDateInput = document.getElementById('check-out');
-
-        // Set the initial values from the hidden inputs
-        startDateInput.value = formattedCheckin;
-        endDateInput.value = formattedCheckout;
-
-        // Set the minimum date for check-in to today
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = ('0' + (today.getMonth() + 1)).slice(-2);
-        var day = ('0' + today.getDate()).slice(-2);
-        var todayString = year + '-' + month + '-' + day;
-        startDateInput.min = todayString;
-
-        // Function to set the next day for check-out based on the selected check-in date
-        function setNextDate() {
-            var startDate = new Date(startDateInput.value);
-            if (!isNaN(startDate.getTime())) {
-                var nextDate = new Date(startDate);
-                nextDate.setDate(startDate.getDate() + 1);
-
-                var nextYear = nextDate.getFullYear();
-                var nextMonth = ('0' + (nextDate.getMonth() + 1)).slice(-2);
-                var nextDay = ('0' + nextDate.getDate()).slice(-2);
-                var nextDateString = nextYear + '-' + nextMonth + '-' + nextDay;
-
-                endDateInput.value = nextDateString;
-                endDateInput.min = nextDateString;
-            }
-        }
-
-        // Attach event listener to the check-in date input
-        startDateInput.addEventListener('change', setNextDate);
-
-        // Set the initial next date for check-out based on the initial check-in date
-        setNextDate();
-    });
-</script>
-<script>
-    document.getElementById('viewDetailsLink').addEventListener('click', function(event) {
-    event.preventDefault();
-        document.getElementById('preloader').style.display = 'block';
-        document.getElementById('status').style.display = 'block';
-        console.log('printed success 787')
-    })
-</script>
 </body>
+
 </html>
 
-
-
-
-
-
-
-
-
-<!-- DATE CHANGING FUNCTIONS -->
-<!-- 
-<label for="startDate">Start Date:</label>
-<input type="date" id="startDate" name="startDate">
-
-<label for="nextDate">Next Date:</label>
-<input type="date" id="nextDate" name="nextDate"> -->

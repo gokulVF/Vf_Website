@@ -568,7 +568,10 @@ def your_view(request):
     check_in_date = request.session.get('check_in_date', '')
     check_out_date = request.session.get('check_out_date', '')
     guest_details = request.session.get('guestdetails', '')
+    personsdetails = json.loads(request.session.get('personsdetails', ''))
     No_of_nights = request.session.get('No_of_Night','')
+
+    print("personsdetails",personsdetails)
 
     # Second API request
     api_url2 = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom'
@@ -588,6 +591,7 @@ def your_view(request):
     try:
         response = requests.post(api_url2, json=data2, headers=headers2)
         response.raise_for_status()
+        print("response",response)
         if response.status_code == 200:
             api_data = response.json()
 
@@ -613,16 +617,24 @@ def your_view(request):
 
         if response_data.get('ResponseStatus') == 1:
             room_details = response_data.get('HotelRoomsDetails', [])
-            fixed_combination = None
+            fixed_combination = []
             category_id = None
             try:
                 for room_combination in response_data['RoomCombinationsArray']:
                     if room_combination['InfoSource'] == 'FixedCombination':
-                        fixed_combination = room_combination['RoomCombination']
                         category_id = room_combination['CategoryId']
+                        combinations = room_combination['RoomCombination']
+                        for combination in combinations:
+                            if 'RoomIndex' in combination:
+                                combination_indices = combination['RoomIndex']
+                                fixed_combination.append((category_id, combination_indices))
             except Exception as e:
                 room_combinations_data = response_data.get('RoomCombinations', {})
-                fixed_combination = room_combinations_data.get('RoomCombination', [])
+                fixed_combinations_data = room_combinations_data.get('RoomCombination', [])
+                for combination in fixed_combinations_data:
+                    if 'RoomIndex' in combination:
+                        combination_indices = combination['RoomIndex']
+                    fixed_combination.append((category_id, combination_indices))
 
             request.session['category_id'] = category_id
 
@@ -631,15 +643,30 @@ def your_view(request):
 
             # Create a list to store formatted room details HTML
             formatted_rooms_html = []
+            print("fixed_combination",fixed_combination)
+            print("room_index_mapping",room_index_mapping)
+            
 
-            for count ,combination in enumerate(fixed_combination, start=1):
-                if 'RoomIndex' in combination:
-                    combination_indices = combination['RoomIndex']
+
+            html_list_items = ""
+            for i, room in enumerate(personsdetails, start=1):
+                num_adults = room["NoOfAdults"]
+                num_children = room["NoOfChild"]
+                children_text = f" + {num_children} Child" if num_children > 0 else ""
+                list_item = f'<li class="pe-1"> <span class="theme2 fw-bold">Room {i}</span> : {num_adults} Adults{children_text}</li>'
+                html_list_items += list_item
+
+            for count, (combination_id, combination_indices) in enumerate(fixed_combination, start=1):
+                # if 'RoomIndex' in combination:
+                    # combination_indices = combination['RoomIndex']
+                    # combination_id, combination_indices = combination
                     print("combination_indices",combination_indices)
                     room_count_dict = defaultdict(int)
                     room_price_dict = defaultdict(int)
+                    room_publish_price = defaultdict(int)
                     room_json_list_dict = defaultdict(list)
                     unique_id= f"hideto-{count}"
+                    # INDEX_id= count
                     for index in combination_indices:
                         room = room_index_mapping.get(index)
                         if room:
@@ -648,16 +675,25 @@ def your_view(request):
                             room_json_list_dict[room_name].append(room_json)
                             room_count_dict[room_name] += 1
                             room_price_dict[room_name] += room.get('Price', {}).get('OfferedPriceRoundedOff', 0)
+                            room_publish_price[room_name] += room.get('Price', {}).get('PublishedPriceRoundedOff', 0)
 
                     # Generate HTML for each room type in the current combination
                     for room_name, count in room_count_dict.items():
                         room_json_list = room_json_list_dict[room_name]
                         total_price = room_price_dict[room_name]
+                        publishprice = room_publish_price[room_name]
                         sample_room = json.loads(room_json_list[0])  # Take one of the rooms as a sample
+
+                        discount_amount = 0.05 * total_price
+                        gst_amount = 0.18 * discount_amount
+                        formatted_final_tax = math.ceil(gst_amount + discount_amount)
                         
                         LastCancellationDate = sample_room["LastCancellationDate"]
                         date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
                         date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+
+                        client_room_detaila = personsdetails
+                        print("client_room_detaila",client_room_detaila)
 
                         current_date_time = datetime.datetime.now()
                         if current_date_time > date_time_obj:
@@ -674,23 +710,33 @@ def your_view(request):
 
                         room_html = f"""
                             <div class="item py-1">
-                                <div class="room-info row d-flex align-items-center">
-                                    <div class="col-lg-6 col-md-5 col-sm-5 col-5">
-                                        <div class="item-inner-image text-start">
-                                            <h5 class="mb-0">{room_name} (x{count})</h5>
-                                            <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
+                                <div class="row mx-auto p-2" style="border-radius: 4px;border: 1px solid gray;">
+                                    <div class="col-lg-6" style="border-right: 1px solid gray;">
+                                        <div class="mb-2">
+                                            <p class="theme2 mb-0 fs-5 fw-bold">{count} x {room_name}</p>
+                                            <small class="theme2"><i class="fas fa-bed me-2"></i>{Roomtypedetails}</small>
+                                        </div>
+                                        <div class="r_ul mb-1 bg-grey p-1 px-2 rounded roomList" id="roomList" >
+                                            {html_list_items}
+                                        </div>
+                                        <div>
                                             {formatted_date_LastCancellationDate}
                                         </div>
                                     </div>
-                                    <div class="price-info col-lg-3 col-md-4 col-sm-4 col-3">
-                                        <div class="rub-price item-inner flight-time">
-                                            <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {total_price}</p>
-                                            <p class="mb-0 per_day ms-2">Total for {count} Room(s)/Night</p>
+                                    <div class="col-lg-3 amen_li">
+                                        <p class="theme2 mb-1 fs-5 fw-bold ">Amenities</p>
+                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">With Breakfast</li>
+                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">Refundable</li>
+                                        <div class="mt-1">
+                                            <a href="#" class="theme fw-bold" style="text-decoration: underline;font-size: 14px;">More Details</a>
                                         </div>
                                     </div>
-                                    <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end">
-                                        <button class="book-btn nir-btn"
-                                                onclick="bookRoom('{unique_id}')">
+                                    <div class="col-lg-3 text-end">
+                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span> {publishprice}</p>
+                                        <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {total_price}</p>
+                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span> {formatted_final_tax} taxes &amp; fees</p>
+                                        <p class="mb-0 per_day ms-2 mt-1">{count} Rooms/Night</p>
+                                        <button class="book-btn nir-btn mt-1" onclick="bookRoom('{unique_id}')">
                                             Book Room
                                         </button>
                                     </div>
@@ -708,7 +754,7 @@ def your_view(request):
                         formatted_rooms_html.append(f'''
                             <div class="hide-room1 mb-1 border-all p-2 px-3 rounded ">
                                 {room_html}
-                                <div class="total-price">Total Price: ₹ {total_price}</div>
+                                
                                 <div class="hide-123">
                                     <input type="hidden" class="room-index" id="{unique_id}" value='{room_json_array_string}'>
                                     <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
@@ -1854,8 +1900,8 @@ def hotelbooked(request):
         # Adding HotelPassenger data to payload_data
         # modified_payload_data['AgencyId'] = 0 
         #  <---PACKAGEFARE--->
-        modified_payload_data['IsPackageFare'] = True 
-        modified_payload_data['IsPackageDetailsMandatory'] = True
+        # modified_payload_data['IsPackageFare'] = True 
+        # modified_payload_data['IsPackageDetailsMandatory'] = True
         # modified_payload_data["ArrivalTransport"] = {
         #     "ArrivalTransportType": 0,
         #     "TransportInfoId": "Ab 777",
