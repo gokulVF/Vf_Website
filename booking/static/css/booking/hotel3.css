@@ -92,3 +92,7 @@ display: flex;
    font-weight: 600;
    color: #259452;
 }
+
+.pax_det {
+    font-size: 14px;
+}

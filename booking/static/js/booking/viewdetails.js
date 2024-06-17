@@ -517,4 +517,29 @@ $(document).ready(function() {
 // }
 
 
+// ICONS COLOURED
+
+// const colors = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'];
+
+// facilitiesListItems.forEach(item => {
+//     let iconSet = false;
+//     for (const [facility, icon] of Object.entries(icons)) {
+//         if (item.textContent.toLowerCase().includes(facility)) {
+//             const svgWrapper = document.createElement('span');
+//             svgWrapper.innerHTML = icon;
+//             svgWrapper.style.fill = colors[Math.floor(Math.random() * colors.length)];
+//             item.insertBefore(svgWrapper, item.firstChild);
+//             iconSet = true;
+//             break; // Break once icon is inserted to avoid unnecessary iterations
+//         }
+//     }
+//     if (!iconSet) { // If no icon was set, use the default icon
+//         const svgWrapper = document.createElement('span');
+//         svgWrapper.innerHTML = icons['default'];
+//         svgWrapper.style.fill = colors[Math.floor(Math.random() * colors.length)];
+//         item.insertBefore(svgWrapper, item.firstChild);
+//     }
+// });
+
+
 
