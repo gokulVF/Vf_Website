@@ -347,7 +347,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": False,
+        "IsTBOMapped": True,
         'ResultCount': 0,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
@@ -533,7 +533,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
 #     except requests.exceptions.RequestException as ex:
 #         return JsonResponse({'error': f"Error: {ex}"})
 #         return JsonResponse(response_content)
-
+from collections import defaultdict
 def your_view(request):
     destinations_data,all_categories = header_fn(request)
     footers = homefooter()
@@ -566,7 +566,10 @@ def your_view(request):
     check_in_date = request.session.get('check_in_date', '')
     check_out_date = request.session.get('check_out_date', '')
     guest_details = request.session.get('guestdetails', '')
+    personsdetails = json.loads(request.session.get('personsdetails', ''))
     No_of_nights = request.session.get('No_of_Night','')
+
+    print("personsdetails",personsdetails)
 
     # Second API request
     api_url2 = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom'
@@ -586,6 +589,7 @@ def your_view(request):
     try:
         response = requests.post(api_url2, json=data2, headers=headers2)
         response.raise_for_status()
+        print("response",response)
         if response.status_code == 200:
             api_data = response.json()
 
@@ -611,149 +615,152 @@ def your_view(request):
 
         if response_data.get('ResponseStatus') == 1:
             room_details = response_data.get('HotelRoomsDetails', [])
-            # print("room_details")
-            # print(room_details)
-            fixed_combination = None
+            fixed_combination = []
             category_id = None
             try:
                 for room_combination in response_data['RoomCombinationsArray']:
                     if room_combination['InfoSource'] == 'FixedCombination':
-                        fixed_combination = room_combination['RoomCombination']
                         category_id = room_combination['CategoryId']
+                        combinations = room_combination['RoomCombination']
+                        for combination in combinations:
+                            if 'RoomIndex' in combination:
+                                combination_indices = combination['RoomIndex']
+                                fixed_combination.append((category_id, combination_indices))
             except Exception as e:
                 room_combinations_data = response_data.get('RoomCombinations', {})
-                fixed_combination = room_combinations_data.get('RoomCombination', [])
+                fixed_combinations_data = room_combinations_data.get('RoomCombination', [])
+                for combination in fixed_combinations_data:
+                    if 'RoomIndex' in combination:
+                        combination_indices = combination['RoomIndex']
+                    fixed_combination.append((category_id, combination_indices))
 
-            # print('Fixed Combination:', fixed_combination)
-            # print('Category ID:', category_id)
             request.session['category_id'] = category_id
+
             # Create a dictionary to store room details based on RoomIndex
             room_index_mapping = {room['RoomIndex']: room for room in room_details}
 
             # Create a list to store formatted room details HTML
             formatted_rooms_html = []
+            print("fixed_combination",fixed_combination)
+            print("room_index_mapping",room_index_mapping)
+            
 
-            button_added = False
-            print("fixed commination",fixed_combination)
 
-            for count, combination in enumerate(fixed_combination, start=1):
-                if 'RoomIndex' in combination:
-                    combination_indices = combination['RoomIndex']
-                    # Check if the combination indices match the totalrooms
-                    if len(combination_indices) == int(totalrooms):
-                        # Create a list to store HTML for this combination
-                        combination_html = []
-                        room_json_list = [] 
-                        # print("sss")
-                        # print(room_json_list)
-                        # combination_id = combination.get('combination_id', '')  # Replace with the actual key for the unique identifier
-                        unique_id = f"hideto-{count}"
-                        for index in combination_indices:
-                            room = room_index_mapping.get(index)
-                            print(room)
-                            if room:
-                                room_json = json.dumps(room)
-                                room_json_list.append(room_json) 
-                                # print("kkk")
-                                # print(room_json)
-                                # data_json = json.dumps(data2)
-                                room_index = room["RoomIndex"]
-                                
-                                # room_json_array_string = json.dumps(room_json_list)
-                                print(room_index)
-                                request.session[f'payload_{index}'] = room_json
-                                Hoteltype = {room.get('RoomTypeName', '')}
-                                info_string = Hoteltype.pop()
-                                values = info_string.split(',')
-                                Roomtypename = values[0].strip()
-                                Roomtypedetails = ','.join(values[1:]).strip()
-                                combination_room_indices = []
-                                for index in combination_indices:
-                                    room = room_index_mapping.get(index)
-                                    if room:
-                                        room_index = room["RoomIndex"]
-                                        combination_room_indices.append(room_index)
-                                # print(combination_room_indices)
+            html_list_items = ""
+            for i, room in enumerate(personsdetails, start=1):
+                num_adults = room["NoOfAdults"]
+                num_children = room["NoOfChild"]
+                children_text = f" + {num_children} Child" if num_children > 0 else ""
+                list_item = f'<li class="pe-1"> <span class="theme2 fw-bold">Room {i}</span> : {num_adults} Adults{children_text}</li>'
+                html_list_items += list_item
 
-                                LastCancellationDate = room["LastCancellationDate"]
-                                date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
-                                date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+            for count, (combination_id, combination_indices) in enumerate(fixed_combination, start=1):
+                # if 'RoomIndex' in combination:
+                    # combination_indices = combination['RoomIndex']
+                    # combination_id, combination_indices = combination
+                    print("combination_indices",combination_indices)
+                    room_count_dict = defaultdict(int)
+                    room_price_dict = defaultdict(int)
+                    room_publish_price = defaultdict(int)
+                    room_json_list_dict = defaultdict(list)
+                    unique_id= f"hideto-{count}"
+                    # INDEX_id= count
+                    for index in combination_indices:
+                        room = room_index_mapping.get(index)
+                        if room:
+                            room_name = room.get('RoomTypeName', '').split(',')[0].strip()
+                            room_json = json.dumps(room)
+                            room_json_list_dict[room_name].append(room_json)
+                            room_count_dict[room_name] += 1
+                            room_price_dict[room_name] += room.get('Price', {}).get('OfferedPriceRoundedOff', 0)
+                            room_publish_price[room_name] += room.get('Price', {}).get('PublishedPriceRoundedOff', 0)
 
-                                current_date_time = datetime.datetime.now()
-                                if current_date_time > date_time_obj:
-                                    formatted_date_LastCancellationDate = F"""
-                                        <p style="color:red;font-size: 13px;font-weight: 500;" class="mb-0"> Not Free cancellation</p>
-                                    """
-                                else:
-                                    formatted_date_LastCancellationDate = f"""
-                                        <p style="color: #33a533;font-size: 13px;font-weight: 500;" class="mb-0"><i class="fa fa-check me-2"></i>Free cancellation till : {date_LastCancellationDate}</p>
-                                    """
+                    # Generate HTML for each room type in the current combination
+                    for room_name, count in room_count_dict.items():
+                        room_json_list = room_json_list_dict[room_name]
+                        total_price = room_price_dict[room_name]
+                        publishprice = room_publish_price[room_name]
+                        sample_room = json.loads(room_json_list[0])  # Take one of the rooms as a sample
 
-                                LastVoucherDate = room["LastVoucherDate"]
-                                
-                                room_html = f"""
-                                    <div class="item py-1">
-                                        <div class="room-info row d-flex align-items-center">
-                                            <div class="col-lg-6 col-md-5 col-sm-5 col-5">
-                                                <div class="item-inner-image text-start">
-                                                    <h5 class="mb-0">{Roomtypename}</h5>
-                                                    <small><i class='fas fa-bed me-2'></i>{Roomtypedetails}</small>
-                                                    {formatted_date_LastCancellationDate}
-                                                </div>
-                                            </div>
-                                            <div class="price-info col-lg-3 col-md-4 col-sm-4 col-3">
-                                                <div class="rub-price item-inner flight-time">
-                                                    <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {room.get('Price', {}).get('OfferedPriceRoundedOff', 0)}</p>
-                                                    <p class="mb-0 per_day ms-2">Per Room/Night</p>
-                                                </div>
-                                            </div>
-                                            <div class="book-room-btn col-lg-3 col-md-3 col-sm-3 col-3 text-end" style="{'' if not button_added else 'display: none;  '}">
-                                                <button class="book-btn nir-btn"
-                                                        onclick="bookRoom('{unique_id}')">
-                                                    Book Room
-                                                </button>
-                                            </div>
-                                        </div>    
-                                        <div class="hide-elements" style="display: none;">
-                                            <p class="tax">{room.get('Price', {}).get('Tax', 0)}</p>
-                                            <input type="hidden" class="room-index" value="{{ hotel.HotelName }}">
-                                            
-                                            <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
-                                            <input type="hidden" class="room-index" id="VoucherDate" value='{LastVoucherDate}'>
+                        discount_amount = 0.05 * total_price
+                        gst_amount = 0.18 * discount_amount
+                        formatted_final_tax = math.ceil(gst_amount + discount_amount)
+                        
+                        LastCancellationDate = sample_room["LastCancellationDate"]
+                        date_time_obj = datetime.datetime.strptime(LastCancellationDate, "%Y-%m-%dT%H:%M:%S")
+                        date_LastCancellationDate = date_time_obj.strftime("%d-%b-%Y")
+
+                        client_room_detaila = personsdetails
+                        print("client_room_detaila",client_room_detaila)
+
+                        current_date_time = datetime.datetime.now()
+                        if current_date_time > date_time_obj:
+                            formatted_date_LastCancellationDate = """
+                                <p style="font-size: 13px;font-weight: 500;" class="mb-0"><i class="fa fa-close me-2"></i> No Free cancellation</p>
+                            """
+                        else:
+                            formatted_date_LastCancellationDate = f"""
+                                <p style="color: #33a533;font-size: 13px;font-weight: 500;" class="mb-0"><i class="fa fa-check me-2"></i>Free cancellation till : {date_LastCancellationDate}</p>
+                            """
+
+                        LastVoucherDate = sample_room["LastVoucherDate"]
+                        Roomtypedetails = sample_room.get('RoomTypeName', '').split(',')[1].strip() if ',' in sample_room.get('RoomTypeName', '') else ''
+
+                        room_html = f"""
+                            <div class="item">
+                                <div class="row mx-auto p-2">
+                                    <div class="col-lg-6" style="border-right: 1px solid #f1f1f1;">
+                                        <div class="mb-2">
+                                            <p class="theme2 mb-0 fs-5 fw-bold">{count} x {room_name}</p>
+                                            <small class="theme2"><i class="fas fa-bed me-2"></i>{Roomtypedetails}</small>
                                         </div>
-                                        <div class="empty-placeholder" style="{'' if not button_added else 'height: 0px; width: 23%;'}"></div>
+                                        <div class="r_ul mb-1 bg-grey p-1 px-2 rounded roomList" id="roomList" >
+                                            {html_list_items}
+                                        </div>
+                                        <div>
+                                            {formatted_date_LastCancellationDate}
+                                        </div>
                                     </div>
-                                   
-                                """
-                                combination_html.append(room_html)
-
-                                # Set the flag to True after adding the button for the first time
-                                button_added = True
-                            else:
-                                button_added = False  # Reset the flag if no room is found
-
-                        # Join the HTML for this combination
-                        combination_html_joined = ''.join(combination_html)
-
+                                    <div class="col-lg-3 amen_li">
+                                        <p class="theme2 mb-1 fs-5 fw-bold ">Amenities</p>
+                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">With Breakfast</li>
+                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">Refundable</li>
+                                        <div class="mt-1">
+                                            <a href="#" class="theme fw-bold" style="text-decoration: underline;font-size: 14px;">More Details</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-end">
+                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span> {publishprice}</p>
+                                        <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> {total_price}</p>
+                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span> {formatted_final_tax} taxes &amp; fees</p>
+                                        <p class="mb-0 per_day ms-2 mt-1">{count} Rooms/Night</p>
+                                        <button class="book-btn nir-btn mt-1" onclick="bookRoom('{unique_id}')">
+                                            Book Room
+                                        </button>
+                                    </div>
+                                </div>    
+                                <div class="hide-elements" style="display: none;">
+                                    <p class="tax">{sample_room.get('Price', {}).get('Tax', 0)}</p>
+                                    <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
+                                    <input type="hidden" class="room-index" id="VoucherDate" value='{LastVoucherDate}'>
+                                </div>
+                            </div>
+                        """
+                        
                         room_json_array_string = json.dumps(room_json_list)
 
-                        # Wrap the generated HTML within hide-room1 container
                         formatted_rooms_html.append(f'''
-                            <div class="hide-room1 mb-1 border-all p-2 px-3 rounded ">{combination_html_joined}<div class="hide-123">
-                                <input type="hidden" class="room-index" id="{unique_id}" value='{room_json_array_string}'>
-                                <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
-                                <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
+                            <div class="hide-room1 mb-1 rounded p-0" style="border: 1px solid #c7bdbd;">
+                                {room_html}
+                                
+                                <div class="hide-123">
+                                    <input type="hidden" class="room-index" id="{unique_id}" value='{room_json_array_string}'>
+                                    <input type="hidden" class="room-index" id="data-123" value='{data_json}'>
+                                    <input type="hidden" class="room-index" id="categoryid" value='{category_id}'>
+                                </div>
                             </div>
-                        </div>
                         ''')
-                        # print("jhjd")
-                        # print(room_json_array_string)
-                        
-                        button_added = False
 
-                        # formatted_rooms_html.append(.format(room_indices=json.dumps(combination_room_indices), hotel_code=hotel_code))
-
-            # Join the formatted HTML for all combinations
             all_rooms_html = ''.join(formatted_rooms_html)
             # print(all_rooms_html)
 
@@ -1891,8 +1898,8 @@ def hotelbooked(request):
         # Adding HotelPassenger data to payload_data
         # modified_payload_data['AgencyId'] = 0 
         #  <---PACKAGEFARE--->
-        modified_payload_data['IsPackageFare'] = True 
-        modified_payload_data['IsPackageDetailsMandatory'] = True
+        # modified_payload_data['IsPackageFare'] = True 
+        # modified_payload_data['IsPackageDetailsMandatory'] = True
         # modified_payload_data["ArrivalTransport"] = {
         #     "ArrivalTransportType": 0,
         #     "TransportInfoId": "Ab 777",
