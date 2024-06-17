@@ -677,6 +677,7 @@ def your_view(request):
                             room_price_dict[room_name] += room.get('Price', {}).get('OfferedPriceRoundedOff', 0)
                             room_publish_price[room_name] += room.get('Price', {}).get('PublishedPriceRoundedOff', 0)
 
+
                     # Generate HTML for each room type in the current combination
                     for room_name, count in room_count_dict.items():
                         room_json_list = room_json_list_dict[room_name]
@@ -695,10 +696,12 @@ def your_view(request):
                         client_room_detaila = personsdetails
                         print("client_room_detaila",client_room_detaila)
 
+                        amentics = sample_room["Amenities"][0]
+
                         current_date_time = datetime.datetime.now()
                         if current_date_time > date_time_obj:
                             formatted_date_LastCancellationDate = """
-                                <p style="color:red;font-size: 13px;font-weight: 500;" class="mb-0"> Not Free cancellation</p>
+                                <p style="color:red;font-size: 13px;font-weight: 500;" class="mb-0"> No Free cancellation</p>
                             """
                         else:
                             formatted_date_LastCancellationDate = f"""
@@ -725,7 +728,7 @@ def your_view(request):
                                     </div>
                                     <div class="col-lg-3 amen_li">
                                         <p class="theme2 mb-1 fs-5 fw-bold ">Amenities</p>
-                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">With Breakfast</li>
+                                        <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">{amentics}</li>
                                         <li class="mb-1"><img src="" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">Refundable</li>
                                         <div class="mt-1">
                                             <a href="#" class="theme fw-bold" style="text-decoration: underline;font-size: 14px;">More Details</a>
