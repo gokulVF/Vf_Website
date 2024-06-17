@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 3000); // Simulate a 3-second delay for fetching data
 });
 
-// Facilities Icons functions
+// ICONS FACILITIES __________________________________________________________________________________________________________________________________________________
 document.addEventListener('DOMContentLoaded', () => {
     const facilitiesListItems = document.querySelectorAll('.facilities-list li');
     
@@ -237,6 +237,133 @@ document.addEventListener('DOMContentLoaded', () => {
     //     }
     // });
 });
+
+
+// Section Functionaities
+const facilityElements = document.querySelectorAll('#facilities-list li');
+const facilities = Array.from(facilityElements).map(element => element.textContent.trim());
+
+const facilityGroups = {
+    'Pool': [],
+    'Health and wellness': [],
+    'Spa': [],
+    'Internet': [],
+    'Surcharge': [],
+    'Rooms': [],
+    'Bathroom': [],
+    'Transportations': [], 
+    'Wheelchair': [],
+    'Parking': [],
+    'Loungers': [],
+    'Food and Drinks': [], 
+    'Beach': [],
+    'General Services': [],
+    'Others': [],
+    
+};
+
+facilities.forEach(facility => {
+    if (facility.toLowerCase().includes('swimming pool')|| facility.toLowerCase().includes('outdoors pool')|| facility.toLowerCase().includes('outdoor pool') || facility.toLowerCase().includes('pools') || facility.toLowerCase().includes('kids') || facility.toLowerCase().includes('pool with')) {
+        facilityGroups['Pool'].push(facility);
+    } else if (facility.toLowerCase().includes('gym') || facility.toLowerCase().includes('fitness')) {
+        facilityGroups['Health and wellness'].push(facility);
+    } else if (facility.toLowerCase().includes('beach')) {
+        facilityGroups['Beach'].push(facility);
+    } else if (facility.toLowerCase().includes('loungers')|| facility.toLowerCase().includes('bars') || facility.toLowerCase().includes('bar') || facility.toLowerCase().includes('lounge') || facility.toLowerCase().includes('lounges') || facility.toLowerCase().includes('barbecue')|| facility.toLowerCase().includes('bar/deli')) {
+        facilityGroups['Loungers'].push(facility);
+    } else if (facility.toLowerCase().includes('cleaning')|| facility.toLowerCase().includes('elevator') || facility.toLowerCase().includes('laundry') || facility.toLowerCase().includes('first aid kit') || facility.toLowerCase().includes('lockers') || facility.toLowerCase().includes('luggage storage')|| facility.toLowerCase().includes('ironing service') || facility.toLowerCase().includes('desk') || facility.toLowerCase().includes('24') || facility.toLowerCase().includes('hour')) {
+        facilityGroups['General Services'].push(facility);
+    } else if (facility.toLowerCase().includes('drinks')|| facility.toLowerCase().includes('drink') || facility.toLowerCase().includes('coffee') || facility.toLowerCase().includes('tea')|| facility.toLowerCase().includes('juice') || facility.toLowerCase().includes('breakfast') || facility.toLowerCase().includes('lunch') || facility.toLowerCase().includes('dinner') || facility.toLowerCase().includes('food')) {
+        facilityGroups['Food and Drinks'].push(facility);
+    } else if (facility.toLowerCase().includes('Massage') || facility.toLowerCase().includes('hot tub')) {
+        facilityGroups['Spa'].push(facility);
+    } else if (facility.toLowerCase().includes('internet') || facility.toLowerCase().includes('wifi') || facility.toLowerCase().includes('wired')) {
+        facilityGroups['Internet'].push(facility);
+    } else if (facility.toLowerCase().includes('bathroom')|| facility.toLowerCase().includes('toilet') || facility.toLowerCase().includes('restroom')) {
+        facilityGroups['Bathroom'].push(facility);
+    } else if (facility.toLowerCase().includes('room') || facility.toLowerCase().includes('bed') || facility.toLowerCase().includes('sleep') || facility.toLowerCase().includes('hall')) {
+        facilityGroups['Rooms'].push(facility);
+    } else if (facility.toLowerCase().includes('transportation')) {
+        facilityGroups['Transportations'].push(facility);
+    } else if (facility.toLowerCase().includes('wheelchair')) {
+        facilityGroups['Wheelchair'].push(facility);
+    } else if (facility.toLowerCase().includes('parking')) {
+        facilityGroups['Parking'].push(facility);
+    } else if (facility.toLowerCase().includes('surcharge')) {
+        facilityGroups['Surcharge'].push(facility);
+    } else {
+        facilityGroups['Others'].push(facility);
+    }
+});
+
+const container = document.getElementById('facilities-container');
+const ul = document.createElement('ul');
+
+Object.keys(facilityGroups).forEach(category => {
+    if (facilityGroups[category].length > 0) {
+        const categoryItem = document.createElement('li');
+        categoryItem.className = 'd-block theme2 mb-0 text-uppercase fw-bold';
+        categoryItem.style.fontSize = '15px';
+        categoryItem.textContent = category;
+        ul.appendChild(categoryItem);
+
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row border-t pt-1';
+
+        facilityGroups[category].forEach(facility => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-md-3 col-sm-3 col-xxs-3 facilities-list';
+
+            const facilityItem = document.createElement('li');
+            facilityItem.className = 'black mb-1';
+            facilityItem.style.fontSize = '13px';
+            facilityItem.textContent = facility;
+
+            colDiv.appendChild(facilityItem);
+            rowDiv.appendChild(colDiv);
+        });
+
+        ul.appendChild(rowDiv);
+    }
+});
+
+container.appendChild(ul);
+
+const container2 = document.getElementById('facilities-container2');
+const ul2 = document.createElement('ul');
+
+Object.keys(facilityGroups).forEach(category => {
+    if (facilityGroups[category].length > 0) {
+        const categoryItem2 = document.createElement('li');
+        categoryItem2.className = 'd-block theme2 mb-1 mt-1 text-uppercase fw-bold';
+        categoryItem2.style.fontSize = '15px';
+        categoryItem2.textContent = category;
+        ul2.appendChild(categoryItem2);
+
+        const rowDiv2 = document.createElement('div');
+        rowDiv2.className = 'row ';
+
+        facilityGroups[category].forEach(facility2 => {
+            const colDiv2 = document.createElement('div');
+            colDiv2.className = 'col-md-3 col-sm-3 col-xxs-3 facilities-list';
+
+            const facilityItem2 = document.createElement('li');
+            facilityItem2.className = 'black mb-1';
+            facilityItem2.style.fontSize = '13px';
+            facilityItem2.textContent = facility2;
+
+            colDiv2.appendChild(facilityItem2);
+            rowDiv2.appendChild(colDiv2);
+        });
+
+        ul2.appendChild(rowDiv2);
+    }
+});
+
+container2.appendChild(ul2);
+
+// ICONS FACILITIES __________________________________________________________________________________________________________________________________________________
+
 
 // Image showing functions
 // An array of image sources

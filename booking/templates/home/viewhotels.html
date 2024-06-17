@@ -166,17 +166,21 @@
                             <div class="row">
                                 <div class="mb-2">
                                     <h3 class="mb-1 theme text-uppercase">Facilities</h3>
-                                    <div class="desc-box border-all pt-2 px-4 bg-grey" style="height: 200px;overflow-y: hidden;">
-                                        <ul >
+                                   
+                                    <div class="desc-box border-all pt-2 px-4 bg-grey" style="height: 300px;overflow-y: hidden;">
+                                        <div id="facilities-container" class="desc-box">
+                                            <!-- Facilities will be inserted here by JavaScript -->
+                                        </div>
+                                        <ul id="facilities-list" style="display: none;">
                                             {% for facility in combined_info.hotel_info.hotel_facilities %}
                                                 {% if forloop.counter0 > 200 %}
-                                                    <li class="d-block black  mb-1" style="font-size: 14px;">{{facility }}</li>
+                                                    <li  class="d-block black mb-1" id="facilities-list" style="font-size: 14px;">{{facility }}</li>
                                                 {% else %}
                                                     {% if forloop.first %}
                                                     <div class="row">
                                                         {% endif %}
                                                         <div class="col-md-6 col-sm-6 col-xxs-3 facilities-list">
-                                                            <li class="black mb-1" style="font-size: 15px;">{{ facility }}</li>
+                                                            <li  class="black mb-1" style="font-size: 15px;">{{ facility }}</li>
                                                         </div>
                                                         {% if forloop.last %}
                                                     </div>
@@ -190,13 +194,16 @@
                                     </div>
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2" style="max-width: 1250px;overflow-y: scroll;scrollbar-width: none;">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title theme" id="exampleModalLabel">Facilities</h5>
+                                            <div class="modal-content rounded">
+                                                <div class="modal-header"  style="border-bottom: 3px solid #029e9d!important;" >
+                                                    <h4 class="modal-title text-uppercase theme"id="exampleModalLabel">Facilities</h4>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body border-t bg-grey p-2" style="font-size: 12px;height: 400px;overflow-y: scroll;">
-                                                    <div class="desc-box border-all py-2 px-4 bg-grey rounded">
+                                                <div class="modal-body p-2" style="font-size: 12px;height: 450px;overflow-y: scroll;overflow-x: hidden;">
+                                                    <div id="facilities-container2" class="desc-box">
+                                                        <!-- Facilities will be inserted here by JavaScript -->
+                                                    </div>
+                                                    <div class="desc-box border-all py-2 px-4 bg-grey rounded" style="display: none;">
                                                         <ul>
                                                             {% for facility in combined_info.hotel_info.hotel_facilities %}
                                                             {% if forloop.counter0 > 200 %}
