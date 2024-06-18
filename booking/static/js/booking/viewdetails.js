@@ -12,107 +12,107 @@ function handleClick(event) {
 }
 
 //Bookroom API
-function bookRoom() {
-    var form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/hotelreview/';
-    var roomJsonList = document.getElementById('hide-123').value;
-    var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
-    var parsedJSON1 = JSON.parse(unescapedValue1);
-    var datalist = document.getElementById('data-123').value;
-    var unescapedValue = datalist.replace(/&quot;/g, '"');
-    var parsedJSON = JSON.parse(unescapedValue);
-    var hotelCode = parsedJSON.HotelCode; 
-    var hotelNameInputElement =  document.getElementById('hotelNameContainer').value;
-    if (hotelNameInputElement) {
-        var hotelName = hotelNameInputElement;
-        var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-        var csrfTokenField = document.createElement('input');
-        csrfTokenField.type = 'hidden';
-        csrfTokenField.name = 'csrfmiddlewaretoken';
-        csrfTokenField.value = csrfToken;
-        form.appendChild(csrfTokenField);
-        var roomJsonElement = document.createElement('input');
-        roomJsonElement.type = 'hidden';
-        roomJsonElement.name = 'roomJsonElement';
-        roomJsonElement.value = JSON.stringify(parsedJSON1);
-        form.appendChild(roomJsonElement);
-        var hotelNameField = document.createElement('input');
-        hotelNameField.type = 'hidden';
-        hotelNameField.name = 'hotelName';
-        hotelNameField.value = hotelName;
-        form.appendChild(hotelNameField);
-        var hide123Value = document.createElement('input');
-        hide123Value.type = 'hidden';
-        hide123Value.name = 'hide123Value';
-        hide123Value.value = JSON.stringify(parsedJSON);
-        form.appendChild(hide123Value);
-        var categoryid1 = document.getElementById('categoryid').value;
-        var categoryidField = document.createElement('input');
-        categoryidField.type = 'hidden';
-        categoryidField.name = 'categoryid1';
-        categoryidField.value = categoryid1;
-        form.appendChild(categoryidField);
-        document.body.appendChild(form);
-        form.submit();
-    } else {
-        console.error('Hotel name input element not found.');
-    }
-}
+// function bookRoom() {
+//     var form = document.createElement('form');
+//     form.method = 'POST';
+//     form.action = '/hotelreview/';
+//     var roomJsonList = document.getElementById('hide-123').value;
+//     var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
+//     var parsedJSON1 = JSON.parse(unescapedValue1);
+//     var datalist = document.getElementById('data-123').value;
+//     var unescapedValue = datalist.replace(/&quot;/g, '"');
+//     var parsedJSON = JSON.parse(unescapedValue);
+//     var hotelCode = parsedJSON.HotelCode; 
+//     var hotelNameInputElement =  document.getElementById('hotelNameContainer').value;
+//     if (hotelNameInputElement) {
+//         var hotelName = hotelNameInputElement;
+//         var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+//         var csrfTokenField = document.createElement('input');
+//         csrfTokenField.type = 'hidden';
+//         csrfTokenField.name = 'csrfmiddlewaretoken';
+//         csrfTokenField.value = csrfToken;
+//         form.appendChild(csrfTokenField);
+//         var roomJsonElement = document.createElement('input');
+//         roomJsonElement.type = 'hidden';
+//         roomJsonElement.name = 'roomJsonElement';
+//         roomJsonElement.value = JSON.stringify(parsedJSON1);
+//         form.appendChild(roomJsonElement);
+//         var hotelNameField = document.createElement('input');
+//         hotelNameField.type = 'hidden';
+//         hotelNameField.name = 'hotelName';
+//         hotelNameField.value = hotelName;
+//         form.appendChild(hotelNameField);
+//         var hide123Value = document.createElement('input');
+//         hide123Value.type = 'hidden';
+//         hide123Value.name = 'hide123Value';
+//         hide123Value.value = JSON.stringify(parsedJSON);
+//         form.appendChild(hide123Value);
+//         var categoryid1 = document.getElementById('categoryid').value;
+//         var categoryidField = document.createElement('input');
+//         categoryidField.type = 'hidden';
+//         categoryidField.name = 'categoryid1';
+//         categoryidField.value = categoryid1;
+//         form.appendChild(categoryidField);
+//         document.body.appendChild(form);
+//         form.submit();
+//     } else {
+//         console.error('Hotel name input element not found.');
+//     }
+// }
 
-function bookRoom() {
-    var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
+// function bookRoom() {
+//     var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
     
-    if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
-        var form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/hotelreview/';
-        var roomJsonList = document.getElementById('hide-123').value;
-        var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
-        var parsedJSON1 = JSON.parse(unescapedValue1);
-        var datalist = document.getElementById('data-123').value;
-        var unescapedValue = datalist.replace(/&quot;/g, '"');
-        var parsedJSON = JSON.parse(unescapedValue);
-        var hotelCode = parsedJSON.HotelCode; 
-        var hotelNameInputElement =  document.getElementById('hotelNameContainer').value;
-        if (hotelNameInputElement) {
-            var hotelName = hotelNameInputElement;
-            var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-            var csrfTokenField = document.createElement('input');
-            csrfTokenField.type = 'hidden';
-            csrfTokenField.name = 'csrfmiddlewaretoken';
-            csrfTokenField.value = csrfToken;
-            form.appendChild(csrfTokenField);
-            var roomJsonElement = document.createElement('input');
-            roomJsonElement.type = 'hidden';
-            roomJsonElement.name = 'roomJsonElement';
-            roomJsonElement.value = JSON.stringify(parsedJSON1);
-            form.appendChild(roomJsonElement);
-            var hotelNameField = document.createElement('input');
-            hotelNameField.type = 'hidden';
-            hotelNameField.name = 'hotelName';
-            hotelNameField.value = hotelName;
-            form.appendChild(hotelNameField);
-            var hide123Value = document.createElement('input');
-            hide123Value.type = 'hidden';
-            hide123Value.name = 'hide123Value';
-            hide123Value.value = JSON.stringify(parsedJSON);
-            form.appendChild(hide123Value);
-            var categoryid1 = document.getElementById('categoryid').value;
-            var categoryidField = document.createElement('input');
-            categoryidField.type = 'hidden';
-            categoryidField.name = 'categoryid1';
-            categoryidField.value = categoryid1;
-            form.appendChild(categoryidField);
-            document.body.appendChild(form);
-            form.submit();
-        } else {
-            console.error('Hotel name input element not found.');
-        }
-    } else {
-        $("#log-btn").click();
-    }
-}
+//     if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
+//         var form = document.createElement('form');
+//         form.method = 'POST';
+//         form.action = '/hotelreview/';
+//         var roomJsonList = document.getElementById('hide-123').value;
+//         var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
+//         var parsedJSON1 = JSON.parse(unescapedValue1);
+//         var datalist = document.getElementById('data-123').value;
+//         var unescapedValue = datalist.replace(/&quot;/g, '"');
+//         var parsedJSON = JSON.parse(unescapedValue);
+//         var hotelCode = parsedJSON.HotelCode; 
+//         var hotelNameInputElement =  document.getElementById('hotelNameContainer').value;
+//         if (hotelNameInputElement) {
+//             var hotelName = hotelNameInputElement;
+//             var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+//             var csrfTokenField = document.createElement('input');
+//             csrfTokenField.type = 'hidden';
+//             csrfTokenField.name = 'csrfmiddlewaretoken';
+//             csrfTokenField.value = csrfToken;
+//             form.appendChild(csrfTokenField);
+//             var roomJsonElement = document.createElement('input');
+//             roomJsonElement.type = 'hidden';
+//             roomJsonElement.name = 'roomJsonElement';
+//             roomJsonElement.value = JSON.stringify(parsedJSON1);
+//             form.appendChild(roomJsonElement);
+//             var hotelNameField = document.createElement('input');
+//             hotelNameField.type = 'hidden';
+//             hotelNameField.name = 'hotelName';
+//             hotelNameField.value = hotelName;
+//             form.appendChild(hotelNameField);
+//             var hide123Value = document.createElement('input');
+//             hide123Value.type = 'hidden';
+//             hide123Value.name = 'hide123Value';
+//             hide123Value.value = JSON.stringify(parsedJSON);
+//             form.appendChild(hide123Value);
+//             var categoryid1 = document.getElementById('categoryid').value;
+//             var categoryidField = document.createElement('input');
+//             categoryidField.type = 'hidden';
+//             categoryidField.name = 'categoryid1';
+//             categoryidField.value = categoryid1;
+//             form.appendChild(categoryidField);
+//             document.body.appendChild(form);
+//             form.submit();
+//         } else {
+//             console.error('Hotel name input element not found.');
+//         }
+//     } else {
+//         $("#log-btn").click();
+//     }
+// }
 
 // Skeleton Loader script
 document.addEventListener("DOMContentLoaded", function() {
@@ -357,63 +357,79 @@ window.addEventListener('pageshow', function(event) {
 });
 
 // Book Room Functions
-function bookRoom(uniqueId) {
+// Book Room Function
+function bookRoom(uniqueId, uniqueId2) {
     var hiddenPhoneNumber = document.getElementById('hiddenPhoneNumber');
     
     if (hiddenPhoneNumber && hiddenPhoneNumber.value) {
+        // Creating a form dynamically
         var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/hotelreview/'; // Adjust the action URL as per your backend endpoint
+        
+        // Adding preloader and status display logic
         document.getElementById('preloader').style.display = 'block';
         document.getElementById('status').style.display = 'block';
-        form.method = 'POST';
-        form.action = '/hotelreview/';
+        
+        // Retrieving and processing room JSON list
         var roomJsonList = document.getElementById(uniqueId).value;
         var unescapedValue1 = roomJsonList.replace(/&quot;/g, '"');
         var parsedJSON1 = JSON.parse(unescapedValue1);
+        
+        // Retrieving and processing other data from the page
         var datalist = document.getElementById('data-123').value;
         var unescapedValue = datalist.replace(/&quot;/g, '"');
         var parsedJSON = JSON.parse(unescapedValue);
         
-        var hotelCode = parsedJSON.HotelCode; 
-        var hotelNameInputElement =  document.getElementById('hotelNameContainer').value;
-        if (hotelNameInputElement) {
-            var hotelName = hotelNameInputElement;
-            var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
-            var csrfTokenField = document.createElement('input');
-            csrfTokenField.type = 'hidden';
-            csrfTokenField.name = 'csrfmiddlewaretoken';
-            csrfTokenField.value = csrfToken;
-            form.appendChild(csrfTokenField);
-            var roomJsonElement = document.createElement('input');
-            roomJsonElement.type = 'hidden';
-            roomJsonElement.name = 'roomJsonElement';
-            roomJsonElement.value = JSON.stringify(parsedJSON1);
-            form.appendChild(roomJsonElement);
-            
-            var hotelNameField = document.createElement('input');
-            hotelNameField.type = 'hidden';
-            hotelNameField.name = 'hotelName';
-            hotelNameField.value = hotelName;
-            form.appendChild(hotelNameField);
-            var hide123Value = document.createElement('input');
-            hide123Value.type = 'hidden';
-            hide123Value.name = 'hide123Value';
-            hide123Value.value = JSON.stringify(parsedJSON);
-            form.appendChild(hide123Value);
-            var categoryid1 = document.getElementById('categoryid').value;
-            var categoryidField = document.createElement('input');
-            categoryidField.type = 'hidden';
-            categoryidField.name = 'categoryid1';
-            categoryidField.value = categoryid1;
-            form.appendChild(categoryidField);
-            document.body.appendChild(form);
-            form.submit();
-        } else {
-            console.error('Hotel name input element not found.');
-        }
+        var hotelCode = parsedJSON.HotelCode;
+        var hotelName = document.getElementById('hotelNameContainer').value;
+        var categoryid1 = document.getElementById(uniqueId2).value;
+
+        // Adding CSRF token
+        var csrfToken = document.cookie.match(/csrftoken=([\w-]+)/)[1];
+        var csrfTokenField = document.createElement('input');
+        csrfTokenField.type = 'hidden';
+        csrfTokenField.name = 'csrfmiddlewaretoken';
+        csrfTokenField.value = csrfToken;
+        form.appendChild(csrfTokenField);
+
+        // Adding room JSON element
+        var roomJsonElement = document.createElement('input');
+        roomJsonElement.type = 'hidden';
+        roomJsonElement.name = 'roomJsonElement';
+        roomJsonElement.value = JSON.stringify(parsedJSON1);
+        form.appendChild(roomJsonElement);
+        
+        // Adding hotel name
+        var hotelNameField = document.createElement('input');
+        hotelNameField.type = 'hidden';
+        hotelNameField.name = 'hotelName';
+        hotelNameField.value = hotelName;
+        form.appendChild(hotelNameField);
+
+        // Adding hide123Value
+        var hide123Value = document.createElement('input');
+        hide123Value.type = 'hidden';
+        hide123Value.name = 'hide123Value';
+        hide123Value.value = JSON.stringify(parsedJSON);
+        form.appendChild(hide123Value);
+
+        // Adding categoryid1
+        var categoryidField = document.createElement('input');
+        categoryidField.type = 'hidden';
+        categoryidField.name = 'categoryid1';
+        categoryidField.value = categoryid1;
+        form.appendChild(categoryidField);
+
+        // Appending form to the document body and submitting
+        document.body.appendChild(form);
+        form.submit();
     } else {
-        $("#log-btn-switch").click();
+        // Handling if hiddenPhoneNumber element or its value is not found
+        $("#log-btn-switch").click(); // Triggering a click event on an element with ID 'log-btn-switch'
     }
 }
+
 
 //Preload
 var loader =  document.getElementById("preloader")
@@ -517,25 +533,29 @@ $(document).ready(function() {
 // }
 
 
+// ICONS COLOURED
+
+// const colors = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'];
+
+// facilitiesListItems.forEach(item => {
+//     let iconSet = false;
+//     for (const [facility, icon] of Object.entries(icons)) {
+//         if (item.textContent.toLowerCase().includes(facility)) {
+//             const svgWrapper = document.createElement('span');
+//             svgWrapper.innerHTML = icon;
+//             svgWrapper.style.fill = colors[Math.floor(Math.random() * colors.length)];
+//             item.insertBefore(svgWrapper, item.firstChild);
+//             iconSet = true;
+//             break; // Break once icon is inserted to avoid unnecessary iterations
+//         }
+//     }
+//     if (!iconSet) { // If no icon was set, use the default icon
+//         const svgWrapper = document.createElement('span');
+//         svgWrapper.innerHTML = icons['default'];
+//         svgWrapper.style.fill = colors[Math.floor(Math.random() * colors.length)];
+//         item.insertBefore(svgWrapper, item.firstChild);
+//     }
+// });
 
 
-const value = [
-    {"NoOfAdults": 2, "NoOfChild": 0, "ChildAge": []},
-    {"NoOfAdults": 1, "NoOfChild": 0, "ChildAge": []}
-];
 
-value.forEach((room, index) => {
-    const roomNumber = index + 1;
-    const numberOfAdults = room.NoOfAdults;
-    const numberOfChildren = room.NoOfChild;
-    const childrenText = numberOfChildren > 0 ? ` + ${numberOfChildren} Child` : '';
-
-    const listItem = document.createElement('li');
-    listItem.className = 'pe-1';
-    listItem.innerHTML = `<span class="theme2 fw-bold">Room ${roomNumber}</span> : ${numberOfAdults} Adults${childrenText}`;
-    
-    const roomList = document.getElementById(`roomList_${roomNumber}`);
-    if (roomList) {
-        roomList.appendChild(listItem);
-    }
-});

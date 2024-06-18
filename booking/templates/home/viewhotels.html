@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="description-images mb-4 overflow-hidden border-t pt-2">
+                        <div class="description-images mb-3 overflow-hidden border-t pt-2">
                             <div class="thumbnail-images position-relative">
                                 <div class="slider-store rounded overflow-hidden">
                                     {% for image_url in combined_info.hotel_info.images %}
@@ -118,9 +118,49 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="description mb-3" style="font-size: 14px;">
-                            <h3 class="theme text-uppercase">General</h3>
-                            <p>{{ combined_info.hotel_info.description|safe }}</p>
+                        <div class="">
+                            <div>
+                                <h3 class="mb-2 theme text-uppercase"><span>Rooms</span></h3>
+                            </div>
+                            <div class="room-details hotel-room row" id="listofrooms">
+                                {{ combined_info.room_details_html|safe }}
+                                <!-- <div class="row mx-auto p-2" style="border-radius: 4px;border: 1px solid #029e9d;">
+                                    <div class="col-lg-6" style="border-right: 1px solid #029e9d;">
+                                        <div class="mb-2">
+                                            <p class="theme2 mb-0 fs-5 fw-bold">{count} x {room_name}</p>
+                                            <small class="theme2"><i class="fas fa-bed me-2"></i>{Roomtypedetails}</small>
+                                        </div>
+                                        <div class="r_ul mb-1 bg-grey p-1 px-2 rounded">
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 1</span> : 2 Adults + 2 Chid</li>
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 2</span> : 2 Adults + 2 Chid</li>
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 3</span> : 2 Adults + 2 Chid</li>
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 4</span> : 2 Adults + 2 Chid</li>
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 5</span> : 2 Adults</li>
+                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 6</span> : 2 Adults</li>
+                                        </div>
+                                        <div>
+                                            <p href="#" class="free_can"><i class="fa fa-check me-2"></i>{formatted_date_LastCancellationDate}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 amen_li">
+                                        <p class="theme2 mb-1 fs-5 fw-bold ">Amenities</p>
+                                        <li class="mb-1"><img src="{% static 'image/booking/breakfast.png' %}" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">With Breakfast</li>
+                                        <li class="mb-1"><img src="{% static 'image/booking/cashback.png' %}" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">Refundable</li>
+                                        <div class="mt-1">
+                                            <a href="#" class="theme fw-bold" style="text-decoration: underline;font-size: 14px;">More Details</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-end">
+                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span> 2387</p>
+                                        <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> 2239</p>
+                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span> 1741 taxes &amp; fees</p>
+                                        <p class="mb-0 per_day ms-2 mt-1">{count} Rooms/Night</p>
+                                        <button class="book-btn nir-btn mt-2" onclick="bookRoom('{unique_id}')">
+                                            Book Room
+                                        </button>
+                                    </div>
+                                </div> -->
+                            </div>
                         </div>
                         <div class="description mb-2 border-t pt-1">
                             <div class="row">
@@ -136,7 +176,7 @@
                                                     <div class="row">
                                                         {% endif %}
                                                         <div class="col-md-6 col-sm-6 col-xxs-3 facilities-list">
-                                                            <li class="black mb-1" style="font-size: 14px;">{{ facility }}</li>
+                                                            <li class="black mb-1" style="font-size: 15px;">{{ facility }}</li>
                                                         </div>
                                                         {% if forloop.last %}
                                                     </div>
@@ -182,52 +222,10 @@
                                 </div>
                             </div>
                         </div>
-                       
-                        <div class="pt-4" >
-                            <div>
-                                <h3 class="mb-0 theme text-uppercase"><span>Rooms</span></h3>
-                            </div>
-                            <div class="room-details hotel-room row" id="listofrooms">
-                                {{ combined_info.room_details_html|safe }}
-                                <!-- <div class="row mx-auto p-2" style="border-radius: 4px;border: 1px solid #029e9d;">
-                                    <div class="col-lg-6" style="border-right: 1px solid #029e9d;">
-                                        <div class="mb-2">
-                                            <p class="theme2 mb-0 fs-5 fw-bold">{count} x {room_name}</p>
-                                            <small class="theme2"><i class="fas fa-bed me-2"></i>{Roomtypedetails}</small>
-                                        </div>
-                                        <div class="r_ul mb-1 bg-grey p-1 px-2 rounded">
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 1</span> : 2 Adults + 2 Chid</li>
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 2</span> : 2 Adults + 2 Chid</li>
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 3</span> : 2 Adults + 2 Chid</li>
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 4</span> : 2 Adults + 2 Chid</li>
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 5</span> : 2 Adults</li>
-                                            <li class="pe-1"> <span class="theme2 fw-bold">Room 6</span> : 2 Adults</li>
-                                        </div>
-                                        <div>
-                                            <p href="#" class="free_can"><i class="fa fa-check me-2"></i>{formatted_date_LastCancellationDate}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 amen_li">
-                                        <p class="theme2 mb-1 fs-5 fw-bold ">Amenities</p>
-                                        <li class="mb-1"><img src="{% static 'image/booking/breakfast.png' %}" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">With Breakfast</li>
-                                        <li class="mb-1"><img src="{% static 'image/booking/cashback.png' %}" class="me-2" alt="" style="width: 20px;margin-bottom: 4px;">Refundable</li>
-                                        <div class="mt-1">
-                                            <a href="#" class="theme fw-bold" style="text-decoration: underline;font-size: 14px;">More Details</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <p class="mb-0 price " style="font-size: 14px;text-decoration: line-through;"><span style="font-family:'Poppins,'">₹</span> 2387</p>
-                                        <p class="mb-0 price theme2 fw-bold" style="font-size: 22px;"><span style="font-family:'Poppins,'">₹</span> 2239</p>
-                                        <p class="mb-0 price fw-bold" style="font-size: 14px;"><span style="font-family:'Poppins,'">+ ₹</span> 1741 taxes &amp; fees</p>
-                                        <p class="mb-0 per_day ms-2 mt-1">{count} Rooms/Night</p>
-                                        <button class="book-btn nir-btn mt-2" onclick="bookRoom('{unique_id}')">
-                                            Book Room
-                                        </button>
-                                    </div>
-                                </div> -->
-                            </div>
+                        <div class="description mb-3" style="font-size: 14px;">
+                            <h3 class="theme text-uppercase">General</h3>
+                            <p>{{ combined_info.hotel_info.description|safe }}</p>
                         </div>
-                     
                     </div>
                 </div>
                 <div class="col-lg-4 ps-lg-4">
@@ -272,33 +270,57 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <div class="input-box">
-                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm333.3 95.9l-28.2-28.4c-4.7-4.7-12.3-4.7-17-.1L194.1 364.7l-46-46.4c-4.7-4.7-12.3-4.7-17-.1l-28.4 28.2c-4.7 4.7-4.7 12.3-.1 17l82.6 83.3c4.7 4.7 12.3 4.7 17 .1l143-141.8c4.7-4.7 4.7-12.3 .1-17z"></path></svg>Check In</label>
-                                                    <p>{{ combined_info.hotel_info.check_in_date }}</p>
+                                                <div class="input-box d-flex">
+                                                    <div>
+                                                        <img src="{% static 'image/booking/check-in-desk.png' %}" class="me-2" alt="" style="width: 40px;margin-bottom: 4px;">
+                                                    </div>
+                                                    <div>
+                                                        <label class="  border-b mb-0">Check In</label>
+                                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1">!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm333.3 95.9l-28.2-28.4c-4.7-4.7-12.3-4.7-17-.1L194.1 364.7l-46-46.4c-4.7-4.7-12.3-4.7-17-.1l-28.4 28.2c-4.7 4.7-4.7 12.3-.1 17l82.6 83.3c4.7 4.7 12.3 4.7 17 .1l143-141.8c4.7-4.7 4.7-12.3 .1-17z"></path></svg> -->
+                                                        <p class="black fw-bold pax_det">{{ combined_info.hotel_info.check_in_date }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <div class="input-box">
-                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm257.3 160l48.1-48.1c4.7-4.7 4.7-12.3 0-17l-28.3-28.3c-4.7-4.7-12.3-4.7-17 0L224 306.7l-48.1-48.1c-4.7-4.7-12.3-4.7-17 0l-28.3 28.3c-4.7 4.7-4.7 12.3 0 17l48.1 48.1-48.1 48.1c-4.7 4.7-4.7 12.3 0 17l28.3 28.3c4.7 4.7 12.3 4.7 17 0l48.1-48.1 48.1 48.1c4.7 4.7 12.3 4.7 17 0l28.3-28.3c4.7-4.7 4.7-12.3 0-17L269.3 352z"></path></svg>Check Out</label>
-                                                    <p>{{ combined_info.hotel_info.check_out_date }}</p>
+                                                <div class="input-box d-flex">
+                                                    <div>
+                                                        <img src="{% static 'image/booking/hotel-out.png' %}" class="me-2" alt="" style="width: 40px;margin-bottom: 4px;">
+                                                    </div>
+                                                    <div>
+                                                        <label class="  border-b mb-0">Check Out</label>
+                                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg_icons me-1">!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#000000" d="M436 160H12c-6.6 0-12-5.4-12-12v-36c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48v36c0 6.6-5.4 12-12 12zM12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm257.3 160l48.1-48.1c4.7-4.7 4.7-12.3 0-17l-28.3-28.3c-4.7-4.7-12.3-4.7-17 0L224 306.7l-48.1-48.1c-4.7-4.7-12.3-4.7-17 0l-28.3 28.3c-4.7 4.7-4.7 12.3 0 17l48.1 48.1-48.1 48.1c-4.7 4.7-4.7 12.3 0 17l28.3 28.3c4.7 4.7 12.3 4.7 17 0l48.1-48.1 48.1 48.1c4.7 4.7 12.3 4.7 17 0l28.3-28.3c4.7-4.7 4.7-12.3 0-17L269.3 352z"></path></svg> -->
+                                                        <p class="black fw-bold pax_det">{{ combined_info.hotel_info.check_out_date }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mb-2">
                                             <div class="form-group">
-                                                <div class="input-box">
-                                                    <label class="black text-uppercase fw-bold border-b"><i class='far fa-clock me-2'></i>No Of Nights</label>
-                                                    <p>{{ combined_info.hotel_info.No_of_Night }}</p>
+                                                <div class="input-box d-flex">
+                                                    <div>
+                                                        <img src="{% static 'image/booking/nights.png' %}" class="me-2" alt="" style="width: 40px;margin-bottom: 4px;">
+                                                    </div>
+                                                    <div>
+                                                        <label class="  border-b mb-0">No Of Nights</label>
+                                                        <!-- <i class='far fa-clock me-2'></i> -->
+                                                        <p class="black fw-bold pax_det">{{ combined_info.hotel_info.No_of_Night }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mb-2">
                                             <div class="form-group">
-                                                <div class="input-box">
-                                                    <label class="black text-uppercase fw-bold border-b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg_icons me-1" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM576 272a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM352 477.1c0 19.3 15.6 34.9 34.9 34.9H605.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"></path></svg>Person & Rooms</label>
-                                                    <p>{{ combined_info.hotel_info.guest_details }}</p>
+                                                <div class="input-box d-flex">
+                                                    <div>
+                                                        <img src="{% static 'image/booking/Person Hotel.png' %}" class="me-2" alt="" style="width: 45px;margin-bottom: 4px;">
+                                                    </div>
+                                                    <div>
+                                                        <label class=" border-b mb-0">Person & Rooms</label>
+                                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg_icons me-1" style="width: 22px;">!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#000000" d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM576 272a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM352 477.1c0 19.3 15.6 34.9 34.9 34.9H605.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"></path></svg> -->
+                                                        <p class="black fw-bold pax_det">{{ combined_info.hotel_info.guest_details }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

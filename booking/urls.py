@@ -17,9 +17,6 @@ urlpatterns= [
    path('testpdf/',views.testpdf,name='testpdf'),
    path('mail/',views.mail,name='mail'),
    path('mailsucess/',views.sendemail,name='mailsucess'),
-
    path('download_pdfview/', views.download_pdfview, name='download_pdfview'),
-
    path('verify_pan/', views.verify_pan, name='verify_pan'),
-   path('successtest/', views.successtest, name='successtest'),
 ]
