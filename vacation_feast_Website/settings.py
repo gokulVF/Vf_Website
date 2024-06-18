@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'captcha',
     'booking',
     'payment',
+    'flight',
 
     
 ]
