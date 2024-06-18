@@ -347,7 +347,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": True,
+        "IsTBOMapped": False,
         'ResultCount': 0,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,

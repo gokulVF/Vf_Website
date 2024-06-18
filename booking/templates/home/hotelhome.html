@@ -52,10 +52,10 @@
         <div class="container">
             <div class="banner-in mb-8">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-1">
                         <div class="banner-content text-lg-start text-center">
                             <h4 class="theme mb-0">Explore The World</h4>
-                            <h1>Start Planning Your Dream Trip Today!</h1>
+                            <h2>Start Planning Your Dream Trip Today!</h2>
                             <div class="book-form position-absolute w-100 bg-white shadows p-4 pb-1 z-index1 rounded">
                                 <div class="align-items-center justify-content-between">
                                     <form id="input-sec234" class="row d-flex align-items-center justify-content-between" method="get" action="{% url 'hotellist' %}">
@@ -70,6 +70,7 @@
                                                     <input type="hidden" id="countryCodeInput" name="country_code">
                                                     <i class="icon-time"></i>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="col-lg mb-2">
@@ -365,7 +366,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 mb-4 position-relative slide_div">
+                    <div class="col-lg-6 mb-1 position-relative slide_div">
                         <div class="flight-slider">
                             <div class="row review-slider1">
                                 <div class="col-lg">
@@ -502,6 +503,7 @@
 
     <!-- footer starts -->
     {% include 'home/footer.html' %}
+     <!-- footer ends -->
     
     <!-- *Scripts* -->
     <!-- <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script> -->

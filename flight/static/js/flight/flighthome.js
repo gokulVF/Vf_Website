@@ -1,7 +1,103 @@
+// FLIGHT FROM
+$(function () {
+$("#from").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/search_destinations_flight/",
+            dataType: "json",
+            data: {
+                query: request.term
+            },
+            success: function (data) {
+                response(data.data);
+            }
+        });
+    },
+    minLength: 2,
+    select: function (event, ui) {
+        // Update the hidden input fields with selected values
+        $("#citycodeInput").val(ui.item.cityCode);
+        $("#airportCodeInput").val(ui.item.AirportCode);
+        $("#aircityname").val(ui.item.CityName);
+    }
+});
+});
+
+// FLIGHT TO
+$(function () {
+$("#to").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/search_destinations_flight/",
+            dataType: "json",
+            data: {
+                query: request.term
+            },
+            success: function (data) {
+                response(data.data);
+            }
+        });
+    },
+    minLength: 2,
+    select: function (event, ui) {
+        // Update the hidden input fields with selected values
+        $("#tocitycodeInput").val(ui.item.cityCode);
+        $("#toairportCodeInput").val(ui.item.AirportCode);
+        $("#toaircityname").val(ui.item.CityName);
+    }
+});
+});
+
+// SHOW PAX FORM
+function showPaxForm() {
+    var flightForm = document.getElementById("pas_form")
+    if(flightForm.style.display === "none") {
+        flightForm.style.display = "block";
+    } else {
+        flightForm.style.display = "none"
+    }
+}
 
 
 
- function addFlight() {
+// DATE
+document.addEventListener('DOMContentLoaded', function() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+    var day = ('0' + today.getDate()).slice(-2);
+
+    var todayString = year + '-' + month + '-' + day;
+
+    // Set the default value and minimum date to today for the start date input
+    var startDateInput = document.getElementById('check-in');
+    startDateInput.value = todayString;
+    startDateInput.min = todayString;
+
+    // Set the next date input based on the start date
+    function setNextDate() {
+        var startDate = new Date(startDateInput.value);
+        if (!isNaN(startDate.getTime())) {
+            var nextDate = new Date(startDate);
+            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+
+            var year = nextDate.getFullYear();
+            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+            var day = ('0' + nextDate.getDate()).slice(-2);
+
+            var nextDateString = year + '-' + month + '-' + day;
+            document.getElementById('check-out').value = nextDateString;
+            document.getElementById('check-out').min = nextDateString;
+        }
+    }
+
+    startDateInput.addEventListener('change', setNextDate);
+
+    // Set the initial next date
+    setNextDate(); 
+});
+                                        
+function addFlight() {
     var container = document.getElementById("multitrip-container");
 
     // Create a new flight container
@@ -118,62 +214,40 @@
         newFlight.style.display = "none";
     }
 }
-  
-        // $("input").on("change", function() {
-        // this.setAttribute(
-        //     "data-date",
-        //     moment(this.value, "YYYY-MM-DD")
-        //     .format( this.getAttribute("data-date-format") )
-        // )
-        // }).trigger("change")
- 
-        // function addFlight() {
-        //     var flightAdd = document.getElementById("multitrip-add");
-        //     if(flightAdd.style.display === "none") {
-        //         flightAdd.style.display = "block";
-        //     } else {
-        //         flightAdd.style.display = "none"
-        //     }
-        // }
 
-        function showFlightForm() {
-            var flightForm = document.getElementById("flight_inp_form1")
-            if(flightForm.style.display === "none") {
-                flightForm.style.display = "block";
-            } else {
-                flightForm.style.display = "none"
-            }
-        }
-        function showFlightForm2() {
-            var flightForm = document.getElementById("flight_inp_form2")
-            if(flightForm.style.display === "none") {
-                flightForm.style.display = "block";
-            } else {
-                flightForm.style.display = "none"
-            }
-        }
-        function showForm() {
-            var flightForm = document.getElementById("flight_inp_form3")
-            if(flightForm.style.display === "none") {
-                flightForm.style.display = "block";
-            } else {
-                flightForm.style.display = "none"
-            }
-        }
-        function showForm2() {
-            var flightForm = document.getElementById("flight_inp_form4")
-            if(flightForm.style.display === "none") {
-                flightForm.style.display = "block";
-            } else {
-                flightForm.style.display = "none"
-            }
 
-            var header = document.getElementById("myTab");
-            var btns = header.getElementsByClassName("trip-btn");
-            for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-            });
-        }}
+
+function showFlightForm2() {
+    var flightForm = document.getElementById("flight_inp_form2")
+    if(flightForm.style.display === "none") {
+        flightForm.style.display = "block";
+    } else {
+        flightForm.style.display = "none"
+    }
+}
+
+function showForm() {
+    var flightForm = document.getElementById("flight_inp_form3")
+    if(flightForm.style.display === "none") {
+        flightForm.style.display = "block";
+    } else {
+        flightForm.style.display = "none"
+    }
+}
+function showForm2() {
+    var flightForm = document.getElementById("flight_inp_form4")
+    if(flightForm.style.display === "none") {
+        flightForm.style.display = "block";
+    } else {
+        flightForm.style.display = "none"
+    }
+
+    var header = document.getElementById("myTab");
+    var btns = header.getElementsByClassName("trip-btn");
+    for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+    });
+}}

@@ -27,6 +27,7 @@
     <!--Sales IQ-->
 </head>
 <body>
+    
     <!--header starts-->
     <header class="main_header_area">
     <!--Head Line-->
@@ -90,12 +91,12 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <a class="navbar-brand" href="{% url 'home_page' %}">
-                            <img src="{% static 'image/home/Logo - VF.jpg' %}" class="logo_img" alt="image" style="width: 260px;height:auto;">
+                            <img src="{% static 'image/home/Logo - VF.png' %}" class="logo_img" alt="image" style="width: 100px;height:auto;">
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="navbar-collapse1 d-flex align-items-center" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav nav-head" id="responsive-menu">
+                        <ul class="nav navbar-nav nav-head text-center" id="responsive-menu">
         
                             <li class="focus-nav px-2 ">
                                 <a class="nav-top" href="{% url 'home_page' %}">Home</a>
@@ -280,7 +281,7 @@
         </nav>
     </div>
     <!-- Navigation Bar Ends -->
-</header>
+    </header>
     <!--header ends-->
     
     <!--Active scripts-->
@@ -310,221 +311,218 @@
     
     <!--css-->
     <style>
+    #back-to-top {
+        bottom: 100px  !important;
+    }
+    
+    .slicknav_nav {
+        background: #029e9d !important;
+        top:70px !important;
+    }
+        
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* background: #eeeeee; */
+        z-index: 999999;
+    }
+    
+    #preloader #status {
+        position: fixed;
+        content: "";
+        display: block;
+        top: 50%;
+        left: 50%;
+        width: 30%;
+        height: 300px;
+        margin: 0 auto;
+        background: url("{% static 'image/images/loader-flight.gif' %}" );
+        background-size: cover;
+        background-position: center;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+        visibility: visible;
+        transition: all ease-in-out 0.5s;
+        z-index: 9999999999;
+    }
+    
+    .HeaderSaleLine_saleIcon__pwEFh {
+        display: flex;
+        animation: HeaderSaleLine_animateIcon__69qO3 4s linear infinite;
+        position:absolute;
+    }
+    
+    .ban-theme {
+        background:linear-gradient(240deg, #076cd0, #029e9d) !important;
+    }
+    
+    @keyframes HeaderSaleLine_animateIcon__69qO3 {
+        0% {
+            transform: translateX(0);
+            opacity: .1;
+        }
+        50% {
+            transform: translateX(540px);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(1080px);
+            opacity: .1;
+        }
+    }
+    
+        .logreg_btn {
+        color:#029e9d;
+        border-radius:6px;
+        padding: 6px 12px;
+        font-weight: 500;
+    }
 
- 
-            #back-to-top {
-                bottom: 100px  !important;
-            }
-            
-            .slicknav_nav {
-                background: #029e9d !important;
-                top:70px !important;
-            }
-              
-            #preloader {
-              position: fixed;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              /* background: #eeeeee; */
-              z-index: 999999;
-            }
-            
-            #preloader #status {
-              position: fixed;
-              content: "";
-              display: block;
-              top: 50%;
-              left: 50%;
-              width: 30%;
-              height: 300px;
-              margin: 0 auto;
-              background: url("{% static 'image/images/loader-flight.gif' %}" );
-              background-size: cover;
-              background-position: center;
-              opacity: 1;
-              transform: translate(-50%, -50%);
-              visibility: visible;
-              transition: all ease-in-out 0.5s;
-              z-index: 9999999999;
-            }
-            
-            .HeaderSaleLine_saleIcon__pwEFh {
-                display: flex;
-                animation: HeaderSaleLine_animateIcon__69qO3 4s linear infinite;
-                position:absolute;
-            }
-            
-            .ban-theme {
-                background:linear-gradient(240deg, #076cd0, #029e9d) !important;
-            }
-            
-            @keyframes HeaderSaleLine_animateIcon__69qO3 {
-                0% {
-                    transform: translateX(0);
-                    opacity: .1;
-                }
-                50% {
-                    transform: translateX(540px);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateX(1080px);
-                    opacity: .1;
-                }
-            }
-            
-             .logreg_btn {
-                color:#029e9d;
-                border-radius:6px;
-                padding: 6px 12px;
-                font-weight: 500;
-            }
-        
-            .fab-icon {
-                font-size:20px !important;
-            }
-        
-            .nav-head li .nav-top {
-                font-weight: 600 !important;
-                font-size: 17px !important;
-            }
-        
-            .dropdown:hover >.dropdown-menu{
-                display: block !important;
-            }
-        
-            #des1:hover #deslist1 {
-                display: block;
-            }  #deslist1  {
-               display: none;
-            }
-        
-            #des2:hover #deslist2 {
-                display: block;
-            }  #deslist2  {
-               display: none;
-            }
-        
-            #des3:hover #deslist3 {
-                display: block;
-            }  #deslist3  {
-               display: none;
-            }
-            
-            #des4:hover #deslist4 {
-                display: block;
-            }  #deslist4 {
-               display: none;
-            }
-        
-            #des5:hover #deslist5 {
-                display: block;
-            }  #deslist5  {
-               display: none;
-            }
-        
-            #des6:hover #deslist6 {
-                display: block;
-            }  #deslist6  {
-               display: none;
-            }
-        
-            #domdes1:hover #domdeslist1 {
-                display: block;
-            }  #domdeslist1  {
-               display: none;
-            }
-        
-            #domdes2:hover #domdeslist2 {
-                display: block;
-            }  #domdeslist2  {
-               display: none;
-            }
-        
-            #domdes3:hover #domdeslist3 {
-                display: block;
-            }  #domdeslist3  {
-               display: none;
-            }
-        
-            #domdes4:hover #domdeslist4 {
-                display: block;
-            }  #domdeslist4  {
-               display: none;
-            }
-        
-            .dropdown-menu li a {
-                color: #777 !important;
-            }
-        
-            .dropdown-menu li a:hover {
-                color: white !important;
-            }
+    .fab-icon {
+        font-size:20px !important;
+    }
 
-            .siq_bR{
-            right:78px;
-            bottom: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            #preloader #status {
-                width:70% !important;
-            }
-        }
-        
-         @media screen and (min-width: 1100px) and (max-width: 1399px) { 
-            .logo_img {
-               width:170px !important;
-            }
-          
+    .nav-head li .nav-top {
+        font-weight: 600 !important;
+        font-size: 16px !important;
+    }
+
+    .dropdown:hover >.dropdown-menu{
+        display: block !important;
+    }
+
+    #des1:hover #deslist1 {
+        display: block;
+    }  #deslist1  {
+        display: none;
+    }
+
+    #des2:hover #deslist2 {
+        display: block;
+    }  #deslist2  {
+        display: none;
+    }
+
+    #des3:hover #deslist3 {
+        display: block;
+    }  #deslist3  {
+        display: none;
+    }
+    
+    #des4:hover #deslist4 {
+        display: block;
+    }  #deslist4 {
+        display: none;
+    }
+
+    #des5:hover #deslist5 {
+        display: block;
+    }  #deslist5  {
+        display: none;
+    }
+
+    #des6:hover #deslist6 {
+        display: block;
+    }  #deslist6  {
+        display: none;
+    }
+
+    #domdes1:hover #domdeslist1 {
+        display: block;
+    }  #domdeslist1  {
+        display: none;
+    }
+
+    #domdes2:hover #domdeslist2 {
+        display: block;
+    }  #domdeslist2  {
+        display: none;
+    }
+
+    #domdes3:hover #domdeslist3 {
+        display: block;
+    }  #domdeslist3  {
+        display: none;
+    }
+
+    #domdes4:hover #domdeslist4 {
+        display: block;
+    }  #domdeslist4  {
+        display: none;
+    }
+
+    .dropdown-menu li a {
+        color: #777 !important;
+    }
+
+    .dropdown-menu li a:hover {
+        color: white !important;
+    }
+
+    .siq_bR{
+    right:78px;
+    bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    #preloader #status {
+        width:70% !important;
+    }
+}
+
+    @media screen and (min-width: 1100px) and (max-width: 1399px) { 
+    .logo_img {
+        width:170px !important;
+    }
+    
+}
+
+@media screen and (min-width: 1087px) and (max-width: 1200px) { 
+    .navbar-nav {
+        margin-left: -70px;
+    }
+    
+}
+    
+    @media (max-width: 1098px)  {
+        .dropdown-menu li a {
+        color: #fff !important;
         }
 
-        @media screen and (min-width: 1087px) and (max-width: 1200px) { 
-            .navbar-nav {
-                margin-left: -70px;
-            }
-          
+    .slicknav_nav {
+        height: auto !important;
         }
-            
-            @media (max-width: 1098px)  {
-                .dropdown-menu li a {
-                color: #fff !important;
-                }
-        
-            .slicknav_nav {
-                height: auto !important;
-                }
-            }
-            
-              @media (max-width: 490px)  {
-            
-            .logreg_btn{
-                font-size: 12px !important;
-            }  
+    }
+    
+        @media (max-width: 490px)  {
+    
+    .logreg_btn{
+        font-size: 12px !important;
+    }  
 
-            .user_mbl {
-                display: none;
-            }
-        }
-            
-            
-            @media screen and (min-width: 1100px) and (max-width: 1399px) { 
-            .header_menu .navbar.navbar-default .nav.navbar-nav li a {
-                font-size:13px !important;
-            }
-            
-            .register-login button {
-                font-size: 13px !important;
-                padding: 0px !important;
-            }
-        }
+    .user_mbl {
+        display: none;
+    }
+}
+    
+    
+    @media screen and (min-width: 1100px) and (max-width: 1399px) { 
+    .header_menu .navbar.navbar-default .nav.navbar-nav li a {
+        font-size:13px !important;
+    }
+    
+    .register-login button {
+        font-size: 13px !important;
+        padding: 0px !important;
+    }
+}
     </style>
     <!--css-->
     
     <script>
-        
     (function (w, d, s, u) {
         w.gbwawc = {
             url: u,
@@ -548,6 +546,5 @@
     })(window, document, "script", "https://waw.gallabox.com");
     
     </script>
-    
 </body>
 
