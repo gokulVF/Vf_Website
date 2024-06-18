@@ -46,7 +46,8 @@ def homepage(request):
     return render(request, 'flight/flighthomepage.html')
 def flightpdf(request):
     return render(request, 'flight/flightpdf.html')
-
+def staticpage(request):
+    return render(request, 'flight/flight-list.html')
 
 
 def search_destinations_flight(request):
@@ -78,6 +79,8 @@ def one_trip(request):
         ToAirportCode = request.GET.get('toAirportCode', '')
         from_onetrip = request.GET.get('from-one-trip', '')
         to_onetrip = request.GET.get('to-one-trip', '')  # Corrected variable name
+        from_city_code = request.GET.get('from_city_code', '') 
+        to_city_code = request.GET.get('to_city_code', '')
         fromcityname = request.GET.get('fromcityname', '')
         tocityname = request.GET.get('tocityname','')
         Departure_date_onetrip = request.GET.get('check-in', '')
@@ -103,15 +106,12 @@ def one_trip(request):
 
         # guest_details = f"{no_of_adults} Adults,{no_of_chaild} Childs,{no_of_infant} Infant"
         
-        date_object = datetime.strptime(Departure_date_onetrip, '%d %B %Y')
+        format_check_in_date = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d").strftime("%d %b %Y")
+        check_in_date = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d")
+        formatted_check_in_date = check_in_date.strftime('%d/%m/%Y')
+        print(formatted_check_in_date)
 
-# Convert datetime object to desired format
-        formatted_date = date_object.strftime('%Y-%m-%dT%H:%M:%S')
-        # input_date = datetime.strptime(Departure_date_onetrip, '%Y-%m-%d')
-        # Departuredateonetrip = input_date.strftime('%Y-%m-%dT%H:%M:%S')
-        # print("output :",Departuredateonetrip)
-
-        print(fromcityname,tocityname,formatted_date )
+        print(fromcityname,tocityname,format_check_in_date )
 
         DirectFlight_bool = DirectFlight.lower() == "true"
         print(DirectFlight_bool)
@@ -170,8 +170,8 @@ def one_trip(request):
                         'Origin': f"{FromAirportCode}",
                         'Destination': f"{ToAirportCode}",
                         'FlightCabinClass': f"{one_trip_class}",
-                        'PreferredDepartureTime':  formatted_date,
-                        'PreferredArrivalTime':  formatted_date,
+                        'PreferredDepartureTime':  format_check_in_date,
+                        'PreferredArrivalTime':  format_check_in_date,
                     }
                 ]
                 
@@ -204,7 +204,7 @@ def one_trip(request):
                             min_price = 0
                             max_price = 1
                             error_message = 'No flight available'
-                            return render(request, 'flight/oneway.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'date_object':date_object})
+                            return render(request, 'flight/oneway.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'date_object':formatted_check_in_date})
                         else:
                             # valid_prices = [price for price in flight_prices if price is not None]
                             min_price = min(valid_prices)
@@ -213,8 +213,8 @@ def one_trip(request):
 
                             error_message = None
                             return render(request, 'flight/oneway.html', {'flight_info': flight_info, 'flight_class': one_trip_class,'FLight_list':FLight_list,
-                                                'fromAircode': FromAirportCode, 'toAircode': ToAirportCode,'token_id': token_id,
-                                                'fromcityname': fromcityname, 'tocityname':tocityname,'max_price':max_price,'min_price':min_price,'Departure_date':Departure_date_onetrip,'NoOfAdults':numadult,'NoOfChild':numchaild,'NoOfInfant':numinfant,'date_object':date_object})                   
+                                                'fromAircode': FromAirportCode, 'toAircode': ToAirportCode,'token_id': token_id,"from_city_code":from_city_code,"to_city_code":to_city_code,
+                                                'fromcityname': fromcityname, 'tocityname':tocityname,'max_price':max_price,'min_price':min_price,'Departure_date':formatted_check_in_date,'NoOfAdults':numadult,'NoOfChild':numchaild,'NoOfInfant':numinfant,'date_object':date_object})                   
                     else:
                         error_message = "Flight information is not in the expected format"
                         return render(request, 'flight/error.html', {'error_message': error_message})

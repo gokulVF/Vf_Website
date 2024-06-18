@@ -12,9 +12,4 @@ urlpatterns= [
    path('one_trip_reviewpage/',views.one_trip_reviewpage,name="one_trip_reviewpage"),
    path('onetrip_book/',views.onetrip_book,name="onetrip_book"),
    path('flightpdf/',views.flightpdf, name="flightpdf"),
- 
-
-
-   
-   
 ]
