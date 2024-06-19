@@ -24,6 +24,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
     <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
+
+
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -66,40 +72,40 @@
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                                <form id="one-trip" method="GET" action="{% url 'one_trip' %}" onsubmit="return validateForm()">
+                                                <form id="one-trip" method="GET" action="{% url 'one_trip' %}">
                                                     {% csrf_token %}
                                                     <div class="row d-flex align-items-center justify-content-between">
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>FROM</label>
-                                                                    <input type="text" id="from" class="f-inp" placeholder="Enter The City" name="from-one-trip">
+                                                                    <input type="text" id="onetripfrom" class="f-inp" placeholder="Enter The City" name="from-one-trip">
                                                                     <input type="hidden" id="citycodeInput" name="from_city_code">
                                                                     <input type="hidden" id="airportCodeInput" name="fromAirportCode">
                                                                     <input type="hidden" id="aircityname" name="fromcityname">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>TO</label>
-                                                                    <input type="text" id="to" class="f-inp" placeholder="Enter The City" name="to-one-trip">
+                                                                    <input type="text" id="onetripto" class="f-inp" placeholder="Enter The City" name="to-one-trip">
                                                                     <input type="hidden" id="tocitycodeInput" name="to_city_code">
                                                                     <input type="hidden" id="toairportCodeInput" name="toAirportCode">
                                                                     <input type="hidden" id="toaircityname" name="tocityname">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>DEPARTURE DATE</label>
-                                                                    <input type="date" class="f-inp" name="Depart" id="check-in">
+                                                                    <input type="date" class="f-inp" name="check-in" id="check-in">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>RETURN DATE</label>
@@ -107,23 +113,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>TRAVELLER & CLASS</label>
-                                                                    <input type="text" class="f-inp" placeholder="Travellers & Class" onclick="showPaxForm()">
+                                                                    <input type="text" readonly class="f-inp" placeholder="Travellers & Class" id="pasInput" onclick="showOnePaxForm()">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group mb-0 text-center">
                                                                 <label class="mb-3"></label>
-                                                                <a href="#" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
-                                                                    Now</a>
+                                                                <button type="submit" class="nir-btn w-100" id="btn-search" onclick="submitOneTripForm()"><i class="fa fa-search me-2"></i> Search Now</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row border-t pt-1">
                                                         <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
                                                             <p class="mb-0 me-3">Special Fares:</p>
                                                             <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
@@ -134,34 +139,88 @@
                                                             <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
                                                         </div>
                                                         <div class="col-lg-6 form-check form-switch">
-                                                            <label class="fw-bold black ms-2 mb-0" for="flexSwitchCheckDefault">Direct Flight</label>
-                                                            <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                            <label class="ms-2 mb-0 fw-bold" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                                            <input class="form-check-input t_input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                             <input type="hidden" id="resultValue" value="" name="resultdir">
+                                                        </div>
+                                                    </div>
+                                                    <div id="pas_form_onetrip" class="pas_form1 pas_form container row">
+                                                        <div class="bg-white shadows ms-auto p-3 pas_div">
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                                                <select class="f-inp-form" name="Adults" id="Adult_inp">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                          
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                                                <select class="f-inp-form" name="Childs" id="Child_inp">
+                                                                    <option value="0">Select</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                                    <option value="0">Select</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
+                                                                <select class="f-inp-form" name="classes">
+                                                                    <option selected value="1">All</option>
+                                                                    <option value="2">Econamy</option>
+                                                                    <option value="3">PremiumEconomy</option>
+                                                                    <option value="4">Business</option>
+                                                                    <option value="5">PremiumBusiness</option>
+                                                                    <option value="6">First</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="pt-2 border-t text-center">
+                                                                <button class="nir-btn px-5 rounded-pill py-1" type="button" onclick="hideOneTripForm()">Apply</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                <form id="round-trip" method="GET" action="{% url 'round_trip'%}" onsubmit="return validateForm()">
+                                                <form id="round-trip" method="GET" action="{% url 'round_trip'%}" onsubmit="return validateRoundTripForm()">
                                                     {% csrf_token %}
                                                     <div class="row d-flex align-items-center justify-content-between">
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>FROM</label>
-                                                                    <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
+                                                                    <input type="text" class="f-inp" id="roundtripfrom" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>TO</label>
-                                                                    <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
+                                                                    <input type="text" class="f-inp" id="roundtripto" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>DEPARTURE DATE</label>
@@ -169,7 +228,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>RETURN DATE</label>
@@ -177,23 +236,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group">
                                                                 <div class="input-box">
                                                                     <label>TRAVELLER & CLASS</label>
-                                                                    <input type="text" class="f-inp" placeholder="Travellers & Class" onclick="showRoundPaxForm()">
+                                                                    <input type="text" class="f-inp" placeholder="Travellers & Class" id="pasInput_rt" onclick="showRoundPaxForm()">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg mb-2">
+                                                        <div class="col-lg mb-1">
                                                             <div class="form-group mb-0 text-center">
                                                                 <label class="mb-3"></label>
-                                                                <a href="#" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
-                                                                    Now</a>
+                                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search Now</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row border-t pt-1">
                                                         <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
                                                             <p class="mb-0 me-3">Special Fares:</p>
                                                             <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
@@ -204,9 +262,63 @@
                                                             <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
                                                         </div>
                                                         <div class="col-lg-6 form-check form-switch">
-                                                            <label class="fw-bold black ms-2 mb-0" for="flexSwitchCheckDefault">Direct Flight</label>
-                                                            <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                            <label class="ms-2 mb-0 fw-bold" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                                            <input class="form-check-input t_input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                             <input type="hidden" id="resultValue" value="" name="resultdir">
+                                                        </div>
+                                                    </div>
+                                                    <div id="pas_form_roundtrip" class="pas_form2 pas_form container row">
+                                                        <div class="bg-white shadows ms-auto p-3 pas_div">
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                                                <select class="f-inp-form" name="Adults" id="Adult_inp_rt">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                          
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                                                <select class="f-inp-form" name="Childs" id="Child_inp_rt">
+                                                                    <option value="0">Select</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                                                <select class="f-inp-form" name="Infants" id="Infant_inp_rt">
+                                                                    <option value="0">Select</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
+                                                                <select class="f-inp-form">
+                                                                    <option selected value="1">All</option>
+                                                                    <option value="2">Econamy</option>
+                                                                    <option value="3">PremiumEconomy</option>
+                                                                    <option value="4">Business</option>
+                                                                    <option value="5">PremiumBusiness</option>
+                                                                    <option value="6">First</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="pt-2 border-t text-center">
+                                                                <button class="nir-btn px-5 rounded-pill py-1" type="button" onclick="hideRoundTripForm()">Apply</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -229,60 +341,6 @@
                                 <div class="col-lg">
                                     <img src="{% static 'image/flight/flight-3.jpg' %}" alt="" class="rounded h-600">
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="pas_form" class="pas_form container row">
-                        <div class="bg-white shadows ms-auto p-3 pas_div">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
-                                <select class="f-inp-form" name="Adults" id="Adult_inp">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                          
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
-                                <select class="f-inp-form" name="Childs" id="Child_inp">
-                                    <option value="0">Select</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
-                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                    <option value="0">Select</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
-                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                    <option selected value="1">All</option>
-                                    <option value="2">Econamy</option>
-                                    <option value="3">PremiumEconomy</option>
-                                    <option value="4">Business</option>
-                                    <option value="5">PremiumBusiness</option>
-                                    <option value="6">First</option>
-                                </select>
-                            </div>
-                            <div class="pt-2 border-t text-center">
-                                <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -365,14 +423,25 @@
     
 
     <!-- *Scripts* -->
-    <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
-    <script src="{% static 'js/home/bootstrap.min.js' %}"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+
+
+
+    <!-- <script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/home/bootstrap.min.js' %}"></script> -->
     <script src="{% static 'js/home/particles.js' %}"></script>
     <script src="{% static 'js/home/particlerun.js' %}"></script>
     <script src="{% static 'js/home/plugin.js' %}"></script>
     <script src="{% static 'js/home/main.js' %}"></script>
     <script src="{% static 'js/home/custom-nav.js' %}"></script>
+
     <script src="{% static 'js/flight/flighthome.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 
 
 </body>

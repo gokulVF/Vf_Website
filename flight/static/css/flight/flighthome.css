@@ -24,6 +24,17 @@
     border: 1px solid #029e9d !important;
 }
 
+.t_input {
+    width: 40px;
+    height: 20px;
+    border: 2px solid #029e9d;
+}
+
+.t_input:checked {
+  background-color: #029e9d;
+  border-color: #029e9d;
+}
+
 .nav-pills .nav-link.active {
     background: #029e9d;
 }
@@ -35,8 +46,15 @@
 .pas_form {
     position: absolute;
     z-index: 9;
-    top: 430px;
+    top: 80px;
     right: 190px;
+}
+
+.pas_form1 {
+    display: none;
+}
+
+.pas_form2 {
     display: none;
 }
 
@@ -51,4 +69,26 @@
     .slide_div {
         display: none;
     }
+}
+
+
+.ui-autocomplete {
+    z-index: 1050;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    background: #ffffff;
+    border-radius: 12px;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: scroll;
+    scrollbar-width: 10px;
+    overflow-x: hidden;
+    font-size: 13px;
+    position: relative;
+}
+
+.ui-menu-item {
+    padding: 3px 0px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
 }

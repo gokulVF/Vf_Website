@@ -1,56 +1,69 @@
-// FLIGHT FROM
+// FLIGHT CITY SEARCH
 $(function () {
-$("#from").autocomplete({
-    source: function (request, response) {
-        $.ajax({
-            url: "/search_destinations_flight/",
-            dataType: "json",
-            data: {
-                query: request.term
-            },
-            success: function (data) {
-                response(data.data);
+    var fromCityCode = '';
+    $("#onetripfrom").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    response(data.data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            fromCityCode = ui.item.cityCode;
+            $("#citycodeInput").val(ui.item.cityCode);
+            $("#airportCodeInput").val(ui.item.AirportCode);
+            $("#aircityname").val(ui.item.CityName);
+            
+            // Clear TO input when FROM input changes
+            $("#onetripto").val('');
+            $("#tocitycodeInput").val('');
+            $("#toairportCodeInput").val('');
+            $("#toaircityname").val('');
+        }
+    });
+
+    $("#onetripto").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    // Filter out the city that is selected in the "FROM" input
+                    var filteredData = data.data.filter(function(item) {
+                        return item.cityCode !== fromCityCode;
+                    });
+                    response(filteredData);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            if (ui.item.cityCode === fromCityCode) {
+                alert("The destination city cannot be the same as the departure city.");
+                event.preventDefault();
+                $(this).val('');
+                return false;
             }
-        });
-    },
-    minLength: 2,
-    select: function (event, ui) {
-        // Update the hidden input fields with selected values
-        $("#citycodeInput").val(ui.item.cityCode);
-        $("#airportCodeInput").val(ui.item.AirportCode);
-        $("#aircityname").val(ui.item.CityName);
-    }
-});
+            $("#tocitycodeInput").val(ui.item.cityCode);
+            $("#toairportCodeInput").val(ui.item.AirportCode);
+            $("#toaircityname").val(ui.item.CityName);
+        }
+    });
 });
 
-// FLIGHT TO
-$(function () {
-$("#to").autocomplete({
-    source: function (request, response) {
-        $.ajax({
-            url: "/search_destinations_flight/",
-            dataType: "json",
-            data: {
-                query: request.term
-            },
-            success: function (data) {
-                response(data.data);
-            }
-        });
-    },
-    minLength: 2,
-    select: function (event, ui) {
-        // Update the hidden input fields with selected values
-        $("#tocitycodeInput").val(ui.item.cityCode);
-        $("#toairportCodeInput").val(ui.item.AirportCode);
-        $("#toaircityname").val(ui.item.CityName);
-    }
-});
-});
-
-// SHOW PAX FORM
-function showPaxForm() {
-    var flightForm = document.getElementById("pas_form")
+// SHOW PAX FORM - ONE TRIP
+function showOnePaxForm() {
+    var flightForm = document.getElementById("pas_form_onetrip")
     if(flightForm.style.display === "none") {
         flightForm.style.display = "block";
     } else {
@@ -58,7 +71,37 @@ function showPaxForm() {
     }
 }
 
-// DATE
+// HIDE PAX FORM - ONE TRIP
+function hideOneTripForm() {
+    var x = document.getElementById("pas_form_onetrip");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+// SHOW PAX FORM - ROUND TRIP
+function showRoundPaxForm() {
+    var flightForm = document.getElementById("pas_form_roundtrip")
+    if(flightForm.style.display === "none") {
+        flightForm.style.display = "block";
+    } else {
+        flightForm.style.display = "none"
+    }
+}
+
+// HIDE PAX FORM - ROUND TRIP
+function hideRoundTripForm() {
+    var x = document.getElementById("pas_form_roundtrip");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+// DATE - ONE TRIP
 document.addEventListener('DOMContentLoaded', function() {
     var today = new Date();
     var year = today.getFullYear();
@@ -84,8 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var day = ('0' + nextDate.getDate()).slice(-2);
 
             var nextDateString = year + '-' + month + '-' + day;
-            document.getElementById('check-out').value = nextDateString;
-            document.getElementById('check-out').min = nextDateString;
         }
     }
 
@@ -132,162 +173,133 @@ document.addEventListener('DOMContentLoaded', function() {
     setNextDate(); 
 });
 
+// FORM - ADULT COUNT - ONE TRIP
+document.addEventListener('DOMContentLoaded', function () {
+    // Get select elements
+    const adultSelect = document.getElementById('Adult_inp');
+    const childSelect = document.getElementById('Child_inp');
+    const infantSelect = document.getElementById('Infant_inp');
 
+    // Get input element
+    const pasInput = document.getElementById('pasInput');
 
+    // Update input value function
+    function updateInputValue() {
+        const adults = adultSelect.value;
+        const children = childSelect.value;
+        const infants = infantSelect.value;
+        pasInput.value = `${adults} Adults, ${children} Child, ${infants} Infant`;
+    }
 
+    // Listen for changes in select elements
+    adultSelect.addEventListener('change', updateInputValue);
+    childSelect.addEventListener('change', updateInputValue);
+    infantSelect.addEventListener('change', updateInputValue);
 
+    // Initial update
+    updateInputValue();
+});
 
+// FORM - ADULT COUNT - ROUND TRIP
+document.addEventListener('DOMContentLoaded', function () {
+    // Get select elements
+    const adultSelect = document.getElementById('Adult_inp_rt');
+    const childSelect = document.getElementById('Child_inp_rt');
+    const infantSelect = document.getElementById('Infant_inp_rt');
 
-                                        
-function addFlight() {
-    var container = document.getElementById("multitrip-container");
+    // Get input element
+    const pasInput = document.getElementById('pasInput_rt');
 
-    // Create a new flight container
-    var newFlight = document.createElement("div");
-    newFlight.className = "multitrip-container-item";
-    newFlight.style.display = "none";
+    // Update input value function
+    function updateInputValue() {
+        const adults = adultSelect.value;
+        const children = childSelect.value;
+        const infants = infantSelect.value;
+        pasInput.value = `${adults} Adults, ${children} Child, ${infants} Infant`;
+    }
 
-    // Your existing code for the flight input fields (copy and paste from the original code)
-    newFlight.innerHTML = `<div class="d-flex col-md-12">
-                                        <fieldset class="scheduler-border col-md-3">
-                                            <legend class="scheduler-border">From</legend>
-                                            <div class="control-group">
-                                                <div class="controls bootstrap-timepicker">
-                                                    <input type="text"  id="from" placeholder="Enter The City" style="font-size: 14px;">
-                                                    <i class="icon-time"></i>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="scheduler-border col-md-2">
-                                            <legend class="scheduler-border">To</legend>
-                                            <div class="control-group">
-                                                <div class="controls bootstrap-timepicker">
-                                                    <input type="text" id="to" placeholder="Enter The City" style="font-size: 14px;">
-                                                    <i class="icon-time"></i>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="scheduler-border col-md-2">
-                                            <legend class="scheduler-border">Departure</legend>
-                                            <div class="control-group">
-                                                <div class="controls bootstrap-timepicker">
-                                                    <input type="date" id="checkOutDate"  class="check" data-date="" data-date-format="DD MMMM YYYY" value="2023-12-23" style="font-size: 14px;">
-                                                    <i class="icon-time"></i>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="scheduler-border col-md-1 mb-3">
-                                            <legend class="scheduler-border">Class</legend>
-                                            <div class="control-group">
-                                                <div class="controls bootstrap-timepicker">
-                                                    <select style="border: none;padding: 2px 3px;" name= "classes">
-                                                        <option value="All">All</option>
-                                                        <option selected value="Econamy">Econamy</option>
-                                                        <option value="Business">Business</option>
-                                                        <option value="First">First</option>
-                                                    </select>
-                                                    <i class="icon-time"></i>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="scheduler-border col-md-3 mb-3">
-                                            <legend class="scheduler-border">Travellers & Class</legend>
-                                            <div class="control-group">
-                                                <div class="controls bootstrap-timepicker">
-                                                    <input type="text" placeholder="1 Room & 0 Adults" id="room" style="font-size: 14px;" onclick="showForm2()">
-                                                    <input type="hidden" id="roomInfoInput" name="roomInfo">
-                                                    <input type="hidden" id="totalRoomInfoInput" name="totalRoomInfo">
-                                                    <i class="icon-time"></i>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <div id="flight_inp_form4" >
-                                            <div class="inp-form" >
-                                                <div class="d-flex">
-                                                    <div class="col_1">
-                                                        <label for="Adults">Adults</label>
-                                                        <select name="Adults" id="Adult_inp">
-                                                            <option value="0">Select</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col_1"> 
-                                                        <label for="Child">Child</label>
-                                                        <select name="Childs" id="Child_inp">
-                                                            <option value="0">Select</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col_1">
-                                                        <label for="Infant">Infant</label>
-                                                        <select name="Infants" id="Adult_inp">
-                                                            <option value="0">Select</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    `;
+    // Listen for changes in select elements
+    adultSelect.addEventListener('change', updateInputValue);
+    childSelect.addEventListener('change', updateInputValue);
+    infantSelect.addEventListener('change', updateInputValue);
 
-    // Append the new flight container to the main container
-    container.appendChild(newFlight);
+    // Initial update
+    updateInputValue();
+});
 
-    // Toggle the display of the new flight container
-    if (newFlight.style.display === "none") {
-        newFlight.style.display = "block";
-    } else {
-        newFlight.style.display = "none";
+// VALIDATE FORM - ONE TRIP
+function validateOneTripForm() {
+    var from = document.getElementById("onetripfrom").value;
+    var to = document.getElementById("onetripto").value;
+    if (from === "") {
+        alert("Please Enter From");
+        return false; // Prevent form submission
+    } 
+        if (to === "") {
+        alert("Please Enter To");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+// SUBMIT FORM
+function submitOneTripForm() {
+    if(validateOneTripForm()){
+        document.getElementById("one-trip").submit();
+       console.log("submitted ot")
     }
 }
 
-function showFlightForm2() {
-    var flightForm = document.getElementById("flight_inp_form2")
-    if(flightForm.style.display === "none") {
-        flightForm.style.display = "block";
-    } else {
-        flightForm.style.display = "none"
-    }
-}
-
-function showForm() {
-    var flightForm = document.getElementById("flight_inp_form3")
-    if(flightForm.style.display === "none") {
-        flightForm.style.display = "block";
-    } else {
-        flightForm.style.display = "none"
-    }
-}
-function showForm2() {
-    var flightForm = document.getElementById("flight_inp_form4")
-    if(flightForm.style.display === "none") {
-        flightForm.style.display = "block";
-    } else {
-        flightForm.style.display = "none"
+// VALIDATE FORM  - ROUND TRIP
+function validateRoundTripForm() {
+    var from = document.getElementById("roundtripfrom").value;
+    var to = document.getElementById("roundtripto").value;
+    if (from === "") {
+        alert("Please Enter From");
+        return false; // Prevent form submission
+    } 
+        if (to === "") {
+        alert("Please Enter To");
+        return false; // Prevent form submission
     }
 
-    var header = document.getElementById("myTab");
-    var btns = header.getElementsByClassName("trip-btn");
-    for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
+    return true; // Allow form submission
+}
+
+// DIRECT FLIGHTS FUNCTION - ONE TRIP
+ var checkbox = document.getElementById("flexSwitchCheckDefault");
+ var resultInput = document.getElementById("resultValue");
+
+ function updateResult() {
+     var formattedValue = checkbox.checked ? "True" : "False";
+     resultInput.value = formattedValue;
+     console.log("DirectFlight is now: " + formattedValue);
+ }
+
+ // Add an event listener to detect changes
+ checkbox.addEventListener("change", updateResult);
+
+ updateResult();
+
+
+//  CHECK FARES FUNCTION
+ document.addEventListener('DOMContentLoaded', function() {
+    // Function to update the hidden input
+    function updateHiddenInput() {
+        const selectedFare = document.querySelector('input[name="fav_language"]:checked').value;
+        document.getElementById('selectedFare').value = selectedFare;
+    }
+
+    // Get all radio buttons
+    const radioButtons = document.querySelectorAll('input[name="fav_language"]');
+
+    // Add event listener to each radio button
+    radioButtons.forEach(function(radio) {
+        radio.addEventListener('change', updateHiddenInput);
     });
-}}
+
+    // Initialize hidden input with the default checked value
+    updateHiddenInput();
+});
+

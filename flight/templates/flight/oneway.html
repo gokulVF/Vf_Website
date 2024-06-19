@@ -166,8 +166,7 @@
                                         <div class="col-lg mb-2">
                                             <div class="form-group mb-0 text-center">
                                                 <label class="mb-3"></label>
-                                                <a href="#" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
-                                                    Now</a>
+                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify</button>
                                             </div>
                                         </div>
                                     </div>
@@ -182,9 +181,63 @@
                                             <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
                                         </div>
                                         <div class="col-lg-6 form-check form-switch">
-                                            <label class="fw-bold black ms-2 mb-0" for="flexSwitchCheckDefault">Direct Flight</label>
+                                            <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
                                             <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                             <input type="hidden" id="resultValue" value="" name="resultdir">
+                                        </div>
+                                    </div>
+                                    <div id="pas_form_onetrip" class="pas_form container row">
+                                        <div class="bg-white shadows ms-auto p-3 pas_div">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                                <select class="f-inp-form" name="Adults" id="Adult_inp">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                          
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                                <select class="f-inp-form" name="Childs" id="Child_inp">
+                                                    <option value="0">Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                    <option value="0">Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
+                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                    <option selected value="1">All</option>
+                                                    <option value="2">Econamy</option>
+                                                    <option value="3">PremiumEconomy</option>
+                                                    <option value="4">Business</option>
+                                                    <option value="5">PremiumBusiness</option>
+                                                    <option value="6">First</option>
+                                                </select>
+                                            </div>
+                                            <div class="pt-2 border-t text-center">
+                                                <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
+                                            </div>
                                         </div>
                                     </div>
                             </form>
@@ -197,7 +250,7 @@
                                             <div class="form-group">
                                                 <div class="input-box">
                                                     <label>FROM</label>
-                                                    <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
+                                                    <input type="text" class="f-inp" id="round-from" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
                                                 </div>
                                             </div>
                                         </div>
@@ -205,7 +258,7 @@
                                             <div class="form-group">
                                                 <div class="input-box">
                                                     <label>TO</label>
-                                                    <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
+                                                    <input type="text" class="f-inp" id="round-to" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
                                                 </div>
                                             </div>
                                         </div>
@@ -236,122 +289,84 @@
                                         <div class="col-lg mb-2">
                                             <div class="form-group mb-0 text-center">
                                                 <label class="mb-3"></label>
-                                                <a href="#" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
-                                                    Now</a>
+                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
+                                                    Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
+                                            <p class="mb-0 me-3">Special Fares:</p>
+                                            <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
+                                            <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
+                                            <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
+                                            <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
+                                            <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
+                                            <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
+                                        </div>
+                                        <div class="col-lg-6 form-check form-switch">
+                                            <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                            <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                            <input type="hidden" id="resultValue" value="" name="resultdir">
+                                        </div>
+                                    </div>
+                                    <div id="pas_form_roundtrip" class="pas_form container row">
+                                        <div class="bg-white shadows ms-auto p-3 pas_div">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                                <select class="f-inp-form" name="Adults" id="Adult_inp">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                          
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                                <select class="f-inp-form" name="Childs" id="Child_inp">
+                                                    <option value="0">Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                    <option value="0">Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
+                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                    <option selected value="1">All</option>
+                                                    <option value="2">Econamy</option>
+                                                    <option value="3">PremiumEconomy</option>
+                                                    <option value="4">Business</option>
+                                                    <option value="5">PremiumBusiness</option>
+                                                    <option value="6">First</option>
+                                                </select>
+                                            </div>
+                                            <div class="pt-2 border-t text-center">
+                                                <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
                                             </div>
                                         </div>
                                     </div>
                             </form>
                         </div>
                         <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
-                    </div>
-                </div>
-            </div>
-            <div id="pas_form_onetrip" class="pas_form container row">
-                <div class="bg-white shadows ms-auto p-3 pas_div">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
-                        <select class="f-inp-form" name="Adults" id="Adult_inp">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                  
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Child">Child</label>
-                        <select class="f-inp-form" name="Childs" id="Child_inp">
-                            <option value="0">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
-                        <select class="f-inp-form" name="Infants" id="Infant_inp">
-                            <option value="0">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Infant">Class</label>
-                        <select class="f-inp-form" name="Infants" id="Infant_inp">
-                            <option selected value="1">All</option>
-                            <option value="2">Econamy</option>
-                            <option value="3">PremiumEconomy</option>
-                            <option value="4">Business</option>
-                            <option value="5">PremiumBusiness</option>
-                            <option value="6">First</option>
-                        </select>
-                    </div>
-                    <div class="pt-2 border-t text-center">
-                        <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
-                    </div>
-                </div>
-            </div>
-            <div id="pas_form_roundtrip" class="pas_form container row">
-                <div class="bg-white shadows ms-auto p-3 pas_div">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
-                        <select class="f-inp-form" name="Adults" id="Adult_inp">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                  
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Child">Child</label>
-                        <select class="f-inp-form" name="Childs" id="Child_inp">
-                            <option value="0">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
-                        <select class="f-inp-form" name="Infants" id="Infant_inp">
-                            <option value="0">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="fw-bold  mb-0 black" for="Infant">Class</label>
-                        <select class="f-inp-form" name="Infants" id="Infant_inp">
-                            <option selected value="1">All</option>
-                            <option value="2">Econamy</option>
-                            <option value="3">PremiumEconomy</option>
-                            <option value="4">Business</option>
-                            <option value="5">PremiumBusiness</option>
-                            <option value="6">First</option>
-                        </select>
-                    </div>
-                    <div class="pt-2 border-t text-center">
-                        <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
                     </div>
                 </div>
             </div>
@@ -366,11 +381,95 @@
     <section class="trending pt-6 pb-0 bg-lgrey z-index0">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-3 ps-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="list-sidebar">
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">Price Range</h3>
+                                <div class="range-slider mt-0">
+                                    <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                                        <span class="min-value">0 $</span> 
+                                        <span class="max-value">20000 $</span>
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%;"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">Stops {{fromAircode}} - {{toAircode}}</h3>
+                                <ul class="sidebar-category1">
+                                    <li><input type="checkbox" id="nonStop" data-stops ="Non-stop"> Non-stop </li>
+                                    <li><input type="checkbox" id="oneStop" data-stops ="1-stop(s)"> 1 Stop </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">Take off from {{fromAircode}}</h3>
+                                <div class="sidebar-category1">
+                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">Before 6AM</button>
+                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">6AM-12PM</button>
+                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">12PM-6PM</button>
+                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">After 6PM</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">Arrival in {{toAircode}}</h3>
+                                <div class="sidebar-category1">
+                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">Before 6AM</button>
+                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">6AM-12PM</button>
+                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">12PM-6PM</button>
+                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">After 6PM</button>
+                                </div>
+                            </div>
+                           
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">Airlines</h3>
+                                <ul class="sidebar-category1">
+                                    <li><input type="checkbox" id="Air-india"  data-airline="Air India"> Air india <span class="float-end">92</span></li>
+                                    <li><input type="checkbox" id="Air-asia" data-airline="Air asia"> Air asia <span class="float-end">22</span></li>
+                                    <li><input type="checkbox" id="Indigo" data-airline="Indigo"> Indigo <span class="float-end">35</span></li>
+                                    <li><input type="checkbox" id="Vistara" data-airline="Vistara"> Vistara <span class="float-end">41</span></li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-item mb-2">
+                                <h3 class="">All Itineraries</h3>
+                                <ul class="sidebar-category1">
+                                    <li><input type="checkbox" id="Baggage"> Baggage Included <span class="float-end">$92</span></li>
+                                    <li><input type="checkbox" id="Non-Refundable"> Non-Refundable <span class="float-end">$40</span></li>
+                                    <li><input type="checkbox" id="Refundable"> Refundable <span class="float-end">$22</span></li>
+                                    <li><input type="checkbox" id="Par-Refundable"> Partial Refundable <span class="float-end">$22</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
                     <div class="flight-list">
+                        <div class="d-flex align-items-center justify-content-end mb-2">
+                            <p class="mb-0 me-3 fw-bold">SORT BY : </p>
+                            <ul class="nav nav-pills nav-filter gap-2" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-fil1-tab" data-bs-toggle="pill" data-bs-target="#pills-fil1" type="button" role="tab" aria-controls="pills-home" aria-selected="true" onclick="sortFlight('Price')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="me-2 atoz" style="width: 22px;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32H480c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H352c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352H352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224H371.8l-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176h40.4L416 135.6 395.8 176z"/></svg>Airlines</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-fil2-tab" data-bs-toggle="pill" data-bs-target="#pills-fil2" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortFlight('Departure')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Departure</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link " id="pills-fil3-tab" data-bs-toggle="pill" data-bs-target="#pills-fil4" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortFlight('Duration')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Duration</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-fil4-tab" data-bs-toggle="pill" data-bs-target="#pills-fil4" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="sortFlight('Arrival')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Arrival</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-fil5-tab" data-bs-toggle="pill" data-bs-target="#pills-fil5" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="sortFlight('Price')"><i class='fas fa-exchange-alt me-2' style="rotate: 90deg;"></i>Price</button>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="flight-full">
                             <div class="item mb-2 border-all p-3 px-4 rounded">
                                 <div class="row d-flex align-items-center justify-content-between">
+                                    <div id="flightlist">
+                                        <!-- flight list condainer -->
+                                    </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="item-inner-image text-start">
                                             <img src="images/flights/flight_grid_5.png" alt="image">
@@ -448,7 +547,7 @@
                                 </div>    
                             </div>
 
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
+                            <!-- <div class="item mb-2 border-all p-3 px-4 rounded">
                                 <div class="row d-flex align-items-center justify-content-between">
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="item-inner-image text-start">
@@ -920,55 +1019,10 @@
                                         </div>
                                     </div>
                                 </div>    
-                            </div>
+                            </div> -->
 
                         </div> 
                         <div class="flight-btn text-center"><a href="flight-grid.html" class="nir-btn">Load More</a></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 ps-lg-4">
-                    <div class="sidebar-sticky">
-                        <div class="list-sidebar">
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Price Range</h3>
-                                <div class="range-slider mt-0">
-                                    <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                                        <span class="min-value">0 $</span> 
-                                        <span class="max-value">20000 $</span>
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%;"></div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Stops Type</h3>
-                                <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked> Nonstop <span class="float-end">$92</span></li>
-                                    <li><input type="checkbox"> 1 Stop <span class="float-end">$40</span></li>
-                                    <li><input type="checkbox"> 2+ Stops <span class="float-end">$22</span></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Cabin Type</h3>
-                                <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked> Basic Economy <span class="float-end">$92</span></li>
-                                    <li><input type="checkbox"> Economy <span class="float-end">$40</span></li>
-                                    <li><input type="checkbox"> Mixed <span class="float-end">$22</span></li>
-                                    <li><input type="checkbox"> Business <span class="float-end">$22</span></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-item mb-4">
-                                <h3 class="">Airlines</h3>
-                                <ul class="sidebar-category1">
-                                    <li><input type="checkbox" checked> Etihad Airway <span class="float-end">92</span></li>
-                                    <li><input type="checkbox"> Dragon Airway <span class="float-end">22</span></li>
-                                    <li><input type="checkbox"> Air Asia Airway <span class="float-end">35</span></li>
-                                    <li><input type="checkbox"> Thai Airway <span class="float-end">41</span></li>
-                                    <li><input type="checkbox"> Turkish Airway <span class="float-end">11</span></li>
-                                    <li><input type="checkbox"> Indigo Airway <span class="float-end">61</span></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1002,6 +1056,35 @@
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        /* Flight list */
+        /* CITY LIST */
+.ui-autocomplete {
+    z-index: 1050;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    background: #ffffff;
+    border-radius: 12px;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: scroll;
+    scrollbar-width: 10px;
+    overflow-x: hidden;
+    font-size: 13px;
+    position: relative;
+}
+
+.ui-menu-item {
+    padding: 3px 0px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #029e9d !important;
+}
+    </style>
 
     
 </body>

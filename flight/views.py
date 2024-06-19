@@ -60,17 +60,16 @@ def search_destinations_flight(request):
 
     data = [
         {
-            'label': result.AIRPORTNAME + '( ' + result.CITYNAME + ','+ result.COUNTRYNAME +','+ result.AIRPORTCODE +')',
-            'value': result.AIRPORTNAME+ '( ' + result.CITYNAME + ','+ result.COUNTRYNAME +','+ result.AIRPORTCODE +')',
+            'label': f"{result.AIRPORTNAME} ({result.CITYNAME}, {result.COUNTRYNAME}, {result.AIRPORTCODE})",
+            'value': f"{result.AIRPORTNAME} ({result.CITYNAME}, {result.COUNTRYNAME}, {result.AIRPORTCODE})",
             'cityCode': result.CITYCODE,
             'AirportCode': result.AIRPORTCODE,
-            'CityName' : result.CITYNAME
+            'CityName': result.CITYNAME
         }
         for result in results
     ]
 
     return JsonResponse({'data': data})
-
 
 
 
@@ -108,12 +107,12 @@ def one_trip(request):
 
         # guest_details = f"{no_of_adults} Adults,{no_of_chaild} Childs,{no_of_infant} Infant"
         
-        format_check_in_date = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d").strftime("%d %b %Y")
+        format_check_in_date_new = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d").strftime("%d %b %Y")
         check_in_date = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d")
         formatted_check_in_date = check_in_date.strftime('%d/%m/%Y')
         print(formatted_check_in_date)
 
-        print(fromcityname,tocityname,format_check_in_date )
+        print(fromcityname,tocityname,format_check_in_date_new )
 
         DirectFlight_bool = DirectFlight.lower() == "true"
         print(DirectFlight_bool)
@@ -161,7 +160,7 @@ def one_trip(request):
                 numchaild = f"{no_of_chaild}"
                 numinfant = f"{no_of_infant}"
                 DirectFlight = DirectFlight_bool
-                OneStopFlight = False
+                OneStopFlight = True
                 PreferredAirlines = None
                 JourneyType = "1"
                 sources = None
@@ -172,8 +171,8 @@ def one_trip(request):
                         'Origin': f"{FromAirportCode}",
                         'Destination': f"{ToAirportCode}",
                         'FlightCabinClass': f"{one_trip_class}",
-                        'PreferredDepartureTime':  format_check_in_date,
-                        'PreferredArrivalTime':  format_check_in_date,
+                        'PreferredDepartureTime':  f"{Departure_date_onetrip}T00:00:00",
+                        'PreferredArrivalTime':  f"{Departure_date_onetrip}T00:00:00",
                     }
                 ]
                 

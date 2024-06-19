@@ -73,7 +73,7 @@
 
 
                 <!-- Add titles -->
-               <div class="search-box mx-auto p-4 col-lg-8 row bg-white rounded mb-3 box-shadow">
+               <!-- <div class="search-box mx-auto p-4 col-lg-8 row bg-white rounded mb-3 box-shadow">
                     <form class="forms-sample row">
                       <div class="row align-items-center">
                         <div class=" mb-3">
@@ -95,29 +95,70 @@
                         </div>
                       </div>
                     </form>
-              </div>
-              <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                // Get the input element
-                var inputElement = document.querySelector('#searchinput');
+              </div> -->
+              <div class="search-box mx-auto p-4 col-lg-8 row bg-white rounded mb-3 box-shadow">
+                <form class="forms-sample" method="POST" action="{% url 'useradminpage' %}" id="phoneForm">
+                    {% csrf_token %}
+                    <div class="row align-items-center">
+                        <div class="mb-3">
+                            <h5>Enter Phone Number</h5>
+                        </div>
+                        <div class="col-lg-9 col-md-4">
+                            <div id="phoneNumberContainer">
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" name="search_query" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required style="border-radius: 50px 0px 0px 50px;border: 1px solid #029e9d;">
+                                    <div class="input-group-append justify-content-center">
+                                        <button class="btn white bg-theme" style="border-radius: 0px 50px 50px 0px;" type="button" id="addButton">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <h4><i class='fas fa-user-circle'></i>NAME : <span style="color: #029e9d;">{{ user_name.first_name }} {{ user_name.last_name }}</span></h4>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
             
-                // Check if the value is None or empty
-                if (inputElement.value === 'None' || inputElement.value === '') {
-                    // Set the placeholder text
-                    inputElement.value = '';
-                    inputElement.placeholder = 'Search by phone number';
-                }
+              <script>
+            //   document.addEventListener('DOMContentLoaded', function() {
+            //     // Get the input element
+            //     var inputElement = document.querySelector('#searchinput');
+            
+            //     // Check if the value is None or empty
+            //     if (inputElement.value === 'None' || inputElement.value === '') {
+            //         // Set the placeholder text
+            //         inputElement.value = '';
+            //         inputElement.placeholder = 'Search by phone number';
+            //     }
+            // });
+            document.getElementById('addButton').addEventListener('click', function() {
+                var container = document.getElementById('phoneNumberContainer');
+                var newPhoneDiv = document.createElement('div');
+                newPhoneDiv.className = 'input-group mt-2';
+                newPhoneDiv.innerHTML = `
+                    <input type="tel" class="form-control" name="additional_phone_numbers[]" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required style="border-radius: 50px 0px 0px 50px;border: 1px solid #029e9d;">
+                    <div class="input-group-append justify-content-center">
+                        <button class="btn white bg-theme" style="border-radius: 0px 50px 50px 0px;" type="button" onclick="removePhoneNumber(this)">Delete</button>
+                    </div>
+                `;
+                container.appendChild(newPhoneDiv);
             });
+
+            function removePhoneNumber(button) {
+                button.parentElement.parentElement.remove();
+            }
           </script>
             
-              <style>
-                .nav-link-new{
-                  width: 150px;
-                  font-weight: 600;
-                  
+          <style>
+            .nav-link-new{
+              width: 150px;
+              font-weight: 600;
+              
 
-                }
-              </style>
+            }
+          </style>
               <ul class="nav nav-pills mb-3 justify-content-between" id="pills-tab" role="tablist" >
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active px-4 py-2 fs-5 rounded-pill nav-link-new " style="border: 1px solid #029e9d;"  id="pills-Flight-tab" data-bs-toggle="pill" data-bs-target="#pills-Flight" type="button" role="tab" aria-controls="pills-Flight" aria-selected="true">Flight</button>
