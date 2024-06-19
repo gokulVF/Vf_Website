@@ -347,7 +347,7 @@ def get_hotel_results(api_url, api_key, check_in_date, no_of_nights, country_cod
         'NoOfNights': no_of_nights,
         'CountryCode': country_code,
         'CityId': city_id,
-        "IsTBOMapped": False,
+        "IsTBOMapped": True,
         'ResultCount': 0,
         'PreferredCurrency': preferred_currency,
         'GuestNationality': guest_nationality,
@@ -1828,7 +1828,9 @@ def hotelbooked(request):
 
         # Initialize the HotelPassenger array
         result_dict = {}
-
+        preview_data = request.session.get('preview_data', {})
+        email = preview_data.get('email')
+        phone_number = preview_data.get('phone_number')
         # Iterate through room information
         for room_data in user_information_list:
             for room_key, room_value in room_data.items():
@@ -1840,6 +1842,8 @@ def hotelbooked(request):
                     # Convert age to integer, handling the case where age is a string
                     age = int(passenger["age"]) if passenger["age"].isdigit() else 0
                     leadpassenger = True if passenger["leadpassenger"] == "0" else False
+                    mail_data = email if passenger["leadpassenger"] == "0" else None
+                    phone_data = phone_number if passenger["leadpassenger"] == "0" else None
 
                     pax_type = 1 if age == 0 else 2
 
@@ -1850,8 +1854,8 @@ def hotelbooked(request):
                         "FirstName": passenger["firstName"],
                         "MiddleName": None,
                         "LastName": passenger["lastName"],
-                        "Phoneno": None,
-                        "Email": None,
+                        "Phoneno": phone_data,
+                        "Email":  mail_data,
                         "PaxType": pax_type,  # Assuming a default value for PaxType
                         "LeadPassenger": leadpassenger,  # Assuming LeadPassenger is always false for non-lead passengers
                         "Age": age,
@@ -1895,8 +1899,10 @@ def hotelbooked(request):
         # Adding HotelPassenger data to payload_data
         # modified_payload_data['AgencyId'] = 0 
         #  <---PACKAGEFARE--->
-        # modified_payload_data['IsPackageFare'] = True 
-        # modified_payload_data['IsPackageDetailsMandatory'] = True
+        IsPackageFare_value = block_book["BlockRoomResult"]["IsPackageFare"]
+        IsPackagemandatory_value = block_book["BlockRoomResult"]["IsPackageDetailsMandatory"]
+        modified_payload_data['IsPackageFare'] = IsPackageFare_value 
+        modified_payload_data['IsPackageDetailsMandatory'] = IsPackagemandatory_value
         # modified_payload_data["ArrivalTransport"] = {
         #     "ArrivalTransportType": 0,
         #     "TransportInfoId": "Ab 777",

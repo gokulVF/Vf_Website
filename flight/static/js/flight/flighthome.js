@@ -1,52 +1,68 @@
 // FLIGHT FROM
+
 $(function () {
-$("#from").autocomplete({
-    source: function (request, response) {
-        $.ajax({
-            url: "/search_destinations_flight/",
-            dataType: "json",
-            data: {
-                query: request.term
-            },
-            success: function (data) {
-                response(data.data);
+    var fromCityCode = '';
+
+    $("#onetripfrom").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    response(data.data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            fromCityCode = ui.item.cityCode;
+            $("#citycodeInput").val(ui.item.cityCode);
+            $("#airportCodeInput").val(ui.item.AirportCode);
+            $("#aircityname").val(ui.item.CityName);
+            
+            // Clear TO input when FROM input changes
+            $("#onetripto").val('');
+            $("#tocitycodeInput").val('');
+            $("#toairportCodeInput").val('');
+            $("#toaircityname").val('');
+        }
+    });
+
+    $("#onetripto").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    // Filter out the city that is selected in the "FROM" input
+                    var filteredData = data.data.filter(function(item) {
+                        return item.cityCode !== fromCityCode;
+                    });
+                    response(filteredData);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            if (ui.item.cityCode === fromCityCode) {
+                alert("The destination city cannot be the same as the departure city.");
+                event.preventDefault();
+                $(this).val('');
+                return false;
             }
-        });
-    },
-    minLength: 2,
-    select: function (event, ui) {
-        // Update the hidden input fields with selected values
-        $("#citycodeInput").val(ui.item.cityCode);
-        $("#airportCodeInput").val(ui.item.AirportCode);
-        $("#aircityname").val(ui.item.CityName);
-    }
-});
+            $("#tocitycodeInput").val(ui.item.cityCode);
+            $("#toairportCodeInput").val(ui.item.AirportCode);
+            $("#toaircityname").val(ui.item.CityName);
+        }
+    });
 });
 
-// FLIGHT TO
-$(function () {
-$("#to").autocomplete({
-    source: function (request, response) {
-        $.ajax({
-            url: "/search_destinations_flight/",
-            dataType: "json",
-            data: {
-                query: request.term
-            },
-            success: function (data) {
-                response(data.data);
-            }
-        });
-    },
-    minLength: 2,
-    select: function (event, ui) {
-        // Update the hidden input fields with selected values
-        $("#tocitycodeInput").val(ui.item.cityCode);
-        $("#toairportCodeInput").val(ui.item.AirportCode);
-        $("#toaircityname").val(ui.item.CityName);
-    }
-});
-});
 
 // SHOW PAX FORM
 function showPaxForm() {

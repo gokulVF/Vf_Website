@@ -58,17 +58,16 @@ def search_destinations_flight(request):
 
     data = [
         {
-            'label': result.AIRPORTNAME + '( ' + result.CITYNAME + ','+ result.COUNTRYNAME +','+ result.AIRPORTCODE +')',
-            'value': result.AIRPORTNAME+ '( ' + result.CITYNAME + ','+ result.COUNTRYNAME +','+ result.AIRPORTCODE +')',
+            'label': f"{result.AIRPORTNAME} ({result.CITYNAME}, {result.COUNTRYNAME}, {result.AIRPORTCODE})",
+            'value': f"{result.AIRPORTNAME} ({result.CITYNAME}, {result.COUNTRYNAME}, {result.AIRPORTCODE})",
             'cityCode': result.CITYCODE,
             'AirportCode': result.AIRPORTCODE,
-            'CityName' : result.CITYNAME
+            'CityName': result.CITYNAME
         }
         for result in results
     ]
 
     return JsonResponse({'data': data})
-
 
 
 
