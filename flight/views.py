@@ -48,6 +48,8 @@ def flightpdf(request):
     return render(request, 'flight/flightpdf.html')
 def staticpage(request):
     return render(request, 'flight/flight-list.html')
+def oneway(request):
+    return render(request, 'flight/oneway.html')
 
 
 def search_destinations_flight(request):
