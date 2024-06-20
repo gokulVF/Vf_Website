@@ -93,8 +93,7 @@ function hideOneTripForm() {
     }
 }
 
-
-// PAXFORM ONETRIP
+// PAXFORM - ROUND TRIP
 // SHOW PAX FORM - ROUND TRIP
 function showRoundPaxForm() {
     var flightForm = document.getElementById("pas_form_roundtrip")
@@ -104,6 +103,70 @@ function showRoundPaxForm() {
         flightForm.style.display = "none"
     }
 }
+
+// HIDE PAX FORM - ROUND TRIP
+function hideRoundTripForm() {
+    var x = document.getElementById("pas_form_roundtrip");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+// PAX COUNT SHOW - ONE TRIP
+document.addEventListener('DOMContentLoaded', function () {
+    // Get select elements
+    const adultSelect = document.getElementById('Adult_inp');
+    const childSelect = document.getElementById('Child_inp');
+    const infantSelect = document.getElementById('Infant_inp');
+
+    // Get input element
+    const pasInput = document.getElementById('pasInput');
+
+    // Update input value function
+    function updateInputValue() {
+        const adults = adultSelect.value;
+        const children = childSelect.value;
+        const infants = infantSelect.value;
+        pasInput.value = `${adults} Adults, ${children} Child, ${infants} Infant`;
+    }
+
+    // Listen for changes in select elements
+    adultSelect.addEventListener('change', updateInputValue);
+    childSelect.addEventListener('change', updateInputValue);
+    infantSelect.addEventListener('change', updateInputValue);
+
+    // Initial update
+    updateInputValue();
+});
+
+// PAX COUNT SHOW - ROUND TRIP
+document.addEventListener('DOMContentLoaded', function () {
+    // Get select elements
+    const adultSelect = document.getElementById('Adult_inp_rt');
+    const childSelect = document.getElementById('Child_inp_rt');
+    const infantSelect = document.getElementById('Infant_inp_rt');
+
+    // Get input element
+    const pasInput = document.getElementById('pasInput_rt');
+
+    // Update input value function
+    function updateInputValue() {
+        const adults = adultSelect.value;
+        const children = childSelect.value;
+        const infants = infantSelect.value;
+        pasInput.value = `${adults} Adults, ${children} Child, ${infants} Infant`;
+    }
+
+    // Listen for changes in select elements
+    adultSelect.addEventListener('change', updateInputValue);
+    childSelect.addEventListener('change', updateInputValue);
+    infantSelect.addEventListener('change', updateInputValue);
+
+    // Initial update
+    updateInputValue();
+});
 
 // FLIGHT CITY SEARCH - ONE TRIP
 $(function () {
@@ -150,6 +213,55 @@ $(function () {
             $("#FcitycodeInput").val(ui.item.cityCode);
             $("#FairportCodeInput").val(ui.item.AirportCode);
             $("#Fcityname").val(ui.item.CityName);
+        }
+    });
+});
+
+// FLIGHT CITY SEARCH - ROUND TRIP
+$(function () {
+    $("#fromontrip").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    response(data.data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            // Update the hidden input fields with selected values
+            $("#citycodeInput").val(ui.item.cityCode);
+            $("#airportCodeInput").val(ui.item.AirportCode);
+            $("#aircityname").val(ui.item.CityName);
+        }
+    });
+});
+
+$(function () {
+    $("#toontrip").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/search_destinations_flight/",
+                dataType: "json",
+                data: {
+                    query: request.term
+                },
+                success: function (data) {
+                    response(data.data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            // Update the hidden input fields with selected values
+            $("#tocitycodeInput").val(ui.item.cityCode);
+            $("#toairportCodeInput").val(ui.item.AirportCode);
+            $("#toaircityname").val(ui.item.CityName);
         }
     });
 });
@@ -875,7 +987,6 @@ $(document).ready(function () {
         });
     }
 });
-
 
 // AIRLINE NAME FILTER FUNCTIONS
 document.querySelectorAll('.form-check-input').forEach(function (checkbox) {

@@ -41,7 +41,7 @@
     {% include 'home/header.html' %}
     <!-- header ends -->
 
-    <!-- BreadCrumb Starts -->  
+    <!-- Modify Tab Starts -->  
     <section class="pt-4 pb-4 bg-grey">
         <div class="container">
             <ul class=" nav nav-pills gap-2 mb-1" id="pills-tab" role="tablist">
@@ -61,309 +61,257 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <form id="one-trip" method="GET" action="{% url 'one_trip' %}" onsubmit="return validateForm()">
                                 {% csrf_token %}
-                                    <div class="row d-flex align-items-center justify-content-between">
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box text-start">
-                                                    <label>FROM</label>
-                                                    <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
-                                                    <span class="error" id="des_error"></span>
-                                                    <input type="hidden" id="citycodeInput" name="from_city_code" value="{{from_city_code}}">
-                                                    <input type="hidden" id="airportCodeInput" name="fromAirportCode" value="{{fromAircode}}">
-                                                    <input type="hidden" id="aircityname" name="fromcityname" value="{{fromcityname}}">
-                                                    <script>
-                                                        $(function () {
-                                                            $("#fromontrip").autocomplete({
-                                                                source: function (request, response) {
-                                                                    $.ajax({
-                                                                        url: "/search_destinations_flight/",
-                                                                        dataType: "json",
-                                                                        data: {
-                                                                            query: request.term
-                                                                        },
-                                                                        success: function (data) {
-                                                                            response(data.data);
-                                                                        }
-                                                                    });
-                                                                },
-                                                                minLength: 2,
-                                                                select: function (event, ui) {
-                                                                    // Update the hidden input fields with selected values
-                                                                    $("#citycodeInput").val(ui.item.cityCode);
-                                                                    $("#airportCodeInput").val(ui.item.AirportCode);
-                                                                    $("#aircityname").val(ui.item.CityName);
-                                                                }
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box text-start">
-                                                    <label>TO</label>
-                                                    <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
-                                                    <span class="error" id="des_error"></span>
-                                                    <input type="hidden" id="tocitycodeInput" name="to_city_code" value="{{to_city_code}}">
-                                                    <input type="hidden" id="toairportCodeInput" name="toAirportCode" value="{{toAircode}}">
-                                                    <input type="hidden" id="toaircityname" name="tocityname" value="{{tocityname}}">
-                                                    <script>
-                                                        $(function () {
-                                                            $("#toontrip").autocomplete({
-                                                                source: function (request, response) {
-                                                                    $.ajax({
-                                                                        url: "/search_destinations_flight/",
-                                                                        dataType: "json",
-                                                                        data: {
-                                                                            query: request.term
-                                                                        },
-                                                                        success: function (data) {
-                                                                            response(data.data);
-                                                                        }
-                                                                    });
-                                                                },
-                                                                minLength: 2,
-                                                                select: function (event, ui) {
-                                                                    // Update the hidden input fields with selected values
-                                                                    $("#tocitycodeInput").val(ui.item.cityCode);
-                                                                    $("#toairportCodeInput").val(ui.item.AirportCode);
-                                                                    $("#toaircityname").val(ui.item.CityName);
-                                                                }
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>DEPARTURE DATE</label>
-                                                    <!-- <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly> -->
-                                                    <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" style="font-size: 14px;" name="check-in" id="check-in" readonly> -->
-                                                    <input type="hidden"  value="{{Departure_date}}" id="checkin">
-                                                    <input type="date" class="f-inp" id="check-in" name="check-in">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>RETURN DATE</label>
-                                                    <input type="text" class="f-inp" placeholder="Book a round trip to save more" name="Return" readonly disabled style="opacity: .5;font-size: 10px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>TRAVELLER & CLASS</label>
-                                                    <input type="text" class="f-inp" placeholder="Travellers & Class" onclick="showOnePaxForm()">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group mb-0 text-center">
-                                                <label class="mb-3"></label>
-                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify</button>
+                                <div class="row d-flex align-items-center justify-content-between">
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box text-start">
+                                                <label>FROM</label>
+                                                <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
+                                                <span class="error" id="des_error"></span>
+                                                <input type="hidden" id="citycodeInput" name="from_city_code" value="{{from_city_code}}">
+                                                <input type="hidden" id="airportCodeInput" name="fromAirportCode" value="{{fromAircode}}">
+                                                <input type="hidden" id="aircityname" name="fromcityname" value="{{fromcityname}}">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
-                                            <p class="mb-0 me-3">Special Fares:</p>
-                                            <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
-                                            <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
-                                            <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
-                                            <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
-                                            <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
-                                            <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
-                                        </div>
-                                        <div class="col-lg-6 form-check form-switch">
-                                            <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
-                                            <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                            <input type="hidden" id="resultValue" value="" name="resultdir">
-                                        </div>
-                                    </div>
-                                    <div id="pas_form_onetrip" class="pas_form container row">
-                                        <div class="bg-white shadows ms-auto p-3 pas_div">
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
-                                                <select class="f-inp-form" name="Adults" id="Adult_inp">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                          
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
-                                                <select class="f-inp-form" name="Childs" id="Child_inp">
-                                                    <option value="0">Select</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
-                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                                    <option value="0">Select</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
-                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                                    <option selected value="1">All</option>
-                                                    <option value="2">Econamy</option>
-                                                    <option value="3">PremiumEconomy</option>
-                                                    <option value="4">Business</option>
-                                                    <option value="5">PremiumBusiness</option>
-                                                    <option value="6">First</option>
-                                                </select>
-                                            </div>
-                                            <div class="pt-2 border-t text-center">
-                                                <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box text-start">
+                                                <label>TO</label>
+                                                <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
+                                                <span class="error" id="des_error"></span>
+                                                <input type="hidden" id="tocitycodeInput" name="to_city_code" value="{{to_city_code}}">
+                                                <input type="hidden" id="toairportCodeInput" name="toAirportCode" value="{{toAircode}}">
+                                                <input type="hidden" id="toaircityname" name="tocityname" value="{{tocityname}}">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>DEPARTURE DATE</label>
+                                                <!-- <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly> -->
+                                                <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" style="font-size: 14px;" name="check-in" id="check-in" readonly> -->
+                                                <input type="hidden"  value="{{Departure_date}}" id="checkin">
+                                                <input type="date" class="f-inp" id="check-in" name="check-in">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>RETURN DATE</label>
+                                                <input type="text" class="f-inp" placeholder="Book a round trip to save more" name="Return" readonly disabled style="opacity: .5;font-size: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>TRAVELLER & CLASS</label>
+                                                <input type="text" class="f-inp" id="pasInput" placeholder="Travellers & Class" onclick="showOnePaxForm()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group mb-0 text-center">
+                                            <label class="mb-3"></label>
+                                            <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
+                                        <p class="mb-0 me-3">Special Fares:</p>
+                                        <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
+                                        <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
+                                        <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
+                                        <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
+                                        <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
+                                        <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
+                                    </div>
+                                    <div class="col-lg-6 form-check form-switch">
+                                        <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                        <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                        <input type="hidden" id="resultValue" value="" name="resultdir">
+                                    </div>
+                                </div>
+                                <div id="pas_form_onetrip" class="pas_form container row">
+                                    <div class="bg-white shadows ms-auto p-3 pas_div">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                            <select class="f-inp-form" name="Adults" id="Adult_inp">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                            <select class="f-inp-form" name="Childs" id="Child_inp">
+                                                <option value="0">Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                            <select class="f-inp-form" name="Infants" id="Infant_inp">
+                                                <option value="0">Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" >Class</label>
+                                            <select class="f-inp-form">
+                                                <option selected value="1">All</option>
+                                                <option value="2">Econamy</option>
+                                                <option value="3">PremiumEconomy</option>
+                                                <option value="4">Business</option>
+                                                <option value="5">PremiumBusiness</option>
+                                                <option value="6">First</option>
+                                            </select>
+                                        </div>
+                                        <div class="pt-2 border-t text-center">
+                                            <button class="nir-btn px-5 rounded-pill py-1" type="button" onclick="hideOneTripForm()">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <form id="round-trip" method="GET" action="{% url 'round_trip'%}" onsubmit="return validateForm()">
                                 {% csrf_token %}
-                                    <div class="row d-flex align-items-center justify-content-between">
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>FROM</label>
-                                                    <input type="text" class="f-inp" id="round-from" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>TO</label>
-                                                    <input type="text" class="f-inp" id="round-to" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>DEPARTURE DATE</label>
-                                                    <input type="date" class="f-inp" name="Depart" id="rcheck-in">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>RETURN DATE</label>
-                                                    <input type="date" class="f-inp" name="Return" id="rcheck-out">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group">
-                                                <div class="input-box">
-                                                    <label>TRAVELLER & CLASS</label>
-                                                    <input type="text" class="f-inp" placeholder="Travellers & Class" onclick="showRoundPaxForm()">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg mb-2">
-                                            <div class="form-group mb-0 text-center">
-                                                <label class="mb-3"></label>
-                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i> Search
-                                                    Now</button>
+                                <div class="row d-flex align-items-center justify-content-between">
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>FROM</label>
+                                                <input type="text" class="f-inp" id="round-from" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
-                                            <p class="mb-0 me-3">Special Fares:</p>
-                                            <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
-                                            <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
-                                            <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
-                                            <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
-                                            <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
-                                            <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
-                                        </div>
-                                        <div class="col-lg-6 form-check form-switch">
-                                            <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
-                                            <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                            <input type="hidden" id="resultValue" value="" name="resultdir">
-                                        </div>
-                                    </div>
-                                    <div id="pas_form_roundtrip" class="pas_form container row">
-                                        <div class="bg-white shadows ms-auto p-3 pas_div">
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
-                                                <select class="f-inp-form" name="Adults" id="Adult_inp">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                          
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Child">Child</label>
-                                                <select class="f-inp-form" name="Childs" id="Child_inp">
-                                                    <option value="0">Select</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
-                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                                    <option value="0">Select</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                </select>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <label class="fw-bold  mb-0 black" for="Infant">Class</label>
-                                                <select class="f-inp-form" name="Infants" id="Infant_inp">
-                                                    <option selected value="1">All</option>
-                                                    <option value="2">Econamy</option>
-                                                    <option value="3">PremiumEconomy</option>
-                                                    <option value="4">Business</option>
-                                                    <option value="5">PremiumBusiness</option>
-                                                    <option value="6">First</option>
-                                                </select>
-                                            </div>
-                                            <div class="pt-2 border-t text-center">
-                                                <button class="nir-btn px-5 rounded-pill py-1" type="button">Apply</button>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>TO</label>
+                                                <input type="text" class="f-inp" id="round-to" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>DEPARTURE DATE</label>
+                                                <input type="date" class="f-inp" name="Depart" id="rcheck-in">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>RETURN DATE</label>
+                                                <input type="date" class="f-inp" name="Return" id="rcheck-out">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group">
+                                            <div class="input-box">
+                                                <label>TRAVELLER & CLASS</label>
+                                                <input type="text" class="f-inp" id="pasInput_rt" placeholder="Travellers & Class" onclick="showRoundPaxForm()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg mb-2">
+                                        <div class="form-group mb-0 text-center">
+                                            <label class="mb-3"></label>
+                                            <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
+                                        <p class="mb-0 me-3">Special Fares:</p>
+                                        <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
+                                        <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
+                                        <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
+                                        <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
+                                        <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
+                                        <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
+                                    </div>
+                                    <div class="col-lg-6 form-check form-switch">
+                                        <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                        <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                        <input type="hidden" id="resultValue" value="" name="resultdir">
+                                    </div>
+                                </div>
+                                <div id="pas_form_roundtrip" class="pas_form container row">
+                                    <div class="bg-white shadows ms-auto p-3 pas_div">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
+                                            <select class="f-inp-form" name="Adults" id="Adult_inp_rt">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Child">Child</label>
+                                            <select class="f-inp-form" name="Childs" id="Child_inp_rt">
+                                                <option value="0">Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
+                                            <select class="f-inp-form" name="Infants" id="Infant_inp_rt">
+                                                <option value="0">Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="fw-bold  mb-0 black" for="Infant">Class</label>
+                                            <select class="f-inp-form">
+                                                <option selected value="1">All</option>
+                                                <option value="2">Econamy</option>
+                                                <option value="3">PremiumEconomy</option>
+                                                <option value="4">Business</option>
+                                                <option value="5">PremiumBusiness</option>
+                                                <option value="6">First</option>
+                                            </select>
+                                        </div>
+                                        <div class="pt-2 border-t text-center">
+                                            <button class="nir-btn px-5 rounded-pill py-1" type="button" onclick="hideRoundTripForm()">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
@@ -372,7 +320,7 @@
             </div>
         </div>
     </section>
-    <!-- BreadCrumb Ends --> 
+    <!-- Modify Tab Ends --> 
 
     <div id="flight_details" style="display: none;">{{ FLight_list }}</div>
     <input type="hidden" id="Sort_F_details" name="Sort_F_details" value="">
@@ -381,62 +329,86 @@
     <section class="trending pt-6 pb-0 bg-lgrey z-index0">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 ps-lg-4">
-                    <div class="sidebar-sticky">
-                        <div class="list-sidebar">
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">Price Range</h3>
-                                <div class="range-slider mt-0">
+                <div class="col-lg-3 p-0">
+                    <div class="sidebar-sticky stick-bar bg-white py-1 box-shadow rounded">
+                        <div class="list-sidebar mx-3">
+                            <div class="sidebar-item mb-1 wrapper pb-1">
+                                <h3 class="mb-1">Price Range</h3>
+                                <div class="price-input">
+                                    <div class="form-row d-flex field">
+                                        <div class="col d-flex">
+                                            <label for="price" class="price_sym mb-0 fw-bold theme2"><span style="font-family:'Poppins,';font-size: 18px;">₹</span></label>
+                                            <input type="number" readonly class="input-min fw-bold theme2" value="{{min_price}}">
+                                        </div>
+                                        <div class="col d-flex" style="margin-left: 120px;">
+                                            <label for="price" class="price_sym mb-0 fw-bold theme2"><span style="font-family:'Poppins,';font-size: 18px;">₹</span></label>
+                                            <input type="number" readonly class="input-min fw-bold theme2" value="{{ max_price }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider">
+                                    <div class="progress"></div>
+                                </div>
+                                <div class="range-input">
+                                    <div class="">
+                                        <div class="col">
+                                            <input type="range" class="form-range range-min"  min="{{min_price}}" max="{{max_price}}" value="{{min_price}}" step="100">
+                                        </div>
+                                        <div class="col">
+                                            <input type="range" class="form-range range-max"  min="{{min_price}}" max="{{max_price}}" value="{{max_price}}" step="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="range-slider mt-3 mb-3">
                                     <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
                                         <span class="min-value">0 $</span> 
                                         <span class="max-value">20000 $</span>
                                         <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%;"></div>
                                     </div>
                                     <div class="clearfix"></div>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">Stops {{fromAircode}} - {{toAircode}}</h3>
+                            <div class="sidebar-item mb-1 pb-1">
+                                <h3 class="mb-1">Stops {{fromAircode}} - {{toAircode}}</h3>
                                 <ul class="sidebar-category1">
                                     <li><input type="checkbox" id="nonStop" data-stops ="Non-stop"> Non-stop </li>
                                     <li><input type="checkbox" id="oneStop" data-stops ="1-stop(s)"> 1 Stop </li>
                                 </ul>
                             </div>
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">Take off from {{fromAircode}}</h3>
-                                <div class="sidebar-category1">
-                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">Before 6AM</button>
-                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">6AM-12PM</button>
-                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">12PM-6PM</button>
-                                    <button for="departure-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">After 6PM</button>
+                            <div class="sidebar-item mb-1 pb-1">
+                                <h3 class="mb-2">Take off from {{fromAircode}}</h3>
+                                <div class="sidebar-category1 row justify-content-center">
+                                    <button for="departure-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-mrng.png' %}" class="ftime_img" alt=""> Before 6AM</button>
+                                    <button for="departure-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-noon.png' %}" class="ftime_img" alt=""> 6AM-12PM</button>
+                                    <button for="departure-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-evng.png' %}" class="ftime_img" alt=""> 12PM-6PM</button>
+                                    <button for="departure-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-night.png' %}" class="ftime_img" alt=""> After 6PM</button>
                                 </div>
                             </div>
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">Arrival in {{toAircode}}</h3>
-                                <div class="sidebar-category1">
-                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">Before 6AM</button>
-                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">6AM-12PM</button>
-                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">12PM-6PM</button>
-                                    <button for="arrival-time" class="f-time ftime_btn px-3 py-1 rounded-pill me-3 mb-1">After 6PM</button>
+                            <div class="sidebar-item mb-1 pb-1">
+                                <h3 class="mb-2">Arrival in {{toAircode}}</h3>
+                                <div class="sidebar-category1 row justify-content-center">
+                                    <button for="arrival-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-mrng.png' %}" class="ftime_img" alt=""> Before 6AM</button>
+                                    <button for="arrival-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-noon.png' %}" class="ftime_img" alt=""> 6AM-12PM</button>
+                                    <button for="arrival-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-evng.png' %}" class="ftime_img" alt=""> 12PM-6PM</button>
+                                    <button for="arrival-time" class="ftime_btn  me-2 mb-1 col-lg-5"><img src="{% static 'image/flight/F-night.png' %}" class="ftime_img" alt=""> After 6PM</button>
                                 </div>
                             </div>
-                           
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">Airlines</h3>
+                            <div class="sidebar-item mb-1 pb-1">
+                                <h3 class="mb-1">Airlines</h3>
                                 <ul class="sidebar-category1">
-                                    <li><input type="checkbox" id="Air-india"  data-airline="Air India"> Air india <span class="float-end">92</span></li>
-                                    <li><input type="checkbox" id="Air-asia" data-airline="Air asia"> Air asia <span class="float-end">22</span></li>
-                                    <li><input type="checkbox" id="Indigo" data-airline="Indigo"> Indigo <span class="float-end">35</span></li>
-                                    <li><input type="checkbox" id="Vistara" data-airline="Vistara"> Vistara <span class="float-end">41</span></li>
+                                    <li><input type="checkbox" id="Air-india"  data-airline="Air India"> Air india </li>
+                                    <li><input type="checkbox" id="Air-asia" data-airline="Air asia"> Air asia </li>
+                                    <li><input type="checkbox" id="Indigo" data-airline="Indigo"> Indigo </li>
+                                    <li><input type="checkbox" id="Vistara" data-airline="Vistara"> Vistara </li>
                                 </ul>
                             </div>
-                            <div class="sidebar-item mb-2">
-                                <h3 class="">All Itineraries</h3>
+                            <div class="sidebar-item mb-1 pb-1">
+                                <h3 class="mb-1">All Itineraries</h3>
                                 <ul class="sidebar-category1">
-                                    <li><input type="checkbox" id="Baggage"> Baggage Included <span class="float-end">$92</span></li>
-                                    <li><input type="checkbox" id="Non-Refundable"> Non-Refundable <span class="float-end">$40</span></li>
-                                    <li><input type="checkbox" id="Refundable"> Refundable <span class="float-end">$22</span></li>
-                                    <li><input type="checkbox" id="Par-Refundable"> Partial Refundable <span class="float-end">$22</span></li>
+                                    <li><input type="checkbox" id="Baggage"> Baggage Included </li>
+                                    <li><input type="checkbox" id="Non-Refundable"> Non-Refundable </li>
+                                    <li><input type="checkbox" id="Refundable"> Refundable </li>
+                                    <li><input type="checkbox" id="Par-Refundable"> Partial Refundable </li>
                                 </ul>
                             </div>
                         </div>
@@ -546,481 +518,6 @@
                                     </div>
                                 </div>    
                             </div>
-
-                            <!-- <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_3.png" alt="image">
-                                            <h5 class="mb-0">Air Asia Airlines</h5>
-                                            <small>Operated by Asia</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Friday Apr 18, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">9:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">22H 45M <br>1 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme fs-4 fw-bold">$1,445</p>
-                                            <a href="flight-detail.html" class="nir-btn">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush1">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne1">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne7" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne7" class="accordion-collapse collapse" aria-labelledby="flush-headingOne1" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_4.png" alt="image">
-                                            <h5 class="mb-0">Turkish Airlines</h5>
-                                            <small>Operated by Turkey</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Saturday Jun 11, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">18:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">12H 45M <br>2 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme2 fs-4 fw-bold">$2,445</p>
-                                            <a href="flight-detail.html" class="nir-btn-black">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush2">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne2">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne6" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne6" class="accordion-collapse collapse" aria-labelledby="flush-headingOne2" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_5.png" alt="image">
-                                            <h5 class="mb-0">Dragon Airlines</h5>
-                                            <small>Operated by China</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Sunday May 15, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">12:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">16H 45M <br>2 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme2 fs-4 fw-bold">$2,045</p>
-                                            <a href="flight-detail.html" class="nir-btn-black">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush3">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne3">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne5" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne5" class="accordion-collapse collapse" aria-labelledby="flush-headingOne3" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_3.png" alt="image">
-                                            <h5 class="mb-0">Air Asia Airlines</h5>
-                                            <small>Operated by Asia</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Friday Apr 18, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">9:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">22H 45M <br>1 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme fs-4 fw-bold">$1,445</p>
-                                            <a href="flight-detail.html" class="nir-btn">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush4">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne4">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne2" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne4" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_4.png" alt="image">
-                                            <h5 class="mb-0">Turkish Airlines</h5>
-                                            <small>Operated by Turkey</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Saturday Jun 11, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">18:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">12H 45M <br>2 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme2 fs-4 fw-bold">$2,445</p>
-                                            <a href="flight-detail.html" class="nir-btn-black">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush5">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne5">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne3" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne3" class="accordion-collapse collapse" aria-labelledby="flush-headingOne5" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-
-                            <div class="item mb-2 border-all p-3 px-4 rounded">
-                                <div class="row d-flex align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner-image text-start">
-                                            <img src="images/flights/flight_grid_5.png" alt="image">
-                                            <h5 class="mb-0">Dragon Airlines</h5>
-                                            <small>Operated by China</small>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner">
-                                        <div class="content">
-                                            <h5 class="mb-0">Sunday May 15, 2022</h5>
-                                        </div>
-                                        </div>
-                                    </div>    
-                                    <div class="col-lg-2 col-md-2 col-sm-12"> 
-                                        <div class="item-inner">
-                                            <div class="content">
-                                                <h3 class="mb-0">12:30</h3>
-                                                <p class="mb-0 text-uppercase">DAC</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                        <div class="item-inner flight-time">
-                                        <p class="mb-0">16H 45M <br>2 Stops</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="item-inner text-end">
-                                            <p class="theme2 fs-4 fw-bold">$2,045</p>
-                                            <a href="flight-detail.html" class="nir-btn-black">View Deals</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush6">
-                                            <div class="accordion-item overflow-hidden">
-                                                <p class="accordion-header" id="flush-headingOne6">
-                                                    <button class="accordion-button collapsed p-0 border-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne4" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                      Flight Details
-                                                    </button>
-                                                </p>
-                                                <div id="flush-collapseOne4" class="accordion-collapse collapse" aria-labelledby="flush-headingOne6" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body p-0">
-                                                        <div class="row flight-detail-wrap align-items-center border-t pt-1 mt-1" style="">
-                                                            <div class="col-lg-4">
-                                                                <div class="flight-date">
-                                                                    <ul>
-                                                                        <li>Economy</li>
-                                                                        <li>Thursday, Jun 16 - 23:20</li>
-                                                                        <li class="theme">22h 50m</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-8">
-                                                                <div class="flight-detail-right">
-                                                                    <h5><i class="fa fa-plane"></i> IST - Istanbul Airport, Turkish</h5>
-                                                                    <div class="flight-detail-info d-flex align-items-center p-2 py-3 bg-grey rounded mb-2">
-                                                                        <img src="images/flights/flight_grid_3.png" alt="">
-                                                                        <ul>
-                                                                            <li>Tpm Line</li>
-                                                                            <li>Operated by Airlines</li>
-                                                                            <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                                                                            <li>Adult(s): 25KG luggage free</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5 class="mb-0">DXB - Dubai, United Arab Emirates</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div> -->
-
                         </div> 
                         <div class="flight-btn text-center"><a href="flight-grid.html" class="nir-btn">Load More</a></div>
                     </div>
@@ -1057,34 +554,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <style>
-        /* Flight list */
-        /* CITY LIST */
-.ui-autocomplete {
-    z-index: 1050;
-    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
-    background: #ffffff;
-    border-radius: 12px;
-    max-height: 200px;
-    width: 200px;
-    overflow-y: scroll;
-    scrollbar-width: 10px;
-    overflow-x: hidden;
-    font-size: 13px;
-    position: relative;
-}
-
-.ui-menu-item {
-    padding: 3px 0px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.ui-menu-item:hover {
-    background-color: #029e9d !important;
-}
-    </style>
+    
 
     
 </body>

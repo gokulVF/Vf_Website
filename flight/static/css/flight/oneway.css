@@ -54,5 +54,170 @@
     padding: 5px 15px;
 }
 
+/* --------------------- - range slider ---------------- */
+.wrapper{
+    width: 100%;
+    height: 140px;
+    padding: 6px;
+    margin: 4px;
+    margin-left: -6px;
+}
+
+
+
+.box-1 {
+    margin: 8px 4px;
+    font-size: 20px;
+}
+
+.price-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.field {
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.field input {
+    border: none;
+    width: 70px;
+    outline: none;
+    padding: 0 4px;
+    height: auto !important;
+}
+
+.slider {
+    height: 11px;
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 11px;
+    height: 5px !important;
+}
+
+.slider .progress {
+    height: 100%;
+    left: 0%;
+    right: 0%;
+    position: absolute;
+    border-radius: 5px;
+    background: #029e9d !important;
+    margin-top: 0px;
+}
+
+.range-input{
+    position: relative;
+}
+    
+.range-input input{
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    top: 0px;
+    background: none;
+    margin-bottom: 3px;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+} 
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.price-input .separator{
+    width: 100px;
+    display: flex;
+    font-size: 19px;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #029e9d;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    margin-top: -16px;
+}
+
+input[type="range"]::-moz-range-thumb{
+    height: 15px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: #029e9d;
+}
+
+/* BAR STICK */
+.stick-bar{ 
+    position: sticky;
+    height: 700px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.ftime_btn{ 
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 6px !important;
+}
+
+.ftime_btn:hover { 
+    opacity: .6;
+}
+
+.ftime_btn:focus { 
+    background: none;
+    border: 1px solid #000000;
+}
+
+.ftime_img {
+    width: 30px;
+}
+
+/* CITY SEARCH LIST */
+       /* CITY LIST */
+       .ui-autocomplete {
+        z-index: 1050;
+        box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+        background: #ffffff;
+        border-radius: 12px;
+        max-height: 200px;
+        width: 200px;
+        overflow-y: scroll;
+        scrollbar-width: 10px;
+        overflow-x: hidden;
+        font-size: 13px;
+        position: relative;
+    }
+    
+    .ui-menu-item {
+        padding: 3px 0px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    
+    .ui-menu-item:hover {
+        background-color: #029e9d !important;
+    }
+
 
 
