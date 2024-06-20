@@ -1044,6 +1044,21 @@ function updateFlightLists() {
     });
 }
 
+// BTN ACTIVE - ONE TRIP
+// Ensure JavaScript runs after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all buttons with the class 'ftime_btn'
+    const buttons = document.querySelectorAll('.ftime_btn');
+
+    // Add event listener to each button
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Toggle the 'active' class on the clicked button
+            this.classList.toggle('active');
+        });
+    });
+});
+
 
 
 
