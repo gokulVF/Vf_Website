@@ -5272,7 +5272,7 @@ def update_homepage_theme(request):
 from VFpages.models import Uploadhotel;
 
 
-def addhotel(request,search_query):
+def addhotel(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5286,7 +5286,7 @@ def addhotel(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         hotel_name = request.POST.get('Hotel')
         confirmation_number = request.POST.get('Confirmation')  # Assuming you have a field for this in your form
         check_in = request.POST.get('checkin')
@@ -5327,29 +5327,30 @@ def addhotel(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = Uploadhotel(
-            phone_number=phone_number,
-            hotel_name=hotel_name,
-            confirmation_number=confirmation_number,
-            check_in=check_in,
-            check_out=check_out,
-            no_of_nights=no_of_nights,
-            room_type=room_type,
-            created_by = date_object,
-            updated_by = date_object,
-            uplotername = username,
-            editername = username,
-            attachment = uploadhotel_,
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = Uploadhotel(
+                phone_number=phone_number,
+                hotel_name=hotel_name,
+                confirmation_number=confirmation_number,
+                check_in=check_in,
+                check_out=check_out,
+                no_of_nights=no_of_nights,
+                room_type=room_type,
+                created_by = date_object,
+                updated_by = date_object,
+                uplotername = username,
+                editername = username,
+                attachment = uploadhotel_,
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def edithotel(request,id,search_query):
+def edithotel(request,id):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5360,15 +5361,17 @@ def edithotel(request,id,search_query):
     userdetails = adminheader(request)
     if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
-    
+    phone_numbers = request.GET.getlist('phone_numbers[]', [])
+    print("phone_numbers",phone_numbers)
 
     hotel_ = Uploadhotel.objects.filter(id=id)
     print(hotel_)
-    return render(request, 'admin/UserCMS/hoteledit.html',{"userdetails":userdetails,"hotel_d":hotel_,"search_query":search_query})
+    return render(request, 'admin/UserCMS/hoteledit.html',{"userdetails":userdetails,"hotel_d":hotel_,"phone_numbers":phone_numbers})
 
-def editmainhotel(request,id,search_query):
+def editmainhotel(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         hotel_name = request.POST.get('Hotel')
         confirmation_number = request.POST.get('Confirmation')
         check_in = request.POST.get('checkin')
@@ -5425,7 +5428,7 @@ def editmainhotel(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
   # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
@@ -5434,84 +5437,67 @@ def editmainhotel(request,id,search_query):
 from VFpages.models import UploadFlight ,UploadTransfers, UploadUserdetails;
 
 
-def addflight(request,search_query):
-     # Check if user is authenticated
+def addflight(request):
     if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
         return redirect('login')
 
-    # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'Sales' and role != 'superadmin' and role != 'employee':
+    if role not in ['Sales', 'superadmin', 'employee']:
         return redirect('dashboard')
-    
+
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
-        # hotel_name = request.POST.get('Hotel')
-        pnr_number = request.POST.get('Confirmation')  # Assuming you have a field for this in your form
+        phone_numbers = request.POST.getlist('phone_numbers[]')
+        pnr_number = request.POST.get('Confirmation')
         travel_date = request.POST.get('checkin')
         return_date = request.POST.get('checkout')
         baggage = request.POST.get('Noofnights')
         sector = request.POST.get('Room')
         flight_name = request.POST.get('FlightName')
-        # attachment = request.FILES.get('attachmentfiles')  # Assuming you have a file field in your form
-        print(request.FILES)
 
-        uploadhotel_ = UploadFlight.objects.all()
-
-
+        uploaded_file_path = None
         if 'attachmentfiles' in request.FILES:
             uploaded_file = request.FILES['attachmentfiles']
-            
-            # Get the current date
             current_date = datetime.now().strftime('%d-%m-%Y')
-            
-            # Construct the folder path
             pdf_folder = os.path.join(settings.BASE_DIR, 'VFpages/static/pdf/flightvoucher', current_date)
-            
-            # Check if the folder for the current date exists, if not, create it
             if not os.path.exists(pdf_folder):
                 os.makedirs(pdf_folder)
-            
-            # Save the PDF file inside the folder
             pdf_file_path = os.path.join(pdf_folder, uploaded_file.name)
             with open(pdf_file_path, 'wb') as destination:
                 for chunk in uploaded_file.chunks():
                     destination.write(chunk)
-            uploadhotel_= os.path.join(current_date, uploaded_file.name)
+            uploaded_file_path = os.path.join(current_date, uploaded_file.name)
 
         username = request.session.get('username')
         current_time = timezone.now().strftime("%d-%m-%Y")
         date_object = datetime.strptime(current_time, "%d-%m-%Y")
-            
 
-        # Create and save instance
-        uploadhotel_instance = UploadFlight(
-            phone_number=phone_number,
-            baggage=baggage,
-            pnr_number=pnr_number,
-            traveldate=travel_date,
-            returendate=return_date,
-            # no_of_nights=no_of_nights,
-            sector=sector,
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username,
-            ticketattachment = uploadhotel_,
-            flight_name = flight_name,
-        )
-        uploadhotel_instance.save()
+        # Save flight details for each phone number
+        for phone_number in phone_numbers:
+            uploadflight_instance = UploadFlight(
+                phone_number=phone_number,
+                baggage=baggage,
+                pnr_number=pnr_number,
+                traveldate=travel_date,
+                returendate=return_date,
+                sector=sector,
+                created_by=date_object,
+                updated_by=date_object,
+                uplodername=username,
+                editername=username,
+                ticketattachment=uploaded_file_path if uploaded_file else None,
+                flight_name=flight_name,
+            )
+            uploadflight_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editflight(request,id,search_query):
+def editflight(request,id):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5522,15 +5508,17 @@ def editflight(request,id,search_query):
     userdetails = adminheader(request)
     if role != 'Sales' and role != 'superadmin' and role != 'employee':
         return redirect('dashboard')
+    phone_numbers = request.GET.getlist('phone_numbers[]', [])
     
 
     hotel_ = UploadFlight.objects.filter(id=id)
     print(hotel_)
-    return render(request, 'admin/UserCMS/flightedit.html',{"userdetails":userdetails,"hotel_d":hotel_,"search_query":search_query})
+    return render(request, 'admin/UserCMS/flightedit.html',{"userdetails":userdetails,"hotel_d":hotel_,"phone_numbers":phone_numbers})
 
-def editmainflight(request,id,search_query):
+def editmainflight(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         # hotel_name = request.POST.get('Hotel')
         pnr_number = request.POST.get('Confirmation')
         travel_date = request.POST.get('checkin')
@@ -5591,14 +5579,14 @@ def editmainflight(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'flight.html', {'hotel': hotel})
 
 
 
-def addtrans(request,search_query):
+def addtrans(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5612,7 +5600,8 @@ def addtrans(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
+        # phone_number = request.POST.get('Phonenumber')
         # hotel_name = request.POST.get('Hotel')
         From = request.POST.get('From')  # Assuming you have a field for this in your form
         TO = request.POST.get('TO')
@@ -5651,27 +5640,29 @@ def addtrans(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = UploadTransfers(
-            phone_number=phone_number,
-            traveldate=traveldate,
-            datas={"From":From,"TO":TO,"data1":xxxxxx,"data2":yyyyyyy,"attachment":uploadhotel_},
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username
-          
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = UploadTransfers(
+                phone_number=phone_number,
+                traveldate=traveldate,
+                datas={"From":From,"TO":TO,"data1":xxxxxx,"data2":yyyyyyy,"attachment":uploadhotel_},
+                created_by = date_object,
+                updated_by = date_object,
+                uplodername = username,
+                editername = username
+            
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmaintransfer(request,id,search_query):
+def editmaintransfer(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         # hotel_name = request.POST.get('Hotel')
         From = request.POST.get('From')  # Assuming you have a field for this in your form
         TO = request.POST.get('TO')
@@ -5728,14 +5719,14 @@ def editmaintransfer(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'transfers.html', {'hotel': hotel})
 
 
 
-def addticket(request,search_query):
+def addticket(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5749,7 +5740,8 @@ def addticket(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        # phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         traveldate = request.POST.get('checkin')
         enddate = request.POST.get('checkout')
@@ -5788,26 +5780,28 @@ def addticket(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = UploadUserdetails(
-            phone_number=phone_number,
-            tickets={"filed1":filed1,"filed2":filed2,"traveldate":traveldate,"enddate":enddate,"attachment":uploadhotel_},
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username,
-          
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = UploadUserdetails(
+                phone_number=phone_number,
+                tickets={"filed1":filed1,"filed2":filed2,"traveldate":traveldate,"enddate":enddate,"attachment":uploadhotel_},
+                created_by = date_object,
+                updated_by = date_object,
+                uplodername = username,
+                editername = username,
+            
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query) # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers)) # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainticket(request,id,search_query):
+def editmainticket(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         traveldate = request.POST.get('checkin')
         enddate = request.POST.get('checkout')
@@ -5862,14 +5856,14 @@ def editmainticket(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'transfers.html', {'hotel': hotel})
 
 
 
-def addvisa(request,search_query):
+def addvisa(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -5883,7 +5877,8 @@ def addvisa(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        # phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('TO')
         filed3 = request.POST.get('Noofnights')
@@ -5921,26 +5916,28 @@ def addvisa(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = UploadUserdetails(
-            phone_number=phone_number,
-            visa={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_,"checkout":checkout},
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username,
-          
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = UploadUserdetails(
+                phone_number=phone_number,
+                visa={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_,"checkout":checkout},
+                created_by = date_object,
+                updated_by = date_object,
+                uplodername = username,
+                editername = username,
+            
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainvisa(request,id,search_query):
+def editmainvisa(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('TO')
         filed3 = request.POST.get('Noofnights')
@@ -5995,13 +5992,13 @@ def editmainvisa(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'visa.html', {'hotel': hotel})
 
 
-def addinsurence(request,search_query):
+def addinsurence(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -6015,7 +6012,8 @@ def addinsurence(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        # phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('checkin')
         filed3 = request.POST.get('checkout')
@@ -6053,26 +6051,28 @@ def addinsurence(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = UploadUserdetails(
-            phone_number=phone_number,
-            insurense={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_},
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username,
-          
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = UploadUserdetails(
+                phone_number=phone_number,
+                insurense={"filed1":filed1,"filed2":filed2,"filed3":filed3,"attachment":uploadhotel_},
+                created_by = date_object,
+                updated_by = date_object,
+                uplodername = username,
+                editername = username,
+            
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmaininsurence(request,id,search_query):
+def editmaininsurence(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         filed1 = request.POST.get('From')
         filed2 = request.POST.get('checkin')
         filed3 = request.POST.get('checkout')
@@ -6125,13 +6125,13 @@ def editmaininsurence(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'insurense.html', {'hotel': hotel})
 
 
-def addpassport(request,search_query):
+def addpassport(request):
      # Check if user is authenticated
     if not request.session.get('username') or not request.session.get('role'):
         # Redirect to login page if session data is not found
@@ -6145,7 +6145,8 @@ def addpassport(request,search_query):
     
     if request.method == 'POST':
         # Get form data
-        phone_number = request.POST.get('Phonenumber')
+        # phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         clientname = request.POST.get('From')
 
         uploadhotel_ = UploadUserdetails.objects.all()
@@ -6177,26 +6178,28 @@ def addpassport(request,search_query):
             
 
         # Create and save instance
-        uploadhotel_instance = UploadUserdetails(
-            phone_number=phone_number,
-            Passport={"clientname":clientname,"attachment":uploadhotel_},
-            created_by = date_object,
-            updated_by = date_object,
-            uplodername = username,
-            editername = username,
-          
-        )
-        uploadhotel_instance.save()
+        for phone_number in phone_numbers:
+            uploadhotel_instance = UploadUserdetails(
+                phone_number=phone_number,
+                Passport={"clientname":clientname,"attachment":uploadhotel_},
+                created_by = date_object,
+                updated_by = date_object,
+                uplodername = username,
+                editername = username,
+            
+            )
+            uploadhotel_instance.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace '/success-url/' with your actual success URL
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace '/success-url/' with your actual success URL
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'your_template.html')
 
-def editmainpassport(request,id,search_query):
+def editmainpassport(request,id):
     if request.method == 'POST':
         phone_number = request.POST.get('Phonenumber')
+        phone_numbers = request.POST.getlist('phone_numbers[]')
         clientnmae = request.POST.get('From')
         # filed2 = request.POST.get('TO')
         # filed3 = request.POST.get('Noofnights')
@@ -6249,7 +6252,7 @@ def editmainpassport(request,id,search_query):
         hotel.save()
 
         # Redirect after successful submission
-        return redirect(reverse('useradminpage') + '?search_query=' + search_query)  # Replace 'hoteladmin' with your actual success URL name
+        return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))  # Replace 'hoteladmin' with your actual success URL name
 
     # If request method is not POST or form is not submitted yet, render the form page
     return render(request, 'insurense.html', {'hotel': hotel})
@@ -6260,6 +6263,8 @@ def delete_userpanel(request):
     if request.method == 'GET':
         id = request.GET.get('id', '')
         search_query = request.GET.get('search_query', '')
+        phone_numbers = request.GET.get('phone_numbers', '').split(',')
+        phone_numbers = list(set(phone_numbers))
         type = request.GET.get('type', '')
 
         if type == 'hotel':
@@ -6271,7 +6276,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
 
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
 
         if type == 'flight':
             hotel = UploadFlight.objects.filter(id=id).first()
@@ -6282,7 +6287,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
         
             
         if type == 'transfers':
@@ -6294,7 +6299,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
         if type == 'tickets':
             hotel = UploadUserdetails.objects.filter(id=id).first()
 
@@ -6304,7 +6309,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
         if type == 'visa':
             hotel = UploadUserdetails.objects.filter(id=id).first()
 
@@ -6314,7 +6319,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers)) 
         if type == 'insurance':
             hotel = UploadUserdetails.objects.filter(id=id).first()
 
@@ -6324,7 +6329,7 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query)
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers))
         if type == 'Passport':
             hotel = UploadUserdetails.objects.filter(id=id).first()
 
@@ -6334,65 +6339,71 @@ def delete_userpanel(request):
                     os.remove(image_path)
             hotel.delete() 
         
-            return redirect(reverse('useradminpage') + '?search_query=' + search_query) 
+            return redirect(reverse('useradminpage') + '?search_query=' + ','.join(phone_numbers)) 
 
 import mimetypes
 from django.http import FileResponse, HttpResponse
 
-def useradminpage(request): 
-     # Check if user is authenticated
+def useradminpage(request):
     if not request.session.get('username') or not request.session.get('role'):
-        # Redirect to login page if session data is not found
         return redirect('login')
 
-    # Check if the user has the appropriate role to access this page
     role = request.session.get('role')
     userdetails = adminheader(request)
-    if role != 'Sales' and role != 'superadmin' and role != 'employee':
+    if role not in ['Sales', 'superadmin', 'employee']:
         return redirect('dashboard')
-    # my_value1 = request.session.get('my_value1')
+
     hotel_data = UploadFlight.objects.all()
     hotel_data2 = Uploadhotel.objects.all()
     hotel_data3 = UploadTransfers.objects.all()
     hotel_data4 = UploadUserdetails.objects.all()
-    # hotel_data5 = UploadUserdetails.objects.all()
+
+    phone_numbers = []
+    phone_number_user_pairs = []
+    filtered_hotels = filtered_hotels2 = filtered_hotels3 = filtered_hotels4 = None
+
+    if request.method == 'POST':
+        phone_numbers = request.POST.getlist('phone_numbers[]')
+
+        if phone_numbers:
+            filtered_hotels = hotel_data.filter(phone_number__in=phone_numbers)
+            filtered_hotels2 = hotel_data2.filter(phone_number__in=phone_numbers)
+            filtered_hotels3 = hotel_data3.filter(phone_number__in=phone_numbers)
+            filtered_hotels4 = hotel_data4.filter(phone_number__in=phone_numbers)
+
+            for phone_number in phone_numbers:
+                try:
+                    user = Userdetails.objects.get(phone_number=phone_number)
+                    user_name = f"{user.first_name} {user.last_name}"
+                except Userdetails.DoesNotExist:
+                    user_name = "User not found"
+                phone_number_user_pairs.append((phone_number, user_name))
+
     search_query = request.GET.get('search_query')
-    user_name = None
     if search_query:
-        filtered_hotels = hotel_data.filter(phone_number=search_query)
-        filtered_hotels2 = hotel_data2.filter(phone_number=search_query)
-        filtered_hotels3 = hotel_data3.filter(phone_number=search_query)
-        filtered_hotels4 = hotel_data4.filter(phone_number=search_query)
-        # filtered_hotels5 = hotel_data4.filter(phone_number=search_query)
-        
-        # if not filtered_hotels:
-        #     # Return a JSON response with a message indicating no hotels found
-        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        # if not filtered_hotels2:
-        #     # Return a JSON response with a message indicating no hotels found
-        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        # if not filtered_hotels3:
-        #     # Return a JSON response with a message indicating no hotels found
-        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        # if not filtered_hotels4:
-        #     # Return a JSON response with a message indicating no hotels found
-        #     return JsonResponse({'message': 'No hotels found matching the search query'}, status=404)
-        
+        phone_numbers = search_query.split(',')
+        filtered_hotels = hotel_data.filter(phone_number__in=phone_numbers)
+        filtered_hotels2 = hotel_data2.filter(phone_number__in=phone_numbers)
+        filtered_hotels3 = hotel_data3.filter(phone_number__in=phone_numbers)
+        filtered_hotels4 = hotel_data4.filter(phone_number__in=phone_numbers)
 
-        
-        hotel_data = filtered_hotels
-        hotel_data2 = filtered_hotels2
-        hotel_data3 = filtered_hotels3
-        hotel_data4 = filtered_hotels4
-        try:
-            user_name = Userdetails.objects.get(phone_number=search_query)
-        except:
-            user_name = "User not found"   
+        for phone_number in phone_numbers:
+            try:
+                user = Userdetails.objects.get(phone_number=phone_number)
+                user_name = f"{user.first_name} {user.last_name}"
+            except Userdetails.DoesNotExist:
+                user_name = "User not found"
+            phone_number_user_pairs.append((phone_number, user_name))
 
-    
-    return render(request,'admin/UserCMS/customerportel.html',{"userdetails":userdetails,"hotel_data":hotel_data,"hotel_data2":hotel_data2,"hotel_data3":hotel_data3,"hotel_data4":hotel_data4,"search_query":search_query,"user_name":user_name})
-
-
+    return render(request, 'admin/UserCMS/customerportel.html', {
+        "userdetails": userdetails,
+        "hotel_data": filtered_hotels,
+        "hotel_data2": filtered_hotels2,
+        "hotel_data3": filtered_hotels3,
+        "hotel_data4": filtered_hotels4,
+        "search_query": phone_number_user_pairs,
+        "phone_numbers": phone_numbers,
+    })
 
 
 

@@ -65,7 +65,7 @@
 						<li class="breadcrumb-item"><a href="#">User Panel</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Flight</li>
 					</ol>
-                    <a href="{% url 'useradminpage'  %}?search_query={{search_query}}"><button class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left link-icon"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</button></a>
+                    <a href="{% url 'useradminpage' %}?search_query={{ phone_numbers|join:"," }}"><button class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left link-icon"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</button></a>
 				</nav>
           
     {% for hotel_data in hotel_d %}
@@ -73,8 +73,11 @@
             <div class="text-start mb-3">
                 <h3 class="theme">Edit Flight Details</h3>
             </div>
-            <form class="forms-sample row bg-white rounded pt-4 px-2" id="myForm" action="{% url 'editmainflight' hotel_data.id search_query %}" method="POST" enctype="multipart/form-data">
+            <form class="forms-sample row bg-white rounded pt-4 px-2" id="myForm" action="{% url 'editmainflight' hotel_data.id  %}" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
+             {% for number in phone_numbers %}
+                    <input type="hidden" name="phone_numbers[]" value="{{ number }}">
+              {% endfor %}
             <div class="mb-3  col-lg-6" style="display: none;">
                 <label for="subtitle" class="form-label">User Phone Number</label>
                 <!-- <textarea name="getsome" id="getsome" cols="50" rows="5"> -->
