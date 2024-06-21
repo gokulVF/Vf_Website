@@ -152,34 +152,34 @@ urlpatterns= [
     # UserCMS
     path('useradminpage', views.useradminpage, name='useradminpage'),
     # hotel
-    path('addhotel/<str:search_query>',views.addhotel,name='addhotel'),
-    path('edithotel/<int:id>/<str:search_query>',views.edithotel,name='edithotel'),
-    path('editmainhotel/<int:id>/<str:search_query>',views.editmainhotel,name='editmainhotel'),
+    path('addhotel',views.addhotel,name='addhotel'),
+    path('edithotel/<int:id>',views.edithotel,name='edithotel'),
+    path('editmainhotel/<int:id>',views.editmainhotel,name='editmainhotel'),
     
     
     # flight
-    path('addflight/<str:search_query>',views.addflight,name='addflight'),
-    path('editflight/<int:id>/<str:search_query>',views.editflight,name='editflight'),
-    path('editmainflight/<int:id>/<str:search_query>',views.editmainflight,name='editmainflight'),
+    path('addflight',views.addflight,name='addflight'),
+    path('editflight/<int:id>',views.editflight,name='editflight'),
+    path('editmainflight/<int:id>',views.editmainflight,name='editmainflight'),
     
     #transfer
-    path('addtrans/<str:search_query>', views.addtrans, name='addtrans'),
-    path('editmaintransfer/<int:id>/<str:search_query>', views.editmaintransfer, name='editmaintransfer'),
+    path('addtrans', views.addtrans, name='addtrans'),
+    path('editmaintransfer/<int:id>', views.editmaintransfer, name='editmaintransfer'),
     
     #tickets
-    path('addticket/<str:search_query>', views.addticket, name='addticket'),
-    path('editmainticket/<int:id>/<str:search_query>', views.editmainticket, name='editmainticket'),
+    path('addticket', views.addticket, name='addticket'),
+    path('editmainticket/<int:id>', views.editmainticket, name='editmainticket'),
     
     #visa
-    path('addvisa/<str:search_query>', views.addvisa, name='addvisa'),
-    path('editmainvisa/<int:id>/<str:search_query>', views.editmainvisa, name='editmainvisa'),
+    path('addvisa', views.addvisa, name='addvisa'),
+    path('editmainvisa/<int:id>', views.editmainvisa, name='editmainvisa'),
     
     #insurence
-    path('addinsurence/<str:search_query>', views.addinsurence, name='addinsurence'),
-    path('editmaininsurence/<int:id>/<str:search_query>', views.editmaininsurence, name='editmaininsurence'),
+    path('addinsurence', views.addinsurence, name='addinsurence'),
+    path('editmaininsurence/<int:id>', views.editmaininsurence, name='editmaininsurence'),
     #passport
-    path('addpassport/<str:search_query>', views.addpassport, name='addpassport'),
-    path('editmainpassport/<int:id>/<str:search_query>', views.editmainpassport, name='editmainpassport'),
+    path('addpassport', views.addpassport, name='addpassport'),
+    path('editmainpassport/<int:id>', views.editmainpassport, name='editmainpassport'),
     
     
     

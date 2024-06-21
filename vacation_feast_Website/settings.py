@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'vacationfeast',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '8870082135',
+        'PASSWORD': 'gokulraj',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -110,7 +110,7 @@ DATABASES = {
         'NAME': 'newmain',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '8870082135',
+        'PASSWORD': 'gokulraj',
         'PORT': '3306',
     }
 
