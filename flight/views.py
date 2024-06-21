@@ -22,6 +22,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.utils import timezone
 import hashlib
 import random
 import datetime
@@ -40,6 +41,7 @@ from django.conf import settings
 from django.http import HttpResponse
 import smtplib
 from django.contrib.auth import logout
+from VFpages.header_utils import header_fn,homefooter
 
 
 def homepage(request):
@@ -71,42 +73,116 @@ def search_destinations_flight(request):
 
     return JsonResponse({'data': data})
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        # If the request went through a proxy or load balancer,
+        # the client's IP address might be in the X-Forwarded-For header
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        # Otherwise, get the client's IP address from REMOTE_ADDR
+        ip_address = request.META.get('REMOTE_ADDR')
+    
+    # Store the IP address in a variable
+    client_ip_address = ip_address
+    return client_ip_address
+
+def get_or_refresh_token(request):
+    token_creation_time_str = request.session.get('token_creation_time')
+    token_creation_time = datetime.strptime(token_creation_time_str, "%Y-%m-%d %H:%M:%S") if token_creation_time_str else None
+    token = request.session.get('token')
+    client_ip = get_client_ip(request)
+    request.session['client_ip'] = client_ip
+
+    
+    # Define the token expiration time as exactly one day from the creation time
+    token_expiration_time = token_creation_time + timedelta(days=1) if token_creation_time else None
+
+
+    # Check if token exists and is less than 23 hours old
+    if token is not None and token_creation_time is not None and datetime.now() < token_expiration_time:
+        return token
+
+    # If token doesn't exist or is older than 23 hours, obtain a new token
+    url = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'
+    headers = {'Content-Type': 'application/json'}
+    data = {
+        'ClientId': "ApiIntegrationNew",
+        'UserName': "Vacation",
+        'Password': "Feast@123456",
+        'EndUserIp': client_ip,
+        }
+
+    print("Authenticate Request Data :",data )
+
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        response.raise_for_status()
+
+        response_data = response.json()
+        print("Authenticate Response data :",response_data)
+        if response.status_code == 200:
+            token = response_data.get('TokenId')
+            if token:
+                # Save the token and its creation time in session
+                request.session['token'] = token
+                request.session['token_creation_time'] = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
+                print(request)
+                return token
+
+    except requests.exceptions.RequestException as ex:
+        print(f"Error: {ex}")
+
+    return None
 
 
 def one_trip(request):
+
     if request.method == 'GET':
-        fare_based = request.GET.get('selectedFare', '')
+        # destinations_data,all_categories = header_fn(request)
+        # footers = homefooter()
+        # footer_header = footers["footer_header"]
+        # footer_title = footers["footer_title"]
+
+        token = get_or_refresh_token(request)
+        print(token)
+        if not token:
+            return HttpResponse("Error processing the form: Failed to obtain token.")
+        
+        client_ip = request.session.get('client_ip','')
+        fare_based = f"{request.GET.get('selectedFare', '')}"
+        # from airport details
+        from_onetrip = request.GET.get('from_one_trip', '')
         FromAirportCode = request.GET.get('fromAirportCode', '')
-        ToAirportCode = request.GET.get('toAirportCode', '')
-        from_onetrip = request.GET.get('from-one-trip', '')
-        to_onetrip = request.GET.get('to-one-trip', '')  # Corrected variable name
-        from_city_code = request.GET.get('from_city_code', '') 
-        to_city_code = request.GET.get('to_city_code', '')
+        from_city_code = request.GET.get('from_city_code', '')
         fromcityname = request.GET.get('fromcityname', '')
+        # To airport details 
+        to_onetrip = request.GET.get('to_one_trip', '')  # Corrected variable name
+        ToAirportCode = request.GET.get('toAirportCode', '')
+        to_city_code = request.GET.get('to_city_code', '')
         tocityname = request.GET.get('tocityname','')
-        Departure_date_onetrip = request.GET.get('check-in', '')
-        print(Departure_date_onetrip)
+
         onee_trip = request.GET.get('classes', '')
         no_of_adults = request.GET.get('Adults', '')
         no_of_chaild = request.GET.get('Childs', '')
         no_of_infant = request.GET.get('Infants', '')
         DirectFlight = request.GET.get('resultdir','')
-        print("classsssssssssssssssssssssssssssssssssssssssss",onee_trip)
-        guest_details = f"{no_of_adults} adults,{no_of_chaild} Children,{no_of_infant} infants"
-        print(guest_details)
+        # guest_details = f"{no_of_adults} adults,{no_of_chaild} Children,{no_of_infant} infants"
+        # print(guest_details)
         member_details = []
-        PER_COUNT = {
+        Per_count = {
             "adult": no_of_adults,
             "child": no_of_chaild, 
             "infant": no_of_infant,
         }
        
-        member_details.append(PER_COUNT)
+        member_details.append(Per_count)
         print(member_details)
         room_json_array_string = json.dumps(member_details)
 
         # guest_details = f"{no_of_adults} Adults,{no_of_chaild} Childs,{no_of_infant} Infant"
-        
+        Departure_date_onetrip = request.GET.get('check-in', '')
+        print("Departure_date_onetrip",Departure_date_onetrip)
         format_check_in_date_new = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d").strftime("%d %b %Y")
         check_in_date = datetime.strptime(Departure_date_onetrip, "%Y-%m-%d")
         formatted_check_in_date = check_in_date.strftime('%d/%m/%Y')
@@ -115,8 +191,7 @@ def one_trip(request):
         print(fromcityname,tocityname,format_check_in_date_new )
 
         DirectFlight_bool = DirectFlight.lower() == "true"
-        print(DirectFlight_bool)
-        print(type(DirectFlight_bool))
+       
 
         
         # request.session['start_place'] = from_onetrip  # Corrected variable name
@@ -126,112 +201,105 @@ def one_trip(request):
         # request.session['childs'] = no_of_chaild
         # request.session['infant'] = no_of_infant
 
-        url = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'  # Removed extra space
+        # url = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'  # Removed extra space
 
-        headers = {
-            'Content-Type': 'application/json',
-        }
+        # headers = {
+        #     'Content-Type': 'application/json',
+        # }
 
-        data = {
-            'ClientId': "ApiIntegrationNew",
-            'UserName': "Vacation",
-            'Password': "Feast@123456",
-            'EndUserIp': "192.168.11.120",
-        }
-        try:
-            response = requests.post(url, json=data, headers=headers)
-            response.raise_for_status()
+        # data = {
+        #     'ClientId': "ApiIntegrationNew",
+        #     'UserName': "Vacation",
+        #     'Password': "Feast@123456",
+        #     'EndUserIp': "192.168.11.120",
+        # }
+        # try:
+        #     response = requests.post(url, json=data, headers=headers)
+        #     response.raise_for_status()
 
-            response_data = response.json()
-            if response.status_code == 200:
-                api_data = response.json()
+        #     response_data = response.json()
+        #     if response.status_code == 200:
+        #         api_data = response.json()
 
-            if response_data.get('TokenId', None):  # Corrected key name
-                token = response_data['TokenId']
-                print("Authentication successful. Token:", token)
+        #     if response_data.get('TokenId', None):  # Corrected key name
+        #         token = response_data['TokenId']
+        if token:
+            print("Authentication successful. Token:", token)
 
-                # search for flight
-                api_url = 'http://api.tektravels.com'
-                api_key = 'Feast@123456'
-                EndUserIp = "192.168.11.120"
-                one_trip_class=f"{onee_trip}"
+            # search for flight
+            api_url = 'http://api.tektravels.com'
+            api_key = 'Feast@123456'
+            EndUserIp = client_ip
+            one_trip_class=f"{onee_trip}"
+            
+            numadult = f"{no_of_adults}"
+            numchaild = f"{no_of_chaild}"
+            numinfant = f"{no_of_infant}"
+            
+            
+            
+            Segments = [
+                {
+                    'Origin': f"{FromAirportCode}",
+                    'Destination': f"{ToAirportCode}",
+                    'FlightCabinClass': f"{one_trip_class}",
+                    'PreferredDepartureTime':  f"{Departure_date_onetrip}T00:00:00",
+                    'PreferredArrivalTime':  f"{Departure_date_onetrip}T00:00:00",
+                }
+            ]
+            
+            token_id = f"{token}"
+            
+
+            
+
+
+
+            flight_info = get_flight_results( EndUserIp,token_id, numadult,numchaild, numinfant, DirectFlight_bool,Segments,api_key,fare_based)
+            # print(".........................................................",flight_info)
+            # return render(request, 'flight/oneway.html', {'flight_info': flight_info})
+
+            FLight_list = json.dumps(flight_info)
+            print(FLight_list)
+            if flight_info  is not None:
+                flight_price = flight_info
                 
-                numadult = f"{no_of_adults}"
-                numchaild = f"{no_of_chaild}"
-                numinfant = f"{no_of_infant}"
-                DirectFlight = DirectFlight_bool
-                OneStopFlight = True
-                PreferredAirlines = None
-                JourneyType = "1"
-                sources = None
-                
-                
-                Segments = [
-                    {
-                        'Origin': f"{FromAirportCode}",
-                        'Destination': f"{ToAirportCode}",
-                        'FlightCabinClass': f"{one_trip_class}",
-                        'PreferredDepartureTime':  f"{Departure_date_onetrip}T00:00:00",
-                        'PreferredArrivalTime':  f"{Departure_date_onetrip}T00:00:00",
-                    }
-                ]
-                
-                token_id = f"{token}"
-                print(DirectFlight)
-                print(type(DirectFlight))
-
-                
-
-
-
-                flight_info = get_flight_results( api_key,EndUserIp,token_id, numadult,numchaild, numinfant, DirectFlight,OneStopFlight,JourneyType,PreferredAirlines,Segments,sources,fare_based)
-                # print(".........................................................",flight_info)
-                # return render(request, 'flight/oneway.html', {'flight_info': flight_info})
-
-                FLight_list = json.dumps(flight_info)
-                print(FLight_list)
-                if flight_info  is not None:
-                    flight_price = flight_info
+                if isinstance(flight_price,list) :
+                    all_prices = []
+                    for flight in flight_price:
+                        all_prices.append(flight.get('OffredFare'))
                     
-                    if isinstance(flight_price,list) :
-                        all_prices = []
-                        for flight in flight_price:
-                            all_prices.append(flight.get('OffredFare'))
-                        
-                        valid_prices = [price for price in all_prices if price is not None]
-                        # print(all_prices)
+                    valid_prices = [price for price in all_prices if price is not None]
+                    # print(all_prices)
 
-                        if not valid_prices :
-                            min_price = 0
-                            max_price = 1
-                            error_message = 'No flight available'
-                            return render(request, 'flight/oneway.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'date_object':formatted_check_in_date})
-                        else:
-                            # valid_prices = [price for price in flight_prices if price is not None]
-                            min_price = min(valid_prices)
-                            max_price = max(valid_prices)
-                            print(min_price,max_price)
-
-                            error_message = None
-                            return render(request, 'flight/oneway.html', {'flight_info': flight_info, 'flight_class': one_trip_class,'FLight_list':FLight_list,
-                                                'fromAircode': FromAirportCode, 'toAircode': ToAirportCode,'token_id': token_id,"from_city_code":from_city_code,"to_city_code":to_city_code,
-                                                'fromcityname': fromcityname, 'tocityname':tocityname,'max_price':max_price,'min_price':min_price,'Departure_date':formatted_check_in_date,'NoOfAdults':numadult,'NoOfChild':numchaild,'NoOfInfant':numinfant,'date_object':date_object})                   
+                    if not valid_prices :
+                        min_price = 0
+                        max_price = 1
+                        error_message = 'No flight available'
+                        return render(request, 'flight/oneway.html', {'error_message':error_message,'min_price': min_price, 'max_price': max_price,'date_object':formatted_check_in_date})
                     else:
-                        error_message = "Flight information is not in the expected format"
-                        return render(request, 'flight/error.html', {'error_message': error_message})
+                        # valid_prices = [price for price in flight_prices if price is not None]
+                        min_price = min(valid_prices)
+                        max_price = max(valid_prices)
+                        print(min_price,max_price)
+
+                        error_message = None
+                        return render(request, 'flight/oneway.html', {'flight_info': flight_info, 'flight_class': one_trip_class,'FLight_list':FLight_list,"DirectFlight":DirectFlight,
+                                            'fromAircode': FromAirportCode, 'toAircode': ToAirportCode,'token_id': token_id,"from_city_code":from_city_code,"to_city_code":to_city_code,
+                                            'fromcityname': from_onetrip, 'tocityname':to_onetrip,'max_price':max_price,'min_price':min_price,'Departure_date':formatted_check_in_date,'NoOfAdults':numadult,'NoOfChild':numchaild,'NoOfInfant':numinfant,'date_object':Departure_date_onetrip})                   
                 else:
-                   error_message = "Error occurred during the flight search request"
-                   return render(request, 'flight/error.html', {'error_message': error_message})
+                    error_message = "Flight information is not in the expected format"
+                    return render(request, 'flight/error.html', {'error_message': error_message})
             else:
-                print("Authentication failed:", response_data)
-                return HttpResponse("Authentication failed:", response_data)
-        except requests.exceptions.RequestException as ex:
-            print(f"Error: {ex}")
-    return HttpResponse("Error processing the form.")
-    
+                error_message = "Error occurred during the hotel search request."
+        else:
+            print("Authentication failed:", "Token Not Found")
+
+    return HttpResponse("Error processing the form.")    
 
 
-def get_flight_results(api_key,EndUserIp,token_id, numadult,numchaild, numinfant, DirectFlight,OneStopFlight,JourneyType,PreferredAirlines,Segments,sources,fare_based):
+
+def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, DirectFlight_bool,Segments,api_key,fare_based):
     
     
     url ='http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Search'
@@ -246,17 +314,17 @@ def get_flight_results(api_key,EndUserIp,token_id, numadult,numchaild, numinfant
         'AdultCount': numadult,
         'ChildCount': numchaild,
         'InfantCount': numinfant,
-        'DirectFlight': DirectFlight,
-        'OneStopFlight': OneStopFlight,
-        'JourneyType': JourneyType,
-        'PreferredAirlines': PreferredAirlines,
+        'DirectFlight': DirectFlight_bool,
+        'OneStopFlight': False,
+        'JourneyType': "1",
+        'PreferredAirlines': None,
         'Segments': Segments,
-        'Sources': sources
+        'Sources': None
     }
-    print(data)
+    print("data",data)
 
     try:
-        response = requests.post(url, json=data, headers=headers,params = {'apiKey': api_key})
+        response = requests.post(url, json=data, headers=headers, params={'apiKey': api_key})
         response.raise_for_status()
 
         print("status code:", response.status_code)
@@ -606,8 +674,8 @@ def get_flight_results(api_key,EndUserIp,token_id, numadult,numchaild, numinfant
                     list_of_onestopFlight["FinalTotal_H_M"] = total_H_Ms
 
 
-            # print(array_count_2)
-            # print(flight_info)
+            print(array_count_2)
+            print(flight_info)
             if fare_based :
                 flight_info = [info for info in flight_info if info.get("fare_deal") == fare_based]
                 return flight_info
@@ -621,16 +689,10 @@ def get_flight_results(api_key,EndUserIp,token_id, numadult,numchaild, numinfant
             error_message = "No 'Response' key found in response data."
             return None, None, error_message
 
-    except ValueError as ve:
-        print(f"Error decoding JSON: {ve}")
-    # Handle JSON decoding error, return an appropriate HTTP response or render an error page.
-    except KeyError as ke:
-        if str(ke) == "'Results'":
-            # Handle the case where 'Results' key is not found
-            error_message = "No 'Results' key found in response data."
-            return None, None, error_message
-        else:
-            print(f"KeyError: {ke}")
+    except requests.exceptions.RequestException as ex:
+        print(f"Error: {ex}")
+        # Handle other exceptions if needed
+        return None
             # Handle other KeyError if necessary
     
 def Fare_rule_details(request):

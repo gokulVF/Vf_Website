@@ -82,8 +82,8 @@
     overflow-y: scroll;
     scrollbar-width: 10px;
     overflow-x: hidden;
-    font-size: 13px;
-    position: relative;
+    font-size: 13px !important;
+    position: relative !important;
 }
 
 .ui-menu-item {

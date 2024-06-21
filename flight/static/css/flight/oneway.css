@@ -183,10 +183,6 @@ input[type="range"]::-moz-range-thumb{
     opacity: .6;
 }
 
-.ftime_btn:focus { 
-    background: none;
-    border: 1px solid #029e9d;
-}
 
 .ftime_btn.active { 
     background: none;
@@ -218,12 +214,26 @@ input[type="range"]::-moz-range-thumb{
     padding: 4px 14px !important;
 }
 
+.v-fare-btn {
+    border: 1px solid #029e9d;
+    font-size: 13px;
+    padding: 4px 14px !important;
+}
+
+.morefare-btn:hover ,.v-fare-btn:hover {
+    opacity: .6;
+}
+
 .modal-backdrop {
     display: none;
 }
 
 .fo-pop-head {
     border-radius: 4px !important;
+}
+
+.fs-19 {
+    font-size: 19px;
 }
 
 .fs-12 {
@@ -244,6 +254,9 @@ input[type="range"]::-moz-range-thumb{
 
 .fo-pop-div {
     background: #dddfe0;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 500px;
 }
 
 .fo-opt-div ul li{
@@ -252,6 +265,10 @@ input[type="range"]::-moz-range-thumb{
 
 .fo-opt-div:hover{ 
   border:1px solid #029e9d !important;
+}
+
+.dur-time{ 
+    border:1px solid #029e9d;
 }
 
 /* CITY SEARCH LIST */

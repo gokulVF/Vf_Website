@@ -64,7 +64,7 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                         aria-labelledby="pills-home-tab">
-                        <form id="one-trip" method="GET" action="{% url 'one_trip' %}" onsubmit="return validateForm()">
+                        <form id="one-trip" method="GET" action="{% url 'one_trip' %}">
                             {% csrf_token %}
                             <div class="row d-flex align-items-center justify-content-between">
                                 <div class="col-lg mb-2">
@@ -73,7 +73,7 @@
                                             <label>FROM</label>
                                             <input type="text" class="f-inp" id="fromontrip"
                                                 placeholder="Enter The City" value="{{fromcityname}}"
-                                                name="from-one-trip">
+                                                name="from_one_trip">
                                             <span class="error" id="des_error"></span>
                                             <input type="hidden" id="citycodeInput" name="from_city_code"
                                                 value="{{from_city_code}}">
@@ -89,7 +89,7 @@
                                         <div class="input-box text-start">
                                             <label>TO</label>
                                             <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City"
-                                                value="{{tocityname}}" name="from-one-trip">
+                                                value="{{tocityname}}" name="from_one_trip">
                                             <span class="error" id="des_error"></span>
                                             <input type="hidden" id="tocitycodeInput" name="to_city_code"
                                                 value="{{to_city_code}}">
@@ -106,8 +106,8 @@
                                             <label>DEPARTURE DATE</label>
                                             <!-- <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly> -->
                                             <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" style="font-size: 14px;" name="check-in" id="check-in" readonly> -->
-                                            <input type="hidden" value="{{Departure_date}}" id="checkin">
-                                            <input type="date" class="f-inp" id="check-in" name="check-in">
+                                            <input type="hidden"  value="{{date_object}}" id="checkin">
+                                                <input type="date" class="f-inp" id="check-in" name="check-in" value="{{date_object}}">
                                         </div>
                                     </div>
                                 </div>
@@ -532,8 +532,8 @@
                                 <div class="col-lg-2 col-md-2 col-sm-12">
                                     <div class="item-inner">
                                         <div class="content">
-                                            <h3 class="mb-0">12:30</h3>
-                                            <p class="mb-0 text-uppercase">DAC</p>
+                                            <p class="mb-0">12:30</p>
+                                            <p class="mb-0 text-uppercase fs-14">DAC</p>
                                         </div>
                                     </div>
                                 </div>
@@ -743,7 +743,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div id="flush-collapseOne" class="accordion-collapse collapse mt-2"
                                                 aria-labelledby="flush-headingOne"
                                                 data-bs-parent="#accordionFlushExample">
@@ -838,9 +837,6 @@
 </section>
 <!-- top Destination ends -->
 
-<!-- footer starts -->
-<!-- {% include 'home/footer.html' %} -->
-<!-- footer ends -->
 
 <!-- Back to top start -->
 <div id="back-to-top">

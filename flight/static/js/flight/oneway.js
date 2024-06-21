@@ -1,76 +1,52 @@
-// DATE - ONE TRIP
+//TIME FILTER ACTIVE
+// Ensure JavaScript runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
-    var day = ('0' + today.getDate()).slice(-2);
+    // Get all buttons with the class 'ftime_btn'
+    const buttons = document.querySelectorAll('.ftime_btn');
 
-    var todayString = year + '-' + month + '-' + day;
-
-    // Set the default value and minimum date to today for the start date input
-    var startDateInput = document.getElementById('check-in');
-    startDateInput.value = todayString;
-    startDateInput.min = todayString;
-
-    // Set the next date input based on the start date
-    function setNextDate() {
-        var startDate = new Date(startDateInput.value);
-        if (!isNaN(startDate.getTime())) {
-            var nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
-
-            var year = nextDate.getFullYear();
-            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
-            var day = ('0' + nextDate.getDate()).slice(-2);
-
-            var nextDateString = year + '-' + month + '-' + day;
-            document.getElementById('check-out').value = nextDateString;
-            document.getElementById('check-out').min = nextDateString;
-        }
-    }
-
-    startDateInput.addEventListener('change', setNextDate);
-
-    // Set the initial next date
-    setNextDate(); 
+    // Add event listener to each button
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Toggle the 'active' class on the clicked button
+            this.classList.toggle('active');
+        });
+    });
 });
 
-// DATE - ROUND TRIP
+//  CHECK FARES FUNCTION
 document.addEventListener('DOMContentLoaded', function() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
-    var day = ('0' + today.getDate()).slice(-2);
-
-    var todayString = year + '-' + month + '-' + day;
-
-    // Set the default value and minimum date to today for the start date input
-    var startDateInput = document.getElementById('rcheck-in');
-    startDateInput.value = todayString;
-    startDateInput.min = todayString;
-
-    // Set the next date input based on the start date
-    function setNextDate() {
-        var startDate = new Date(startDateInput.value);
-        if (!isNaN(startDate.getTime())) {
-            var nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
-
-            var year = nextDate.getFullYear();
-            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
-            var day = ('0' + nextDate.getDate()).slice(-2);
-
-            var nextDateString = year + '-' + month + '-' + day;
-            document.getElementById('rcheck-out').value = nextDateString;
-            document.getElementById('rcheck-out').min = nextDateString;
-        }
+    // Function to update the hidden input
+    function updateHiddenInput() {
+        const selectedFare = document.querySelector('input[name="fav_language"]:checked').value;
+        document.getElementById('selectedFare').value = selectedFare;
     }
 
-    startDateInput.addEventListener('change', setNextDate);
+    // Get all radio buttons
+    const radioButtons = document.querySelectorAll('input[name="fav_language"]');
 
-    // Set the initial next date
-    setNextDate(); 
+    // Add event listener to each radio button
+    radioButtons.forEach(function(radio) {
+        radio.addEventListener('change', updateHiddenInput);
+    });
+
+    // Initialize hidden input with the default checked value
+    updateHiddenInput();
 });
+
+
+// DIRECT FLIGHTS FUNCTION - ONE TRIP
+var checkbox = document.getElementById("flexSwitchCheckDefault");
+var resultInput = document.getElementById("resultValue");
+
+function updateResult() {
+    var formattedValue = checkbox.checked ? "True" : "False";
+    resultInput.value = formattedValue;
+    console.log("DirectFlight is now: " + formattedValue);
+}
+
+// Add an event listener to detect changes
+checkbox.addEventListener("change", updateResult);
+updateResult();
 
 // PAXFORM ONETRIP
 // SHOW PAX FORM - ONE TRIP
@@ -313,6 +289,186 @@ function sortFlight(criteria) {
 }
 
 // FLIGHT LISTS - ONE TRIP_________________________________________
+
+
+//RANGE INPUT PRICE FILTER - ONE TRIP
+$(document).ready(function () {
+    const rangeInput = $(".range-input input"),
+        priceInput = $(".price-input input"),
+        range = $(".slider .progress"),
+        priceGap = 1000;
+
+    priceInput.on("input", function () {
+        let minPrice = parseInt(priceInput.eq(0).val()),
+            maxPrice = parseInt(priceInput.eq(1).val());
+
+        if (maxPrice - minPrice < priceGap) {
+            if ($(this).hasClass("input-min")) {
+                rangeInput.eq(0).val(maxPrice - priceGap);
+            } else {
+                rangeInput.eq(1).val(minPrice + priceGap);
+            }
+        } else {
+            updateSlider(minPrice, maxPrice);
+        }
+    });
+
+    rangeInput.on("input", function () {
+        RangeSlider();
+    });
+
+    RangeSlider();
+
+    function RangeSlider() {
+        let minVal = parseInt(rangeInput.eq(0).val()),
+            maxVal = parseInt(rangeInput.eq(1).val());
+
+        if (maxVal - minVal < priceGap) {
+            rangeInput.eq(0).val(maxVal - priceGap);
+            minVal = parseInt(rangeInput.eq(0).val());
+        }
+
+        updateSlider(minVal, maxVal);
+    }
+
+    function updateSlider(minVal, maxVal) {
+        priceInput.eq(0).val(minVal);
+        priceInput.eq(1).val(maxVal);
+        range.css({
+            left: (minVal / rangeInput.eq(0).attr("max")) * 100 + "%",
+            right: (100 - (maxVal / rangeInput.eq(1).attr("max")) * 100) + "%"
+        });
+
+        filterFlightsByPrice(minVal, maxVal);
+        console.log(minVal, maxVal);
+    }
+
+    function filterFlightsByPrice(minPrice, maxPrice) {
+        console.log("Filtering by Price:", minPrice, maxPrice);
+
+        $(".flight-container,.flight-container1").each(function () {
+            var flightPrice = parseInt($(this).attr("ticket-price")) || parseInt($(this).attr("ticket-prices"));
+
+            console.log("Flight Price:", flightPrice);
+
+            if (flightPrice >= minPrice && flightPrice <= maxPrice + 1000) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+});
+
+// AIRLINE NAME FILTER FUNCTIONS
+document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        updateFlightList();
+    });
+});
+
+function updateFlightList() {
+    var selectedAirlines = Array.from(document.querySelectorAll('.form-check-input:checked'))
+        .map(function (checkbox) {
+            return checkbox.getAttribute('data-airline').toLowerCase(); // Convert to lowercase
+        });
+
+    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
+        var airlineName = flight.getAttribute('flight-name') || flight.getAttribute('flight-names');
+        if (airlineName) {
+            airlineName = airlineName.toLowerCase(); // Convert to lowercase
+            if (selectedAirlines.length === 0 || selectedAirlines.includes(airlineName)) {
+                flight.style.display = 'block';
+            } else {
+                flight.style.display = 'none';
+            }
+        } else {
+            flight.style.display = 'none'; // Handle case where flight-name attribute is missing
+        }
+    });
+}
+
+// FLIGHT STOP FILTER FUNCTIONS
+document.querySelectorAll('.form-check-inputs').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        updateFlightLists();
+    });
+});
+
+function updateFlightLists() {
+    var selectedAirlinesClass = Array.from(document.querySelectorAll('.form-check-inputs:checked'))
+        .map(function (checkbox) {
+            return checkbox.getAttribute('data-stops').toLowerCase(); // Convert to lowercase
+        });
+
+    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
+        var airlineClass = flight.getAttribute('flight-stop') || flight.getAttribute('flight-stops'); // Corrected attribute names
+        if (airlineClass) {
+            airlineClass = airlineClass.toLowerCase(); // Convert to lowercase
+            if (selectedAirlinesClass.length === 0 || selectedAirlinesClass.includes(airlineClass)) {
+                flight.style.display = 'block';
+            } else {
+                flight.style.display = 'none';
+            }
+        } else {
+            flight.style.display = 'none'; // Handle case where flight-stop or flight-stops attribute is missing
+        }
+    });
+}
+
+// SUBMIT FORM
+function submitOneTripForm() {
+    if(validateOneTripForm()){
+        document.getElementById("one-trip").submit();
+       console.log("submitted ot")
+    }
+}
+
+// VALIDATE FORM - ONE TRIP
+function validateOneTripForm() {
+    var from = document.getElementById("fromontrip").value;
+    var to = document.getElementById("toontrip").value;
+    if (from === "") {
+        alert("Please Enter From");
+        return false; // Prevent form submission
+    } 
+        if (to === "") {
+        alert("Please Enter To");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+// flight list
+
+const FLightL = document.getElementById('flight_details').textContent;
+// Parse the JSON string
+const flights = JSON.parse(FLightL);
+let jsonData = flights
+console.log("flight details",jsonData)
+const combinedFlightMap = {};
+
+jsonData.forEach(flight => {
+    const combinedKey = flight.AirlineNumber + '-' + flight.SAirlineNumber;
+    if (!combinedFlightMap[combinedKey]) {
+        combinedFlightMap[combinedKey] = [];
+    }
+    combinedFlightMap[combinedKey].push(flight);
+});
+
+const groupedFlights = Object.values(combinedFlightMap);
+
+console.log(groupedFlights);
+
+// Example usage:
+let flightDataArray = groupedFlights;
+// console.log("Flight Data Array:", flightDataArray);
+var jsonString = JSON.stringify(flightDataArray);
+document.querySelector('[name="Sort_F_details"]').value = jsonString;
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
 let flightsByNumberJSON = document.getElementById('Sort_F_details').value;
 var flightsByNumber = JSON.parse(flightsByNumberJSON);
@@ -328,226 +484,307 @@ flightsByNumber.forEach((array, index) => {
     // Create HTML for details of the first object in the array
     const flight = array[0];
     const priceContainerHTML = array.map(flight => {
-        return `<div class="row">
-                            <div class="col-md-12 mt-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex col-md-6" style="gap:60px; width:40%">
-                                        <div>
-                                            <p class="f-fil">SAVER</p>
-                                        </div>
-                                        <div>
-                                            <h4 class="f-price1">₹ ${flight.OffredFare}</h4>
-                                        </div>
-                                    </div>
-                                    <div style="width:40%;text-align:start;">
-                                        <p class="f-class">${flight.AirlineType} / ${flight.FlightClass}</p>
-                                    </div>
-                                    <div class="f-sel-btn mb-3"  style="width:20%">
-                                        <button type="button" data-flight="${flight.ResultIndex}"  class="btn btn-primary select-btn price-class">Select</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
+        return `
+                <div class="col-lg-4 mb-2 fo-opt-div border-all bg-white shadows">
+                    <div class="py-1 b_bot">
+                        <span class="fw-bold black">₹ ${flight.OffredFare}</span>
+                        <span class="fs-12">per adult</span>
+                        <p class="fs-12 mb-0">${flight.AirlineType} / ${flight.FlightClass}</p>
+                    </div>
+                    <div class="py-1">
+                        <p class="fs-13 mb-0">
+                            <b>Baggage</b></p>
+                        <ul class="mb-2">
+                            <li>
+                                <span class="fs-12">7 Kgs Cabin
+                                    Baggage</span>
+                            </li>
+                            <li>
+                                <span class="fs-12">15 Kgs
+                                    Check-in Baggage</span>
+                            </li>
+                        </ul>
+                        <p class="fs-13 mb-0">
+                            <b>Flexibility</b></p>
+                        <ul class="mb-2">
+                            <li>
+                                <span class="fs-12">Cancellation
+                                    fee starts at ₹ 3,100 (up to 4 days before
+                                    departure)</span>
+                            </li>
+                            <li>
+                                <span class="fs-12">Date Change
+                                    fee starts at ₹ 2,850 (up to 4 days before
+                                    departure)</span>
+                            </li>
+                        </ul>
+                        <p class="fs-13 mb-0"><b>Seats,
+                                Meals &amp; More</b></p>
+                        <ul class="mb-2">
+                            <li>
+                                <span class="fs-12">Chargeable
+                                    Seats</span>
+                            </li>
+                            <li>
+                                <span
+                                    class="fs-12">Chargeable
+                                    Meals</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mb-2">
+                        <button type="button" class="bg-theme white py-1 px-5 rounded-pill select-btn price-class" data-flight="${flight.ResultIndex}">SELECT</button>
+                    </div>
+                </div>
+               `;
     }).join('');
 
     if(flight.Stopconformation === 'Non-stop') {
-        arrayDiv.innerHTML = ` <div class="flight-container" class="flight" ticket-price="${flight.OffredFare}" flight-name="${flight.AirlineName}" 
+        arrayDiv.innerHTML = ` <div  class="flight-container flight flight-full" ticket-price="${flight.OffredFare}" flight-name="${flight.AirlineName}" 
                 ticket-duration-hours="${flight.totalhour}" ticket-duration-minutes="${flight.totalminute}"  flight-departure-time="${flight.departurehoure}:${flight.departureminute}" flight-arrival-time="${flight.arrivalhoure}:${flight.arrivalminute}" Flight-stop="${flight.Stopconformation}">
-                    <div class="row">
-                        <div class="col-md-1 mt-3">
-                            <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo" >
-                        </div>
-                        <div class="col-md-3 align-items-center mt-3">
-                            <h4 class="f-name">${flight.AirlineName} | ${flight.AirlineCode}-${flight.AirlineNumber}</h4>
-                            <p class="f-class change-F-class">${flight.AirlineType} / ${flight.FlightClass}</p>
-                        </div>
-                        <div class="col-md-1 d-flex justify-content-between p-2">
-                            <img src="{% static 'image/flight/refuntable ico.svg.'%}"alt="R-icon" class="r-icon">
-                            <img src="{% static 'image/flight/luggage.svg.'%}" alt="lug-icon" class="icon">
-                        </div>
-                        <div class="col-md-4">
-                            <div class="flight-timings">
-                                <div class=" d-flex" style="border-bottom: 1px solid blue;">
-                                    <p class="f-time-in">${flight.departure_H_M}</p>
-                                    <p class="f_to_time">${flight.total_H_M}</p>
-                                    <p class="f-time-in">${flight.arrival_H_M}</p>
+                        <div class="item mb-2 border-all p-2 px-2 rounded">
+                            <div class="row d-flex align-items-center justify-content-between">
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <div class="item-inner-image text-start">
+                                        <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo">
+                                        <p class="mb-0 fw-bold theme2 fs-19">${flight.AirlineName} | ${flight.AirlineCode}-${flight.AirlineNumber}</p>
+                                        <small>${flight.AirlineType} / ${flight.FlightClass}</small>
+                                    </div>
                                 </div>
-                                <div class="d-flex mt-2">
-                                    <p class="f-code">${flight.OrginAirportCode}</p>
-                                    <p class="f_to_time">${flight.Stopconformation}</p>
-                                    <p class="f-code">${flight.DestinationAirportCode}</p>
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="item-inner">
+                                        <div class="content">
+                                        <h5 class="mb-0">${flight.OrginAirportCode}</h5>
+                                            <p class="mb-0">${flight.departure_H_M}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 flight-price">
-                            <h4 class="f-price change-price" >₹ ${flight.OffredFare}</h4>  
-                            <button type="button"   class="btn btn-primary book-btn book-button1" data-trace-id="${flight.TraceId}" data-result-index="${flight.ResultIndex}" 
-                            onclick="handleSelectFlight('${ flight.TraceId }', '${ flight.ResultIndex }','{{ token_id }}','${flight.Stopconformation}','${flight.FlightClass}','${flight.start_date}','${flight.total_H_M}','${flight.OrginAirportCode}','${flight.DestinationAirportCode}','${flight.AirlineCode}')">Book Now</button>
-                        </div>
-                        <div id="flight-details"></div>
-                    </div>
-                    <div class="container">
-                        <div class="flight-features d-flex">
-                            <div class="mr-2">
-                                <button type="button" class="btn btn-primary more-btn" id="${flight.ResultIndex}2" onclick="showFare('${flight.ResultIndex}','${flight.ResultIndex}','${flight.ResultIndex}')">More Fare</button>
-                            </div>
-                            <div>
-                                <button type="button" id="${flight.ResultIndex}01" class="btn flight-btn" onclick="showFlightDetail('${flight.ResultIndex}','${flight.ResultIndex}','${flight.ResultIndex}')">Flight Details</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container mt-3" style="display: none;background: #D9D9D945; border-radius: 8px; align-items: center; justify-content: center;text-align: center;"  id="${flight.ResultIndex}3">
-                        ${priceContainerHTML}
-                    </div>
-
-                    <input type="hidden"  class="flight-fare fare-summary1" value='[{"passengerCount": "${flight.APassengerCount}","passengerType": "${flight.APassengerType}","baseFare": "${flight.ABaseFare}","tax": "${flight.ATax}","discount1":"${flight.discount1}","discount2":"${flight.discount2}","AdditionalTxnFeePub":"${flight.AdditionalTxnFeePub}","OtherCharges":"${flight.OtherCharges}","ServiceFee":"${flight.ServiceFee}","AirlineTransFee":"${flight.AirlineTransFee}","IncentiveEarned":"${flight.IncentiveEarned}"},{"passengerCount": "${flight.BPassengerCount}","passengerType": "${flight.BPassengerType}","baseFare": "${flight.BBaseFare}","tax": "${flight.BTax}"},{"passengerCount": "${flight.CPassengerCount}","passengerType": "${flight.CPassengerType}","baseFare": "${flight.CBaseFare}","tax": "${flight.CTax}"}]'>
-
-                    <div id="${flight.ResultIndex}4" class="container mt-3" style="display: none;">
-                        <div>
-                            <div>
-                                <ul class="nav nav-tabs " id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active btn" id="${flight.ResultIndex}home-tab"  data-bs-toggle="tab" data-bs-target="#${flight.ResultIndex}home-tab-pane" type="button" role="tab" aria-controls="${flight.ResultIndex}home-tab-pane" aria-selected="true" autofocus>Flight Detailes</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link btn" id="${flight.ResultIndex}profile-tab"  data-bs-toggle="tab" data-bs-target="#${flight.ResultIndex}profile-tab-pane" type="button" role="tab" aria-controls="${flight.ResultIndex}profile-tab-pane" aria-selected="false" >Fare Summary</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link btn" class="fare_details_1" id="${flight.ResultIndex}contact-tab"   data-bs-toggle="tab" data-bs-target="#${flight.ResultIndex}contact-tab-pane" type="button" role="tab" aria-controls="${flight.ResultIndex}contact-tab-pane" aria-selected="false" >Fare Rules</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link btn" id="${flight.ResultIndex}bag-tab"  data-bs-toggle="tab" data-bs-target="#${flight.ResultIndex}bag-tab-pane" type="button" role="tab" aria-controls="${flight.ResultIndex}contact-tab-pane" aria-selected="false">Baggage Info</button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content mt-2" id="myTabContent">
-                                    <div class="tab-pane fade show active col-md-12" id="${flight.ResultIndex}home-tab-pane"  role="tabpanel" aria-labelledby="${flight.ResultIndex}home-tab" tabindex="0">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo" style="width: 43%; height: 75px; padding-bottom: 10px;">
-                                                    <h4 class="f-name">${flight.AirlineName} | ${flight.AirlineCode}-${flight.AirlineNumber}</h4>
-                                                    <p class="f-class change-F-class2"> ${flight.AirlineType} / ${flight.FlightClass}</p>
-                                                </div> 
-                                                <div class="col-md-6">
-                                                    <div class="flight-timings">
-                                                        <div class="d-flex" style="border-bottom: 1px solid blue;">
-                                                            <p class="f-time-in">${flight.departure_H_M}</p>
-                                                            <p class="f_to_time">${flight.total_H_M}</p>
-                                                            <p class="f-time-in">${flight.arrival_H_M}</p>
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="item-inner">
+                                        <div class="content">
+                                            <p class="mb-0 fw-bold theme2"><i class="fa fa-clock-o" aria-hidden="true"></i> ${flight.total_H_M}</p>
+                                            <p class="mb-0 fs-14 text-uppercase">${flight.Stopconformation}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="item-inner flight-time">
+                                        <h5 class="mb-0">${flight.DestinationAirportCode}</h5>
+                                        <p class="mb-0">${flight.arrival_H_M}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <div class="item-inner text-end">
+                                        <p class="theme2 fs-4 fw-bold mb-1">₹ ${flight.OffredFare}</p>
+                                        <button type="button" class="nir-btn py-1 rounded-pill mb-1 book-btn book-button1"  data-trace-id="${flight.TraceId}" data-result-index="${flight.ResultIndex}" onclick="handleSelectFlight('${ flight.TraceId }', '${ flight.ResultIndex }','{{ token_id }}','${flight.Stopconformation}','${flight.FlightClass}','${flight.start_date}','${flight.total_H_M}','${flight.OrginAirportCode}','${flight.DestinationAirportCode}','${flight.AirlineCode}')">Book Now</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="accordion accordion-flush border-t mt-1 pt-1" id="accordionflush">
+                                        <div class="accordion-item overflow-hidden">
+                                            <div class="justify-content-between">
+                                                <button
+                                                    class="accordion-button collapsed bg-white fw-bold border-0 theme flight-btn"
+                                                    style="font-size: 14px;" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                                    aria-controls="flush-collapseOne" id="${flight.ResultIndex}01" onclick="showFlightDetail('${flight.ResultIndex}','${flight.ResultIndex}','${flight.ResultIndex}')">Flight Details <i
+                                                        class="fa fa-caret-down theme" aria-hidden="true"></i></button>
+                                                <button type="button"
+                                                    class="bg-white float-end theme rounded-pill morefare-btn more-btn"
+                                                    data-bs-toggle="modal" data-bs-target="#morefarePop" id="${flight.ResultIndex}2" onclick="showFare('${flight.ResultIndex}','${flight.ResultIndex}','${flight.ResultIndex}')"> + More
+                                                    Fare</button>
+                                            </div>
+                                            <div class="modal fade" id="morefarePop" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document"
+                                                    style="max-width: 1020px;top: 10%;">
+                                                    <div class="modal-content fo-pop-head">
+                                                        <div class="modal-header shadows px-4">
+                                                            <h3 class="modal-title theme" id="exampleModalLabel">More
+                                                                Fare Options Available</h3>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="d-flex mt-2">
-                                                            <div>
-                                                                <p class="f-code">${flight.OrginAirportCode} ${flight.OrginAirportName}</p>
-                                                                <p class="f-code2">${flight.OrginAirportCityName}, ${flight.OrginAirportCoutryName}</p>
-                                                                <p class="f-term">Terminal: ${flight.OrginAirportTerminal}</p>
+                                                        <div class="modal-body fo-pop-div" id="${flight.ResultIndex}3">
+                                                            <div class="text-center mb-2">
+                                                                <span>
+                                                                    <span class="fw-bold black">New Delhi →
+                                                                        Bengaluru</span>
+                                                                    <span class="ms-3 fs-14 black">Akasa Air · Fri, 6 Sep
+                                                                        24 · Departure at 22:40 - Arrival at 01:25 (+1
+                                                                        day)</span>
+                                                                </span>
                                                             </div>
-                                                            <div>
-                                                                <p class="f-code">${flight.DestinationAirportCode} ${flight.DestinationAirportName}</p>
-                                                                <p class="f-code2">${flight.DestinationCityName}, ${flight.DestinationCountryName}</p>
-                                                                <p class="f-term">Terminal: ${flight.DestinationTerminal}</p>
+                                                            <div class="f-options row">
+                                                                ${priceContainerHTML}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 ms-12" style="text-align: center;">
-                                                    <p class="f-refund">${flight.nonrefund}</p>
-                                                    <p class="f-code2">Seat Left: ${flight.setsAvailable}</p>
-                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade show" role="tabpanel" id="${flight.ResultIndex}profile-tab-pane" aria-labelledby="${flight.ResultIndex}home-tab" tabindex="0">
-                                        <div class="container">
-                                            <div>
-                                                <table class="table" id="passengerTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>TYPE</th>
-                                                            <th>BASE FARE</th>
-                                                            <th>TAXES & FEES</th>
-                                                            <th>TOTAL</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        
-                                                    </tbody>
-                                                </table>
+                                            <div class="container mt-3" style="display:none;"  id="${flight.ResultIndex}3">
+                                                ${priceContainerHTML}
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade show" id="${flight.ResultIndex}contact-tab-pane"  role="tabpanel" aria-labelledby="${flight.ResultIndex}home-tab" tabindex="0">
-                                        <div class="container">
-                                            <div>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>SECTOR</th>
-                                                            <th>TIME FRAME</th>
-                                                            <th>CHARGES & DISCRIPTION</th>
-                                                            <th>FARE DETAILS</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="f-code">${flight.OrginAirportCode} - ${flight.DestinationAirportCode}</td>
-                                                            <td>From & Above Before Dept</td>
-                                                            <td>INR 4000* + 0</td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary book-btn book-btn1" data-toggle="modal" data-target="#${ flight.ResultIndex}exampleModal" result-index="${flight.ResultIndex}" onclick="show_fare_details('{{ token_id }}','${ flight.TraceId }','${flight.ResultIndex}' )" >View Fare Rule</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="modal fade" id="${ flight.ResultIndex}exampleModal" tabindex="-1" role="${ flight.ResultIndex}dialog" aria-labelledby="${ flight.ResultIndex}exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Fare Rules</h5>
-                                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                            <input type="hidden"  class="flight-fare fare-summary1" value='[{"passengerCount": "${flight.APassengerCount}","passengerType": "${flight.APassengerType}","baseFare": "${flight.ABaseFare}","tax": "${flight.ATax}","discount1":"${flight.discount1}","discount2":"${flight.discount2}","AdditionalTxnFeePub":"${flight.AdditionalTxnFeePub}","OtherCharges":"${flight.OtherCharges}","ServiceFee":"${flight.ServiceFee}","AirlineTransFee":"${flight.AirlineTransFee}","IncentiveEarned":"${flight.IncentiveEarned}"},{"passengerCount": "${flight.BPassengerCount}","passengerType": "${flight.BPassengerType}","baseFare": "${flight.BBaseFare}","tax": "${flight.BTax}"},{"passengerCount": "${flight.CPassengerCount}","passengerType": "${flight.CPassengerType}","baseFare": "${flight.CBaseFare}","tax": "${flight.CTax}"}]'>
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse mt-2"
+                                                aria-labelledby="flush-headingOne"
+                                                data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body p-0"  id="${flight.ResultIndex}4">
+                                                    <ul class="nav nav-pills mb-3 bg-grey rounded-pill" id="pills-tab"
+                                                        role="tablist">
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link active fo-btn rounded-pill"
+                                                                id="${flight.ResultIndex}pills-fd1-tab" data-bs-toggle="pill"
+                                                                data-bs-target="#${flight.ResultIndex}pills-fd1" type="button" role="tab"
+                                                                aria-controls="${flight.ResultIndex}pills-fd1" aria-selected="true">Flight
+                                                                Detailes</button>
+                                                        </li>
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link fo-btn rounded-pill"
+                                                                id="${flight.ResultIndex}pills-fd2-tab" data-bs-toggle="pill"
+                                                                data-bs-target="#${flight.ResultIndex}pills-fd2" type="button" role="tab"
+                                                                aria-controls="${flight.ResultIndex}pills-fd2" aria-selected="false">Fare
+                                                                Summary</button>
+                                                        </li>
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link fo-btn rounded-pill"
+                                                                id="${flight.ResultIndex}pills-fd3-tab" data-bs-toggle="pill"
+                                                                data-bs-target="#${flight.ResultIndex}pills-fd3" type="button" role="tab"
+                                                                aria-controls="${flight.ResultIndex}pills-fd3" aria-selected="false">Fare
+                                                                Rules</button>
+                                                        </li>
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link fo-btn rounded-pill"
+                                                                id="${flight.ResultIndex}pills-fd4-tab" data-bs-toggle="pill"
+                                                                data-bs-target="#${flight.ResultIndex}pills-fd4" type="button" role="tab"
+                                                                aria-controls="${flight.ResultIndex}pills-fd4" aria-selected="false">Baggage
+                                                                Info</button>
+                                                        </li>
+                                                        <li class="nav-item" role="presentation">
+                                                            <i class="fa fa-times closefo-btn" aria-hidden="true"></i>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" id="pills-tabContent">
+                                                        <div class="tab-pane fade show active" id="${flight.ResultIndex}pills-fd1"
+                                                            role="tabpanel" aria-labelledby="pills-fd1-tab"
+                                                            tabindex="0">
+                                                            <div class="row">
+                                                                <div class="col-lg-3 align-items-center">
+                                                                    <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo" style="width: 50px; height: 50px;">
+                                                                    <p class="mb-0 fw-bold theme2">${flight.AirlineName} | ${flight.AirlineCode}-${flight.AirlineNumber}</p>
+                                                                    <small class="mb-0 fs-13"> ${flight.AirlineType} / ${flight.FlightClass}</small>
+                                                                </div> 
+                                                                <div class="col-lg-7">
+                                                                    <div class="d-flex align-items-center justify-content-between">
+                                                                        <div>
+                                                                            <p class="mb-0 fs-14 fw-bold black">(${flight.OrginAirportCode}) ${flight.OrginAirportName}</p>
+                                                                            <p class="mb-0 fs-12">${flight.OrginAirportCityName}, ${flight.OrginAirportCoutryName}</p>
+                                                                            <p class="mb-0 fs-12">Terminal: ${flight.OrginAirportTerminal}</p>
+                                                                            <p class="mb-0 fs-14 fw-bold">${flight.departure_H_M}</p>
+                                                                        </div>
+                                                                        <div>
+                                                                            <p class="mb-0 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">${flight.total_H_M}</p>
+                                                                        </div>
+                                                                        <div>
+                                                                            <p class="mb-0 fs-14 fw-bold black">(${flight.DestinationAirportCode}) ${flight.DestinationAirportName}</p>
+                                                                            <p class="mb-0 fs-12">${flight.DestinationCityName}, ${flight.DestinationCountryName}</p>
+                                                                            <p class="mb-0 fs-12">Terminal: ${flight.DestinationTerminal}</p>
+                                                                            <p class="mb-0 fs-14 fw-bold">${flight.arrival_H_M}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2 my-auto text-center">
+                                                                    <p class="mb-0 fs-14 theme2 fw-bold">${flight.nonrefund}</p>
+                                                                    <p class="mb-0 fs-13">Seat Left: ${flight.setsAvailable}</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div id="${ flight.ResultIndex}00"></div>
+                                                        <div class="tab-pane fade" id="${flight.ResultIndex}pills-fd2" role="tabpanel"
+                                                            aria-labelledby="pills-fd2-tab" tabindex="0"> 
+                                                            <table class="table text-start fs-12" id="passengerTable">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>TYPE</th>
+                                                                        <th>BASE FARE</th>
+                                                                        <th>TAXES & FEES</th>
+                                                                        <th>TOTAL</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="book-btn" data-dismiss="modal" aria-label="Close" style="color: white;border: none;width: 100px;">
-                                                                Ok
-                                                            </button>
+                                                        <div class="tab-pane fade" id="${flight.ResultIndex}pills-fd3" role="tabpanel"
+                                                            aria-labelledby="pills-fd3-tab" tabindex="0">
+                                                            <div class="text-end">
+                                                                <button type="button" class="book-btn book-btn1 bg-white theme rounded-pill v-fare-btn mb-1" data-toggle="modal" data-target="#${ flight.ResultIndex}exampleModal" result-index="${flight.ResultIndex}" onclick="show_fare_details('{{ token_id }}','${ flight.TraceId }','${flight.ResultIndex}' )" >View Fare Rule</button>
+                                                            </div>
+                                                            <table class="table text-start fs-12">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>SECTOR</th>
+                                                                        <th>TIME FRAME</th>
+                                                                        <th>CHARGES & DISCRIPTION</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="f-code">${flight.OrginAirportCode} - ${flight.DestinationAirportCode}</td>
+                                                                        <td>From & Above Before Dept</td>
+                                                                        <td>INR 4000* + 0</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                             <div class="modal fade" id="${ flight.ResultIndex}exampleModal" tabindex="-1" role="${ flight.ResultIndex}dialog" aria-labelledby="${ flight.ResultIndex}exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Fare Rules</h5>
+                                                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div id="${ flight.ResultIndex}00"></div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="book-btn" data-dismiss="modal" aria-label="Close" style="color: white;border: none;width: 100px;">
+                                                                                Ok
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="${flight.ResultIndex}pills-fd4" role="tabpanel"
+                                                            aria-labelledby="pills-fd4-tab" tabindex="0">
+                                                            <table class="table text-start fs-12">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>SECTOR</th>
+                                                                        <th>CHECK IN</th>
+                                                                        <th>CABIN</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="f-code">${flight.OrginAirportCode} - ${flight.DestinationAirportCode}</td>
+                                                                        <td>${flight.checkinbag} / Person</td>
+                                                                        <td>${flight.combainbag} / Person</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
-                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade show" id="${flight.ResultIndex}bag-tab-pane"  role="tabpanel" aria-labelledby="${flight.ResultIndex}home-tab" tabindex="0">
-                                        <div class="container">
-                                            <div>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>SECTOR</th>
-                                                            <th>CHECK IN</th>
-                                                            <th>CABIN</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="f-code">${flight.OrginAirportCode} - ${flight.DestinationAirportCode}</td>
-                                                            <td>${flight.checkinbag} / Person</td>
-                                                            <td>${flight.combainbag} / Person</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> `;
+                    </div>  `;
             
     } else if (flight.Stopconformation === '1-stop(s)'){
         arrayDiv.innerHTML =`<div class="flight-container1" class="flight" ticket-prices="${flight.OffredFare}" flight-names="${flight.FirstAirlineName}" 
@@ -621,7 +858,6 @@ flightsByNumber.forEach((array, index) => {
                                 <div class="tab-content mt-2" id="myTabContent">
                                     <div class="tab-pane fade show active col-md-12" id="${flight.ResultIndex}home-tab-pane"  role="tabpanel" aria-labelledby="${flight.ResultIndex}home-tab" tabindex="0">
                                         <div class="container">
-                                            
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <img src="{% static 'image/AirlineLogo/' %}${ flight.FirstAirlineCode }.gif" alt="Flight-logo" style="width: 43%; height: 75px; padding-bottom: 10px;">
@@ -919,145 +1155,6 @@ var passengers = [
     tableBody.innerHTML += finalfare;
 });
 
-//RANGE INPUT PRICE FILTER - ONE TRIP
-$(document).ready(function () {
-    const rangeInput = $(".range-input input"),
-        priceInput = $(".price-input input"),
-        range = $(".slider .progress"),
-        priceGap = 1000;
-
-    priceInput.on("input", function () {
-        let minPrice = parseInt(priceInput.eq(0).val()),
-            maxPrice = parseInt(priceInput.eq(1).val());
-
-        if (maxPrice - minPrice < priceGap) {
-            if ($(this).hasClass("input-min")) {
-                rangeInput.eq(0).val(maxPrice - priceGap);
-            } else {
-                rangeInput.eq(1).val(minPrice + priceGap);
-            }
-        } else {
-            updateSlider(minPrice, maxPrice);
-        }
-    });
-
-    rangeInput.on("input", function () {
-        RangeSlider();
-    });
-
-    RangeSlider();
-
-    function RangeSlider() {
-        let minVal = parseInt(rangeInput.eq(0).val()),
-            maxVal = parseInt(rangeInput.eq(1).val());
-
-        if (maxVal - minVal < priceGap) {
-            rangeInput.eq(0).val(maxVal - priceGap);
-            minVal = parseInt(rangeInput.eq(0).val());
-        }
-
-        updateSlider(minVal, maxVal);
-    }
-
-    function updateSlider(minVal, maxVal) {
-        priceInput.eq(0).val(minVal);
-        priceInput.eq(1).val(maxVal);
-        range.css({
-            left: (minVal / rangeInput.eq(0).attr("max")) * 100 + "%",
-            right: (100 - (maxVal / rangeInput.eq(1).attr("max")) * 100) + "%"
-        });
-
-        filterFlightsByPrice(minVal, maxVal);
-        console.log(minVal, maxVal);
-    }
-
-    function filterFlightsByPrice(minPrice, maxPrice) {
-        console.log("Filtering by Price:", minPrice, maxPrice);
-
-        $(".flight-container,.flight-container1").each(function () {
-            var flightPrice = parseInt($(this).attr("ticket-price")) || parseInt($(this).attr("ticket-prices"));
-
-            console.log("Flight Price:", flightPrice);
-
-            if (flightPrice >= minPrice && flightPrice <= maxPrice + 1000) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    }
-});
-
-// AIRLINE NAME FILTER FUNCTIONS
-document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
-    checkbox.addEventListener('change', function () {
-        updateFlightList();
-    });
-});
-
-function updateFlightList() {
-    var selectedAirlines = Array.from(document.querySelectorAll('.form-check-input:checked'))
-        .map(function (checkbox) {
-            return checkbox.getAttribute('data-airline').toLowerCase(); // Convert to lowercase
-        });
-
-    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
-        var airlineName = flight.getAttribute('flight-name') || flight.getAttribute('flight-names');
-        if (airlineName) {
-            airlineName = airlineName.toLowerCase(); // Convert to lowercase
-            if (selectedAirlines.length === 0 || selectedAirlines.includes(airlineName)) {
-                flight.style.display = 'block';
-            } else {
-                flight.style.display = 'none';
-            }
-        } else {
-            flight.style.display = 'none'; // Handle case where flight-name attribute is missing
-        }
-    });
-}
-
-// FLIGHT STOP FILTER FUNCTIONS
-document.querySelectorAll('.form-check-inputs').forEach(function (checkbox) {
-    checkbox.addEventListener('change', function () {
-        updateFlightLists();
-    });
-});
-
-function updateFlightLists() {
-    var selectedAirlinesClass = Array.from(document.querySelectorAll('.form-check-inputs:checked'))
-        .map(function (checkbox) {
-            return checkbox.getAttribute('data-stops').toLowerCase(); // Convert to lowercase
-        });
-
-    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
-        var airlineClass = flight.getAttribute('flight-stop') || flight.getAttribute('flight-stops'); // Corrected attribute names
-        if (airlineClass) {
-            airlineClass = airlineClass.toLowerCase(); // Convert to lowercase
-            if (selectedAirlinesClass.length === 0 || selectedAirlinesClass.includes(airlineClass)) {
-                flight.style.display = 'block';
-            } else {
-                flight.style.display = 'none';
-            }
-        } else {
-            flight.style.display = 'none'; // Handle case where flight-stop or flight-stops attribute is missing
-        }
-    });
-}
-
-// BTN ACTIVE - ONE TRIP
-// Ensure JavaScript runs after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all buttons with the class 'ftime_btn'
-    const buttons = document.querySelectorAll('.ftime_btn');
-
-    // Add event listener to each button
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Toggle the 'active' class on the clicked button
-            this.classList.toggle('active');
-        });
-    });
-});
 
 
 
@@ -1070,12 +1167,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+// // DATE - ONE TRIP
+// document.addEventListener('DOMContentLoaded', function() {
+//     var today = new Date();
+//     var year = today.getFullYear();
+//     var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+//     var day = ('0' + today.getDate()).slice(-2);
 
+//     var todayString = year + '-' + month + '-' + day;
 
+//     // Set the default value and minimum date to today for the start date input
+//     var startDateInput = document.getElementById('check-in');
+//     startDateInput.value = todayString;
+//     startDateInput.min = todayString;
 
+//     // Set the next date input based on the start date
+//     function setNextDate() {
+//         var startDate = new Date(startDateInput.value);
+//         if (!isNaN(startDate.getTime())) {
+//             var nextDate = new Date(startDate);
+//             nextDate.setDate(startDate.getDate() + 1); // Increment by one day
 
+//             var year = nextDate.getFullYear();
+//             var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+//             var day = ('0' + nextDate.getDate()).slice(-2);
 
+//             var nextDateString = year + '-' + month + '-' + day;
+//             document.getElementById('check-out').value = nextDateString;
+//             document.getElementById('check-out').min = nextDateString;
+//         }
+//     }
 
+//     startDateInput.addEventListener('change', setNextDate);
+
+//     // Set the initial next date
+//     setNextDate(); 
+// });
+
+// // DATE - ROUND TRIP
+// document.addEventListener('DOMContentLoaded', function() {
+//     var today = new Date();
+//     var year = today.getFullYear();
+//     var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+//     var day = ('0' + today.getDate()).slice(-2);
+
+//     var todayString = year + '-' + month + '-' + day;
+
+//     // Set the default value and minimum date to today for the start date input
+//     var startDateInput = document.getElementById('rcheck-in');
+//     startDateInput.value = todayString;
+//     startDateInput.min = todayString;
+
+//     // Set the next date input based on the start date
+//     function setNextDate() {
+//         var startDate = new Date(startDateInput.value);
+//         if (!isNaN(startDate.getTime())) {
+//             var nextDate = new Date(startDate);
+//             nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+
+//             var year = nextDate.getFullYear();
+//             var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+//             var day = ('0' + nextDate.getDate()).slice(-2);
+
+//             var nextDateString = year + '-' + month + '-' + day;
+//             document.getElementById('rcheck-out').value = nextDateString;
+//             document.getElementById('rcheck-out').min = nextDateString;
+//         }
+//     }
+
+//     startDateInput.addEventListener('change', setNextDate);
+
+//     // Set the initial next date
+//     setNextDate(); 
+// });
 
 
 
