@@ -28,7 +28,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
     <!-- Preloader -->
@@ -59,14 +59,14 @@
                 <div id="input-sec" class="row">
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <form id="one-trip" method="GET" action="{% url 'one_trip' %}" onsubmit="return validateForm()">
+                            <form id="one-trip" method="GET" action="{% url 'one_trip' %}">
                                 {% csrf_token %}
                                 <div class="row d-flex align-items-center justify-content-between">
                                     <div class="col-lg mb-2">
                                         <div class="form-group">
                                             <div class="input-box text-start">
                                                 <label>FROM</label>
-                                                <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from-one-trip">
+                                                <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from_one_trip">
                                                 <span class="error" id="des_error"></span>
                                                 <input type="hidden" id="citycodeInput" name="from_city_code" value="{{from_city_code}}">
                                                 <input type="hidden" id="airportCodeInput" name="fromAirportCode" value="{{fromAircode}}">
@@ -78,7 +78,7 @@
                                         <div class="form-group">
                                             <div class="input-box text-start">
                                                 <label>TO</label>
-                                                <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from-one-trip">
+                                                <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from_one_trip">
                                                 <span class="error" id="des_error"></span>
                                                 <input type="hidden" id="tocitycodeInput" name="to_city_code" value="{{to_city_code}}">
                                                 <input type="hidden" id="toairportCodeInput" name="toAirportCode" value="{{toAircode}}">
@@ -92,8 +92,8 @@
                                                 <label>DEPARTURE DATE</label>
                                                 <!-- <input type="text" class="f-inp" data-date="" data-date-format="DD MMMM YYYY" name="check-in" id="check-in" readonly> -->
                                                 <!-- <input type="text" class="check mt-2 input" data-date="" data-date-format="DD MMMM YYYY" style="font-size: 14px;" name="check-in" id="check-in" readonly> -->
-                                                <input type="hidden"  value="{{Departure_date}}" id="checkin">
-                                                <input type="date" class="f-inp" id="check-in" name="check-in">
+                                                <input type="hidden"  value="{{date_object}}" id="checkin">
+                                                <input type="date" class="f-inp" id="check-in" name="check-in" value="{{date_object}}">
                                             </div>
                                         </div>
                                     </div>
@@ -116,24 +116,25 @@
                                     <div class="col-lg mb-2">
                                         <div class="form-group mb-0 text-center">
                                             <label class="mb-3"></label>
-                                            <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify Search</button>
+                                            <button type="submit" class="nir-btn w-100" onclick="submitOneTripForm()"><i class="fa fa-search me-2"></i>Modify Search</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 d-flex radio-inp align-items-center mb-1">
                                         <p class="mb-0 me-3">Special Fares:</p>
-                                        <input type="radio" id="regular" class="me-1" name="fav_language" value="Regular" checked>
+                                        <input type="radio" id="regular" class="me-1" name="fav_language" value="RegularFare" checked>
                                         <label class="mb-0 me-3 fw-bold black" for="Regular Fares">Regular</label>
-                                        <input type="radio" id="Student" class="me-1" name="fav_language" value="Student">
+                                        <input type="radio" id="Student" class="me-1" name="fav_language" value="StudentFare">
                                         <label class="mb-0 me-3 fw-bold black" for="Student Fares">Student</label>
-                                        <input type="radio" id="Senior" class="me-1" name="fav_language" value="Senior">
+                                        <input type="radio" id="Senior" class="me-1" name="fav_language" value="SeniorFare">
                                         <label class="mb-0 me-3 fw-bold black" for="Senior citizen Fares">Senior Citizen</label>
+                                        <input type="hidden" id="selectedFare" name="selectedFare" value="RegularFare">
                                     </div>
                                     <div class="col-lg-6 form-check form-switch">
                                         <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
                                         <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <input type="hidden" id="resultValue" value="" name="resultdir">
+                                        <input type="hidden" id="resultValue" value="{{DirectFlight}}" name="resultdir">
                                     </div>
                                 </div>
                                 <div id="pas_form_onetrip" class="pas_form container row">
@@ -238,7 +239,7 @@
                                     <div class="col-lg mb-2">
                                         <div class="form-group mb-0 text-center">
                                             <label class="mb-3"></label>
-                                            <button type="submit" class="nir-btn w-100"><i class="fa fa-search me-2"></i>Modify Search</button>
+                                            <button type="submit" class="nir-btn w-100" onclick="submitOneTripForm()"><i class="fa fa-search me-2"></i>Modify Search</button>
                                         </div>
                                     </div>
                                 </div>

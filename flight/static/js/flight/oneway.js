@@ -1,77 +1,113 @@
-// DATE - ONE TRIP
+// // DATE - ONE TRIP
+// document.addEventListener('DOMContentLoaded', function() {
+//     var today = new Date();
+//     var year = today.getFullYear();
+//     var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+//     var day = ('0' + today.getDate()).slice(-2);
+
+//     var todayString = year + '-' + month + '-' + day;
+
+//     // Set the default value and minimum date to today for the start date input
+//     var startDateInput = document.getElementById('check-in');
+//     startDateInput.value = todayString;
+//     startDateInput.min = todayString;
+
+//     // Set the next date input based on the start date
+//     function setNextDate() {
+//         var startDate = new Date(startDateInput.value);
+//         if (!isNaN(startDate.getTime())) {
+//             var nextDate = new Date(startDate);
+//             nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+
+//             var year = nextDate.getFullYear();
+//             var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+//             var day = ('0' + nextDate.getDate()).slice(-2);
+
+//             var nextDateString = year + '-' + month + '-' + day;
+//             document.getElementById('check-out').value = nextDateString;
+//             document.getElementById('check-out').min = nextDateString;
+//         }
+//     }
+
+//     startDateInput.addEventListener('change', setNextDate);
+
+//     // Set the initial next date
+//     setNextDate(); 
+// });
+
+// // DATE - ROUND TRIP
+// document.addEventListener('DOMContentLoaded', function() {
+//     var today = new Date();
+//     var year = today.getFullYear();
+//     var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
+//     var day = ('0' + today.getDate()).slice(-2);
+
+//     var todayString = year + '-' + month + '-' + day;
+
+//     // Set the default value and minimum date to today for the start date input
+//     var startDateInput = document.getElementById('rcheck-in');
+//     startDateInput.value = todayString;
+//     startDateInput.min = todayString;
+
+//     // Set the next date input based on the start date
+//     function setNextDate() {
+//         var startDate = new Date(startDateInput.value);
+//         if (!isNaN(startDate.getTime())) {
+//             var nextDate = new Date(startDate);
+//             nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+
+//             var year = nextDate.getFullYear();
+//             var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
+//             var day = ('0' + nextDate.getDate()).slice(-2);
+
+//             var nextDateString = year + '-' + month + '-' + day;
+//             document.getElementById('rcheck-out').value = nextDateString;
+//             document.getElementById('rcheck-out').min = nextDateString;
+//         }
+//     }
+
+//     startDateInput.addEventListener('change', setNextDate);
+
+//     // Set the initial next date
+//     setNextDate(); 
+// });
+
+//  CHECK FARES FUNCTION
 document.addEventListener('DOMContentLoaded', function() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
-    var day = ('0' + today.getDate()).slice(-2);
-
-    var todayString = year + '-' + month + '-' + day;
-
-    // Set the default value and minimum date to today for the start date input
-    var startDateInput = document.getElementById('check-in');
-    startDateInput.value = todayString;
-    startDateInput.min = todayString;
-
-    // Set the next date input based on the start date
-    function setNextDate() {
-        var startDate = new Date(startDateInput.value);
-        if (!isNaN(startDate.getTime())) {
-            var nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
-
-            var year = nextDate.getFullYear();
-            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
-            var day = ('0' + nextDate.getDate()).slice(-2);
-
-            var nextDateString = year + '-' + month + '-' + day;
-            document.getElementById('check-out').value = nextDateString;
-            document.getElementById('check-out').min = nextDateString;
-        }
+    // Function to update the hidden input
+    function updateHiddenInput() {
+        const selectedFare = document.querySelector('input[name="fav_language"]:checked').value;
+        document.getElementById('selectedFare').value = selectedFare;
     }
 
-    startDateInput.addEventListener('change', setNextDate);
+    // Get all radio buttons
+    const radioButtons = document.querySelectorAll('input[name="fav_language"]');
 
-    // Set the initial next date
-    setNextDate(); 
+    // Add event listener to each radio button
+    radioButtons.forEach(function(radio) {
+        radio.addEventListener('change', updateHiddenInput);
+    });
+
+    // Initialize hidden input with the default checked value
+    updateHiddenInput();
 });
 
-// DATE - ROUND TRIP
-document.addEventListener('DOMContentLoaded', function() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Months are zero-based
-    var day = ('0' + today.getDate()).slice(-2);
 
-    var todayString = year + '-' + month + '-' + day;
 
-    // Set the default value and minimum date to today for the start date input
-    var startDateInput = document.getElementById('rcheck-in');
-    startDateInput.value = todayString;
-    startDateInput.min = todayString;
+// DIRECT FLIGHTS FUNCTION - ONE TRIP
+var checkbox = document.getElementById("flexSwitchCheckDefault");
+var resultInput = document.getElementById("resultValue");
 
-    // Set the next date input based on the start date
-    function setNextDate() {
-        var startDate = new Date(startDateInput.value);
-        if (!isNaN(startDate.getTime())) {
-            var nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + 1); // Increment by one day
+function updateResult() {
+    var formattedValue = checkbox.checked ? "True" : "False";
+    resultInput.value = formattedValue;
+    console.log("DirectFlight is now: " + formattedValue);
+}
 
-            var year = nextDate.getFullYear();
-            var month = ('0' + (nextDate.getMonth() + 1)).slice(-2); // Months are zero-based
-            var day = ('0' + nextDate.getDate()).slice(-2);
+// Add an event listener to detect changes
+checkbox.addEventListener("change", updateResult);
 
-            var nextDateString = year + '-' + month + '-' + day;
-            document.getElementById('rcheck-out').value = nextDateString;
-            document.getElementById('rcheck-out').min = nextDateString;
-        }
-    }
-
-    startDateInput.addEventListener('change', setNextDate);
-
-    // Set the initial next date
-    setNextDate(); 
-});
-
+updateResult();
 // PAXFORM ONETRIP
 // SHOW PAX FORM - ONE TRIP
 function showOnePaxForm() {
@@ -313,6 +349,186 @@ function sortFlight(criteria) {
 }
 
 // FLIGHT LISTS - ONE TRIP_________________________________________
+
+
+//RANGE INPUT PRICE FILTER - ONE TRIP
+$(document).ready(function () {
+    const rangeInput = $(".range-input input"),
+        priceInput = $(".price-input input"),
+        range = $(".slider .progress"),
+        priceGap = 1000;
+
+    priceInput.on("input", function () {
+        let minPrice = parseInt(priceInput.eq(0).val()),
+            maxPrice = parseInt(priceInput.eq(1).val());
+
+        if (maxPrice - minPrice < priceGap) {
+            if ($(this).hasClass("input-min")) {
+                rangeInput.eq(0).val(maxPrice - priceGap);
+            } else {
+                rangeInput.eq(1).val(minPrice + priceGap);
+            }
+        } else {
+            updateSlider(minPrice, maxPrice);
+        }
+    });
+
+    rangeInput.on("input", function () {
+        RangeSlider();
+    });
+
+    RangeSlider();
+
+    function RangeSlider() {
+        let minVal = parseInt(rangeInput.eq(0).val()),
+            maxVal = parseInt(rangeInput.eq(1).val());
+
+        if (maxVal - minVal < priceGap) {
+            rangeInput.eq(0).val(maxVal - priceGap);
+            minVal = parseInt(rangeInput.eq(0).val());
+        }
+
+        updateSlider(minVal, maxVal);
+    }
+
+    function updateSlider(minVal, maxVal) {
+        priceInput.eq(0).val(minVal);
+        priceInput.eq(1).val(maxVal);
+        range.css({
+            left: (minVal / rangeInput.eq(0).attr("max")) * 100 + "%",
+            right: (100 - (maxVal / rangeInput.eq(1).attr("max")) * 100) + "%"
+        });
+
+        filterFlightsByPrice(minVal, maxVal);
+        console.log(minVal, maxVal);
+    }
+
+    function filterFlightsByPrice(minPrice, maxPrice) {
+        console.log("Filtering by Price:", minPrice, maxPrice);
+
+        $(".flight-container,.flight-container1").each(function () {
+            var flightPrice = parseInt($(this).attr("ticket-price")) || parseInt($(this).attr("ticket-prices"));
+
+            console.log("Flight Price:", flightPrice);
+
+            if (flightPrice >= minPrice && flightPrice <= maxPrice + 1000) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+});
+
+// AIRLINE NAME FILTER FUNCTIONS
+document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        updateFlightList();
+    });
+});
+
+function updateFlightList() {
+    var selectedAirlines = Array.from(document.querySelectorAll('.form-check-input:checked'))
+        .map(function (checkbox) {
+            return checkbox.getAttribute('data-airline').toLowerCase(); // Convert to lowercase
+        });
+
+    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
+        var airlineName = flight.getAttribute('flight-name') || flight.getAttribute('flight-names');
+        if (airlineName) {
+            airlineName = airlineName.toLowerCase(); // Convert to lowercase
+            if (selectedAirlines.length === 0 || selectedAirlines.includes(airlineName)) {
+                flight.style.display = 'block';
+            } else {
+                flight.style.display = 'none';
+            }
+        } else {
+            flight.style.display = 'none'; // Handle case where flight-name attribute is missing
+        }
+    });
+}
+
+// FLIGHT STOP FILTER FUNCTIONS
+document.querySelectorAll('.form-check-inputs').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        updateFlightLists();
+    });
+});
+
+function updateFlightLists() {
+    var selectedAirlinesClass = Array.from(document.querySelectorAll('.form-check-inputs:checked'))
+        .map(function (checkbox) {
+            return checkbox.getAttribute('data-stops').toLowerCase(); // Convert to lowercase
+        });
+
+    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
+        var airlineClass = flight.getAttribute('flight-stop') || flight.getAttribute('flight-stops'); // Corrected attribute names
+        if (airlineClass) {
+            airlineClass = airlineClass.toLowerCase(); // Convert to lowercase
+            if (selectedAirlinesClass.length === 0 || selectedAirlinesClass.includes(airlineClass)) {
+                flight.style.display = 'block';
+            } else {
+                flight.style.display = 'none';
+            }
+        } else {
+            flight.style.display = 'none'; // Handle case where flight-stop or flight-stops attribute is missing
+        }
+    });
+}
+
+// SUBMIT FORM
+function submitOneTripForm() {
+    if(validateOneTripForm()){
+        document.getElementById("one-trip").submit();
+       console.log("submitted ot")
+    }
+}
+
+// VALIDATE FORM - ONE TRIP
+function validateOneTripForm() {
+    var from = document.getElementById("fromontrip").value;
+    var to = document.getElementById("toontrip").value;
+    if (from === "") {
+        alert("Please Enter From");
+        return false; // Prevent form submission
+    } 
+        if (to === "") {
+        alert("Please Enter To");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+// flight list
+
+const FLightL = document.getElementById('flight_details').textContent;
+// Parse the JSON string
+const flights = JSON.parse(FLightL);
+let jsonData = flights
+console.log("flight details",jsonData)
+const combinedFlightMap = {};
+
+jsonData.forEach(flight => {
+    const combinedKey = flight.AirlineNumber + '-' + flight.SAirlineNumber;
+    if (!combinedFlightMap[combinedKey]) {
+        combinedFlightMap[combinedKey] = [];
+    }
+    combinedFlightMap[combinedKey].push(flight);
+});
+
+const groupedFlights = Object.values(combinedFlightMap);
+
+console.log(groupedFlights);
+
+// Example usage:
+let flightDataArray = groupedFlights;
+// console.log("Flight Data Array:", flightDataArray);
+var jsonString = JSON.stringify(flightDataArray);
+document.querySelector('[name="Sort_F_details"]').value = jsonString;
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
 let flightsByNumberJSON = document.getElementById('Sort_F_details').value;
 var flightsByNumber = JSON.parse(flightsByNumberJSON);
@@ -918,135 +1134,6 @@ var passengers = [
     var finalfare = "<tr><td><strong>Final total fare</strong></td><td>INR " + offeredfare.toFixed(2) + "</td><td>INR " + (totalBaseFare + totalTax).toFixed(2) + "</td><td><strong>INR " + ((totalBaseFare + totalTax) - offeredfare).toFixed(2) + "</strong></td></tr>";
     tableBody.innerHTML += finalfare;
 });
-
-//RANGE INPUT PRICE FILTER - ONE TRIP
-$(document).ready(function () {
-    const rangeInput = $(".range-input input"),
-        priceInput = $(".price-input input"),
-        range = $(".slider .progress"),
-        priceGap = 1000;
-
-    priceInput.on("input", function () {
-        let minPrice = parseInt(priceInput.eq(0).val()),
-            maxPrice = parseInt(priceInput.eq(1).val());
-
-        if (maxPrice - minPrice < priceGap) {
-            if ($(this).hasClass("input-min")) {
-                rangeInput.eq(0).val(maxPrice - priceGap);
-            } else {
-                rangeInput.eq(1).val(minPrice + priceGap);
-            }
-        } else {
-            updateSlider(minPrice, maxPrice);
-        }
-    });
-
-    rangeInput.on("input", function () {
-        RangeSlider();
-    });
-
-    RangeSlider();
-
-    function RangeSlider() {
-        let minVal = parseInt(rangeInput.eq(0).val()),
-            maxVal = parseInt(rangeInput.eq(1).val());
-
-        if (maxVal - minVal < priceGap) {
-            rangeInput.eq(0).val(maxVal - priceGap);
-            minVal = parseInt(rangeInput.eq(0).val());
-        }
-
-        updateSlider(minVal, maxVal);
-    }
-
-    function updateSlider(minVal, maxVal) {
-        priceInput.eq(0).val(minVal);
-        priceInput.eq(1).val(maxVal);
-        range.css({
-            left: (minVal / rangeInput.eq(0).attr("max")) * 100 + "%",
-            right: (100 - (maxVal / rangeInput.eq(1).attr("max")) * 100) + "%"
-        });
-
-        filterFlightsByPrice(minVal, maxVal);
-        console.log(minVal, maxVal);
-    }
-
-    function filterFlightsByPrice(minPrice, maxPrice) {
-        console.log("Filtering by Price:", minPrice, maxPrice);
-
-        $(".flight-container,.flight-container1").each(function () {
-            var flightPrice = parseInt($(this).attr("ticket-price")) || parseInt($(this).attr("ticket-prices"));
-
-            console.log("Flight Price:", flightPrice);
-
-            if (flightPrice >= minPrice && flightPrice <= maxPrice + 1000) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    }
-});
-
-// AIRLINE NAME FILTER FUNCTIONS
-document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
-    checkbox.addEventListener('change', function () {
-        updateFlightList();
-    });
-});
-
-function updateFlightList() {
-    var selectedAirlines = Array.from(document.querySelectorAll('.form-check-input:checked'))
-        .map(function (checkbox) {
-            return checkbox.getAttribute('data-airline').toLowerCase(); // Convert to lowercase
-        });
-
-    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
-        var airlineName = flight.getAttribute('flight-name') || flight.getAttribute('flight-names');
-        if (airlineName) {
-            airlineName = airlineName.toLowerCase(); // Convert to lowercase
-            if (selectedAirlines.length === 0 || selectedAirlines.includes(airlineName)) {
-                flight.style.display = 'block';
-            } else {
-                flight.style.display = 'none';
-            }
-        } else {
-            flight.style.display = 'none'; // Handle case where flight-name attribute is missing
-        }
-    });
-}
-
-// FLIGHT STOP FILTER FUNCTIONS
-document.querySelectorAll('.form-check-inputs').forEach(function (checkbox) {
-    checkbox.addEventListener('change', function () {
-        updateFlightLists();
-    });
-});
-
-function updateFlightLists() {
-    var selectedAirlinesClass = Array.from(document.querySelectorAll('.form-check-inputs:checked'))
-        .map(function (checkbox) {
-            return checkbox.getAttribute('data-stops').toLowerCase(); // Convert to lowercase
-        });
-
-    document.querySelectorAll('.flight-container, .flight-container1').forEach(function (flight) {
-        var airlineClass = flight.getAttribute('flight-stop') || flight.getAttribute('flight-stops'); // Corrected attribute names
-        if (airlineClass) {
-            airlineClass = airlineClass.toLowerCase(); // Convert to lowercase
-            if (selectedAirlinesClass.length === 0 || selectedAirlinesClass.includes(airlineClass)) {
-                flight.style.display = 'block';
-            } else {
-                flight.style.display = 'none';
-            }
-        } else {
-            flight.style.display = 'none'; // Handle case where flight-stop or flight-stops attribute is missing
-        }
-    });
-}
-
-
-
-
 
 
 
