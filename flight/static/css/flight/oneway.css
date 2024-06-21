@@ -14,6 +14,22 @@
     border: 1px solid #029e9d !important;
 }
 
+.t_input {
+    width: 40px;
+    height: 20px;
+    border: 2px solid #029e9d !important;
+}
+
+/* .form-check-input:checked {
+    background-color: #029e9d !important;
+    border-color: #029e9d  !important;
+} */
+
+.t_input:checked {
+  background-color: #029e9d !important;
+  border-color: #029e9d !important;
+}
+
 .nav-pills .nav-link.active {
     background: #029e9d;
 }

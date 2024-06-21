@@ -284,7 +284,7 @@ def one_trip(request):
                         print(min_price,max_price)
 
                         error_message = None
-                        return render(request, 'flight/oneway.html', {'flight_info': flight_info, 'flight_class': one_trip_class,'FLight_list':FLight_list,"DirectFlight":DirectFlight,
+                        return render(request, 'flight/oneway.html', {'flight_info': flight_info, 'flight_class': one_trip_class,'FLight_list':FLight_list,"DirectFlight":DirectFlight,"DirectFlight_bool":DirectFlight,
                                             'fromAircode': FromAirportCode, 'toAircode': ToAirportCode,'token_id': token_id,"from_city_code":from_city_code,"to_city_code":to_city_code,
                                             'fromcityname': from_onetrip, 'tocityname':to_onetrip,'max_price':max_price,'min_price':min_price,'Departure_date':formatted_check_in_date,'NoOfAdults':numadult,'NoOfChild':numchaild,'NoOfInfant':numinfant,'date_object':Departure_date_onetrip})                   
                 else:

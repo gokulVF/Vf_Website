@@ -72,6 +72,24 @@
 //     setNextDate(); 
 // });
 
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the hidden input value
+    var hiddenadult = document.getElementById("hiddenAdultValue").value;
+    var hiddenchild = document.getElementById("hiddenChildValue").value;
+    var hiddeninfant = document.getElementById("hiddeninfantValue").value;
+    // Get the select element
+    var selectadult = document.getElementById("Adult_inp");
+    var selectchild = document.getElementById("Child_inp");
+    var selectinfant = document.getElementById("Infant_inp");
+    
+    // Set the select element value
+    selectadult.value = hiddenadult;
+    selectchild.value = hiddenchild;
+    selectinfant.value = hiddeninfant;
+});
+
 //  CHECK FARES FUNCTION
 document.addEventListener('DOMContentLoaded', function() {
     // Function to update the hidden input
@@ -95,14 +113,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // DIRECT FLIGHTS FUNCTION - ONE TRIP
-var checkbox = document.getElementById("flexSwitchCheckDefault");
-var resultInput = document.getElementById("resultValue");
+document.addEventListener("DOMContentLoaded", function() {
+    var checkbox = document.getElementById("flexSwitchCheckDefault");
+    var resultInput = document.getElementById("resultValue");
 
-function updateResult() {
-    var formattedValue = checkbox.checked ? "True" : "False";
-    resultInput.value = formattedValue;
-    console.log("DirectFlight is now: " + formattedValue);
-}
+    // Initialize checkbox based on the hidden input value
+    checkbox.checked = (resultInput.value === "True");
+
+    function updateResult() {
+        var formattedValue = checkbox.checked ? "True" : "False";
+        resultInput.value = formattedValue;
+        console.log("DirectFlight is now: " + formattedValue);
+    }
+
+    // Add an event listener to detect changes
+    checkbox.addEventListener("change", updateResult);
+
+    // Initialize the result input based on the current state of the checkbox
+    updateResult();
+});
 
 // Add an event listener to detect changes
 checkbox.addEventListener("change", updateResult);
@@ -254,8 +283,10 @@ $(function () {
 });
 
 // FLIGHT CITY SEARCH - ROUND TRIP
+// FLIGHT CITY SEARCH
 $(function () {
-    $("#fromontrip").autocomplete({
+    var fromCityCode = '';
+    $("#onetripfrom").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: "/search_destinations_flight/",
@@ -270,16 +301,20 @@ $(function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            // Update the hidden input fields with selected values
+            fromCityCode = ui.item.cityCode;
             $("#citycodeInput").val(ui.item.cityCode);
             $("#airportCodeInput").val(ui.item.AirportCode);
             $("#aircityname").val(ui.item.CityName);
+            
+            // Clear TO input when FROM input changes
+            $("#onetripto").val('');
+            $("#tocitycodeInput").val('');
+            $("#toairportCodeInput").val('');
+            $("#toaircityname").val('');
         }
     });
-});
 
-$(function () {
-    $("#toontrip").autocomplete({
+    $("#onetripto").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: "/search_destinations_flight/",
@@ -288,19 +323,29 @@ $(function () {
                     query: request.term
                 },
                 success: function (data) {
-                    response(data.data);
+                    // Filter out the city that is selected in the "FROM" input
+                    var filteredData = data.data.filter(function(item) {
+                        return item.cityCode !== fromCityCode;
+                    });
+                    response(filteredData);
                 }
             });
         },
         minLength: 2,
         select: function (event, ui) {
-            // Update the hidden input fields with selected values
+            if (ui.item.cityCode === fromCityCode) {
+                alert("The destination city cannot be the same as the departure city.");
+                event.preventDefault();
+                $(this).val('');
+                return false;
+            }
             $("#tocitycodeInput").val(ui.item.cityCode);
             $("#toairportCodeInput").val(ui.item.AirportCode);
             $("#toaircityname").val(ui.item.CityName);
         }
     });
 });
+
 
 // FILTER FUNCTIONS TOP - ONE TRIP
 function sortFlight(criteria) {
@@ -486,8 +531,8 @@ function submitOneTripForm() {
 
 // VALIDATE FORM - ONE TRIP
 function validateOneTripForm() {
-    var from = document.getElementById("fromontrip").value;
-    var to = document.getElementById("toontrip").value;
+    var from = document.getElementById("onetripfrom").value;
+    var to = document.getElementById("onetripto").value;
     if (from === "") {
         alert("Please Enter From");
         return false; // Prevent form submission

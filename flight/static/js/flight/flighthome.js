@@ -303,3 +303,12 @@ function validateRoundTripForm() {
     updateHiddenInput();
 });
 
+
+
+window.addEventListener('pageshow', function(event) {
+    var historyTraversal = event.persisted || (typeof window.performance != 'undefined' && window.performance.navigation.type === 2);
+    if (historyTraversal) {
+        // Reload the page if navigating back
+        window.location.reload();
+    }
+});

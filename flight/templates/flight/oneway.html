@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <div class="input-box text-start">
                                                 <label>FROM</label>
-                                                <input type="text" class="f-inp" id="fromontrip" placeholder="Enter The City" value="{{fromcityname}}" name="from_one_trip">
+                                                <input type="text" class="f-inp" id="onetripfrom" placeholder="Enter The City" value="{{fromcityname}}" name="from_one_trip">
                                                 <span class="error" id="des_error"></span>
                                                 <input type="hidden" id="citycodeInput" name="from_city_code" value="{{from_city_code}}">
                                                 <input type="hidden" id="airportCodeInput" name="fromAirportCode" value="{{fromAircode}}">
@@ -78,7 +78,7 @@
                                         <div class="form-group">
                                             <div class="input-box text-start">
                                                 <label>TO</label>
-                                                <input type="text" class="f-inp" id="toontrip" placeholder="Enter The City" value="{{tocityname}}" name="from_one_trip">
+                                                <input type="text" class="f-inp" id="onetripto" placeholder="Enter The City" value="{{tocityname}}" name="to_one_trip">
                                                 <span class="error" id="des_error"></span>
                                                 <input type="hidden" id="tocitycodeInput" name="to_city_code" value="{{to_city_code}}">
                                                 <input type="hidden" id="toairportCodeInput" name="toAirportCode" value="{{toAircode}}">
@@ -132,14 +132,16 @@
                                         <input type="hidden" id="selectedFare" name="selectedFare" value="RegularFare">
                                     </div>
                                     <div class="col-lg-6 form-check form-switch">
-                                        <label class="fw-bold ms-2 mb-0" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
-                                        <input class="form-check-input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <input type="hidden" id="resultValue" value="{{DirectFlight}}" name="resultdir">
+                                        <label class="ms-2 mb-0 fw-bold" for="flexSwitchCheckDefault">DIRECT FLIGHTS</label>
+                                        <input class="form-check-input t_input" style="width: 40px;height: 20px;" type="checkbox" role="switch" id="flexSwitchCheckDefault" value="{{DirectFlight}}">
+                                        <input type="hidden" id="resultValue" value="{{DirectFlight_bool}}" name="resultdir">
                                     </div>
                                 </div>
+                                
                                 <div id="pas_form_onetrip" class="pas_form container row">
                                     <div class="bg-white shadows ms-auto p-3 pas_div">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <input type="hidden" id="hiddenAdultValue" value="{{NoOfAdults}}">
                                             <label class="fw-bold  mb-0 black" for="Adults">Adults</label>
                                             <select class="f-inp-form" name="Adults" id="Adult_inp">
                                                 <option value="1">1</option>
@@ -151,6 +153,7 @@
                                             </select>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <input type="hidden" id="hiddenChildValue" value="{{NoOfChild}}">
                                             <label class="fw-bold  mb-0 black" for="Child">Child</label>
                                             <select class="f-inp-form" name="Childs" id="Child_inp">
                                                 <option value="0">Select</option>
@@ -163,6 +166,7 @@
                                             </select>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <input type="hidden" id="hiddeninfantValue" value="{{NoOfInfant}}">
                                             <label class="fw-bold  mb-0 black" for="Infant">Infant</label>
                                             <select class="f-inp-form" name="Infants" id="Infant_inp">
                                                 <option value="0">Select</option>
@@ -176,7 +180,7 @@
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <label class="fw-bold  mb-0 black" >Class</label>
-                                            <select class="f-inp-form">
+                                            <select class="f-inp-form" name="classes">
                                                 <option selected value="1">All</option>
                                                 <option value="2">Econamy</option>
                                                 <option value="3">PremiumEconomy</option>
@@ -274,6 +278,7 @@
                                         </div>
                                         
                                         <div class="d-flex justify-content-between align-items-center mb-1">
+                                            
                                             <label class="fw-bold  mb-0 black" for="Child">Child</label>
                                             <select class="f-inp-form" name="Childs" id="Child_inp_rt">
                                                 <option value="0">Select</option>
@@ -537,6 +542,23 @@
         <a href="#"></a>
     </div>
     <!-- Back to top ends -->
+    <style>
+    .t_input {
+        width: 40px;
+        height: 20px;
+        border: 2px solid #029e9d !important;
+    }
+    
+    /* .form-check-input:checked {
+        background-color: #029e9d !important;
+        border-color: #029e9d  !important;
+    } */
+    
+    .t_input:checked {
+      background-color: #029e9d !important;
+      border-color: #029e9d !important;
+    }
+    </style>
 
 
     <!-- *Scripts* -->
