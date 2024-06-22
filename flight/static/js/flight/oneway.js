@@ -470,14 +470,14 @@ document.querySelector('[name="Sort_F_details"]').value = jsonString;
 
 
 document.addEventListener("DOMContentLoaded", function() {
-let flightsByNumberJSON = document.getElementById('Sort_F_details').value;
-var flightsByNumber = JSON.parse(flightsByNumberJSON);
-// console.log(flightsByNumber);
+    let flightsByNumberJSON = document.getElementById('Sort_F_details').value;
+    var flightsByNumber = JSON.parse(flightsByNumberJSON);
+    // console.log(flightsByNumber);
 
-const flightsContainer = document.getElementById("flightlist");
+    const flightsContainer = document.getElementById("flightlist");
 
-// Loop through each array and create a details container for each
-flightsByNumber.forEach((array, index) => {
+    // Loop through each array and create a details container for each
+    flightsByNumber.forEach((array, index) => {
     const arrayDiv = document.createElement('div');
     arrayDiv.classList.add('details-container');
 
@@ -600,8 +600,8 @@ flightsByNumber.forEach((array, index) => {
                                                     style="max-width: 1020px;top: 10%;">
                                                     <div class="modal-content fo-pop-head">
                                                         <div class="modal-header shadows px-4">
-                                                            <h3 class="modal-title theme" id="exampleModalLabel">More
-                                                                Fare Options Available</h3>
+                                                            <h4 class="modal-title theme" id="exampleModalLabel">More
+                                                                Fare Options Available</h4>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
@@ -1024,6 +1024,7 @@ flightsByNumber.forEach((array, index) => {
 
 // Add event listener to each price element
     let priceElements = arrayDiv.querySelectorAll('.price-class');
+    let selectedButton = null;
     priceElements.forEach(priceElement => {
     priceElement.addEventListener('click', function(event) {
         const selectedresultindex =  event.currentTarget.dataset.flight;
@@ -1039,7 +1040,7 @@ flightsByNumber.forEach((array, index) => {
         const flightclass = arrayDiv.querySelector('.change-F-class');
         const flightclass2 = arrayDiv.querySelector('.change-F-class2');
         const flightclass3 = arrayDiv.querySelector('.change-F-class3');
-        const selectBtn = arrayDiv.querySelector('.price-class')
+        // const selectBtn = arrayDiv.querySelector('.price-class')
         
         let selectedFlight = array.find(flight => flight.ResultIndex === selectedresultindex);
         console.log("flight price",selectedFlight);
@@ -1067,25 +1068,21 @@ flightsByNumber.forEach((array, index) => {
         flightclass3.textContent = `${selectedFlight.AirlineType} / ${selectedFlight.SecondFlightClass}`;
         }
 
-        let selectedButton = null; // Variable to store the currently selected button
+         // Variable to store the currently selected button
 
-        priceElements.forEach(priceElement => {
-            priceElement.addEventListener('click', function(event) {
-                // Deselect the previously selected button, if any
-                if (selectedButton) {
-                    selectedButton.innerHTML = "Select";
-                }
-                
-                // Select the clicked button
-                const selectBtn = event.currentTarget;
-                selectBtn.innerHTML = "Selected";
-                selectedButton = selectBtn; // Update the selectedButton reference
+        // Deselect the previously selected button, if any
+        if (selectedButton) {
+            selectedButton.innerHTML = "SELECT";
+        }
+        
+        // Select the clicked button
+        const selectBtn = event.currentTarget;
+        selectBtn.innerHTML = "SELECTED";
+        selectedButton = selectBtn; // Update the selectedButton reference
 
-                // Your existing code for handling button click event goes here
-                // ...
+        // Your existing code for handling button click event goes here
+        // ...
 
-            });
-        });
     });
 });
 

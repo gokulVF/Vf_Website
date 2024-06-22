@@ -52,6 +52,8 @@ def staticpage(request):
     return render(request, 'flight/flight-list.html')
 def oneway(request):
     return render(request, 'flight/oneway.html')
+def flightdetails(request):
+    return render(request, 'flight/flightdetails.html')
 
 
 def search_destinations_flight(request):
