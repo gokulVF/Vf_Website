@@ -1,0 +1,149 @@
+.fs-19 {
+    font-size: 19px !important;
+}
+
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-13 {
+    font-size: 13px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.dur-time{ 
+    border:1px solid #029e9d;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.f_fea_img {
+    width: 22px;
+}
+
+.fd-img{ 
+    width: 30px;
+}
+
+.fd-title {
+    padding: 6px 4px;
+    border-radius: 20px 20px 0 0;
+}
+
+.travel-details{ 
+    border:1px solid #029e9d;
+}
+
+.layover {
+    width: 75%;
+    position: relative;
+    z-index: 1;
+    float: right;
+    font-size: 13px;
+    color: #000;
+    text-align: center;
+}
+
+.layover span {
+    background: #efefef;
+    padding: 9px 20px;
+    border: 1px dashed #c8c6c6;
+    border-radius: 20px;
+}
+
+.layover::before {
+    border-top: 1px solid #c8c6c6;
+    content: '';
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.f-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 12px 15px !important;
+    border-radius: 4px !important;
+    height: 45px !important;
+}
+
+.fdob-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 6px 10px !important;
+    border-radius: 0px;
+    height: 45px;
+}
+
+.fdob-brnon {
+    border-right: none !important;
+}
+
+.fdob-br-left {
+    border-radius: 4px 0 0 4px;
+}
+
+.fdob-br-right {
+    border-radius: 0 4px 4px 0;
+}
+
+.lin-theme {
+    background: linear-gradient(240deg, #076cd0, #029e9d) !important;
+}
+
+.accrodion-grp .accrodion .accrodion-title {
+    border: 1px solid #029e9d;
+}
+
+.way-btn {
+    width: 100px;
+}
+
+.ftr-btn {
+    border: 1px solid #029e9d;
+    border-radius: 4px;
+}
+
+.ftr-btn:hover {
+    opacity: .6;
+}
+
+.modal-backdrop  {
+    display: none;
+}
+
+.f_food_img {
+    width: 40px;
+}
+
+.meal-count, .baggage-count {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.baggage-check {
+    width: 40px;
+    height: 20px;
+    margin-top: 5px;
+}
+
+.mealadd-btn, .bagadd-btn {
+    border: 1px solid #029e9d;
+}
+
+.bagadd-btn:hover, .mealadd-btn:hover {
+    background: #029e9d !important;
+    color: #ffffff !important;
+}
+
+.bagadd-btn:focus, .mealadd-btn:focus {
+    background: #029e9d !important;
+    color: #ffffff !important;
+}
