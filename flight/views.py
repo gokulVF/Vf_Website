@@ -292,8 +292,9 @@ def one_trip(request):
                     return render(request, 'flight/error.html', {'error_message': error_message})
             else:
                 error_message = "Error occurred during the hotel search request."
+                return  HttpResponse(error_message)
         else:
-            print("Authentication failed:", "Token Not Found")
+            return  HttpResponse("Authentication failed:", "Token Not Found")
 
     return HttpResponse("Error processing the form.")    
 
@@ -402,27 +403,26 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                         }
                         suffixes = ['A', 'B', 'C']
                         total_amount = 0
-                        for suffixes, fare_info in zip(suffixes,fare_breakdown):
+                        passenger_details = []
+                        for suffix, fare_info in zip(suffixes, fare_breakdown):
                             passenger_type = fare_info.get('PassengerType')
                             passenger_count = fare_info.get('PassengerCount')
                             base_fare = fare_info.get('BaseFare')
                             tax = fare_info.get('Tax')
 
-                            # list_of_nonstopFlight[f"{suffixes}PassengerCount"] = fare_info.get('PassengerCount', '')
-                            # list_of_nonstopFlight[f"{suffixes}PassengerType"] = fare_info.get('PassengerType', '')
-                            list_of_nonstopFlight[f"{suffixes}BaseFare"] = fare_info.get('BaseFare', '')
-                            list_of_nonstopFlight[f"{suffixes}Tax"] = fare_info.get('Tax', '')
                             current_total = base_fare + tax
-                            list_of_nonstopFlight[f"{suffixes}Total"] = current_total
                             total_amount += current_total
-                            if passenger_type == 1:
-                                list_of_nonstopFlight[f"{suffixes}PassengerCount"] = f"ADULT X {passenger_count}"
-                            if passenger_type == 2:
-                                list_of_nonstopFlight[f"{suffixes}PassengerCount"] = f"CHILD X {passenger_count}"
-                            if passenger_type == 3:
-                                list_of_nonstopFlight[f"{suffixes}PassengerCount"] = f"INFANT X {passenger_count}"
+
+                            passenger_info = {
+                                "PassengerCount": f"{['ADULT', 'CHILD', 'INFANT'][passenger_type-1]} X {passenger_count}",
+                                "BaseFare": base_fare,
+                                "Tax": tax,
+                                "Total": current_total
+                            }
+                            passenger_details.append(passenger_info)
+
                         list_of_nonstopFlight["total_key"] = total_amount
-                        
+                        list_of_nonstopFlight["passenger_details"] = passenger_details
                         flight_info.append(list_of_nonstopFlight)
 
                     
@@ -482,7 +482,6 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                         list_of_nonstopFlight["totalminute"]=total_minute
                         total_H_M = f"{total_hour}h {total_minute}m"
                         list_of_nonstopFlight["total_H_M"] = total_H_M
-                        # list_of_nonstopFlight["totalminute"] = total_minute
                 # print("fareamount details",fare_brake_down)
               
                     
@@ -559,27 +558,26 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                         }
                     suffixes = ['A', 'B', 'C']
                     total_amount = 0
-                    for suffixes, fare_info in zip(suffixes,fare_breakdown_two):
+                    passenger_details = []
+                    for suffix, fare_info in zip(suffixes, fare_breakdown_two):
                         passenger_type = fare_info.get('PassengerType')
                         passenger_count = fare_info.get('PassengerCount')
                         base_fare = fare_info.get('BaseFare')
                         tax = fare_info.get('Tax')
 
-                        list_of_onestopFlight[f"{suffixes}PassengerCount"] = fare_info.get('PassengerCount', '')
-                        list_of_onestopFlight[f"{suffixes}PassengerType"] = fare_info.get('PassengerType', '')
-                        list_of_onestopFlight[f"{suffixes}BaseFare"] = fare_info.get('BaseFare', '')
-                        list_of_onestopFlight[f"{suffixes}Tax"] = fare_info.get('Tax', '')
-
                         current_total = base_fare + tax
-                        list_of_onestopFlight[f"{suffixes}Total"] = current_total
                         total_amount += current_total
-                        if passenger_type == 1:
-                            list_of_onestopFlight[f"{suffixes}PassengerCount"] = f"ADULT X {passenger_count}"
-                        if passenger_type == 2:
-                            list_of_onestopFlight[f"{suffixes}PassengerCount"] = f"CHILD X {passenger_count}"
-                        if passenger_type == 3:
-                            list_of_onestopFlight[f"{suffixes}PassengerCount"] = f"INFANT X {passenger_count}"
+
+                        passenger_info = {
+                            "PassengerCount": f"{['ADULT', 'CHILD', 'INFANT'][passenger_type-1]} X {passenger_count}",
+                            "BaseFare": base_fare,
+                            "Tax": tax,
+                            "Total": current_total
+                        }
+                        passenger_details.append(passenger_info)
+
                     list_of_onestopFlight["total_key"] = total_amount
+                    list_of_onestopFlight["passenger_details"] = passenger_details
                     flight_info.append(list_of_onestopFlight)
                     
 
@@ -672,6 +670,8 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                     final_total_minutes = (final_flight_times.seconds % 3600) // 60
                     total_H_Ms = f"{final_total_hours}h {final_total_minutes}m"
                     list_of_onestopFlight["FinalTotal_H_M"] = total_H_Ms
+                    list_of_onestopFlight["final_total_hours"] = final_total_hours
+                    list_of_onestopFlight["final_total_minutes"] = final_total_minutes
 
 
             print(array_count_2)
@@ -680,39 +680,28 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                 flight_info = [info for info in flight_info if info.get("fare_deal") == fare_based]
                 return flight_info
             else:
-                error_message = "Mtch Not Fount0"
-                return None, None, error_message
+                error_message = "Match Not Found"
+                return JsonResponse({'error': error_message})
 
             return flight_info
         else:
-            # Handle the case where 'Response' key is not found
-            error_message = "No 'Response' key found in response data."
-            return None, None, error_message
-
+            error_message = response_data.get('Error', {}).get('ErrorMessage', '')
+            return JsonResponse({'error': error_message})
     except requests.exceptions.RequestException as ex:
-        print(f"Error: {ex}")
-        # Handle other exceptions if needed
-        return None
+        return JsonResponse({'error': f"Error: {ex}"})
             # Handle other KeyError if necessary
     
 def Fare_rule_details(request):
     
         # Extracting flight details
+        client_ip = request.session.get('client_ip','')
         token_id = request.POST.get('tokenId', None)
         trace_id = request.POST.get('traceId', None)
         result_index = request.POST.get('resultIndex', None)
-        
-# Storing session data for both flight and room
-        # request.session['trace_id'] = trace_id
-        # request.session['token_id'] = token_id
-        # request.session['result_index'] = result_index
-        print("fare details names",trace_id,result_index,token_id)
-  
-
-        # Flight API URLs and data
+# Flight API URLs and data
         flight_api_url = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/FareRule'
         flight_data = {
-            "EndUserIp": "192.168.11.120",
+            "EndUserIp": client_ip,
             "TokenId": token_id,
             "TraceId": trace_id,
             "ResultIndex": result_index,
@@ -758,7 +747,7 @@ def Fare_rule_details(request):
             # return JsonResponse(combined_response)
 
         except requests.exceptions.RequestException as ex:
-            return JsonResponse({'error': str(ex)}, status=500)
+            return JsonResponse({'error': f"Error: {ex}"})
 
     # else:
     #     return JsonResponse({'error': 'Invalid request method'}, status=400)

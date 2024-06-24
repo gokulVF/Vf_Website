@@ -47,9 +47,7 @@ INSTALLED_APPS = [
     'captcha',
     'booking',
     'payment',
-    'flight',
-
-    
+    'flight'
 ]
 
 CAPTCHA_IMAGE_SIZE = (150, 50)
