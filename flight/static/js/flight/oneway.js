@@ -1196,9 +1196,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                     </div>`
-            
-    }
-
+                }
     flightsContainer.innerHTML += flightHTML;
 
 // Add event listener to each price element
@@ -1434,15 +1432,15 @@ function handleSelectFlight(tokenId, Flightdetails) {
     tokenIdField.name = 'tokenId';
     tokenIdField.value = tokenId;
     form.appendChild(tokenIdField);
-    var AirlinexdetailsField = document.createElement('input');
-    AirlinexdetailsField.type = 'hidden';
-    AirlinexdetailsField.name = 'Airlinedetails';
-    AirlinexdetailsField.value = Flightdetails;
-    form.appendChild(AirlinexdetailsField)
+    var AirlinedetailsField = document.createElement('input');
+    AirlinedetailsField.type = 'hidden';
+    AirlinedetailsField.name = 'flightDetails';
+    AirlinedetailsField.value =Flightdetails;
+    form.appendChild(AirlinedetailsField)
   
     document.body.appendChild(form);
     form.submit();
-}
+}   
 
 
 // document.addEventListener("DOMContentLoaded", function() {

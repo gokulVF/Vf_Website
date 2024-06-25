@@ -40,50 +40,51 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mb-4">
+                {% if flight_all_details.Stopconformation == 'Non-stop' %}
                 <p class="fs-19 ps-3 mb-0 white bg-theme fd-title"><img src="{% static 'image/flight/f-plane.png' %}"
                         class="fd-img me-2" alt="">Flight Details</p>
                 <div class="travel-details p-3 rounded mb-3 row">
                     <div class="row">
                         <div class="col-lg-3 align-items-center">
-                            <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo"
+                            <img src="{% static 'image/AirlineLogo/' %}${ flight_all_details.AirlineCode }.gif" alt="Flight-logo"
                                 style="width: 50px; height: 50px;">
-                            <p class="mb-0 fw-bold theme2">SpiceJet | SG-106</p>
-                            <small class="mb-0 fs-13"> Publish / Economy</small>
+                            <p class="mb-0 fw-bold theme2">{{flight_all_details.AirlineName}} | {{flight_all_details.AirlineCode}}-{{flight_all_details.AirlineNumber}}</p>
+                            <small class="mb-0 fs-13"> {{flight_all_details.AirlineType}} / {{flight_all_details.FlightClass}}</small>
                         </div>
                         <div class="col-lg-7">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <p class="mb-0 fs-14 fw-bold black">(MAA) Chennai</p>
-                                    <p class="mb-0 fs-12">Chennai, India</p>
-                                    <p class="mb-0 fs-12">Terminal: 1</p>
-                                    <p class="mb-0 fs-14 fw-bold">20:55</p>
-                                    <p class="mb-0 fs-14 fw-bold black">18/05/2024</p>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.OrginAirportCode}}) {{flight_all_details.OrginAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.OrginAirportCityName}}, {{flight_all_details.OrginAirportCoutryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.OrginAirportTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.departure_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">18/05/2024</p> -->
                                 </div>
                                 <div>
-                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">3h 15m</p>
-                                    <p class="mb-0 fs-13">NON - STOP</p>
+                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">${flight.total_H_M}</p>
+                                    <p class="mb-0 fs-13">{{flight_all_details.Stopconformation}}</p>
                                 </div>
                                 <div>
-                                    <p class="mb-0 fs-14 fw-bold black">(DEL) Indira Gandhi Airport</p>
-                                    <p class="mb-0 fs-12">Delhi, India</p>
-                                    <p class="mb-0 fs-12">Terminal: 3</p>
-                                    <p class="mb-0 fs-14 fw-bold">00:10</p>
-                                    <p class="mb-0 fs-14 fw-bold black">20/05/2024</p>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.DestinationAirportCode}}) {{flight_all_details.DestinationAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.DestinationCityName}}, {{flight_all_details.DestinationCountryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.DestinationTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.arrival_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">20/05/2024</p> -->
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2 my-auto text-center">
-                            <p class="mb-0 fs-14 theme2 fw-bold">Refundable</p>
-                            <p class="mb-0 fs-13">Seat Left: null</p>
+                            <p class="mb-0 fs-14 theme2 fw-bold">{{flight_all_details.nonrefund}}</p>
+                            <p class="mb-0 fs-13">Seat Left: {{flight_all_details.setsAvailable}}</p>
                         </div>
                         <div class="row mx-auto bg-grey rounded p-2 mt-2">
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-baggage.png' %}" class="f_fea_img me-2" alt="">Check
-                                In: <span>20 Kg</span>
+                                In: <span>{{flight_all_details.checkinbag}} Kg</span>
                             </div>
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-cabin.png' %}" class="f_fea_img me-2" alt="">Cab In:
-                                <span>Included</span>
+                                <span>{{flight_all_details.combainbag}}</span>
                             </div>
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-meal.png' %}" class="f_fea_img me-2" alt="">Meal:
@@ -91,56 +92,57 @@
                             </div>
                             <div class="col-lg-3 fs-14 fw-bold theme">
                                 <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
-                                    alt="">Refundable
+                                    alt="">{{flight_all_details.nonrefund}}
                                 <!-- <i class="fa fa-undo me-2"></i> -->
                             </div>
                         </div>
                     </div>
                 </div>
+                {% else %}
                 <p class="fs-19 ps-3 mb-0 white bg-theme fd-title"><img src="{% static 'image/flight/f-plane.png' %}"
                         class="fd-img me-2" alt="">Flight Details</p>
                 <div class="travel-details p-3 rounded mb-3 row">
                     <div class="row">
                         <div class="col-lg-3 align-items-center">
-                            <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo"
+                            <img src="{% static 'image/AirlineLogo/' %}${ flight_all_details.FirstAirlineCode }.gif" alt="Flight-logo"
                                 style="width: 50px; height: 50px;">
-                            <p class="mb-0 fw-bold theme2">SpiceJet | SG-106</p>
-                            <small class="mb-0 fs-13"> Publish / Economy</small>
+                            <p class="mb-0 fw-bold theme2">{{flight_all_details.FirstAirlineName}} | {{flight_all_details.FirstAirlineCode}}-{{flight_all_details.AirlineNumber}}</p>
+                            <small class="mb-0 fs-13"> {{flight_all_details.AirlineType}} / {{flight_all_details.FlightClass}}</small>
                         </div>
                         <div class="col-lg-7">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <p class="mb-0 fs-14 fw-bold black">(MAA) Chennai</p>
-                                    <p class="mb-0 fs-12">Chennai, India</p>
-                                    <p class="mb-0 fs-12">Terminal: 1</p>
-                                    <p class="mb-0 fs-14 fw-bold">20:55</p>
-                                    <p class="mb-0 fs-14 fw-bold black">18/05/2024</p>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.FristOrginAirportCode}}) {{flight_all_details.FristOrginAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.FristOrginAirportCityName}}, {{flight_all_details.FristOrginAirportCoutryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.FristOrginAirportTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.Firstdepartur_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">18/05/2024</p> -->
                                 </div>
                                 <div>
-                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">3h 15m</p>
-                                    <p class="mb-0 fs-13">NON - STOP</p>
+                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">{{flight_all_details.Firsttotal_H_M}}</p>
+                                    <p class="mb-0 fs-13">{{flight_all_details.Stopconformation}}</p>
                                 </div>
                                 <div>
-                                    <p class="mb-0 fs-14 fw-bold black">(DEL) Indira Gandhi Airport</p>
-                                    <p class="mb-0 fs-12">Delhi, India</p>
-                                    <p class="mb-0 fs-12">Terminal: 3</p>
-                                    <p class="mb-0 fs-14 fw-bold">00:10</p>
-                                    <p class="mb-0 fs-14 fw-bold black">20/05/2024</p>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.FristDestinationAirportCode}}) {{flight_all_details.FristDestinationAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.FristDestinationCityName}}, {{flight_all_details.FristDestinationCountryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.FristDestinationTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.Firstarrival_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">20/05/2024</p> -->
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2 my-auto text-center">
-                            <p class="mb-0 fs-14 theme2 fw-bold">Refundable</p>
-                            <p class="mb-0 fs-13">Seat Left: null</p>
+                            <p class="mb-0 fs-14 theme2 fw-bold">{{flight_all_details.onerefund}}</p>
+                            <p class="mb-0 fs-13">Seat Left: {{flight_all_details.FristsetsAvailable}}</p>
                         </div>
                         <div class="row mx-auto bg-grey rounded p-2 mt-2">
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-baggage.png' %}" class="f_fea_img me-2" alt="">Check
-                                In: <span>20 Kg</span>
+                                In: <span>{{flight_all_details.Fristcheckinbag}}</span>
                             </div>
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-cabin.png' %}" class="f_fea_img me-2" alt="">Cab In:
-                                <span>Included</span>
+                                <span>{{flight_all_details.Fristcombainbag}}</span>
                             </div>
                             <div class="col-lg-3 fs-14">
                                 <img src="{% static 'image/flight/f-meal.png' %}" class="f_fea_img me-2" alt="">Meal:
@@ -148,7 +150,7 @@
                             </div>
                             <div class="col-lg-3 fs-14 fw-bold theme">
                                 <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
-                                    alt="">Refundable
+                                    alt="">{{flight_all_details.FristsetsAvailable}}
                                 <!-- <i class="fa fa-undo me-2"></i> -->
                             </div>
                         </div>
@@ -211,6 +213,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <!-- <div id="fl_rev_details">
                             <div>
                                 <div class="" >

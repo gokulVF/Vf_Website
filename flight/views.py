@@ -753,38 +753,47 @@ def Fare_rule_details(request):
 
     # else:
     #     return JsonResponse({'error': 'Invalid request method'}, status=400)
-    
+from urllib.parse import unquote   
 def flightreview (request):
     if request.method == 'POST':
         # EndUserIp = request.POST.get('EndUserIp', None)
-        trace_id = request.POST.get('traceId', None)
-        result_index = request.POST.get('resultIndex', None)
+        client_ip = request.session.get('client_ip','')
+        if not client_ip:
+            return redirect('flighthome')
+        
         token_id = request.POST.get('tokenId', None)
-        flight_stop = request.POST.get('flightstops',None)
-        flight_class = request.POST.get('flightclass',None)
-        flight_date = request.POST.get('flightdate',None)
-        flight_H_M = request.POST.get('flighttodal_h_m',None)
-        start_point = request.POST.get('flightstartpoint',None)
-        end_point = request.POST.get('flightendpoint',None)
-        Airline_code = request.POST.get('Airlinecode',None)
+        encoded_flight_details = request.POST.get('flightDetails')
+        # flight_stop = request.POST.get('flightstops',None)
+        # flight_class = request.POST.get('flightclass',None)
+        # flight_date = request.POST.get('flightdate',None)
+        # flight_H_M = request.POST.get('flighttodal_h_m',None)
+        # start_point = request.POST.get('flightstartpoint',None)
+        # end_point = request.POST.get('flightendpoint',None)
+        # Airline_code = request.POST.get('Airlinecode',None)
         # Mealcodes = request.POST.get('mealdata',None)
         # Baggagecodes = request.POST.get('baggagedata',None)
         # user_information_json = request.POST.get('user_information')
         # # userinformation_json = json.loads(user_information_json)
         # request.session['user_information_json'] = user_information_json
-        
-        request.session['token_id'] = token_id
-        request.session['trace_id'] = trace_id
-        request.session['result_index'] = result_index  
-        print(trace_id,result_index,token_id, flight_stop,flight_class,flight_date,Airline_code)
+        # print(flight_details)
+        if encoded_flight_details:
+            decoded_flight_details = unquote(encoded_flight_details)
+            flight_all_details = json.loads(decoded_flight_details)
+            trace_id = flight_all_details.get('TraceId')
+            resultindex = flight_all_details.get('ResultIndex')
+            
+        else:
+            print("flight_details not end")
+       
+       
         
         single_flight_del = {
-            "flight_stop":flight_stop,
-            "flight_class" :flight_class,
-            "start_point":start_point,
-            "end_point":end_point,
-            "flight_date":flight_date,
-            "flight_H_M":flight_H_M,
+            # "flight_stop":flight_stop,
+            # "flight_class" :flight_class,
+            # "start_point":start_point,
+            # "end_point":end_point,
+            # "flight_date":flight_date,
+            # "flight_H_M":flight_H_M,
         }
         totalflightlist = json.dumps(single_flight_del)
         guest_details = request.session.get('member_details', [])
@@ -802,10 +811,10 @@ def flightreview (request):
         }
 
         data1 = {
-        "EndUserIp":"192.168.11.120",
+        "EndUserIp":client_ip,
         "TokenId": f"{token_id}",
-        "TraceId": f"{trace_id}",
-        "ResultIndex": f"{result_index}"
+        "TraceId": trace_id,
+        "ResultIndex":resultindex
         }
         
         try:
@@ -1045,10 +1054,10 @@ def flightreview (request):
             }
 
             data2 = {
-            "EndUserIp":"192.168.11.120",
+            "EndUserIp":client_ip,
             "TokenId": f"{token_id}",
-            "TraceId": f"{trace_id}",
-            "ResultIndex": f"{result_index}"
+            "TraceId": trace_id,
+            "ResultIndex": resultindex
             }
             
             try:
@@ -1272,8 +1281,8 @@ def flightreview (request):
                 # print("baggage_details", baggage_details,baggage_len)
                  
                         
-                return render(request, 'flight/flightreview.html',{'flight_details':flight_details,"dumbflighdetails":dumbflighdetails,'totalflightlist':totalflightlist,'single_flight_del':single_flight_del,'flightname':flight_name,
-                    "guest_cout":guest_details,'Airline_code':Airline_code,'baggage_details':baggage_details,'foods':flight_food,'lentght_baggage':baggage_len,'meal_len':meal_len,
+                return render(request, 'flight/flightdetails.html',{'flight_all_details':flight_all_details,'flight_details':flight_details,"dumbflighdetails":dumbflighdetails,'totalflightlist':totalflightlist,'single_flight_del':single_flight_del,'flightname':flight_name,
+                    "guest_cout":guest_details,'baggage_details':baggage_details,'foods':flight_food,'lentght_baggage':baggage_len,'meal_len':meal_len,
                     'fir_flight_seat':firflight_seat,'fir_flight_price':fir_flight_price,'second_flight_seat':second_flight_seat,'second_flight_price':second_flight_price,'seatNumber':seatNumber})
 
             except requests.exceptions.RequestException as ex:
