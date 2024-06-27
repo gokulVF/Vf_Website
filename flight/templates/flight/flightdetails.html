@@ -1,3 +1,4 @@
+<<<<<<< HEAD:flight/templates/flight/flightdetails.html
 {% load static %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
@@ -826,4 +827,834 @@
 
 </body>
 
+=======
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review of Hotels</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/home/Magnet logo.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!--Custom CSS-->
+    <link href="{% static 'css/home/style.css' %}" rel="stylesheet" type="text/css">
+    <!--Plugin CSS-->
+    <link href="{% static 'css/home/plugin.css' %}" rel="stylesheet" type="text/css">
+    <!--Oneway CSS-->
+    <link href="{% static 'css/flight/flightdetail.css' %}" rel="stylesheet" type="text/css">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+    <link rel="stylesheet" href="{% static 'css/home/fonts/line-icons.css' %}" type="text/css">
+</head>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"></div>
+</div>
+<!-- Preloader Ends -->
+
+<!-- header starts -->
+{% include 'home/header.html' %}
+<!-- header ends -->
+
+<!-- top Destination starts -->
+<section class="trending pt-6 pb-0 bg-lgrey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                {% if flight_all_details.Stopconformation == 'Non-stop' %}
+                <p class="fs-19 ps-3 mb-0 white bg-theme fd-title"><img src="{% static 'image/flight/f-plane.png' %}"
+                        class="fd-img me-2" alt="">Flight Details</p>
+                <div class="travel-details p-3 rounded mb-3 row">
+                    <div class="row">
+                        <div class="col-lg-3 align-items-center">
+                            <img src="{% static 'image/AirlineLogo/' %}${ flight_all_details.AirlineCode }.gif" alt="Flight-logo"
+                                style="width: 50px; height: 50px;">
+                            <p class="mb-0 fw-bold theme2">{{flight_all_details.AirlineName}} | {{flight_all_details.AirlineCode}}-{{flight_all_details.AirlineNumber}}</p>
+                            <small class="mb-0 fs-13"> {{flight_all_details.AirlineType}} / {{flight_all_details.FlightClass}}</small>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.OrginAirportCode}}) {{flight_all_details.OrginAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.OrginAirportCityName}}, {{flight_all_details.OrginAirportCoutryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.OrginAirportTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.departure_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">18/05/2024</p> -->
+                                </div>
+                                <div>
+                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">${flight.total_H_M}</p>
+                                    <p class="mb-0 fs-13">{{flight_all_details.Stopconformation}}</p>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.DestinationAirportCode}}) {{flight_all_details.DestinationAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.DestinationCityName}}, {{flight_all_details.DestinationCountryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.DestinationTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.arrival_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">20/05/2024</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 my-auto text-center">
+                            <p class="mb-0 fs-14 theme2 fw-bold">{{flight_all_details.nonrefund}}</p>
+                            <p class="mb-0 fs-13">Seat Left: {{flight_all_details.setsAvailable}}</p>
+                        </div>
+                        <div class="row mx-auto bg-grey rounded p-2 mt-2">
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-baggage.png' %}" class="f_fea_img me-2" alt="">Check
+                                In: <span>{{flight_all_details.checkinbag}} Kg</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-cabin.png' %}" class="f_fea_img me-2" alt="">Cab In:
+                                <span>{{flight_all_details.combainbag}}</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-meal.png' %}" class="f_fea_img me-2" alt="">Meal:
+                                <span>Included</span>
+                            </div>
+                            <div class="col-lg-3 fs-14 fw-bold theme">
+                                <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
+                                    alt="">{{flight_all_details.nonrefund}}
+                                <!-- <i class="fa fa-undo me-2"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="fs-19 ps-3 mb-0 white bg-theme fd-title"><img src="{% static 'image/flight/f-plane.png' %}"
+                        class="fd-img me-2" alt="">Flight Details</p>
+                <div class="travel-details p-3 rounded mb-3 row">
+                    <div class="row">
+                        <div class="col-lg-3 align-items-center">
+                            <img src="{% static 'image/AirlineLogo/' %}${ flight_all_details.FirstAirlineCode }.gif" alt="Flight-logo"
+                                style="width: 50px; height: 50px;">
+                            <p class="mb-0 fw-bold theme2">{{flight_all_details.FirstAirlineName}} | {{flight_all_details.FirstAirlineCode}}-{{flight_all_details.AirlineNumber}}</p>
+                            <small class="mb-0 fs-13"> {{flight_all_details.AirlineType}} / {{flight_all_details.FlightClass}}</small>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.FristOrginAirportCode}}) {{flight_all_details.FristOrginAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.FristOrginAirportCityName}}, {{flight_all_details.FristOrginAirportCoutryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.FristOrginAirportTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.Firstdepartur_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">18/05/2024</p> -->
+                                </div>
+                                <div>
+                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">{{flight_all_details.Firsttotal_H_M}}</p>
+                                    <p class="mb-0 fs-13">{{flight_all_details.Stopconformation}}</p>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">({{flight_all_details.FristDestinationAirportCode}}) {{flight_all_details.FristDestinationAirportName}}</p>
+                                    <p class="mb-0 fs-12">{{flight_all_details.FristDestinationCityName}}, {{flight_all_details.FristDestinationCountryName}}</p>
+                                    <p class="mb-0 fs-12">Terminal: {{flight_all_details.FristDestinationTerminal}}</p>
+                                    <p class="mb-0 fs-14 fw-bold">{{flight_all_details.Firstarrival_H_M}}</p>
+                                    <!-- <p class="mb-0 fs-14 fw-bold black">20/05/2024</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 my-auto text-center">
+                            <p class="mb-0 fs-14 theme2 fw-bold">{{flight_all_details.onerefund}}</p>
+                            <p class="mb-0 fs-13">Seat Left: {{flight_all_details.FristsetsAvailable}}</p>
+                        </div>
+                        <div class="row mx-auto bg-grey rounded p-2 mt-2">
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-baggage.png' %}" class="f_fea_img me-2" alt="">Check
+                                In: <span>{{flight_all_details.Fristcheckinbag}}</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-cabin.png' %}" class="f_fea_img me-2" alt="">Cab In:
+                                <span>{{flight_all_details.Fristcombainbag}}</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-meal.png' %}" class="f_fea_img me-2" alt="">Meal:
+                                <span>Included</span>
+                            </div>
+                            <div class="col-lg-3 fs-14 fw-bold theme">
+                                <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
+                                    alt="">{{flight_all_details.onerefund}}
+                                <!-- <i class="fa fa-undo me-2"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layover ng-scope mx-auto my-4" ng-if="lID!=0" style="display:block;">
+                        <span><strong style="font-weight:600" class="ng-binding">{{flight_all_details.airstay}}</strong> Layover in <strong
+                                style="font-weight:600" class="ng-binding">Indore (IDR)</strong></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 align-items-center">
+                            <img src="{% static 'image/AirlineLogo/' %}${ flight.AirlineCode }.gif" alt="Flight-logo"
+                                style="width: 50px; height: 50px;">
+                            <p class="mb-0 fw-bold theme2">SpiceJet | SG-106</p>
+                            <small class="mb-0 fs-13"> Publish / Economy</small>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">(MAA) Chennai</p>
+                                    <p class="mb-0 fs-12">Chennai, India</p>
+                                    <p class="mb-0 fs-12">Terminal: 1</p>
+                                    <p class="mb-0 fs-14 fw-bold">20:55</p>
+                                    <p class="mb-0 fs-14 fw-bold black">18/05/2024</p>
+                                </div>
+                                <div>
+                                    <p class="mb-1 fs-14 fw-bold rounded-pill px-3 shadows theme dur-time">3h 15m</p>
+                                    <p class="mb-0 fs-13">NON - STOP</p>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fs-14 fw-bold black">(DEL) Indira Gandhi Airport</p>
+                                    <p class="mb-0 fs-12">Delhi, India</p>
+                                    <p class="mb-0 fs-12">Terminal: 3</p>
+                                    <p class="mb-0 fs-14 fw-bold">00:10</p>
+                                    <p class="mb-0 fs-14 fw-bold black">20/05/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 my-auto text-center">
+                            <p class="mb-0 fs-14 theme2 fw-bold">Refundable</p>
+                            <p class="mb-0 fs-13">Seat Left: null</p>
+                        </div>
+                        <div class="row mx-auto bg-grey rounded p-2 mt-2">
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-baggage.png' %}" class="f_fea_img me-2" alt="">Check
+                                In: <span>20 Kg</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-cabin.png' %}" class="f_fea_img me-2" alt="">Cab In:
+                                <span>Included</span>
+                            </div>
+                            <div class="col-lg-3 fs-14">
+                                <img src="{% static 'image/flight/f-meal.png' %}" class="f_fea_img me-2" alt="">Meal:
+                                <span>Included</span>
+                            </div>
+                            <div class="col-lg-3 fs-14 fw-bold theme">
+                                <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
+                                    alt="">Refundable
+                                <!-- <i class="fa fa-undo me-2"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- <div id="fl_rev_details">
+                            <div>
+                                <div class="" >
+                                    <div >
+                                        <div>
+                                            <h4 >{{single_flight_del.start_point}} - {{single_flight_del.end_point}}</h4>
+                                            <p >{{single_flight_del.flight_stop}} | {{single_flight_del.flight_class}}</p>
+                                        </div>
+                                        <div>
+                                            <h4>{{single_flight_del.flight_date}}</h4>
+                                            <p>{{single_flight_del.flight_H_M}}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4>Departure</h4>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="f-d-in" name="flightdetails" value="{{dumbflighdetails}}">
+                                <input type="hidden" id="f-d-in" name="fullflightdetails" value="{{totalflightlist}}">
+                                <input type="hidden" id="publishedprice" name="publishedprice" value="{{flight_details.0.mypulishfare}}">
+                                
+                                {% for flights in flight_details %}
+                                <div class="d-flex mt-3  justify-content-between">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'image/AirlineLogo/' %}{{ flights.AirlineCode }}.gif" alt="Flight-logo" style="width: 43%; height: 75px; padding-bottom: 10px;">
+                                        <p style="font-size: 16px;font-weight: 600;" class="mb-0">{{flights.AirlineName}} </p>
+                                        <p style="font-size: 16px;font-weight: 600;">{{flights.AirlineCode}}-{{flights.AirlineNumber}}</p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="d-flex f_dep_div" >
+                                            <div>
+                                                <p class="f-time1">{{flights.departur_H_M}}</p>
+                                                <p class="f-date1">{{flights.departur_date}}</p>
+                                            </div>
+                                            <div>
+                                                <p class="f-timeduration">{{flights.total_H_M}}</p>
+                                            </div>
+                                            <div>
+                                                <p class="f-time1">{{flights.arrival_H_M}}</p>
+                                                <p class="f-date1">{{flights.arrival_date}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mt-2" id="airport_div">
+                                            <div class="text-start">
+                                                <p class="f-name">{{flights.OrginAirportCode}} {{flights.OrginAirportName}}</p>
+                                                <p class="f-sname">{{flights.OrginAirportCityName}}, {{flights.OrginAirportCoutryName}}</p>
+                                                <p class="f-term">Terminal: {{flights.OrginAirportTerminal}}</p>
+                                            </div>
+                                            <div class="text-left">
+                                                <p class="f-name">{{flights.DestinationAirportCode}} {{flights.DestinationAirportName}}</p>
+                                                <p class="f-sname">{{flights.DestinationCityName}}, {{flights.DestinationCountryName}}</p>
+                                                <p class="f-term">Terminal: {{flights.DestinationTerminal}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2" id="icon_container">
+                                    <div class="col-md-9 d-flex">
+                                        <div class="d-flex icon_div">
+                                            <img src="{% static 'image/flight/luggage.svg' %}" alt="lug-icon" class="img-class">
+                                            <p class="icon_text">Check-In : {{flights.checkinbag}}</p>
+                                        </div>
+                                        <div class="d-flex icon_div">
+                                            <img src="{% static 'image/flight/cab in icon.svg' %}" alt="cab-icon" class="img-class">
+                                            <p class="icon_text">Cab-In : {{flights.combainbag}}</p>
+                                        </div>
+                                        <div class="d-flex icon_div">
+                                            <img src="{% static 'image/flight/meal icon.svg' %}" alt="meal-icon" class="img-class">
+                                            <p class="icon_text">Meal : Yes</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-flex">
+                                            <img src="{% static 'image/flight/info orang.svg' %}" alt="ref-icon"  class="img-class">
+                                            <div class="padding-top: 17px;text-align:left">
+                                                <p style="color: #FFB800; font-size: 12px;" class="mb-0">fear rules</p>
+                                                <p style="color: #FFB800;font-size: 14px;" class="mb-0">{{flight_details.0.Refund}}</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div> -->
+
+                <div class="payment-book">
+                    <div class="booking-box">
+                        <div class="customer-information mb-4">
+                            <form class="mb-2">
+                                <div class="accrodion-grp faq-accrodion" data-grp-name="faq-accrodion1">
+                                    <div class="accrodion active">
+                                        <div class="accrodion-title p-3">
+                                            <h5 class="mb-0">Contact Details</h5>
+                                        </div>
+                                        <div class="accrodion-content" style="display: block;">
+                                            <div class="inner p-2">
+                                                <div class="row py-2 border-all box-shadow rounded">
+                                                    <small class="fs-14 fw-bold">Your flight tickets and other
+                                                        informations will be sent here</small>
+                                                    <div class="col-lg-6 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>Email</label>
+                                                            <input type="email" class="f-inp"
+                                                                placeholder="Email Address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>Phone</label>
+                                                            <input type="text" class="f-inp" placeholder="Phone No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <button
+                                                            class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">CONTINUE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accrodion">
+                                        <div class="accrodion-title p-3">
+                                            <h5>Traveller Details</h5>
+                                        </div>
+                                        <div class="accrodion-content" style="display: none;">
+                                            <div class="inner p-2">
+                                                <div class="row py-2 border-all box-shadow rounded">
+                                                    <small class="fs-14 fw-bold">Adult 1</small>
+                                                    <div class="col-lg-2 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>Title</label>
+                                                            <select class="f-inp">
+                                                                <option value="Title">Title</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>First Name</label>
+                                                            <input type="text" class="f-inp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>Last Name</label>
+                                                            <input type="text" class="f-inp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 mt-2">
+                                                        <div class="form-group mb-2">
+                                                            <label>Date of Birth</label>
+                                                            <div class="d-flex">
+                                                                <select class="fdob-inp fdob-brnon fdob-br-left" name=""
+                                                                    id="">
+                                                                    <option value="">Date</option>
+                                                                </select>
+                                                                <select class="fdob-inp fdob-brnon" name="" id="">
+                                                                    <option value="">Month</option>
+                                                                </select>
+                                                                <select class="fdob-inp fdob-br-right" name="" id="">
+                                                                    <option value="">Year</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <button
+                                                            class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">BACK</button>
+                                                        <button
+                                                            class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">CONTINUE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accrodion">
+                                        <div class="accrodion-title p-3">
+                                            <h5>Add Baggage, Meal Services to Your Travel</h5>
+                                        </div>
+                                        <div class="accrodion-content" style="display: none;">
+                                            <div class="inner p-2">
+                                                <div class=" border-all box-shadow rounded">
+                                                    <div class="row m-2 align-items-center">
+                                                        <div class="col-lg-5 mb-2 mt-2">
+                                                            <p class="mb-0">Mr. Gokul Raj</p>
+                                                            <small class="mb-1 fw-bold">ADULT</small>
+                                                        </div>
+                                                        <div class="col-lg-3 mb-2 mt-2">
+                                                            <div class="d-flex">
+                                                                <span>DEL</span>
+                                                                <img src="{% static 'image/flight/f-plane-blk.png' %}"
+                                                                    class="f_fea_img mx-2" alt="">
+                                                                <span>DEL</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 mb-2 mt-2">
+                                                            <button
+                                                                class="px-3 py-1 fs-14 shadows theme bg-white ftr-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#mealAddModal"><img
+                                                                    src="{% static 'image/flight/f-baggage.png' %}"
+                                                                    class="f_fea_img me-2" alt="">Meals</button>
+                                                            <button
+                                                                class="px-3 py-1 fs-14 shadows theme bg-white ftr-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#baggageAddModal"><img
+                                                                    src="{% static 'image/flight/f-meal.png' %}"
+                                                                    class="f_fea_img me-2" alt="">Baggage</button>
+                                                        </div>
+                                                        <!-- MEAL POPUP -->
+                                                        <div class="modal fade" id="mealAddModal" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2"
+                                                                style="max-width: 650px;overflow-y: scroll;scrollbar-width: none;">
+                                                                <div class="modal-content rounded">
+                                                                    <div class="modal-header">
+                                                                        <p class="modal-title fs-19 text-uppercase black fw-bold"
+                                                                            id="exampleModalLabel"
+                                                                            style="border-bottom: 5px solid #029e9d;">
+                                                                            <img src="{% static 'image/flight/F-food-VF.png' %}"
+                                                                                class="f_food_img me-2" alt="">Meal</p>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body px-3 py-1"
+                                                                        style="font-size: 12px;height: 400px;overflow-y: scroll;overflow-x: hidden;scrollbar-width: thin;">
+                                                                        <button
+                                                                            class="px-3 py-1 rounded-pill shadows bg-theme white">DEL
+                                                                            - MAA</button>
+                                                                        <div
+                                                                            class="row food-menu meal-count align-items-center mt-1 m-1 pb-1">
+                                                                            <div class="col-lg-8">
+                                                                                <p class="text-start">Veg Meal</p>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <div class="btn-toolbar" role="toolbar"
+                                                                                    aria-label="Toolbar with button groups">
+                                                                                    <div class="btn-group mr-2"
+                                                                                        role="group"
+                                                                                        aria-label="First group">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">-</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">0</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">+</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <p class="text-end fw-bold black">190
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="row food-menu meal-count align-items-center mt-1 m-1 pb-1">
+                                                                            <div class="col-lg-8">
+                                                                                <p class="text-start">Non Veg Meal</p>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <div class="btn-toolbar" role="toolbar"
+                                                                                    aria-label="Toolbar with button groups">
+                                                                                    <div class="btn-group mr-2"
+                                                                                        role="group"
+                                                                                        aria-label="First group">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">-</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">0</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-white border-all">+</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <p class="text-end fw-bold black">290
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-center mb-2">
+                                                                        <button
+                                                                            class="bg-white theme px-5 py-1 fs-14 fw-bold rounded mealadd-btn">+
+                                                                            ADD</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- BAGGAGE POPUP -->
+                                                        <div class="modal fade" id="baggageAddModal" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2"
+                                                                style="max-width: 650px;overflow-y: scroll;scrollbar-width: none;">
+                                                                <div class="modal-content rounded">
+                                                                    <div class="modal-header">
+                                                                        <p class="modal-title fs-19 text-uppercase black fw-bold"
+                                                                            id="exampleModalLabel"
+                                                                            style="border-bottom: 5px solid #029e9d;">
+                                                                            <img src="{% static 'image/flight/F-luggage-VF.png' %}"
+                                                                                class="f_food_img me-2" alt="">Baggage
+                                                                        </p>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body px-3 py-1"
+                                                                        style="font-size: 12px;height: 400px;overflow-y: scroll;overflow-x: hidden;scrollbar-width: thin;">
+                                                                        <button
+                                                                            class="px-3 py-1 rounded-pill shadows bg-theme white">DEL
+                                                                            - MAA</button>
+                                                                        <div
+                                                                            class="row baggage-menu baggage-count align-items-center mt-1 m-1 pb-1">
+                                                                            <div class="col-lg-8">
+                                                                                <p class="text-start">15 Kg</p>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <p class="text-end fw-bold black">690
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-lg-2 text-end">
+                                                                                <input type="checkbox"
+                                                                                    class="baggage-check">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="row baggage-menu baggage-count align-items-center mt-1 m-1 pb-1">
+                                                                            <div class="col-lg-8">
+                                                                                <p class="text-start">25 Kg</p>
+                                                                            </div>
+                                                                            <div class="col-lg-2">
+                                                                                <p class="text-end fw-bold black">990
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-lg-2 text-end">
+                                                                                <input type="checkbox"
+                                                                                    class="baggage-check">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-center mb-2">
+                                                                        <button
+                                                                            class="bg-white theme px-5 py-1 fs-14 fw-bold rounded bagadd-btn">+
+                                                                            ADD</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end m-2">
+                                                        <button
+                                                            class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">BACK</button>
+                                                        <button
+                                                            class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">CONTINUE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accrodion">
+                                        <div class="accrodion-title p-3">
+                                            <h5>Select Seats (Optional)</h5>
+                                        </div>
+                                        <div class="accrodion-content" style="display: none;">
+                                            <div class="inner p-2 box-shadow rounded">
+                                                <p class="px-3 pb-1 fs-13 black border-b fw-bold">DEL - MAA</p>
+                                                <div class=" mt-1 mb-2 d-flex align-items-center bg-grey py-2 rounded">
+                                                    <p class="fs-14 mb-0 ms-4 black">
+                                                        <span><i class='fas fa-male'></i> 2 Adults, </span>
+                                                        <span><i class='fas fa-child'></i> 1 Child, </span>
+                                                        <span><i class='fas fa-baby'></i> 1 Infant </span>
+                                                    </p>
+                                                    <div class="text-end ms-5">
+                                                        <button
+                                                            class="px-3 py-1 rounded-pill bg-white fw-bold fs-13 shadows black"
+                                                            data-bs-toggle="modal" data-bs-target="#seatAddModal"><img
+                                                                src="{% static 'image/flight/F-seat-vf.png' %}"
+                                                                class="f_fea_img me-2" alt="">SELECT SEATS</button>
+                                                    </div>
+                                                    <div class="modal fade" id="seatAddModal" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable p-2"
+                                                            style="max-width: 1250px;top:5%;overflow-y: scroll;scrollbar-width: none;">
+                                                            <div class="modal-content rounded">
+                                                                <div class="modal-header">
+                                                                    <p class="modal-title fs-19 text-uppercase black fw-bold"
+                                                                        id="exampleModalLabel"
+                                                                        style="border-bottom: 5px solid #029e9d;"><img
+                                                                            src="{% static 'image/flight/F-plane-pop-vf.png' %}"
+                                                                            class="f_food_img me-2" alt="">Flight Seats
+                                                                    </p>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body px-3 py-1"
+                                                                    style="font-size: 12px;height: 500px;overflow-y: scroll;overflow-x: hidden;scrollbar-width: thin;">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-3">
+                                                                            <div class="bg-white shadows rounded mb-3 p-2">
+                                                                                <div class="d-flex gap-2 mt-1 mb-2">
+                                                                                    <img src="{% static 'image/flight/F-plane-pop-vf.png' %}"
+                                                                                        class="f_food_img" alt="">
+                                                                                    <div>
+                                                                                        <p class="mb-0 black fw-bold">Vistara | UK-833</p>
+                                                                                        <small class="mb-0">Private / Economy</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="mb-2">
+                                                                                    <table class="fs-13 black">
+                                                                                        <tbody>
+                                                                                            <tr class="fw-bold">
+                                                                                                <td> Passengers</td>
+                                                                                                <td> Seat No</td>
+                                                                                                <td> Fees</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td> ADULT 1</td>
+                                                                                                <td> A13</td>
+                                                                                                <td> 1200</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td> CHILD 2</td>
+                                                                                                <td> A13</td>
+                                                                                                <td> 1200</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td> INFANT 1</td>
+                                                                                                <td> A13</td>
+                                                                                                <td> 1200</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                                <div class="text-center mb-1">
+                                                                                    <button class="bg-theme white px-3 py-1 fs-14 rounded-pill shadows">Continue</button>
+                                                                                    <p class="fs-13 mb-0 mt-1"><a href="" style="text-decoration: underline;">proceed without Seat</a></p>
+                                                                                    <p class="fs-12 text-start bg-grey rounded py-1 px-2">condition apply. turpis sed lacinia. Nam eget mi in purus lobortis eleifend. Sed nec ante dictum sem condimentum ullamcorper quis venenatis nisi. Proin vitae facilisis nisi, ac posue</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="bg-white shadows rounded p-2 text-center justify-content-center mb-2">
+                                                                                <p class="black fw-bold fs-14">Flight Orientaion</p>
+                                                                                <img src="{% static 'image/flight/F-plane-pop-vf.png' %}" alt="" style="width: 100px;">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6"></div>
+                                                                        <div class="col-lg-3">
+                                                                            <div class="bg-white shadows rounded mb-3 p-2">
+                                                                                <p class="fw-bold text-center theme">Seat Status</p>
+                                                                                <div class="d-flex justify-content-between bg-grey rounded p-2 mb-1 align-items-center">
+                                                                                    <p class="mb-0">Selected Seats</p>
+                                                                                    <p style="width: 40px;height: 40px;" class="bg-theme float-end mb-0 rounded"></p>
+                                                                                </div>
+                                                                                <div class="d-flex justify-content-between bg-grey rounded p-2 mb-1 align-items-center">
+                                                                                    <p class="mb-0">Blocked Seats</p>
+                                                                                    <p style="width: 40px;height: 40px;" class="bg-theme1 float-end mb-0 rounded"></p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-start">
+                                                    <button
+                                                        class="px-3 py-1 fs-13 rounded-pill shadows lin-theme white way-btn">BACK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4 ps-ld-4">
+                <div class="sidebar-sticky">
+                    <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                        <h4>Your Booking Details</h4>
+                        <div class="trend-full border-b pb-2 mb-2">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="trend-item2 rounded">
+                                        <a href="destination-single1.html"
+                                            style="background-image: url(images/destination/destination17.jpg);"></a>
+                                        <div class="color-overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 ps-0">
+                                    <div class="trend-content position-relative">
+                                        <div class="rating mb-1">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <small>200 Reviews</small>
+                                        </div>
+                                        <h5 class="mb-1"><a href="grid-leftfilter.html">Adriatic Adventure–Zagreb To
+                                                Athens</a></h5>
+                                        <h6 class="theme mb-0"><i class="icon-location-pin"></i> Croatia</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trend-check border-b pb-2">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                        <p class="mb-0">Check In</p>
+                                        <h6 class="mb-0">Thu 21 Feb 2022</h6>
+                                        <small>15:00 - 22:00</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="trend-check-item bg-grey rounded p-3 mb-2">
+                                        <p class="mb-0">Check Out</p>
+                                        <h6 class="mb-0">Tue 24 Feb 2022</h6>
+                                        <small>1:00 - 10:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trend-check border-b pb-2 mb-2">
+                            <p class="mb-0">Total Length of Stay:</p>
+                            <h6 class="mb-0">8 Days | 7 Nights </h6>
+                            <small><a href="#" class="theme text-decoration-underline">travelling on different
+                                    dates?</a></small>
+                        </div>
+                        <div class="trend-check">
+                            <p class="mb-0">You Selected:</p>
+                            <h6 class="mb-0">Superior Double Rooms <span class="float-end fw-normal">1 room, 3
+                                    adults</span> </h6>
+                            <small><a href="#" class="theme text-decoration-underline">Change your selection</a></small>
+                        </div>
+
+                    </div>
+                    <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                        <h4>Your Price Summary</h4>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td> Superior Twin</td>
+                                    <td class="theme2">$500.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Travellers</td>
+                                    <td class="theme2">3</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax & fee</td>
+                                    <td class="theme2">$50.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Booking Fee</td>
+                                    <td class="theme2">Free</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td class="theme2">$550.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="bg-title">
+                                <tr>
+                                    <th class="font-weight-bold white">Amount</th>
+                                    <th class="font-weight-bold white">$550.00</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3 mb-4">
+                        <h4>Your Payment Schedule</h4>
+                        <p class="mb-0">Before you stay you'll pay <span class="float-end">$40.00</span></p>
+                    </div>
+                    <div class="sidebar-item bg-white rounded box-shadow overflow-hidden p-3">
+                        <h4>Do you have a promo code?</h4>
+                        <input type="text" name="">
+                        <a href="#" class="nir-btn-black mt-2">Apply</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- top Destination ends -->
+
+<!-- Back to top start -->
+<div id="back-to-top">
+    <a href="#"></a>
+</div>
+<!-- Back to top ends -->
+
+<script src="{% static 'js/home/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/home/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/home/particles.js' %}"></script>
+<script src="{% static 'js/home/particlerun.js' %}"></script>
+<script src="{% static 'js/home/plugin.js' %}"></script>
+<script src="{% static 'js/home/main.js' %}"></script>
+<script src="{% static 'js/home/custom-accordian.js' %}"></script>
+<script src="{% static 'js/home/custom-nav.js' %}"></script>
+<script src="{% static 'js/booking/hotelreview.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+</body>
+
+>>>>>>> 2f91fb822414028414a3d78a787419cd004bdf55:flight booking/templates/flight/flightdetails.html
 </html>
