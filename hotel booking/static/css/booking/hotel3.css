@@ -1,0 +1,98 @@
+.skeleton-box {
+    display: inline-block;
+    height: .8em;
+    position: relative;
+    overflow: hidden;
+    background-color: #dddbdd;
+    border-radius: 4px;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+        90deg,
+        rgba(#fff, 0) 0,
+        rgba(#fff, 0.2) 20%,
+        rgba(#fff, 0.5) 60%,
+        rgba(#fff, 0)
+        );
+        animation: shimmer 5s infinite;
+        content: "";
+    }
+
+    @keyframes shimmer {
+        100% {
+        transform: translateX(100%);
+        }
+    }
+}
+
+.blog-post {
+&__headline {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+&__meta {
+    font-size: 0.85em;
+    color: #6b6b6b;
+}
+}
+
+/* // OBJECTS */
+
+.o-media {
+display: flex;
+
+&__body {
+    flex-grow: 1;
+    margin-left: 1em;
+}
+}
+
+.o-vertical-spacing {
+> * + * {
+    margin-top: 0.75em;
+}
+
+&--l {
+    > * + * {
+    margin-top: 2em;
+    }
+}
+}
+
+.modal-backdrop {
+   display: none;
+}
+
+.fa-star.checked {
+   color: orange;
+}
+
+.fa-star.unchecked {
+   color: #ccc;
+}
+
+.r_ul li{ 
+   display: inline-block;
+   font-size: 14px;
+}
+
+.amen_li li {
+   font-size: 14px;
+}
+
+.free_can {
+   font-size: 14px;
+   font-weight: 600;
+   color: #259452;
+}
+
+.pax_det {
+    font-size: 14px;
+}

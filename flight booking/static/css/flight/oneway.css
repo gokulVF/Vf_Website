@@ -1,0 +1,319 @@
+
+
+.f-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 12px 15px !important;
+    border-radius: 4px !important;
+    height: 50px;
+}
+
+.trip-btn {
+    padding: 4px 15px !important;
+    border-radius: 50px !important;
+    font-size: 13px;
+    border: 1px solid #029e9d !important;
+}
+
+.t_input {
+    width: 40px;
+    height: 20px;
+    border: 2px solid #029e9d !important;
+}
+
+/* .form-check-input:checked {
+    background-color: #029e9d !important;
+    border-color: #029e9d  !important;
+} */
+
+.t_input:checked {
+  background-color: #029e9d !important;
+  border-color: #029e9d !important;
+}
+
+.nav-pills .nav-link.active {
+    background: #029e9d;
+}
+
+.pas_form {
+    position: absolute;
+    z-index: 9;
+    top: 140px;
+    right: 190px;
+    display: none;
+    width: auto;
+}
+
+.pas_div { 
+   width: 250px;
+   border-radius: 4px;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.f-inp-form {
+    border: 1px solid #d3cdcd !important;
+    padding: 4px 6px !important;
+    border-radius: 4px !important;
+    width: 120px;
+    font-size: 13px;
+}
+
+.z-index0 {
+    z-index: 0;
+}
+
+.nav-filter .nav-link {
+    color: #fff;
+    font-size: 15px;
+    background: #17233e;
+    padding: 5px 15px;
+}
+
+/* --------------------- - range slider ---------------- */
+.wrapper{
+    width: 100%;
+    height: 140px;
+    padding: 6px;
+    margin: 4px;
+    margin-left: -6px;
+}
+
+
+
+.box-1 {
+    margin: 8px 4px;
+    font-size: 20px;
+}
+
+.price-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.field {
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.field input {
+    border: none;
+    width: 70px;
+    outline: none;
+    padding: 0 4px;
+    height: auto !important;
+}
+
+.slider {
+    height: 11px;
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 11px;
+    height: 5px !important;
+}
+
+.slider .progress {
+    height: 100%;
+    left: 0%;
+    right: 0%;
+    position: absolute;
+    border-radius: 5px;
+    background: #029e9d !important;
+    margin-top: 0px;
+}
+
+.range-input{
+    position: relative;
+}
+    
+.range-input input{
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    top: 0px;
+    background: none;
+    margin-bottom: 3px;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+} 
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.price-input .separator{
+    width: 100px;
+    display: flex;
+    font-size: 19px;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #029e9d;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    margin-top: -16px;
+}
+
+input[type="range"]::-moz-range-thumb{
+    height: 15px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: #029e9d;
+}
+
+/* BAR STICK */
+.stick-bar{ 
+    position: sticky;
+    height: 700px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.ftime_btn{ 
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 6px !important;
+}
+
+.ftime_btn:hover { 
+    opacity: .6;
+}
+
+
+.ftime_btn.active { 
+    background: none;
+    border: 1px solid #029e9d;
+}
+
+.ftime_img {
+    width: 30px;
+}
+
+.fo-btn {
+    padding: 7px 55px;
+    font-size: 13px;
+}
+
+.closefo-btn {
+    background: #777;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 6px;
+    margin-top: 6px;
+    margin-left: 95px !important;
+    cursor: pointer;
+}
+
+.morefare-btn {
+    border: 1px solid #029e9d;
+    font-size: 13px;
+    padding: 4px 14px !important;
+}
+
+.v-fare-btn {
+    border: 1px solid #029e9d;
+    font-size: 13px;
+    padding: 4px 14px !important;
+}
+
+.morefare-btn:hover ,.v-fare-btn:hover {
+    opacity: .6;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.fo-pop-head {
+    border-radius: 4px !important;
+}
+
+.fs-19 {
+    font-size: 19px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-13 {
+    font-size: 13px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.b_bot {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.fo-pop-div {
+    background: #dddfe0;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 500px;
+}
+
+.fo-opt-div ul li{
+  display: block;
+}
+
+.fo-opt-div:hover{ 
+  border:1px solid #029e9d !important;
+}
+
+.dur-time{ 
+    border:1px solid #029e9d;
+}
+
+/* CITY SEARCH LIST */
+    /* CITY LIST */
+    .ui-autocomplete {
+    z-index: 1050;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    background: #ffffff;
+    border-radius: 12px;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: scroll;
+    scrollbar-width: 10px;
+    overflow-x: hidden;
+    font-size: 13px !important;
+    position: relative !important;
+}
+
+.ui-menu-item {
+    padding: 3px 0px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #029e9d !important;
+}
+
+
+

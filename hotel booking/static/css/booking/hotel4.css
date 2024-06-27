@@ -1,0 +1,30 @@
+.f-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 12px 15px !important;
+    border-radius: 4px !important;
+}
+
+table>thead tr th, table>tbody tr td {
+   font-size: 14px;
+   background: white;
+}
+
+.cp_list li{
+  font-size: 14px;
+}
+
+.fa-star.checked {
+    color: orange;
+}
+.fa-star.unchecked {
+    color: #ccc;
+    display: none !important;
+}
+
+.num {
+    font-family: 'Poppins' !important;
+}
+
+.upercase{
+    text-transform: uppercase;
+}

@@ -1,0 +1,248 @@
+.book-btn{ 
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+}
+
+.select-room-btn {
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+}
+.h-600 {
+ height: 500px;
+}
+
+.list {
+    height: 200px;
+    overflow-y: scroll !important;
+}
+
+.pax_form {
+    position: relative;
+    margin-top: -60px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.pax_form_list {
+    margin-top: -20px;
+}
+
+
+
+.room-h {
+    font-size: 12px;
+    padding: 0;
+    text-align: start;
+}
+
+.room_no {
+    font-size: 12px;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.selectbox_form {
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+    border: none;
+}
+
+.btn_apply,.btn_rem,.btn_add {
+    font-size: 12px;
+    /* border: 1px solid; */
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+table>tbody tr td, table thead tr th  {
+    border: none !important;
+    padding: 3px 1px;
+}
+
+.f-inp {
+    border: 1px solid #d3cdcd !important;
+    padding: 12px 15px !important;
+    border-radius: 4px !important;
+    height: 50px;
+}
+
+.svg_icons {
+    width: 14px;
+    margin-bottom: 5px;
+}
+
+.shadows {
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
+}
+
+.list {
+    height: 200px;
+    overflow-y: scroll !important;
+}
+
+/* ////////////  Room Details */
+
+.select-room-btn {
+    font-size: 14px;
+}
+
+.address{ 
+    font-size: 12px;
+}
+
+.view_det{ 
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.view_det img {
+    width: 22px;
+    margin-bottom: 4px;
+    margin-right: 6px;
+}
+
+.bg-green {
+    background: #b6efef !important;
+}
+
+.per_day{ 
+    font-size: 12px;
+}
+
+.book-btn{ 
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background: #029e9d;
+}
+
+.nav-pills .nav-link { 
+    color: #fff;
+    font-size: 15px;
+    background: #17233e;
+}
+
+.list-results {
+    position: sticky;
+    margin-bottom: 2rem;
+    width: 100%;
+    top: 0;
+    background: white;
+    z-index: 9;
+}
+
+
+/* LIST RESULTS */
+.car-banner{
+    background-image: url("{% static 'image/images/testimonial.png' %}");
+}
+.ui-autocomplete {
+    z-index: 1050;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-menu-item {
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #f1f1f1 !important;
+}
+
+
+
+/* Queries */
+@media (max-width: 992px) { 
+    .slide_div {
+        display: none;
+    }
+
+    .filter-menu{ 
+        position: static !important;
+    }
+}
+
+@media (max-width: 768px) { 
+    #wrapper {
+        width: auto !important;
+    }
+}
+
+@media (max-width: 600px) { 
+    .nav-pills .nav-link {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 520px) {
+    .nav-pills .nav-link {
+        padding: .5rem .5rem;
+    }
+}
+
+@media (max-width: 471px) {
+    .nav-pills .nav-link {
+        font-size: 12px;
+    }
+
+    .sort-by {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 433px) {
+    .nav-pills .nav-link {
+        padding: .2rem .4rem;
+    }
+
+    .atoz {
+        width: 12px !important;
+    }
+
+    
+}
+@media (max-width: 400px) {
+    .sort-by {
+        font-size: 10px;
+    }
+
+    .nav-pills .nav-link {
+        font-size: 10px;
+    }
+}
+
+.fa-star.checked {
+    color: orange;
+}
+
+.fa-star.unchecked {
+    color: #ccc;
+    display: none !important;
+}
+
+.room_opt {
+    border-left: 6px solid #f1f1f1 !important;
+}
+
+.room_opt:hover {
+    border-left: 6px solid #17233e !important;
+}
+
+
+
+
+
