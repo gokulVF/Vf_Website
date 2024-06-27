@@ -111,7 +111,7 @@ def get_or_refresh_token(request):
     data = {
         'ClientId': "ApiIntegrationNew",
         'UserName': "Vacation",
-        'Password': "Feast@123456",
+        'Password': "Feast@4321",
         'EndUserIp': client_ip,
         }
 
@@ -478,6 +478,7 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
 
                         # # total hours of traval
                         flight_time = arrival_time - departure_time
+                        list_of_nonstopFlight["airstay"]=f"{flight_time}"
                         total_hour = flight_time.seconds // 3600
                         total_minute = (flight_time.seconds % 3600) // 60
                         list_of_nonstopFlight["totalhour"]=total_hour
@@ -668,6 +669,7 @@ def get_flight_results(EndUserIp,token_id, numadult,numchaild, numinfant, Direct
                     final_flight_times = arrival_times - departure_time
                     # total_seconds = final_flight_times.total_seconds()
                     # final_total_hours = int(total_seconds // 3600)
+                    list_of_onestopFlight["airstay"] = f"{final_flight_times}"
                     final_total_hours = final_flight_times.seconds // 3600
                     final_total_minutes = (final_flight_times.seconds % 3600) // 60
                     total_H_Ms = f"{final_total_hours}h {final_total_minutes}m"

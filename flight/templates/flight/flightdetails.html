@@ -150,13 +150,13 @@
                             </div>
                             <div class="col-lg-3 fs-14 fw-bold theme">
                                 <img src="{% static 'image/flight/f-refund.png' %}" class="f_fea_img me-2"
-                                    alt="">{{flight_all_details.FristsetsAvailable}}
+                                    alt="">{{flight_all_details.onerefund}}
                                 <!-- <i class="fa fa-undo me-2"></i> -->
                             </div>
                         </div>
                     </div>
                     <div class="layover ng-scope mx-auto my-4" ng-if="lID!=0" style="display:block;">
-                        <span><strong style="font-weight:600" class="ng-binding">1h :10m</strong> Layover in <strong
+                        <span><strong style="font-weight:600" class="ng-binding">{{flight_all_details.airstay}}</strong> Layover in <strong
                                 style="font-weight:600" class="ng-binding">Indore (IDR)</strong></span>
                     </div>
                     <div class="row">
